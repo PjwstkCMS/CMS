@@ -62,6 +62,20 @@ public class ConnectionManager {
         
     }
     
+    public static ConnectionManager getConnectionManager() {
+        if(activeConnections.containsKey(staticLogin)){
+            return activeConnections.get(staticLogin);
+        } else {
+            ConnectionManager cm = new ConnectionManager();
+            cm.setLogin(staticLogin);
+            cm.setDBUrl(staticUrl);
+            cm.setPassword(staticPass);
+            activeConnections.put(staticLogin, cm);
+            return activeConnections.get(staticLogin);
+        }
+        
+    }
+    
     public void newConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");

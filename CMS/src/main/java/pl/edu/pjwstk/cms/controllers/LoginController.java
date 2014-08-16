@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.utils.ConnectionManager;
 
 /**
  *
@@ -24,7 +25,7 @@ public class LoginController extends BaseController {
 
         ModelAndView model = new ModelAndView("newjsp");
         model.addObject("msg", "HelloGuestController");
-
+        ConnectionManager.getConnectionManager().select("SELECT * FROM employee");
         return model;
     }
 }

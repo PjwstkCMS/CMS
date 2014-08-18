@@ -1,15 +1,20 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package pl.edu.pjwstk.cms.models;
 
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.general.DatabaseObject;
-
 /**
  *
- * @author Sergio
+ * @author Konrad
  */
-public class Customer extends DatabaseObject{
+public class Client extends DatabaseObject{
     
-    private final static Logger LOGGER = Logger.getLogger(Customer.class.getName()); 
+    private final static Logger LOGGER = Logger.getLogger(Client.class.getName());
     
     private int id;
     private String name;
@@ -66,10 +71,6 @@ public class Customer extends DatabaseObject{
         this.companyId = companyId;
     }
     
-
-    public Customer() {
-        
-        
-
-    }
+    
+    
 }

@@ -105,11 +105,10 @@ public class GenericDao<T extends DatabaseObject> {
                 }
             }
         }
-        ConnectionManager conMan = ConnectionManager.getConnectionManager();
         System.out.println("DEBUG:" + query);
         ArrayList<T> resultList = new ArrayList<>();
         try {
-            ResultSet resultSet = conMan.select(query);
+            ResultSet resultSet = connectionManager.select(query);
             while (resultSet.next()) {
                 T obj = (T) modelClass.newInstance();
                 Field[] fields = obj.getClass().getDeclaredFields();
@@ -137,11 +136,10 @@ public class GenericDao<T extends DatabaseObject> {
     }
 
     public List<T> selectForQuery(String query) {
-        ConnectionManager conMan = ConnectionManager.getConnectionManager();
         System.out.println(query);
         ArrayList<T> resultList = new ArrayList<>();
         try {
-            ResultSet resultSet = conMan.select(query);
+            ResultSet resultSet = connectionManager.select(query);
             while (resultSet.next()) {
                 T obj = (T) modelClass.newInstance();
                 Field[] fields = obj.getClass().getDeclaredFields();

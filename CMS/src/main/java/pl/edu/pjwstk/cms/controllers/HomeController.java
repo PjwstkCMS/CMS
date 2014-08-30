@@ -18,7 +18,7 @@ import pl.edu.pjwstk.cms.controllers.general.BaseController;
  */
 public class HomeController extends BaseController{
     
-    private final static Logger LOGGER = Logger.getLogger(KeyController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(HomeController.class.getName());
 
     public HomeController() {
 

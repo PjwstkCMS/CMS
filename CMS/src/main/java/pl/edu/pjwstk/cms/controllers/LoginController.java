@@ -1,6 +1,9 @@
 package pl.edu.pjwstk.cms.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +34,12 @@ public class LoginController extends BaseController {
         ConnectionManager.getConnectionManager().select("SELECT * FROM employee");
         GenericDao<Customer> dao = new GenericDao<>(Customer.class);
         dao.selectRecordsWithFieldValues(new ArrayList<String>(), new ArrayList<String>());
+        Map<String, List<Object>> map = new HashMap<>();
+        List<Object> list = new ArrayList<>();
+        list.add("1");
+        list.add("Aaaa");
+        map.put("file", list);
+        dao.selectForFieldsWithMultiplePossibileValues(map);
         return model;
     }
 }

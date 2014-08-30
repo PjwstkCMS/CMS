@@ -8,19 +8,23 @@ package pl.edu.pjwstk.cms.models;
 
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.general.DatabaseObject;
+
 /**
  *
  * @author Konrad
  */
-public class Client extends DatabaseObject{
+public class Employee extends DatabaseObject{
     
-    private final static Logger LOGGER = Logger.getLogger(Client.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(Employee.class.getName());
     
     private String name;
     private String surname;
     private String email;
     private long phone;
-    private int companyId;
+    private long pesel;
+    private int salary;
+    private int managerId;
+    private int addressId;
 
     public String getName() {
         return name;
@@ -54,14 +58,36 @@ public class Client extends DatabaseObject{
         this.phone = phone;
     }
 
-    public int getCompanyId() {
-        return companyId;
+    public long getPesel() {
+        return pesel;
     }
 
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
+    public void setPesel(long pesel) {
+        this.pesel = pesel;
     }
-    
-    
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public int getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
     
 }

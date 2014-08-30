@@ -10,7 +10,21 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+    <bean class="pl.edu.pjwstk.cms.controllers.ContractController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.CustomerController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.DepartmentController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.DictionaryController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.EmployeeController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.FileController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.FileManageController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.GroupController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.KeyController" />
     <bean class="pl.edu.pjwstk.cms.controllers.LoginController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.PositionController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.RaportController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.SettingController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.TerminalController" />
+    <bean class="pl.edu.pjwstk.cms.controllers.UserController" />
     <!--
     Most controllers will use the ControllerClassNameHandlerMapping above, but
     for the index controller we are using ParameterizableViewController, so we must

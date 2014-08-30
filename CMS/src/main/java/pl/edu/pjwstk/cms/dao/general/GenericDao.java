@@ -97,9 +97,9 @@ public class GenericDao<T extends DatabaseObject> {
         } else {
             query += "WHERE";
             for (int i = 0; i < fieldValues.size(); i++) {
-                query += fieldNames.get(i) + "=" + fieldValues.get(i);
+                query += fieldNames.get(i) + "='" + fieldValues.get(i)+"'";
                 if (i < fieldValues.size()) {
-                    query += ", ";
+                    query += " AND ";
                 } else {
                     query += " ";
                 }
@@ -170,17 +170,17 @@ public class GenericDao<T extends DatabaseObject> {
     public List<T> selectForFieldsWithMultiplePossibileValues(Map<String, List<Object>> map) {
         String query = "SELECT *";
         query += " FROM " + modelClass.getSimpleName() + " WHERE ";
-        int iKey = 1;
+        int iKey = 0;
         for (String field : map.keySet()) {
             iKey++;
             List<Object> values = map.get(field);
-            query += field + " IN (";
+            query += field + " IN ('";
             for (int i = 0; i < values.size(); i++) {
                 query += values.get(i);
-                if (i < values.size()) {
-                    query += ", ";
+                if (i < values.size()-1) {
+                    query += "', '";
                 } else {
-                    query += ")";
+                    query += "')";
                 }
             }
             if (iKey < map.size()) {

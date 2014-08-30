@@ -36,9 +36,9 @@ public class LoginController extends BaseController {
         dao.selectRecordsWithFieldValues(new ArrayList<String>(), new ArrayList<String>());
         Map<String, List<Object>> map = new HashMap<>();
         List<Object> list = new ArrayList<>();
-        list.add("1");
-        list.add("Aaaa");
-        map.put("file", list);
+        list.add("Pawełe");
+        list.add("dyuuyy");
+        map.put("name", list);
         dao.selectForFieldsWithMultiplePossibileValues(map);
         return model;
     }

@@ -12,21 +12,12 @@ public class Address extends DatabaseObject{
     
     private final static Logger LOGGER = Logger.getLogger(Address.class.getName());
     
-    private int id;
     private String country;
     private String city;
     private String cityName;
     private int streetNumb;
     private int apartmentNumb;
     private String zipCode;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getCountry() {
         return country;

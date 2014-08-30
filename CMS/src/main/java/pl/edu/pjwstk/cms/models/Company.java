@@ -16,22 +16,13 @@ import pl.edu.pjwstk.cms.models.general.DatabaseObject;
 public class Company extends DatabaseObject{
     
     private final static Logger LOGGER = Logger.getLogger(Company.class.getName());
-    
-    private int id;
+
     private int companyAddressId;
     private String companyName;
     private String companyContactName;
     private String companyContractSurname;
     private long companyContactPhone;
     private String companyContactEmail;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getCompanyAddressId() {
         return companyAddressId;

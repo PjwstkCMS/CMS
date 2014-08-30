@@ -17,15 +17,21 @@ public class CompanyAddress extends DatabaseObject{
     
     private final static Logger LOGGER = Logger.getLogger(CompanyAddress.class.getName());
     
-    private int addressId;
+    private String addressId;
 
-    public int getAddressId() {
+    public String getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(String addressId) {
         this.addressId = addressId;
     }
+
+    public CompanyAddress() {
+        super();
+    }
+
+    
     
     
 }

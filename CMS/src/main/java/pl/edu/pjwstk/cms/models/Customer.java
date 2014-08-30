@@ -14,8 +14,8 @@ public class Customer extends DatabaseObject{
     private String name;
     private String surname;
     private String email;
-    private long phone;
-    private int companyId;
+    private String phone;
+    private String companyId;
 
     public String getName() {
         return name;
@@ -41,26 +41,26 @@ public class Customer extends DatabaseObject{
         this.email = email;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public int getCompanyId() {
+    public String getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
+
     
 
     public Customer() {
-        
-        
+        super();       
 
     }
 }

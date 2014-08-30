@@ -17,18 +17,18 @@ public class Company extends DatabaseObject{
     
     private final static Logger LOGGER = Logger.getLogger(Company.class.getName());
 
-    private int companyAddressId;
+    private String companyAddressId;
     private String companyName;
     private String companyContactName;
     private String companyContractSurname;
-    private long companyContactPhone;
+    private String companyContactPhone;
     private String companyContactEmail;
 
-    public int getCompanyAddressId() {
+    public String getCompanyAddressId() {
         return companyAddressId;
     }
 
-    public void setCompanyAddressId(int companyAddressId) {
+    public void setCompanyAddressId(String companyAddressId) {
         this.companyAddressId = companyAddressId;
     }
 
@@ -56,11 +56,11 @@ public class Company extends DatabaseObject{
         this.companyContractSurname = companyContractSurname;
     }
 
-    public long getCompanyContactPhone() {
+    public String getCompanyContactPhone() {
         return companyContactPhone;
     }
 
-    public void setCompanyContactPhone(long companyContactPhone) {
+    public void setCompanyContactPhone(String companyContactPhone) {
         this.companyContactPhone = companyContactPhone;
     }
 
@@ -71,6 +71,11 @@ public class Company extends DatabaseObject{
     public void setCompanyContactEmail(String companyContactEmail) {
         this.companyContactEmail = companyContactEmail;
     }
+
+    public Company() {
+        super();
+    }
+
     
     
     

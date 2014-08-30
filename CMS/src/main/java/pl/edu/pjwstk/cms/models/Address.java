@@ -15,8 +15,8 @@ public class Address extends DatabaseObject{
     private String country;
     private String city;
     private String cityName;
-    private int streetNumb;
-    private int apartmentNumb;
+    private String streetNumb;
+    private String apartmentNumb;
     private String zipCode;
 
     public String getCountry() {
@@ -43,19 +43,19 @@ public class Address extends DatabaseObject{
         this.cityName = cityName;
     }
 
-    public int getStreetNumb() {
+    public String getStreetNumb() {
         return streetNumb;
     }
 
-    public void setStreetNumb(int streetNumb) {
+    public void setStreetNumb(String streetNumb) {
         this.streetNumb = streetNumb;
     }
 
-    public int getApartmentNumb() {
+    public String getApartmentNumb() {
         return apartmentNumb;
     }
 
-    public void setApartmentNumb(int apartmentNumb) {
+    public void setApartmentNumb(String apartmentNumb) {
         this.apartmentNumb = apartmentNumb;
     }
 
@@ -66,8 +66,10 @@ public class Address extends DatabaseObject{
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
+
+    
     
     public Address(){
-        
+        super();
     }
 }

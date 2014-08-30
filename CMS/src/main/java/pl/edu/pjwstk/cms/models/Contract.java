@@ -17,10 +17,55 @@ public class Contract extends DatabaseObject{
     
     private final static Logger LOGGER = Logger.getLogger(Contract.class.getName());
     
-    private int employeeId;
-    private int customerId;
+    private String employeeId;
+    private String customerId;
     private String date;
     private String description;
-    private long price;
+    private String price;
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public Contract() {
+        super();
+    }
+    
     
 }

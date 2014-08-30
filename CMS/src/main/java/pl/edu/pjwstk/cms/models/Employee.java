@@ -14,17 +14,17 @@ import pl.edu.pjwstk.cms.models.general.DatabaseObject;
  * @author Konrad
  */
 public class Employee extends DatabaseObject{
-    
+
     private final static Logger LOGGER = Logger.getLogger(Employee.class.getName());
     
     private String name;
     private String surname;
     private String email;
-    private long phone;
-    private long pesel;
-    private int salary;
-    private int managerId;
-    private int addressId;
+    private String phone;
+    private String pesel;
+    private String salary;
+    private String managerId;
+    private String addressId;
 
     public String getName() {
         return name;
@@ -50,44 +50,51 @@ public class Employee extends DatabaseObject{
         this.email = email;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public long getPesel() {
+    public String getPesel() {
         return pesel;
     }
 
-    public void setPesel(long pesel) {
+    public void setPesel(String pesel) {
         this.pesel = pesel;
     }
 
-    public int getSalary() {
+    public String getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(String salary) {
         this.salary = salary;
     }
 
-    public int getManagerId() {
+    public String getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(int managerId) {
+    public void setManagerId(String managerId) {
         this.managerId = managerId;
     }
 
-    public int getAddressId() {
+    public String getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(String addressId) {
         this.addressId = addressId;
     }
+
+    public Employee() {
+        super();
+    }
+
+    
+    
     
 }

@@ -17,7 +17,6 @@ public class Contract extends DatabaseObject{
     
     private final static Logger LOGGER = Logger.getLogger(Contract.class.getName());
     
-    private int id;
     private int employeeId;
     private int customerId;
     private String date;

@@ -32,7 +32,7 @@ public class DepartmentController extends BaseController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("newjsp");
+        ModelAndView model = new ModelAndView("department");
         model.addObject("msg", "HelloGuestController");
         
         return model;

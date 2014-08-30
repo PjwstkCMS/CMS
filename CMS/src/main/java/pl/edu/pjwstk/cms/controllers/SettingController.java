@@ -31,7 +31,7 @@ public class SettingController extends BaseController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("newjsp");
+        ModelAndView model = new ModelAndView("setting");
         model.addObject("msg", "HelloGuestController");
         
         return model;

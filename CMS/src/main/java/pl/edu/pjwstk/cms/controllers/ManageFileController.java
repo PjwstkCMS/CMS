@@ -19,11 +19,11 @@ import pl.edu.pjwstk.cms.utils.ConnectionManager;
  *
  * @author Konrad
  */
-public class FileManageController extends BaseController {
+public class ManageFileController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(FileManageController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(ManageFileController.class.getName());
 
-    public FileManageController() {
+    public ManageFileController() {
 
     }
 
@@ -31,7 +31,7 @@ public class FileManageController extends BaseController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("newjsp");
+        ModelAndView model = new ModelAndView("manageFile");
         model.addObject("msg", "HelloGuestController");
         
         return model;

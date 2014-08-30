@@ -32,7 +32,7 @@ public class RaportController extends BaseController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("newjsp");
+        ModelAndView model = new ModelAndView("raport");
         model.addObject("msg", "HelloGuestController");
         
         return model;

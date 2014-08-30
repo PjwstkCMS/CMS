@@ -32,7 +32,7 @@ public class GroupController extends BaseController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("newjsp");
+        ModelAndView model = new ModelAndView("group");
         model.addObject("msg", "HelloGuestController");
         
         return model;

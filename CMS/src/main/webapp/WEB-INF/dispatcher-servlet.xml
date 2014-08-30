@@ -10,7 +10,6 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
-    <bean class="pl.edu.pjwstk.cms.controllers.LoginController" />
     <!--
     Most controllers will use the ControllerClassNameHandlerMapping above, but
     for the index controller we are using ParameterizableViewController, so we must
@@ -20,6 +19,23 @@
         <property name="mappings">
             <props>
                 <prop key="index.htm">indexController</prop>
+                <prop key="login.htm">loginController</prop>
+                <prop key="home.htm">homeController</prop>
+                
+                <prop key="contract.htm">contractController</prop>
+                <prop key="customer.htm">customerController</prop>
+                <prop key="department.htm">departmentController</prop>
+                <prop key="dictionary.htm">dictionaryController</prop>
+                <prop key="employee.htm">employeeController</prop>
+                <prop key="file.htm">fileController</prop>
+                <prop key="manageFile.htm">manageFileController</prop>
+                <prop key="group.htm">groupController</prop>
+                <prop key="key.htm">keyController</prop>
+                <prop key="position.htm">positionController</prop>
+                <prop key="raport.htm">raportController</prop>
+                <prop key="setting.htm">settingController</prop>
+                <prop key="terminal.htm">terminalController</prop>
+                <prop key="user.htm">userController</prop>
             </props>
         </property>
     </bean>
@@ -35,5 +51,39 @@
     <bean name="indexController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="index" />
+    
+    <bean name="loginController"
+          class="pl.edu.pjwstk.cms.controllers.LoginController"/>
+    <bean name="homeController"
+          class="pl.edu.pjwstk.cms.controllers.HomeController"/>
+    
+    <bean name="contractController"
+          class="pl.edu.pjwstk.cms.controllers.ContractController"/>
+    <bean name="customerController"
+          class="pl.edu.pjwstk.cms.controllers.CustomerController"/>
+    <bean name="departmentController"
+          class="pl.edu.pjwstk.cms.controllers.DepartmentController"/>
+    <bean name="dictionaryController"
+          class="pl.edu.pjwstk.cms.controllers.DictionaryController"/>
+    <bean name="employeeController"
+          class="pl.edu.pjwstk.cms.controllers.EmployeeController"/>
+    <bean name="fileController"
+          class="pl.edu.pjwstk.cms.controllers.FileController"/>
+    <bean name="manageFileController"
+          class="pl.edu.pjwstk.cms.controllers.ManageFileController"/>
+    <bean name="groupController"
+          class="pl.edu.pjwstk.cms.controllers.GroupController"/>
+    <bean name="keyController"
+          class="pl.edu.pjwstk.cms.controllers.KeyController"/>
+    <bean name="positionController"
+          class="pl.edu.pjwstk.cms.controllers.PositionController"/>
+    <bean name="raportController"
+          class="pl.edu.pjwstk.cms.controllers.RaportController"/>
+    <bean name="settingController"
+          class="pl.edu.pjwstk.cms.controllers.SettingController"/>
+    <bean name="terminalController"
+          class="pl.edu.pjwstk.cms.controllers.TerminalController"/>
+    <bean name="userController"
+          class="pl.edu.pjwstk.cms.controllers.UserController"/>
 
 </beans>

@@ -31,7 +31,7 @@ public class TerminalController extends BaseController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("newjsp");
+        ModelAndView model = new ModelAndView("terminal");
         model.addObject("msg", "HelloGuestController");
         
         return model;

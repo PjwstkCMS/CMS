@@ -2,73 +2,25 @@
 <!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
-    
-    <!--
-    Tutaj będą mapowane tylko podstrony każdego modułu, czy ich funkcjonalności 
-    - "główne" strony są mapowane po prostu po nazwie kontrolera dzięki 
-    ControllerClassNameHandlerMapping"
-    -->
-    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <props>
-                <!--
-                przykład:
-                <prop key="employeeAdd.htm">employeeController</prop>
-                -->
-            </props>
-        </property>
-    </bean>
+    <context:component-scan base-package="pl.edu.pjwstk.cms.*" />
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
           p:suffix=".jsp" />
 
-    <!--
-    The index controller.
-    -->
-    <bean name="indexController"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="index" />    
-    <bean name="loginController"
-          class="pl.edu.pjwstk.cms.controllers.LoginController"/>
-    <bean name="homeController"
-          class="pl.edu.pjwstk.cms.controllers.HomeController"/>    
-    <bean name="contractController"
-          class="pl.edu.pjwstk.cms.controllers.ContractController"/>
-    <bean name="customerController"
-          class="pl.edu.pjwstk.cms.controllers.CustomerController"/>
-    <bean name="departmentController"
-          class="pl.edu.pjwstk.cms.controllers.DepartmentController"/>
-    <bean name="dictionaryController"
-          class="pl.edu.pjwstk.cms.controllers.DictionaryController"/>
-    <bean name="employeeController"
-          class="pl.edu.pjwstk.cms.controllers.EmployeeController"/>
-    <bean name="fileController"
-          class="pl.edu.pjwstk.cms.controllers.FileController"/>
-    <bean name="manageFileController"
-          class="pl.edu.pjwstk.cms.controllers.ManageFileController"/>
-    <bean name="groupController"
-          class="pl.edu.pjwstk.cms.controllers.GroupController"/>
-    <bean name="keyController"
-          class="pl.edu.pjwstk.cms.controllers.KeyController"/>
-    <bean name="positionController"
-          class="pl.edu.pjwstk.cms.controllers.PositionController"/>
-    <bean name="raportController"
-          class="pl.edu.pjwstk.cms.controllers.RaportController"/>
-    <bean name="settingController"
-          class="pl.edu.pjwstk.cms.controllers.SettingController"/>
-    <bean name="terminalController"
-          class="pl.edu.pjwstk.cms.controllers.TerminalController"/>
-    <bean name="userController"
-          class="pl.edu.pjwstk.cms.controllers.UserController"/>
+   
 
 </beans>

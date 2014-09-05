@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
@@ -18,6 +20,7 @@ import pl.edu.pjwstk.cms.utils.ConnectionManager;
  *
  * @author Sergio
  */
+@Controller
 public class LoginController extends BaseController {
 
     private final static Logger LOGGER = Logger.getLogger(LoginController.class.getName());
@@ -27,6 +30,7 @@ public class LoginController extends BaseController {
     }
     
     @Override
+    @RequestMapping("login")
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 

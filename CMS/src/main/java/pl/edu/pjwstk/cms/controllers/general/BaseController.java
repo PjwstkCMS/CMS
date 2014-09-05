@@ -15,7 +15,7 @@ public class BaseController extends AbstractController{
     
     private final static Logger LOGGER = Logger.getLogger(BaseController.class.getName()); 
 
-    protected List<String> privileges;
+    protected List<String> privilegesNeeded;
     
     public BaseController() {
 

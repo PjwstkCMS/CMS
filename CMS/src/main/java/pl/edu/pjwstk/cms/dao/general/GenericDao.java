@@ -34,6 +34,13 @@ public class GenericDao<T extends DatabaseObject> {
         return selectRecordsWithFieldValues(new ArrayList<String>(), new ArrayList<String>());
     }
 
+    /**
+     * Zwraca listę rekordów. Przyjmuje mapę, w której klucze to pola rekordów a
+     * wartości kluczy, to wartość jaką dane pole ma przyjmować.
+     *
+     * @param map
+     * @return
+     */
     public List<T> selectRecordsFromObjectsMap(Map<String, Object> map) {
         List<String> fields = new ArrayList<>();
         List<Object> values = new ArrayList<>();
@@ -45,6 +52,13 @@ public class GenericDao<T extends DatabaseObject> {
         return selectRecordsWithFieldValuesForObjectList(fields, values);
     }
 
+    /**
+     * Zwraca listę rekordów. Przyjmuje mapę, w której klucze to pola rekordów a
+     * wartości kluczy, to wartość jaką dane pole ma przyjmować.
+     *
+     * @param map
+     * @return
+     */
     public List<T> selectRecordsStirngsFromMap(Map<String, String> map) {
         List<String> fields = new ArrayList<>();
         List<String> values = new ArrayList<>();
@@ -56,6 +70,15 @@ public class GenericDao<T extends DatabaseObject> {
         return selectRecordsWithFieldValues(fields, values);
     }
 
+    /**
+     * Podstawowa metoda do pobierania danych z bazy danych. Przyjmuje listę
+     * nazw pól i wartości tych pól oraz zwraca listę rekordów spełniających
+     * wymagania.
+     *
+     * @param fieldNames
+     * @param fieldValues
+     * @return
+     */
     public List<T> selectRecordsWithFieldValuesForObjectList(List<String> fieldNames, List<Object> fieldValues) {
         List<String> l = new ArrayList<>();
         for (Object o : fieldValues) {
@@ -97,7 +120,7 @@ public class GenericDao<T extends DatabaseObject> {
         } else {
             query += "WHERE";
             for (int i = 0; i < fieldValues.size(); i++) {
-                query += fieldNames.get(i) + "='" + fieldValues.get(i)+"'";
+                query += fieldNames.get(i) + "='" + fieldValues.get(i) + "'";
                 if (i < fieldValues.size()) {
                     query += " AND ";
                 } else {
@@ -135,6 +158,12 @@ public class GenericDao<T extends DatabaseObject> {
 
     }
 
+    /**
+     * Zwraca listę rekordów z bazdy danych dla danego zapytania MySQL.
+     *
+     * @param query
+     * @return
+     */
     public List<T> selectForQuery(String query) {
         System.out.println(query);
         ArrayList<T> resultList = new ArrayList<>();
@@ -165,6 +194,14 @@ public class GenericDao<T extends DatabaseObject> {
         return resultList;
     }
 
+    /**
+     * Zwraca listę rekordów z bazy danych. Przyjmuje mapę, gdzie klucztem jest
+     * nazwa kolumny w tabelce, wartością jest lista wartości jakich dana
+     * kolumna może przyjąć.
+     *
+     * @param map
+     * @return
+     */
     public List<T> selectForFieldsWithMultiplePossibileValues(Map<String, List<Object>> map) {
         String query = "SELECT *";
         query += " FROM " + modelClass.getSimpleName() + " WHERE ";
@@ -175,7 +212,7 @@ public class GenericDao<T extends DatabaseObject> {
             query += field + " IN ('";
             for (int i = 0; i < values.size(); i++) {
                 query += values.get(i);
-                if (i < values.size()-1) {
+                if (i < values.size() - 1) {
                     query += "', '";
                 } else {
                     query += "')";

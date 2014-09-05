@@ -10,32 +10,19 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+    
     <!--
-    Most controllers will use the ControllerClassNameHandlerMapping above, but
-    for the index controller we are using ParameterizableViewController, so we must
-    define an explicit mapping for it.
+    Tutaj będą mapowane tylko podstrony każdego modułu, czy ich funkcjonalności 
+    - "główne" strony są mapowane po prostu po nazwie kontrolera dzięki 
+    ControllerClassNameHandlerMapping"
     -->
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
-                <prop key="index.htm">indexController</prop>
-                <prop key="login.htm">loginController</prop>
-                <prop key="home.htm">homeController</prop>
-                
-                <prop key="contract.htm">contractController</prop>
-                <prop key="customer.htm">customerController</prop>
-                <prop key="department.htm">departmentController</prop>
-                <prop key="dictionary.htm">dictionaryController</prop>
-                <prop key="employee.htm">employeeController</prop>
-                <prop key="file.htm">fileController</prop>
-                <prop key="manageFile.htm">manageFileController</prop>
-                <prop key="group.htm">groupController</prop>
-                <prop key="key.htm">keyController</prop>
-                <prop key="position.htm">positionController</prop>
-                <prop key="raport.htm">raportController</prop>
-                <prop key="setting.htm">settingController</prop>
-                <prop key="terminal.htm">terminalController</prop>
-                <prop key="user.htm">userController</prop>
+                <!--
+                przykład:
+                <prop key="employeeAdd.htm">employeeController</prop>
+                -->
             </props>
         </property>
     </bean>
@@ -50,13 +37,11 @@
     -->
     <bean name="indexController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          p:viewName="index" />
-    
+          p:viewName="index" />    
     <bean name="loginController"
           class="pl.edu.pjwstk.cms.controllers.LoginController"/>
     <bean name="homeController"
-          class="pl.edu.pjwstk.cms.controllers.HomeController"/>
-    
+          class="pl.edu.pjwstk.cms.controllers.HomeController"/>    
     <bean name="contractController"
           class="pl.edu.pjwstk.cms.controllers.ContractController"/>
     <bean name="customerController"

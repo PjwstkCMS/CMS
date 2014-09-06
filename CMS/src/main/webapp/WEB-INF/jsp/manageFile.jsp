@@ -9,15 +9,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>manageFile</title>
-    </head>
-    <body>
         <h1>manageFile!</h1>
-    </body>
-</html>
     </jsp:body>
 </t:general>

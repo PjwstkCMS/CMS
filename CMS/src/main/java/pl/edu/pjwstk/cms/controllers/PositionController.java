@@ -29,7 +29,7 @@ public class PositionController extends BaseController {
 
     @Override
     @RequestMapping("position")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("position");

@@ -29,7 +29,7 @@ public class DepartmentController extends BaseController {
 
     @Override
     @RequestMapping("department")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("department");

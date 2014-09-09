@@ -28,7 +28,7 @@ public class ContractController extends BaseController {
 
     @Override
     @RequestMapping("contract")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("contract");

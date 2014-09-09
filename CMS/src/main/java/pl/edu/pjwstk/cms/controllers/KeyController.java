@@ -29,7 +29,7 @@ public class KeyController extends BaseController {
 
     @Override
     @RequestMapping("key")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("key");

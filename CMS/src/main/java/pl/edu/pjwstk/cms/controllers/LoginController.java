@@ -1,20 +1,21 @@
 package pl.edu.pjwstk.cms.controllers;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.CustomerDao;
-import pl.edu.pjwstk.cms.dao.general.GenericDao;
-import pl.edu.pjwstk.cms.models.Customer;
+import pl.edu.pjwstk.cms.dao.UserDao;
+import pl.edu.pjwstk.cms.dto.UserDto;
+import pl.edu.pjwstk.cms.models.User;
+import pl.edu.pjwstk.cms.utils.Utils;
 
 /**
  *
@@ -27,23 +28,55 @@ public class LoginController extends BaseController {
 
     public LoginController() {
 
-    }
+    }    
     
-    @Override
-    @RequestMapping("login")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    @RequestMapping("loginPage")
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
+        ModelAndView model = new ModelAndView("login");     
+        return model;
+    }
+    
+    
+    
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    protected ModelAndView login(HttpServletRequest request,
+            HttpServletResponse response) throws Exception {      
+        ModelAndView model = new ModelAndView("home");
+        String login = (String)request.getParameter("login");
+        String pass = (String)request.getParameter("password");
+        LOGGER.info(login +" "+pass);
+        UserDao userDao = new UserDao(); 
+        List<User> users = userDao.selectRecordsWithFieldValues("login", login);
+        if(users.size()>0) {
+            User user = users.get(0);
+            if(user.getPassword().equals(pass)) {
+                UserDto userDto = new UserDto();
+                userDto.setName(login);
+                userDto.setPassword(pass);
+                LOGGER.info(userDto.getName());
+                //Cookie c = new Cookie("user", Utils.convertObjectToJSON(userDto));
+                //response.addCookie(c);
+                //request.setAttribute("user", userDto);
+                request.getSession().setAttribute("user", userDto);
+                model.addObject("loginMsg", "Welcome "+login+"!");
+            } else {
+                model.addObject("loginMsg", "Wrong password.");
+            }
+        } else {
+            model.addObject("loginMsg", "Username not found.");
+        }
+        LOGGER.info(login+" "+pass);
+        return model;
+    }
+    
+    @RequestMapping(value = "logout", method = RequestMethod.POST)
+    protected ModelAndView logout(HttpServletRequest request,
+            HttpServletResponse response) throws Exception {      
         ModelAndView model = new ModelAndView("login");
-        model.addObject("msg", "HelloGuestController");
-        CustomerDao customerDao = new CustomerDao();
-        customerDao.selectRecordsWithFieldValues(new ArrayList<String>(), new ArrayList<String>());
-        Map<String, List<Object>> map = new HashMap<>();
-        List<Object> list = new ArrayList<>();
-        list.add("Pawełe");
-        list.add("dyuuyy");
-        map.put("name", list);
-        customerDao.selectForFieldsWithMultiplePossibileValues(map);
+        request.getSession().setAttribute("user", null);
+        LOGGER.info("logout");
         return model;
     }
 }

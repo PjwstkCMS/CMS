@@ -12,9 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.CustomerDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.models.Customer;
-import pl.edu.pjwstk.cms.utils.ConnectionManager;
 
 /**
  *
@@ -36,15 +36,14 @@ public class LoginController extends BaseController {
 
         ModelAndView model = new ModelAndView("login");
         model.addObject("msg", "HelloGuestController");
-        ConnectionManager.getConnectionManager().select("SELECT * FROM employee");
-        GenericDao<Customer> dao = new GenericDao<>(Customer.class);
-        dao.selectRecordsWithFieldValues(new ArrayList<String>(), new ArrayList<String>());
+        CustomerDao customerDao = new CustomerDao();
+        customerDao.selectRecordsWithFieldValues(new ArrayList<String>(), new ArrayList<String>());
         Map<String, List<Object>> map = new HashMap<>();
         List<Object> list = new ArrayList<>();
         list.add("Pawełe");
         list.add("dyuuyy");
         map.put("name", list);
-        dao.selectForFieldsWithMultiplePossibileValues(map);
+        customerDao.selectForFieldsWithMultiplePossibileValues(map);
         return model;
     }
 }

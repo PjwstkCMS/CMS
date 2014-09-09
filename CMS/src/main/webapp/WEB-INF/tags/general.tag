@@ -17,6 +17,7 @@
 
         <ul>
             <li id="nav14">Zarządzanie zasobami</li>
+                <a href="/CMS/login.htm"><li id="nav0">Login</li></a>
                 <a href="/CMS/home.htm"><li id="nav0">home</li></a>
                 <a href="/CMS/contract.htm"><li id="nav0">Contract</li></a>
                 <a href="/CMS/customer.htm"><li id="nav0">Customer</li></a>

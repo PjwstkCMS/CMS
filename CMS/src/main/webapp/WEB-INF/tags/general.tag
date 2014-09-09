@@ -9,14 +9,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@tag description="Overall Page template" pageEncoding="UTF-8"%>
 
-<html>
+<html >
     <head>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script> 
+        
+        <script src="/CMS/resources/js/services.js"></script>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>HR System</title>
+        <title>HR System</title>        
     </head>
-    <body>
+    <body ng-app="cms">
+        <input type="text" ng-model="test"/>
         <h1>
-            ${user.name}
+            ${user.name}            
+            {{test}}
         </h1>
         <ul>
             <li id="nav14">Zarządzanie zasobami</li>

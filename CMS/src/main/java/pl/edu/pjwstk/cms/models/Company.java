@@ -11,61 +11,54 @@ public class Company extends DatabaseObject{
     
     private final static Logger LOGGER = Logger.getLogger(Company.class.getName());
 
-    private String companyAddressId;
-    private String companyName;
-    private String companyContactName;
-    private String companyContractSurname;
-    private String companyContactPhone;
-    private String companyContactEmail;
+    private String name;
+    private String contactName;
+    private String contractSurname;
+    private String contactPhone;
+    private String contactEmail;
 
-    public String getCompanyAddressId() {
-        return companyAddressId;
+    public String getName() {
+        return name;
     }
 
-    public void setCompanyAddressId(String companyAddressId) {
-        this.companyAddressId = companyAddressId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getContactName() {
+        return contactName;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
     }
 
-    public String getCompanyContactName() {
-        return companyContactName;
+    public String getContractSurname() {
+        return contractSurname;
     }
 
-    public void setCompanyContactName(String companyContactName) {
-        this.companyContactName = companyContactName;
+    public void setContractSurname(String contractSurname) {
+        this.contractSurname = contractSurname;
     }
 
-    public String getCompanyContractSurname() {
-        return companyContractSurname;
+    public String getContactPhone() {
+        return contactPhone;
     }
 
-    public void setCompanyContractSurname(String companyContractSurname) {
-        this.companyContractSurname = companyContractSurname;
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 
-    public String getCompanyContactPhone() {
-        return companyContactPhone;
+    public String getContactEmail() {
+        return contactEmail;
     }
 
-    public void setCompanyContactPhone(String companyContactPhone) {
-        this.companyContactPhone = companyContactPhone;
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
     }
 
-    public String getCompanyContactEmail() {
-        return companyContactEmail;
-    }
 
-    public void setCompanyContactEmail(String companyContactEmail) {
-        this.companyContactEmail = companyContactEmail;
-    }
-
+    
     public Company() {
         super();
     }

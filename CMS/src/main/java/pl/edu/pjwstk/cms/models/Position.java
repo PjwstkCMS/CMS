@@ -13,7 +13,6 @@ public class Position extends DatabaseObject{
     
     private String name;
     private String description;
-    private String hierarchy;
 
     public String getName() {
         return name;
@@ -30,16 +29,7 @@ public class Position extends DatabaseObject{
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getHierarchy() {
-        return hierarchy;
-    }
-
-    public void setHierarchy(String hierarchy) {
-        this.hierarchy = hierarchy;
-    }
-    
-    
+ 
     public Position(){
         super();
     }

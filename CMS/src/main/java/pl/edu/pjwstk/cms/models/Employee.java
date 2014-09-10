@@ -25,7 +25,6 @@ public class Employee extends DatabaseObject{
     private String salary;
     private String positionId;
     private String departmentId;
-    private String addressId;
 
     public String getName() {
         return name;
@@ -91,15 +90,6 @@ public class Employee extends DatabaseObject{
         this.departmentId = departmentId;
     }
 
-    public String getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
-    }
-
-    
     public Employee() {
         super();
     }

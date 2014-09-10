@@ -12,7 +12,7 @@ public class CompanyAddress extends DatabaseObject{
     private final static Logger LOGGER = Logger.getLogger(CompanyAddress.class.getName());
     
     private String addressId;
-    private String description; 
+    private String companyId;
 
     public String getAddressId() {
         return addressId;
@@ -22,16 +22,14 @@ public class CompanyAddress extends DatabaseObject{
         this.addressId = addressId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCompanyId() {
+        return companyId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
     
-    
-
     public CompanyAddress() {
         super();
     }

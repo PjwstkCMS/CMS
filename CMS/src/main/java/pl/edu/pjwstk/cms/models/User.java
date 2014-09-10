@@ -13,10 +13,34 @@ public class User extends DatabaseObject{
 
     private String login;
     private String password;
-    private String email;
     private String employeeId;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+    
     
     public User() {
-
+        super();
     }
 }

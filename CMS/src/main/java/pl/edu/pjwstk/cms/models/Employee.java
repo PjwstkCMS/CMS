@@ -19,11 +19,12 @@ public class Employee extends DatabaseObject{
     
     private String name;
     private String surname;
+    private String pesel;
     private String email;
     private String phone;
-    private String pesel;
     private String salary;
-    private String managerId;
+    private String positionId;
+    private String departmentId;
     private String addressId;
 
     public String getName() {
@@ -42,6 +43,14 @@ public class Employee extends DatabaseObject{
         this.surname = surname;
     }
 
+    public String getPesel() {
+        return pesel;
+    }
+
+    public void setPesel(String pesel) {
+        this.pesel = pesel;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -58,14 +67,6 @@ public class Employee extends DatabaseObject{
         this.phone = phone;
     }
 
-    public String getPesel() {
-        return pesel;
-    }
-
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
-    }
-
     public String getSalary() {
         return salary;
     }
@@ -74,12 +75,20 @@ public class Employee extends DatabaseObject{
         this.salary = salary;
     }
 
-    public String getManagerId() {
-        return managerId;
+    public String getPositionId() {
+        return positionId;
     }
 
-    public void setManagerId(String managerId) {
-        this.managerId = managerId;
+    public void setPositionId(String positionId) {
+        this.positionId = positionId;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
     }
 
     public String getAddressId() {
@@ -90,6 +99,7 @@ public class Employee extends DatabaseObject{
         this.addressId = addressId;
     }
 
+    
     public Employee() {
         super();
     }

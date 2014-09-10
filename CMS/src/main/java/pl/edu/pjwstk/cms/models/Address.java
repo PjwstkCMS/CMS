@@ -1,4 +1,3 @@
-
 package pl.edu.pjwstk.cms.models;
 
 import java.util.logging.Logger;
@@ -14,10 +13,12 @@ public class Address extends DatabaseObject{
     
     private String country;
     private String city;
-    private String cityName;
-    private String streetNumb;
-    private String apartmentNumb;
-    private String zipCode;
+    private String streetName;
+    private String streetNumber;
+    private String apartmentNumber;
+    private String postalCode;
+    private String personId;
+    private String dictId;
 
     public String getCountry() {
         return country;
@@ -35,39 +36,54 @@ public class Address extends DatabaseObject{
         this.city = city;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getStreetName() {
+        return streetName;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
     }
 
-    public String getStreetNumb() {
-        return streetNumb;
+    public String getStreetNumber() {
+        return streetNumber;
     }
 
-    public void setStreetNumb(String streetNumb) {
-        this.streetNumb = streetNumb;
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
     }
 
-    public String getApartmentNumb() {
-        return apartmentNumb;
+    public String getApartmentNumber() {
+        return apartmentNumber;
     }
 
-    public void setApartmentNumb(String apartmentNumb) {
-        this.apartmentNumb = apartmentNumb;
+    public void setApartmentNumber(String apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
-    
+    public String getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(String personId) {
+        this.personId = personId;
+    }
+
+    public String getDictId() {
+        return dictId;
+    }
+
+    public void setDictId(String dictId) {
+        this.dictId = dictId;
+    }
+  
     
     public Address(){
         super();

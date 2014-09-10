@@ -9,6 +9,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-        <h1>raport!</h1>
+        <h1>report!</h1>
     </jsp:body>
 </t:general>

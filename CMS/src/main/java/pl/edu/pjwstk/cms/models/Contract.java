@@ -19,7 +19,9 @@ public class Contract extends DatabaseObject{
     
     private String employeeId;
     private String customerId;
-    private String date;
+    private String startDate;
+    private String closeDate;
+    private String finalisationDate; //optional
     private String description;
     private String price;
 
@@ -39,12 +41,28 @@ public class Contract extends DatabaseObject{
         this.customerId = customerId;
     }
 
-    public String getDate() {
-        return date;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getCloseDate() {
+        return closeDate;
+    }
+
+    public void setCloseDate(String closeDate) {
+        this.closeDate = closeDate;
+    }
+
+    public String getFinalisationDate() {
+        return finalisationDate;
+    }
+
+    public void setFinalisationDate(String finalisationDate) {
+        this.finalisationDate = finalisationDate;
     }
 
     public String getDescription() {

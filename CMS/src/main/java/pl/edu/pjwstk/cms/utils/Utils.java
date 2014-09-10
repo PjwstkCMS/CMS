@@ -12,8 +12,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import pl.edu.pjwstk.cms.dto.UserDto;
 
 /**
  * Tutaj przetrzymywane będą różne przydatne metody wykorzystywane w więcej niż
@@ -148,18 +155,18 @@ public abstract class Utils {
      * @param initData Dane, które mają zostać zamienione w JSON
      * @return dane odpowiedzi serwera
      */
-    /*
+    
     public static ResponseEntity<String> createResponseEntity(HttpSession session, Map<String, Object> initData){
         HttpHeaders responseHeaders = new HttpHeaders();
-        SystemConfigurationDao sysConfigDao = new SystemConfigurationDao();
-        SystemConfiguration charset = sysConfigDao.findByField("name","DefaultPageEncoding").get(0);
-        responseHeaders.add("Content-Type", "text/html; charset="+charset.getValue());
-        UserDTO user = (UserDTO)(session.getAttribute("user"));
-        initData.put("privileges", user.getPrivilegeKeyCodes());
+        //SystemConfigurationDao sysConfigDao = new SystemConfigurationDao();
+        //SystemConfiguration charset = sysConfigDao.findByField("name","DefaultPageEncoding").get(0);
+        //responseHeaders.add("Content-Type", "text/html; charset="+charset.getValue());
+        UserDto user = (UserDto)(session.getAttribute("user"));
+        //initData.put("privileges", user.getPrivilegeKeyCodes());
         
         Logger.getLogger(Utils.class.getName()).log(Level.INFO, "SEND: {0}", Utils.convertOMapToJSON(initData));
         
         return new ResponseEntity<>(convertOMapToJSON(initData), responseHeaders, HttpStatus.OK);
     }
-    */
+    
 }

@@ -7,13 +7,21 @@
 package pl.edu.pjwstk.cms.controllers;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.PrivilegeKeyDao;
+import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *
  * @author Konrad
@@ -33,8 +41,18 @@ public class KeyController extends BaseController {
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("key");
-        model.addObject("msg", "HelloGuestController");
-        
+        PrivilegeKeyDao privilegeKeyDao = new PrivilegeKeyDao();
+        privilegeKeyDao.selectAll();
         return model;
+    }
+    
+    @RequestMapping("privilegeKeyList/privKeys.htm")
+    @ResponseBody
+    public ResponseEntity<String> getData(HttpServletRequest request, HttpSession session, ModelMap model) {
+        //UserConfigurationDao userConfigDao = new UserConfigurationDao();
+        PrivilegeKeyDao privilegeKeyDao = new PrivilegeKeyDao();
+        Map<String, Object> initData = new HashMap<>();
+        initData.put("privilegeKeys", privilegeKeyDao.selectAll());
+        return Utils.createResponseEntity(request.getSession(), initData);
     }
 }

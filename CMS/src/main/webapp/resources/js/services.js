@@ -30,7 +30,7 @@ cmsModule.factory('saveEditDelete', function() {
                 $scope.initData = returnData;
                 $scope[$scope.objectsName] = returnData[$scope.objectsName];
                 $scope.objects = returnData[$scope.objectsName];
-                //alert(returnData.departmnets);
+                //alert(returnData.privilegeKeys[0].id);
                 return "Success";
             }).error(function(error) {
                 $scope.status = "Błąd";

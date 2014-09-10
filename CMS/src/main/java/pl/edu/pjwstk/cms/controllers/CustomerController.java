@@ -28,7 +28,7 @@ public class CustomerController extends BaseController {
 
     @Override
     @RequestMapping("customer")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("customer");

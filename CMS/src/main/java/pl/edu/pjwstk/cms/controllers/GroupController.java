@@ -29,7 +29,7 @@ public class GroupController extends BaseController {
 
     @Override
     @RequestMapping("group")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("group");

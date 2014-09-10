@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  *
  * @author Sergio
  */
-public class BaseController extends AbstractController{
+public class BaseController {
     
     private final static Logger LOGGER = Logger.getLogger(BaseController.class.getName()); 
 
@@ -20,9 +20,8 @@ public class BaseController extends AbstractController{
     public BaseController() {
 
     }
-
-    @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    
+    protected ModelAndView home(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

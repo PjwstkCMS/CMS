@@ -28,7 +28,7 @@ public class FileController extends BaseController {
 
     @Override
     @RequestMapping("file")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("file");

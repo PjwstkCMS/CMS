@@ -28,7 +28,7 @@ public class DictionaryController extends BaseController {
 
     @Override
     @RequestMapping("dictionary")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("dictionary");

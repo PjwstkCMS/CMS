@@ -39,7 +39,6 @@ public class User extends DatabaseObject{
         this.employeeId = employeeId;
     }
     
-    
     public User() {
         super();
     }

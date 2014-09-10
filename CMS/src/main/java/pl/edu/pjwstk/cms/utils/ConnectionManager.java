@@ -24,6 +24,10 @@ public class ConnectionManager {
     public static String staticLogin = "pawelek";
     public static String staticPass = "leofram";
     
+    public static String staticUrl2 = "jdbc:mysql://famalis.no-ip.info/cms?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
+    public static String staticLogin2 = "cms";
+    public static String staticPass2 = "MWWCT5FHCUQQWMpy";
+    
     private final static Logger LOGGER = Logger.getLogger("utils.ConnectionManager");
     private String url;
     private String login;
@@ -72,6 +76,20 @@ public class ConnectionManager {
             cm.setPassword(staticPass);
             activeConnections.put(staticLogin, cm);
             return activeConnections.get(staticLogin);
+        }
+        
+    }
+    
+     public static ConnectionManager getConnectionManagerAuxilary() {
+        if(activeConnections.containsKey(staticLogin2)){
+            return activeConnections.get(staticLogin2);
+        } else {
+            ConnectionManager cm = new ConnectionManager();
+            cm.setLogin(staticLogin2);
+            cm.setDBUrl(staticUrl2);
+            cm.setPassword(staticPass2);
+            activeConnections.put(staticLogin2, cm);
+            return activeConnections.get(staticLogin2);
         }
         
     }

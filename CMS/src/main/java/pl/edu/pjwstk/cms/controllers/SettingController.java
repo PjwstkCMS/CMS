@@ -28,7 +28,7 @@ public class SettingController extends BaseController {
 
     @Override
     @RequestMapping("setting")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("setting");

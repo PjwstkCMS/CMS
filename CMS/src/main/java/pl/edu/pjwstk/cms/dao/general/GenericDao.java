@@ -1,7 +1,7 @@
 package pl.edu.pjwstk.cms.dao.general;
 
+import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,12 +22,24 @@ public class GenericDao<T extends DatabaseObject> {
     public static final int OR = 0, AND = 1;
 
     private final static Logger LOGGER = Logger.getLogger(GenericDao.class.getName());
-    private final ConnectionManager connectionManager;
+    private static ConnectionManager connectionManager;
     private final Class modelClass;
 
     public GenericDao(Class c) {
-        connectionManager = ConnectionManager.getConnectionManager();
         modelClass = c;
+        if (connectionManager == null) {
+            try {
+                connectionManager = ConnectionManager.getConnectionManager();
+                List<T> selectRecordsWithFieldValues = this.selectRecordsWithFieldValues("id", "1");
+                if (selectRecordsWithFieldValues.size() == 0) {
+                    throw new Exception();
+                }
+            } catch (Exception noConnection) {
+                LOGGER.warning("Can't reach main sql server. Switching to auxilary.");
+                connectionManager = ConnectionManager.getConnectionManagerAuxilary();
+            }
+        }
+
     }
 
     public List<T> selectAll() {
@@ -118,10 +130,10 @@ public class GenericDao<T extends DatabaseObject> {
         if (fieldValues.size() == 0) {
 
         } else {
-            query += "WHERE";
+            query += "WHERE ";
             for (int i = 0; i < fieldValues.size(); i++) {
                 query += fieldNames.get(i) + "='" + fieldValues.get(i) + "'";
-                if (i < fieldValues.size()) {
+                if (i < fieldValues.size() && i > 1) {
                     query += " AND ";
                 } else {
                     query += " ";

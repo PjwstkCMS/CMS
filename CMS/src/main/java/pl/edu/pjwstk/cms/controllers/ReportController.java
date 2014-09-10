@@ -23,7 +23,7 @@ public class ReportController extends BaseController {
 
     @Override
     @RequestMapping("report")
-    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+    protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("report");

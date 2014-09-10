@@ -9,8 +9,19 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-        <form method="post" action="login">
+        ${user}
+        ${user.name}
+        <c:if test="${user==null}">
+        <form method="post" action="login.htm">
+            <input type="text" name="login"/>
+            <input type="password" name="password"/>
             <input type="submit"/>
         </form>
+        </c:if>
+        <c:if test="${user!=null}">
+        <form method="post" action="logout.htm">
+            <input type="submit" value="logout"/>
+        </form>
+        </c:if>
     </jsp:body>
 </t:general>

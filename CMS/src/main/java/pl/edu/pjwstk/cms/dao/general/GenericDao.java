@@ -30,8 +30,8 @@ public class GenericDao<T extends DatabaseObject> {
         if (connectionManager == null) {
             try {
                 connectionManager = ConnectionManager.getConnectionManager();
-                List<T> selectRecordsWithFieldValues = this.selectRecordsWithFieldValues("id", "1");
-                if (selectRecordsWithFieldValues.size() == 0) {
+                List<T> selectRecordsWithFieldValues = this.selectAll();
+                if (selectRecordsWithFieldValues.isEmpty()) {
                     throw new Exception();
                 }
             } catch (Exception noConnection) {

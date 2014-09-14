@@ -103,6 +103,21 @@ public class GenericDao<T extends DatabaseObject> {
      * Metoda pobiera rekordy, gdzie dane pole przyjmuje daną wartość
      *
      * @param fieldName
+     * @param fieldValue
+     * @return
+     */
+    public List<T> selectRecordsWithFieldValues(String fieldName, Object fieldValue) {
+        List<String> l1 = new ArrayList<>();
+        l1.add(fieldName);
+        List<String> l2 = new ArrayList<>();
+        l2.add(fieldValue+"");
+        return selectRecordsWithFieldValues(l1, l2);
+    }
+    
+    /**
+     * Metoda pobiera rekordy, gdzie dane pole przyjmuje daną wartość
+     *
+     * @param fieldName
      * @param fieldValues
      * @return
      */

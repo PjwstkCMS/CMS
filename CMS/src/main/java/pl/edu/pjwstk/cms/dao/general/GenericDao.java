@@ -1,6 +1,7 @@
 package pl.edu.pjwstk.cms.dao.general;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -98,7 +99,7 @@ public class GenericDao<T extends DatabaseObject> {
         }
         return selectRecordsWithFieldValues(fieldNames, l);
     }
-    
+
     protected String addParamConditions(String query, Map<String, List<String>> params) {
         if (!params.isEmpty()) {
             query += " ";
@@ -106,14 +107,14 @@ public class GenericDao<T extends DatabaseObject> {
                 query += key + " IN (";
                 for (int i = 0; i < params.get(key).size(); i++) {
                     query += params.get(key).get(i);
-                    if (i < params.get(key).size() && params.get(key).size()>1) {
+                    if (i < params.get(key).size() && params.get(key).size() > 1) {
                         query += ",";
                     }
                     query += ")";
                 }
             }
         }
-        
+
         return query;
     }
 
@@ -128,10 +129,10 @@ public class GenericDao<T extends DatabaseObject> {
         List<String> l1 = new ArrayList<>();
         l1.add(fieldName);
         List<String> l2 = new ArrayList<>();
-        l2.add(fieldValue+"");
+        l2.add(fieldValue + "");
         return selectRecordsWithFieldValues(l1, l2);
     }
-    
+
     /**
      * Metoda pobiera rekordy, gdzie dane pole przyjmuje daną wartość
      *
@@ -271,7 +272,7 @@ public class GenericDao<T extends DatabaseObject> {
         }
         return selectForQuery(query);
     }
-    
+
     /**
      * Metoda służąca do zmiany danych we wszystkich wierszach spełniających
      * podane wymagania.
@@ -293,14 +294,22 @@ public class GenericDao<T extends DatabaseObject> {
         return connectionManager.update(query);
     }
     
-    public Long insert(Object obj) {
+    public boolean update(String conditions, List<String> sets) {
+        String[] arr = new String[sets.size()];
+        for (int i = 0; i<arr.length; i++){
+            arr[i] = sets.get(i);
+        }
+        return update(conditions, arr);
+    }
+
+    public Long insert(T obj) {
         try {
             String query = "INSERT INTO " + obj.getClass().getSimpleName() + " (";
             Field[] fields = obj.getClass().getDeclaredFields();
             List<Field> list = new ArrayList<Field>(Arrays.asList(fields));
-            for (Field f : list){
+            for (Field f : list) {
                 String s = f.getName();
-                if(s.equals("LOGGER")){
+                if (s.equals("LOGGER")) {
                     list.remove(f);
                     break;
                 }
@@ -324,7 +333,7 @@ public class GenericDao<T extends DatabaseObject> {
             }
             query += ") ";
             if (connectionManager.update(query)) {
-                ResultSet set = connectionManager.select("SELECT id FROM "+obj.getClass().getSimpleName() );
+                ResultSet set = connectionManager.select("SELECT id FROM " + obj.getClass().getSimpleName());
                 try {
                     set.last();
                     return set.getLong("id");
@@ -340,7 +349,7 @@ public class GenericDao<T extends DatabaseObject> {
         }
         return -1L;
     }
-    
+
     /**
      * Metoda ustawia podaną wartość w podanej kolumnie dla wszystkich wpisów
      * posiadających dane id
@@ -353,7 +362,7 @@ public class GenericDao<T extends DatabaseObject> {
     public boolean updateFieldForAllElementsWithId(String id, String fieldName, String fieldValue) {
         return update("id=" + id, fieldName + "=" + fieldValue);
     }
-    
+
     /**
      * Metoda ustawia podaną wartość w podanej kolumnie dla wszystkich wpisów
      * spełniających warunki
@@ -369,8 +378,8 @@ public class GenericDao<T extends DatabaseObject> {
     public boolean updateFieldForAllElementsWithId(String conditionFieldName, String conditionFieldValue, String fieldName, String fieldValue) {
         return update(conditionFieldName + "=" + conditionFieldValue, fieldName + "=" + fieldValue);
     }
-    
-        /**
+
+    /**
      * Metoda służąca do usuwania wpisów w bazie danych
      *
      * @param conditions warunki w WHERE
@@ -381,6 +390,25 @@ public class GenericDao<T extends DatabaseObject> {
                 + " WHERE " + conditions;
         return connectionManager.update(query);
     }
-    
-    
+
+    public boolean update(T obj) {
+        try {
+            List<String> sets = new ArrayList<>();
+            for (int i = 0; i < modelClass.getFields().length; i++) {
+                Field field = modelClass.getFields()[i];
+                String newSet = "";
+                if (!Modifier.isStatic(field.getModifiers())) {
+                    newSet = field.getName() + "=" + field.get(obj);
+                }
+                sets.add(newSet);
+            }
+            String condition = "id="+obj.getId();
+            return update(condition, sets);
+        } catch (IllegalAccessException iae) {
+            iae.printStackTrace();
+            return false;
+        }
+        
+    }
+
 }

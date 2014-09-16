@@ -22,8 +22,8 @@ public class GenericDao<T extends DatabaseObject> {
     public static final int OR = 0, AND = 1;
 
     private final static Logger LOGGER = Logger.getLogger(GenericDao.class.getName());
-    private static ConnectionManager connectionManager;
-    private final Class modelClass;
+    protected static ConnectionManager connectionManager;
+    protected final Class modelClass;
 
     public GenericDao(Class c) {
         modelClass = c;
@@ -97,6 +97,24 @@ public class GenericDao<T extends DatabaseObject> {
             l.add((String) o);
         }
         return selectRecordsWithFieldValues(fieldNames, l);
+    }
+    
+    protected String addParamConditions(String query, Map<String, List<String>> params) {
+        if (!params.isEmpty()) {
+            query += " ";
+            for (String key : params.keySet()) {
+                query += key + " IN (";
+                for (int i = 0; i < params.get(key).size(); i++) {
+                    query += params.get(key).get(i);
+                    if (i < params.get(key).size() && params.get(key).size()>1) {
+                        query += ",";
+                    }
+                    query += ")";
+                }
+            }
+        }
+        
+        return query;
     }
 
     /**

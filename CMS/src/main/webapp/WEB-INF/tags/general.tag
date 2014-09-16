@@ -38,7 +38,7 @@
             <a href="/CMS/groupList.htm"><li id="nav0">groupList</li></a>
             <a href="/CMS/key.htm"><li id="nav0">key</li></a>
             <a href="/CMS/position.htm"><li id="nav0">position</li></a>
-            <a href="/CMS/raport.htm"><li id="nav0">raport</li></a>
+            <a href="/CMS/report.htm"><li id="nav0">report</li></a>
             <a href="/CMS/setting.htm"><li id="nav0">setting</li></a>
             <a href="/CMS/terminal.htm"><li id="nav0">terminal</li></a>
             <a href="/CMS/user.htm"><li id="nav0">user</li></a>

@@ -3,19 +3,20 @@ package pl.edu.pjwstk.cms.controllers;
 
 import java.util.List;
 import java.util.logging.Logger;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
+import pl.edu.pjwstk.cms.dao.UserConfigurationDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
+import pl.edu.pjwstk.cms.models.PrivilegeGroup;
 import pl.edu.pjwstk.cms.models.User;
-import pl.edu.pjwstk.cms.utils.Utils;
+import pl.edu.pjwstk.cms.models.UserConfiguration;
 
 /**
  *
@@ -56,6 +57,12 @@ public class LoginController extends BaseController {
                 userDto.setName(login);
                 userDto.setPassword(pass);
                 LOGGER.info(userDto.getName());
+                UserConfigurationDao configDao = new UserConfigurationDao();
+                UserConfiguration userConfig = configDao.selectRecordsWithFieldValues("userId", user.getId()).get(0);
+                userDto.setGroupId(userConfig.getGroupId());
+                PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
+                PrivilegeGroup group = groupDao.selectRecordsWithFieldValues("id", userConfig.getGroupId()).get(0);
+                userDto.setGroupName(group.getName());
                 //Cookie c = new Cookie("user", Utils.convertObjectToJSON(userDto));
                 //response.addCookie(c);
                 //request.setAttribute("user", userDto);

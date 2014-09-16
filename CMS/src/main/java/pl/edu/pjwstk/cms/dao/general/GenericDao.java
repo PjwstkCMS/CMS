@@ -1,10 +1,10 @@
 package pl.edu.pjwstk.cms.dao.general;
 
-import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -271,4 +271,116 @@ public class GenericDao<T extends DatabaseObject> {
         }
         return selectForQuery(query);
     }
+    
+    /**
+     * Metoda służąca do zmiany danych we wszystkich wierszach spełniających
+     * podane wymagania.
+     *
+     * @param conditions - warunki w WHERE (np id = 1)
+     * @param sets - wszystkie wartości które mają zostać zmienione; przykładowo
+     * można napisać name='adam', surname='kowalski'
+     * @return
+     */
+    public boolean update(String conditions, String... sets) {
+        String query = "UPDATE " + modelClass.getSimpleName() + " SET ";
+        for (int i = 0; i < sets.length; i++) {
+            query += sets[i];
+            if (i < sets.length - 1) {
+                query += ", ";
+            }
+        }
+        query += " WHERE " + conditions;
+        return connectionManager.update(query);
+    }
+    
+    public Long insert(Object obj) {
+        try {
+            String query = "INSERT INTO " + obj.getClass().getSimpleName() + " (";
+            Field[] fields = obj.getClass().getDeclaredFields();
+            List<Field> list = new ArrayList<Field>(Arrays.asList(fields));
+            for (Field f : list){
+                String s = f.getName();
+                if(s.equals("LOGGER")){
+                    list.remove(f);
+                    break;
+                }
+            }
+            fields = list.toArray(new Field[0]);
+            for (int i = 0; i < fields.length; i++) {
+                query += fields[i].getName();
+                if (i < fields.length - 1) {
+                    query += ", ";
+                }
+            }
+            query += ") VALUES (";
+            for (int i = 0; i < fields.length; i++) {
+                String fieldValue = "";
+                fields[i].setAccessible(true);
+                fieldValue = (String) fields[i].get(obj);
+                query += "'" + fieldValue + "'";
+                if (i < fields.length - 1) {
+                    query += ", ";
+                }
+            }
+            query += ") ";
+            if (connectionManager.update(query)) {
+                ResultSet set = connectionManager.select("SELECT id FROM "+obj.getClass().getSimpleName() );
+                try {
+                    set.last();
+                    return set.getLong("id");
+                } catch (SQLException ex) {
+                    Logger.getLogger(DatabaseObject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                return -1L;
+            }
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+            return -1L;
+        }
+        return -1L;
+    }
+    
+    /**
+     * Metoda ustawia podaną wartość w podanej kolumnie dla wszystkich wpisów
+     * posiadających dane id
+     *
+     * @param id id elementu który będzie zmieniony
+     * @param fieldName nazwa kolumny do zmiany
+     * @param fieldValue nowa wartość kolumny
+     * @return
+     */
+    public boolean updateFieldForAllElementsWithId(String id, String fieldName, String fieldValue) {
+        return update("id=" + id, fieldName + "=" + fieldValue);
+    }
+    
+    /**
+     * Metoda ustawia podaną wartość w podanej kolumnie dla wszystkich wpisów
+     * spełniających warunki
+     *
+     * @param conditionFieldName nazwa kolumny na podstawie której wybierane są
+     * elementy do zmiany
+     * @param conditionFieldValue wartość jaką mają mieć modyfikowane wpisy w
+     * danej kolumie
+     * @param fieldName nazwa modyfikowanej kolumny
+     * @param fieldValue nowa watość
+     * @return
+     */
+    public boolean updateFieldForAllElementsWithId(String conditionFieldName, String conditionFieldValue, String fieldName, String fieldValue) {
+        return update(conditionFieldName + "=" + conditionFieldValue, fieldName + "=" + fieldValue);
+    }
+    
+        /**
+     * Metoda służąca do usuwania wpisów w bazie danych
+     *
+     * @param conditions warunki w WHERE
+     * @return
+     */
+    public boolean delete(String conditions) {
+        String query = "DELETE FROM " + modelClass.getSimpleName()
+                + " WHERE " + conditions;
+        return connectionManager.update(query);
+    }
+    
+    
 }

@@ -35,7 +35,7 @@
             <a href="/CMS/employee.htm"><li id="nav0">employee</li></a>
             <a href="/CMS/file.htm"><li id="nav0">file</li></a>
             <a href="/CMS/manageFile.htm"><li id="nav0">fileManage</li></a>
-            <a href="/CMS/group.htm"><li id="nav0">group</li></a>
+            <a href="/CMS/groupList.htm"><li id="nav0">groupList</li></a>
             <a href="/CMS/key.htm"><li id="nav0">key</li></a>
             <a href="/CMS/position.htm"><li id="nav0">position</li></a>
             <a href="/CMS/raport.htm"><li id="nav0">raport</li></a>

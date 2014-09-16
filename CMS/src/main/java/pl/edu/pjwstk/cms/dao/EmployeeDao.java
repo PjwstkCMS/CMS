@@ -1,8 +1,15 @@
 
 package pl.edu.pjwstk.cms.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
+import pl.edu.pjwstk.cms.dto.EmployeeDto;
 import pl.edu.pjwstk.cms.models.Employee;
 /**
  *
@@ -14,5 +21,34 @@ public class EmployeeDao extends GenericDao<Employee>{
 
     public EmployeeDao() {
         super(Employee.class);
+    }
+public List<EmployeeDto> getEmployeeDtoList() {
+        return getEmployeeDtoList(new HashMap<String, List<String>>());
+    }
+    
+    public List<EmployeeDto> getEmployeeDtoList(Map<String, List<String>> params) {
+        String query = "SELECT emp.name as name, emp.surname as surname, emp.id as id ";
+        query += "FROM employee as emp ";
+        if(!params.isEmpty()) {
+            query += "WHERE";
+            query = this.addParamConditions(query, params);
+        }
+        //ResultSet set =this.selectForQuery(query);
+        ResultSet set = this.connectionManager.select(query);
+        List<EmployeeDto> empDtos = new ArrayList<>();
+        try {
+            while(set.next()) {
+                EmployeeDto dto = new EmployeeDto();
+                dto.setId(set.getLong("id"));
+                dto.setName(set.getString("name"));
+                dto.setSurname(set.getString("surname"));
+                empDtos.add(dto);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        int a = 2;
+        return empDtos;
     }
 }

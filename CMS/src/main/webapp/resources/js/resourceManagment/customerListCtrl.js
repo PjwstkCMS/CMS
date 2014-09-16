@@ -35,7 +35,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
         'companyName': "klient-companyName"
     };
         
-    $scope.get = saveEditDelete.get($http, '/CMS/customerList/customers.htm', $scope);
+    $scope.get = saveEditDelete.get($http, '/CMS/customer/customers.htm', $scope);
     var loadDataPromise = $scope.get;
 
     $scope.save = function() {
@@ -43,7 +43,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
         if(($scope.selected.name == null) || $scope.selected.surname == null || $scope.selected.phone == null || $scope.selected.email == null || $scope.selected.companyName == null) {
             alert("Sprawdź poprowność wprowadzonych danych");
         } else {
-            saveEditDelete.save($http, '/CMS/customerList/save/:object.htm', $scope);
+            saveEditDelete.save($http, '/CMS/customer/save/:object.htm', $scope);
         }
     };
 
@@ -79,18 +79,8 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     };
 
     $scope.delete = function() {
-        saveEditDelete.remove($http, '/CMS/customerList/delete/:object.htm', $scope);
+        saveEditDelete.remove($http, '/CMS/customer/delete/:object.htm', $scope);
     };
     
-    $scope.checkEditPrivileges = function() {
-        for (var i = 0; i<$scope.privileges.length; i++) {
-            if($scope.privileges[i] == 'all') {
-                return true;
-            }
-            if($scope.privileges[i] == "ManageCustomers") {
-                return true;
-            }
-        }
-        return false;
-    };
+    
 }

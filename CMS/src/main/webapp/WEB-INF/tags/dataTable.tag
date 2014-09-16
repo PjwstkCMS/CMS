@@ -75,11 +75,10 @@
 </script>
 
 
-</div>
-<table class="genericTable">
-    <tr class="table-header">
+<table>
+    <tr>
 
-        <th class="numer-header">
+        <th>
             #
         </th>
         <th ng-repeat="attr in attributes" ng-hide="attr.substring(0, 1) == '%'"
@@ -107,7 +106,7 @@
     <span ng-show="status == 'Błąd'">błąd podczas ładowania danych...</span>
 
 </div>
-<div class="footer" ng-show="objects.length > 0">
+<%--<div class="footer" ng-show="objects.length > 0">
 
 
 
@@ -165,4 +164,4 @@
         <span style="font-weight:700;float: right;">{{pageMin + 1}}-{{pageMax + 1}}</span>
     </div>
 
-</div>
+</div>--%>

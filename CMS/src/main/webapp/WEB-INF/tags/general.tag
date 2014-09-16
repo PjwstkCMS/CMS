@@ -28,6 +28,7 @@
             <a href="/CMS/loginPage.htm"><li id="nav0">Login</li></a>
             <a href="/CMS/home.htm"><li id="nav0">home</li></a>
             <a href="/CMS/contract.htm"><li id="nav0">Contract</li></a>
+            <a href="/CMS/company.htm"><li id="nav0">Company</li></a>
             <a href="/CMS/customer.htm"><li id="nav0">Customer</li></a>
             <a href="/CMS/department.htm"><li id="nav0">Department</li></a>
             <a href="/CMS/dictionary.htm"><li id="nav0">dictionary</li></a>

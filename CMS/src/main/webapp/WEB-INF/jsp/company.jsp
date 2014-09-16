@@ -1,6 +1,6 @@
 <%-- 
-    Document   : employee
-    Created on : 2014-08-30, 14:59:47
+    Document   : contract
+    Created on : 2014-08-30, 14:58:34
     Author     : Macha
 --%>
 
@@ -9,9 +9,9 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-        <script src="/CMS/resources/js/resourceManagment/employeeListCtrl.js"></script>
-        <h1>Employee!</h1>        
-        <div ng-controller="EmployeeListCtrl">
+        <script src="/CMS/resources/js/resourceManagment/companyListCtrl.js"></script>
+        <h1>Company!</h1>        
+        <div ng-controller="CompanyListCtrl">
             <t:dataTable/>
         </div>
     </jsp:body>

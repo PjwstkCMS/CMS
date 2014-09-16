@@ -12,11 +12,22 @@ public class Company extends DatabaseObject{
     private final static Logger LOGGER = Logger.getLogger(Company.class.getName());
 
     private String name;
+    private String addressId;
     private String contactName;
     private String contractSurname;
     private String contactPhone;
     private String contactEmail;
 
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
+
+    
+    
     public String getName() {
         return name;
     }

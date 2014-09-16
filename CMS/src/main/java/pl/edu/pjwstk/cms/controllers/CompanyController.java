@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.CompanyDao;
 import pl.edu.pjwstk.cms.dao.ContractDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
@@ -26,30 +27,30 @@ import pl.edu.pjwstk.cms.utils.Utils;
  * @author Konrad
  */
 @Controller
-public class ContractController extends BaseController {
+public class CompanyController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(ContractController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(CompanyController.class.getName());
 
-    public ContractController() {
+    public CompanyController() {
 
     }
 
     @Override
-    @RequestMapping("contract")
+    @RequestMapping("company")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("contract");
+        ModelAndView model = new ModelAndView("company");
         model.addObject("msg", "HelloGuestController");
         
         return model;
     }
-    @RequestMapping(value = "/contract/contracts")
+    @RequestMapping(value = "/company/companys")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
-        ContractDao conDao = new ContractDao();
+        CompanyDao comDao = new CompanyDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("contracts", conDao.getContractDtoList());
+        initData.put("companys", comDao.getCompanyDtoList());
         return Utils.createResponseEntity(session, initData);
     }
 }

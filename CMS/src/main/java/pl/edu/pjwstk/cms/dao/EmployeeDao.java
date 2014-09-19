@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.EmployeeDto;
+import pl.edu.pjwstk.cms.models.Department;
 import pl.edu.pjwstk.cms.models.Employee;
 /**
  *
@@ -27,13 +28,12 @@ public List<EmployeeDto> getEmployeeDtoList() {
     }
     
     public List<EmployeeDto> getEmployeeDtoList(Map<String, List<String>> params) {
-        String query = "SELECT emp.name as name, emp.surname as surname, emp.id as id ";
+        String query = "SELECT emp.name as name, emp.surname as surname, emp.email as email, emp.departmentId as departmentId, emp.phone as phone, emp.id as id ";
         query += "FROM employee as emp ";
         if(!params.isEmpty()) {
             query += "WHERE";
             query = this.addParamConditions(query, params);
         }
-        //ResultSet set =this.selectForQuery(query);
         ResultSet set = this.connectionManager.select(query);
         List<EmployeeDto> empDtos = new ArrayList<>();
         try {
@@ -42,13 +42,26 @@ public List<EmployeeDto> getEmployeeDtoList() {
                 dto.setId(set.getLong("id"));
                 dto.setName(set.getString("name"));
                 dto.setSurname(set.getString("surname"));
+                dto.setEmail(set.getString("email"));
+                dto.setPhone(set.getString("phone"));
+                DepartmentDao depDao = new DepartmentDao();
+                List<Department> deps = depDao.selectAll();
+                Department d = getEmpDepartment(deps, set.getString("departmentId"));
+                dto.setDepartmentId(d.getName());
                 empDtos.add(dto);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }
-        int a = 2;
         return empDtos;
+    }
+    private Department getEmpDepartment(List<Department> departments, String id) {
+        for (Department c : departments) {
+            if(c.getId() == Long.parseLong(id)) {
+                return c;
+            }
+        }
+        return null;
     }
 }

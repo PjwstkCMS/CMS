@@ -9,6 +9,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-        <h1>Department!</h1>
+        <script src="/CMS/resources/js/resourceManagment/departmentListCtrl.js"></script>
+        <h1>Customer!</h1>
+        <div ng-controller="DepartmentListCtrl">
+            
+            <t:dataTable/>
+            
     </jsp:body>
 </t:general>

@@ -1,4 +1,4 @@
-function EmployeeListCtrl($scope, $http, saveEditDelete, pagination) {
+function DepartmentListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
     $scope.pageMax = 14;
@@ -6,50 +6,41 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination) {
     
     $scope.status = "Ładowanie danych";
     $scope.selected = "";
-    $scope.employees = "";
+    $scope.departments = "";
     $scope.privileges = "";
     $scope.editMode = false;
     //$scope.displayPage = true;
     //$scope.displayPageName = "customerPage";
     
-    $scope.objectsName = "employees";
+    $scope.objectsName = "departments";
     $scope.attributes = [];
     $scope.attributes[0] = 'name';
-    $scope.attributes[1] = 'surname';
-    $scope.attributes[2] = 'phone';
-    $scope.attributes[3] = 'email';
-    $scope.attributes[4] = 'departmentId';
+    $scope.attributes[1] = 'managerId';
     //$scope.attributes[4] = 'companyName';
     $scope.columns = {
-        'name' : "Imię",
-        'surname': "Nazwisko",
-        'phone': "Telefon",
-        'email': "Email",
-        'departmentId' : "Departemant"
+        'customerId' : "Nazwa",
+        'employeeId' : "Manager"
     };
     $scope.columnClasses = {
-        'name' : "pracownik-name",
-        'surname': "pracownik-surname",
-        'phone': "pracownik-phone",
-        'email': "pracownik-email",
-        'departmentId' : "pracownik-departemant"
+        'customerId' : "departament-nazwa",
+        'employeeId' : "departament-manager"
     };
         
-    $scope.get = saveEditDelete.get($http, '/CMS/employee/employees.htm', $scope);
+    $scope.get = saveEditDelete.get($http, '/CMS/department/departments.htm', $scope);
     var loadDataPromise = $scope.get;
 
     $scope.save = function() {
         
-        if(($scope.selected.name == null) || $scope.selected.surname == null || $scope.selected.phone == null || $scope.selected.email == null) {
+        if($scope.selected.name == null) {
             alert("Sprawdź poprowność wprowadzonych danych");
         } else {
-            saveEditDelete.save($http, '/CMS/employee/save/:object.htm', $scope);
+            saveEditDelete.save($http, '/CMS/department/save/:object.htm', $scope);
         }
     };
 
     loadDataPromise.then(function(returnData) {
         if (returnData != null) {
-            $scope.employees = $scope.initData.employees;
+            $scope.departments = $scope.initData.departments;
             $scope.privileges = $scope.initData.privileges;
         } else {
             alert('err');
@@ -79,7 +70,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination) {
     };
 
     $scope.delete = function() {
-        saveEditDelete.remove($http, '/CMS/employee/delete/:object.htm', $scope);
+        saveEditDelete.remove($http, '/CMS/department/delete/:object.htm', $scope);
     };
     
     

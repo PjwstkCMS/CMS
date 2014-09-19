@@ -24,7 +24,7 @@ public class EmployeeDto implements Serializable {
     private final static Logger LOGGER = Logger.getLogger(EmployeeDto.class.getName()); 
 
     private Long id;
-    private String name, surname, email;
+    private String name, surname, email, phone, departmentId;
     
     public EmployeeDto() {
         super();
@@ -34,6 +34,9 @@ public class EmployeeDto implements Serializable {
         this.setId(employee.getId());
         this.name = employee.getName();
         this.surname = employee.getSurname();
+        this.email = employee.getEmail();
+        this.phone = employee.getPhone();
+        this.departmentId = employee.getDepartmentId();
         
     }
 
@@ -69,6 +72,25 @@ public class EmployeeDto implements Serializable {
         this.email = email;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+    
+    
 
     
     public List<String> getPrivilegeKeyCodes() {

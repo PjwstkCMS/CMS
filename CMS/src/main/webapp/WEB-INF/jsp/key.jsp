@@ -13,7 +13,8 @@
         <script src="/CMS/resources/js/configuration/privilegeKeyListCtrl.js"></script>
         <div ng-controller="PrivilegeKeyListCtrl">
             <h1>{{bla}}!</h1>
+            <t:dataTable/>
         </div>
-        <t:dataTable/>
+        
     </jsp:body>
 </t:general>

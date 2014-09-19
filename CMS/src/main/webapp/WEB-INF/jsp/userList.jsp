@@ -8,7 +8,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
-    <jsp:body>
+    <script src="/CMS/resources/js/configuration/userListCtrl.js"></script>
         <h1>user!</h1>
-    </jsp:body>
+        <div ng-controller="UserListCtrl">
+            <t:dataTable/>
+        </div>
 </t:general>

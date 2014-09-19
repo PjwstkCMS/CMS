@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pl.edu.pjwstk.cms.controllers;
 
 import java.util.HashMap;
@@ -19,46 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.EmployeeDao;
-import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
-import pl.edu.pjwstk.cms.dao.UserDao;
+import pl.edu.pjwstk.cms.dao.FileDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *
- * @author Konrad
+ * @author Macha
  */
 @Controller
-public class UserController extends BaseController {
+public class FileListUploadController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(UserController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(FileListUploadController.class.getName());
 
-    public UserController() {
+    public FileListUploadController() {
 
     }
 
     @Override
-    @RequestMapping("userList")
+    @RequestMapping("fileListUpload")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("userList");
+        ModelAndView model = new ModelAndView("file");
         model.addObject("msg", "HelloGuestController");
         
         return model;
     }
     
-     @RequestMapping(value = "/userList/users")
+    @RequestMapping("/fileListUpload/reports")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
-        UserDao userDao = new UserDao();
-        EmployeeDao empDao = new EmployeeDao();
-        PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
-        Map<String, Object> initData = new HashMap<>();
-        initData.put("users", userDao.getUserWithConfig());
-        initData.put("employees", empDao.getEmployeeDtoList());
-        initData.put("groups", groupDao.selectAll());
-        //List<UserDTO> userDtos = userDao.getUserWithConfig();
+        Map<String, Object> initData = new HashMap<String, Object>();
+        FileDao reportDao = new FileDao();
+        initData.put("reports", reportDao.getReportDtos());
         return Utils.createResponseEntity(session, initData);
     }
 }
-

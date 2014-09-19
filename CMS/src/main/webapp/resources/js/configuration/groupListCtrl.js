@@ -1,4 +1,4 @@
-function groupListCtrl($scope, $http, saveEditDelete, pagination) {
+function GroupListCtrl($scope, $http, saveEditDelete, pagination) {
     
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;

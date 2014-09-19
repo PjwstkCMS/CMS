@@ -4,10 +4,8 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/configuration/groupListCtrl.js"></script>
-        
-        
-        
-        <div ng-controller="groupListCtrl">
+
+        <div ng-controller="GroupListCtrl">
             <t:dataTable/>
             
              <table class="genericTable">

@@ -1,7 +1,4 @@
-function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination) {
-    
-    
-    $scope.bla = "bla";
+function SystemConfigCtrl($scope, $http, saveEditDelete, pagination) {
     
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
@@ -9,28 +6,30 @@ function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.checkMax = pagination.pageMaxSmallerThenSize($scope);
     
     $scope.status = "Ładowanie danych";
-    $scope.objectsName = "privilegeKeys";
+    $scope.objectsName = "systemConfigs";
     $scope.attributes = [];
-    $scope.attributes[0] = 'code';
-    $scope.attributes[1] = 'description';
+    $scope.attributes[0] = 'name';
+    $scope.attributes[1] = 'value';
+    $scope.attributes[2] = 'description';
     $scope.columns = {
         'description' : "Opis" ,
-        'code' : "Kod"
+        'name' : "Nazwa",
+        'value' : "Wartość"
     };
     $scope.editMode = false;
     $scope.editValue = "Edytuj";
     $scope.selected = null;
 
-    $scope.get = saveEditDelete.get($http, '/CMS/privilegeKeyList/privKeys.htm', $scope);
-    var loadDataPromise = $scope.get;
+    $scope.get = saveEditDelete.get($http, '/CMS/systemConfig/configs.htm', $scope);
+    $scope.loadDataPromise = $scope.get;
 
     $scope.save = function() {
-        saveEditDelete.save($http, '/CMS/privilegeKeyList/save/:object.htm', $scope);
+        saveEditDelete.save($http, '/CMS/systemConfig/save/:object.htm', $scope);
     };
 
-    loadDataPromise.then(function(returnData) {
+    $scope.loadDataPromise.then(function(returnData) {
         if (returnData != null) {
-            $scope.privilegeKeys = $scope.initData.privilegeKeys;
+            
         } else {
             alert('err');
         }
@@ -59,7 +58,7 @@ function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination) {
     };
 
     $scope.delete = function() {
-        saveEditDelete.remove($http, '/CMS/privilegeKeyList/delete/:object.htm', $scope);
+        saveEditDelete.remove($http, '/CMS/systemConfig/delete/:object.htm', $scope);
     };
     
     $scope.checkEditPrivileges = function() {

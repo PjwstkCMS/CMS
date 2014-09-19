@@ -1,7 +1,4 @@
-function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination) {
-    
-    
-    $scope.bla = "bla";
+function DictionaryListCtrl($scope, $http, saveEditDelete, pagination) {
     
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
@@ -9,28 +6,30 @@ function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.checkMax = pagination.pageMaxSmallerThenSize($scope);
     
     $scope.status = "Ładowanie danych";
-    $scope.objectsName = "privilegeKeys";
+    $scope.objectsName = "dicts";
     $scope.attributes = [];
-    $scope.attributes[0] = 'code';
+    $scope.attributes[0] = 'value';
     $scope.attributes[1] = 'description';
+    $scope.attributes[1] = 'dictTypeId';
     $scope.columns = {
         'description' : "Opis" ,
-        'code' : "Kod"
+        'value' : "Wartość",
+        'dictTypeId' : "Rodzaj słownika"
     };
     $scope.editMode = false;
     $scope.editValue = "Edytuj";
     $scope.selected = null;
 
-    $scope.get = saveEditDelete.get($http, '/CMS/privilegeKeyList/privKeys.htm', $scope);
+    $scope.get = saveEditDelete.get($http, '/CMS/dictionaryList/dictTypes.htm', $scope);
     var loadDataPromise = $scope.get;
 
     $scope.save = function() {
-        saveEditDelete.save($http, '/CMS/privilegeKeyList/save/:object.htm', $scope);
+        saveEditDelete.save($http, '/CMS/dictionaryList/save/:object.htm', $scope);
     };
 
     loadDataPromise.then(function(returnData) {
         if (returnData != null) {
-            $scope.privilegeKeys = $scope.initData.privilegeKeys;
+            $scope.dictTypes = $scope.initData.dictTypes;
         } else {
             alert('err');
         }
@@ -59,7 +58,7 @@ function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination) {
     };
 
     $scope.delete = function() {
-        saveEditDelete.remove($http, '/CMS/privilegeKeyList/delete/:object.htm', $scope);
+        saveEditDelete.remove($http, '/CMS/dictionaryList/delete/:object.htm', $scope);
     };
     
     $scope.checkEditPrivileges = function() {

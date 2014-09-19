@@ -9,6 +9,10 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-        <h1>Dictionary!</h1>
+        <script src="/CMS/resources/js/configuration/dictionaryListCtrl.js"></script>
+        <h1>Dictionary!</h1>        
+        <div ng-controller="DictionaryListCtrl">
+            <t:dataTable/>
+        </div>
     </jsp:body>
 </t:general>

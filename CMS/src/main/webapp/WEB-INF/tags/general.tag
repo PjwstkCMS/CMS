@@ -25,24 +25,27 @@
         </h1>
         <ul>
             <li id="nav14">Zarządzanie zasobami</li>
-            <a href="/CMS/loginPage.htm"><li id="nav0">Login</li></a>
-            <a href="/CMS/home.htm"><li id="nav0">home</li></a>
-            <a href="/CMS/contract.htm"><li id="nav0">Contract</li></a>
-            <a href="/CMS/company.htm"><li id="nav0">Company</li></a>
-            <a href="/CMS/customer.htm"><li id="nav0">Customer</li></a>
-            <a href="/CMS/department.htm"><li id="nav0">Department</li></a>
-            <a href="/CMS/dictionary.htm"><li id="nav0">dictionary</li></a>
-            <a href="/CMS/employee.htm"><li id="nav0">employee</li></a>
-            <a href="/CMS/file.htm"><li id="nav0">file</li></a>
-            <a href="/CMS/manageFile.htm"><li id="nav0">fileManage</li></a>
-            <a href="/CMS/groupList.htm"><li id="nav0">groupList</li></a>
-            <a href="/CMS/key.htm"><li id="nav0">key</li></a>
-            <a href="/CMS/position.htm"><li id="nav0">position</li></a>
-            <a href="/CMS/report.htm"><li id="nav0">report</li></a>
-            <a href="/CMS/setting.htm"><li id="nav0">setting</li></a>
-            <a href="/CMS/terminal.htm"><li id="nav0">terminal</li></a>
-            <a href="/CMS/user.htm"><li id="nav0">user</li></a>
+                <a href="/CMS/loginPage.htm"><li id="nav0">Login</li></a>
+                <a href="/CMS/home.htm"><li id="nav0">home</li></a>
+                <a href="/CMS/contract.htm"><li id="nav0">Contract</li></a>
+                <a href="/CMS/company.htm"><li id="nav0">Company</li></a>
+                <a href="/CMS/customer.htm"><li id="nav0">Customer</li></a>
+                <a href="/CMS/department.htm"><li id="nav0">Department</li></a>
+                <a href="/CMS/employee.htm"><li id="nav0">employee</li></a>
+                <a href="/CMS/file.htm"><li id="nav0">file</li></a>
+                <a href="/CMS/position.htm"><li id="nav0">position</li></a>
+                <a href="/CMS/report.htm"><li id="nav0">report</li></a>
+                <a href="/CMS/terminal.htm"><li id="nav0">terminal</li></a>
+                <br/>
+            <li id="nav14">Konfiguracja</li>
+                <a href="/CMS/dictionaryList.htm"><li id="nav0">dictionaryList</li></a>
+                <a href="/CMS/userList.htm"><li id="nav0">userList</li></a>
+                <a href="/CMS/setting.htm"><li id="nav0">setting</li></a>
+                <a href="/CMS/manageFile.htm"><li id="nav0">fileManage</li></a>
+                <a href="/CMS/groupList.htm"><li id="nav0">groupList</li></a>
+                <a href="/CMS/key.htm"><li id="nav0">key</li></a>
         </ul>
+            
 
         <div class="content-table">
             <jsp:doBody/>

@@ -19,11 +19,11 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination) {
     //$scope.attributes[4] = 'companyName';
     $scope.columns = {
         'name' : "Nazwa",
-        'surname': "Opis",
+        'description': "Opis",
     };
     $scope.columnClasses = {
         'name' : "stanowisko-nazwa",
-        'surname': "stanowisko-opis",
+        'description': "stanowisko-opis",
     };
         
     $scope.get = saveEditDelete.get($http, '/CMS/position/positions.htm', $scope);

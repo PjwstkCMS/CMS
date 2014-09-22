@@ -32,7 +32,7 @@
                 <a href="/CMS/customer.htm"><li id="nav0">Customer</li></a>
                 <a href="/CMS/department.htm"><li id="nav0">Department</li></a>
                 <a href="/CMS/employee.htm"><li id="nav0">employee</li></a>
-                <a href="/CMS/file.htm"><li id="nav0">file</li></a>
+                <a href="/CMS/fileList.htm"><li id="nav0">fileList</li></a>
                 <a href="/CMS/position.htm"><li id="nav0">position</li></a>
                 <a href="/CMS/report.htm"><li id="nav0">report</li></a>
                 <a href="/CMS/terminal.htm"><li id="nav0">terminal</li></a>

@@ -394,13 +394,14 @@ public class GenericDao<T extends DatabaseObject> {
     public boolean update(T obj) {
         try {
             List<String> sets = new ArrayList<>();
-            for (int i = 0; i < modelClass.getFields().length; i++) {
-                Field field = modelClass.getFields()[i];
+            Field[] fields = modelClass.getDeclaredFields();
+            for (int i = 0; i < fields.length; i++) {
+                fields[i].setAccessible(true);
                 String newSet = "";
-                if (!Modifier.isStatic(field.getModifiers())) {
-                    newSet = field.getName() + "=" + field.get(obj);
-                }
-                sets.add(newSet);
+                if (!Modifier.isStatic(fields[i].getModifiers())) {
+                    newSet = fields[i].getName() + "='" + fields[i].get(obj)+"'";
+                    sets.add(newSet);
+                }                
             }
             String condition = "id="+obj.getId();
             return update(condition, sets);

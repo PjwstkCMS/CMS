@@ -14,6 +14,18 @@
         <div ng-controller="CustomerListCtrl">            
             <t:dataTable/>
             <t:jsonOperations/>
+            <div ng-show="editMode || selected">
+                <table>
+                    <tr>
+                        <td>
+                            Imię: <input type="text" ng-model="selected.name"/>
+                        </td>
+                        <td>
+                            Nazwisko: <input type="text" ng-model="selected.surname"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
         </jsp:body>
     </t:general>

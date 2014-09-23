@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CustomerDto;
 import pl.edu.pjwstk.cms.models.Customer;
-import pl.edu.pjwstk.cms.utils.ConnectionManager;
 
 /**
  *
@@ -71,21 +70,20 @@ public class CustomerDao extends GenericDao<Customer>{
         int a = 2;
         return cusDtos;
     }
-    /*private Company getCusCompany(List<Company> companys, String id) {
-        for (Company c : companys) {
-            if(c.getId() == Long.parseLong(id)) {
-                return c;
-            }
-        }
-        return null;
+    
+    public CustomerDto getCustomerDtoById(String id) {
+        Map<String, List<String>> params = new HashMap<String, List<String>>();
+        List<String> values = new ArrayList<>();
+        values.add(id);
+        params.put("id", values);
+        return getCustomerDtoList(params).get(0);
     }
     
-    private Address getComAddress(List<Address> addresses, String id) {
-        for (Address a : addresses) {
-            if(a.getId() == Long.parseLong(id)) {
-                return a;
-            }
-        }
-        return null;
-    }*/
+    public CustomerDto getCustomerDtoById(Long id) {
+        Map<String, List<String>> params = new HashMap<String, List<String>>();
+        List<String> values = new ArrayList<>();
+        values.add(id+"");
+        params.put("id", values);
+        return getCustomerDtoList(params).get(0);
+    }
 }

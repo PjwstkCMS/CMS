@@ -1,10 +1,10 @@
 function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
-    
+
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
     $scope.pageMax = 14;
     $scope.checkMax = pagination.pageMaxSmallerThenSize($scope);
-    
+
     $scope.status = "Ładowanie danych";
     $scope.selected = "";
     $scope.customers = "";
@@ -12,7 +12,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.editMode = false;
     //$scope.displayPage = true;
     //$scope.displayPageName = "customerPage";
-    
+
     $scope.objectsName = "customers";
     $scope.attributes = [];
     $scope.attributes[0] = 'name';
@@ -21,30 +21,25 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.attributes[3] = 'email';
     $scope.attributes[4] = 'companyName';
     $scope.columns = {
-        'name' : "Imię",
+        'name': "Imię",
         'surname': "Nazwisko",
         'phone': "Telefon",
         'email': "Email",
         'companyName': "Firma"
     };
     $scope.columnClasses = {
-        'name' : "klient-name",
+        'name': "klient-name",
         'surname': "klient-surname",
         'phone': "klient-phone",
         'email': "klient-email",
         'companyName': "klient-companyName"
     };
-        
+
     $scope.get = saveEditDelete.get($http, '/CMS/customer/customers.htm', $scope);
     var loadDataPromise = $scope.get;
 
     $scope.save = function() {
-        
-        if(($scope.selected.name == null) || $scope.selected.surname == null || $scope.selected.phone == null || $scope.selected.email == null || $scope.selected.companyName == null) {
-            alert("Sprawdź poprowność wprowadzonych danych");
-        } else {
-            saveEditDelete.save($http, '/CMS/customer/save/:object.htm', $scope);
-        }
+        saveEditDelete.save($http, '/CMS/customerSave/:object.htm', $scope);
     };
 
     loadDataPromise.then(function(returnData) {
@@ -82,6 +77,6 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.delete = function() {
         saveEditDelete.remove($http, '/CMS/customer/delete/:object.htm', $scope);
     };
-    
-    
+
+
 }

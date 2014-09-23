@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pl.edu.pjwstk.cms.controllers;
 
 import java.util.HashMap;
@@ -15,16 +14,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.ContractDao;
 import pl.edu.pjwstk.cms.dao.CustomerDao;
 import pl.edu.pjwstk.cms.dto.CustomerDto;
 import pl.edu.pjwstk.cms.models.Customer;
 import pl.edu.pjwstk.cms.utils.Utils;
+
 /**
  *
  * @author Konrad
@@ -45,16 +44,38 @@ public class CustomerController extends BaseController {
 
         ModelAndView model = new ModelAndView("customer");
         model.addObject("msg", "HelloGuestController");
-        
+
         return model;
     }
-     
-      @RequestMapping(value = "/customer/customers")
+
+    @RequestMapping(value = "/customer/customers")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
         CustomerDao cusDao = new CustomerDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("customers", cusDao.getCustomerDtoList());
         return Utils.createResponseEntity(session, initData);
+    }
+    
+    @RequestMapping(value = "/customerSave/:object.htm")
+    @ResponseBody
+    public ResponseEntity<String> save(@RequestBody String object, HttpSession session, ModelMap model) {
+        CustomerDao customerDao = new CustomerDao();
+        CustomerDto customerDto = (CustomerDto) Utils.convertJSONStringToObject(object, "object", CustomerDto.class);
+        Customer customer = new Customer();
+        if(customerDto.getId() != null ){            
+            customer = customerDao.selectRecordsWithFieldValues("id", customerDto.getId()).get(0);
+            customer.setName(customerDto.getName());
+            customer.setSurname(customerDto.getSurname());
+            customer.setEmail(customerDto.getEmail());
+            customerDao.update(customer);
+            return Utils.createResponseEntity(session, model);
+        } else {            
+            customer.setName(customerDto.getName());
+            customer.setSurname(customerDto.getSurname());
+            customer.setEmail(customerDto.getEmail());
+            customerDao.insert(customer);
+            return Utils.createResponseEntity(session, model);
+        }
     }
 }

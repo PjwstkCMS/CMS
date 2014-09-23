@@ -25,8 +25,8 @@ public class ConnectionManager {
     public static String staticPass = "leofram";
     
     public static String staticUrl2 = "jdbc:mysql://famalis.no-ip.info/hrsystem?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
-    public static String staticLogin2 = "hrsystem";
-    public static String staticPass2 = "CmUqwnNdb5HQEnYW";
+    public static String staticLogin2 = "Sergio";
+    public static String staticPass2 = "quovadis1";
     
     private final static Logger LOGGER = Logger.getLogger("utils.ConnectionManager");
     private String url;

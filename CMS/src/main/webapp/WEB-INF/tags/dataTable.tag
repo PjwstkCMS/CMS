@@ -67,12 +67,10 @@
 
 <%-- any content can be specified here e.g.: --%>
 <style>
-
+    .selectedTableRow {
+        background-color: lightblue;
+    }
 </style>
-<script>
-
-
-</script>
 
 
 <table>

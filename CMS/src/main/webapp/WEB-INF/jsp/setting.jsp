@@ -13,6 +13,7 @@
         <h1>setting!</h1>
         <div ng-controller="SystemConfigCtrl">
             <t:dataTable/>
+            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

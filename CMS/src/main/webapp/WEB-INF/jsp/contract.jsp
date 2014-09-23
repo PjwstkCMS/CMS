@@ -13,6 +13,7 @@
         <h1>Contract!</h1>        
         <div ng-controller="ContractListCtrl">
             <t:dataTable/>
+            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

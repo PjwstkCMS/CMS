@@ -12,5 +12,6 @@
         <h1>user!</h1>
         <div ng-controller="UserListCtrl">
             <t:dataTable/>
+            <t:jsonOperations/>
         </div>
 </t:general>

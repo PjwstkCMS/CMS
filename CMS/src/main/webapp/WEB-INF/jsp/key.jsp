@@ -14,7 +14,7 @@
         <div ng-controller="PrivilegeKeyListCtrl">
             <h1>{{bla}}!</h1>
             <t:dataTable/>
-        </div>
-        
+            <t:jsonOperations/>
+        </div>        
     </jsp:body>
 </t:general>

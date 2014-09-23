@@ -13,6 +13,6 @@
 <%-- any content can be specified here e.g.: --%>
         
  
-    
-    <input type="button" class="zapisz-button" ng-show="editMode && checkEditPrivileges()" ng-click="save()" value="ZAPISZ">
-    <input type="button" class="anuluj-button" ng-show="editMode && checkEditPrivileges()" ng-click="cancel()" value="ANULUJ">
+<h1> aaaa</h1>
+    <input type="button" ng-click="save()" value="ZAPISZ">
+    <input type="button" ng-click="cancel()" value="ANULUJ">

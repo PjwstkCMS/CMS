@@ -10,5 +10,7 @@
 <t:general>
     <jsp:body>
         <h1>terminal!</h1>
+        <t:dataTable/>
+        <t:jsonOperations/>
     </jsp:body>
 </t:general>

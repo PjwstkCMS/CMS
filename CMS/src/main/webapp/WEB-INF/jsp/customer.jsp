@@ -11,9 +11,9 @@
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/customerListCtrl.js"></script>
         <h1>Customer!</h1>
-        <div ng-controller="CustomerListCtrl">
-            
+        <div ng-controller="CustomerListCtrl">            
             <t:dataTable/>
-            
+            <t:jsonOperations/>
+        </div>
         </jsp:body>
     </t:general>

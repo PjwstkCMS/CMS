@@ -12,8 +12,8 @@
         <script src="/CMS/resources/js/resourceManagment/departmentListCtrl.js"></script>
         <h1>Customer!</h1>
         <div ng-controller="DepartmentListCtrl">
-            
             <t:dataTable/>
-            
+            <t:jsonOperations/>
+        </div>
     </jsp:body>
 </t:general>

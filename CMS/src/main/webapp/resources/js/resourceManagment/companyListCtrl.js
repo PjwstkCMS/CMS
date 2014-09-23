@@ -58,6 +58,7 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination) {
 
     $scope.cancel = function() {
         $scope.editMode = false;
+        $scope.selected = "";
     };
 
     $scope.create = function() {

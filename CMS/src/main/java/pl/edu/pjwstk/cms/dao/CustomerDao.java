@@ -17,67 +17,47 @@ import pl.edu.pjwstk.cms.models.Customer;
  *
  * @author Sergio
  */
-public class CustomerDao extends GenericDao<Customer>{
-    
-    private final static Logger LOGGER = Logger.getLogger(CustomerDao.class.getName()); 
+public class CustomerDao extends GenericDao<Customer> {
+
+    private final static Logger LOGGER = Logger.getLogger(CustomerDao.class.getName());
 
     public CustomerDao() {
         super(Customer.class);
     }
-    
-     public List<CustomerDto> getCustomerDtoList() {
+
+    public List<CustomerDto> getCustomerDtoList() {
         return getCustomerDtoList(new HashMap<String, List<String>>());
     }
-    
+
     public List<CustomerDto> getCustomerDtoList(Map<String, List<String>> params) {
-        String query = "SELECT cus.name as name, cus.surname as surname, cus.id as id, cus.email as email, cus.phone as phone ";
+        String query = "SELECT cus.name as name, cus.surname as surname, cus.id as id, cus.email as email, cus.phone as phone, cus.companyId as companyId ";
         query += "FROM customer as cus ";
-        if(!params.isEmpty()) {
+        if (!params.isEmpty()) {
             query += "WHERE";
             query = this.addParamConditions(query, params);
         }
         ResultSet set = connectionManager.select(query);
         CompanyDao comDao = new CompanyDao();
-        AddressDao addDao = new AddressDao();
         List<CustomerDto> cusDtos = new ArrayList<>();
-        List<CompanyDto> comDto = comDao.getCompanyDtoList();
-        //ResultSet set2 = ConnectionManager.getConnectionManager().select("Select * from user");
-       // AddressDao addressDao = new AddressDao();
-       // CompanyDao comDao = new CompanyDao();
-        //List<Address> addrs = addressDao.select();
-        //List<Company> comps = comDao.select();
-        int b = 3;
-        System.out.println(" ");
+        List<CompanyDto> comDtos = comDao.getCompanyDtoList();
         try {
-            while(set.next()) {
+            while (set.next()) {
                 CustomerDto dto = new CustomerDto();
                 dto.setId(set.getLong("id"));
                 dto.setName(set.getString("name"));
                 dto.setSurname(set.getString("surname"));
                 dto.setEmail(set.getString("email"));
                 dto.setPhone(set.getString("phone"));
-                
-              //  Company c = getCusCompany(comps, set.getString("companyId"));
-              //  dto.setCompanyName(c.getName());
-                
-               /* Address a = getComAddress(addrs, c.getAddressId());
-                dto.setApartmentNumber(a.getApartmentNumber());
-                dto.setCountry(a.getCountry());
-                dto.setCity(a.getCity());
-                dto.setStreetName(a.getStreetName());
-                dto.setStreetNumber(a.getStreetNumber());
-                dto.setPostalCode(a.getPostalCode());
-                cusDtos.add(dto);*/
+                dto.setCompanyId(Long.parseLong(set.getString("companyId")));
                 cusDtos.add(dto);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }
-        int a = 2;
         return cusDtos;
     }
-    
+
     public CustomerDto getCustomerDtoById(String id) {
         Map<String, List<String>> params = new HashMap<String, List<String>>();
         List<String> values = new ArrayList<>();
@@ -85,11 +65,11 @@ public class CustomerDao extends GenericDao<Customer>{
         params.put("id", values);
         return getCustomerDtoList(params).get(0);
     }
-    
+
     public CustomerDto getCustomerDtoById(Long id) {
         Map<String, List<String>> params = new HashMap<String, List<String>>();
         List<String> values = new ArrayList<>();
-        values.add(id+"");
+        values.add(id + "");
         params.put("id", values);
         return getCustomerDtoList(params).get(0);
     }

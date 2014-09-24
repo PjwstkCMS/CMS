@@ -57,6 +57,7 @@ public class CompanyDao extends GenericDao<Company> {
                     }
                 }
                 dto.setAddresses(adds);
+                comDtos.add(dto);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

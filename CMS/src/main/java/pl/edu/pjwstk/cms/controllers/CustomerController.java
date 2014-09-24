@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.AddressDao;
+import pl.edu.pjwstk.cms.dao.CompanyDao;
 import pl.edu.pjwstk.cms.dao.CustomerDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CustomerDto;
@@ -52,8 +54,12 @@ public class CustomerController extends BaseController {
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
         CustomerDao cusDao = new CustomerDao();
+        CompanyDao comDao = new CompanyDao();
+        AddressDao addDao = new AddressDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("customers", cusDao.getCustomerDtoList());
+        initData.put("companies", comDao.getCompanyDtoList());
+        initData.put("addresses", addDao.selectAll());
         return Utils.createResponseEntity(session, initData);
     }
     

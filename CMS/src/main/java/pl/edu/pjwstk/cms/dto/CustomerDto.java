@@ -23,8 +23,8 @@ public class CustomerDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(CustomerDto.class.getName()); 
 
-    private Long id;
-    private String name, surname, email, companyName, phone;
+    private Long id, companyId;
+    private String name, surname, email, phone;
     
     public CustomerDto() {
         super();
@@ -39,10 +39,17 @@ public class CustomerDto implements Serializable {
         Company company = new Company();
         CompanyDao companyDao = new CompanyDao();
         company = companyDao.selectRecordsWithFieldValues("id", customer.getCompanyId()).get(0);
-        this.companyName = company.getName();
         
     }
 
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+    
     public Long getId() {
         return id;
     }

@@ -4,6 +4,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.pageMin = 0;
     $scope.pageMax = 14;
     $scope.checkMax = pagination.pageMaxSmallerThenSize($scope);
+    $scope.selectedCompany = 'test';
 
     $scope.status = "Ładowanie danych";
     $scope.selected = "";
@@ -19,20 +20,17 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.attributes[1] = 'surname';
     $scope.attributes[2] = 'phone';
     $scope.attributes[3] = 'email';
-    $scope.attributes[4] = 'companyName';
     $scope.columns = {
         'name': "Imię",
         'surname': "Nazwisko",
         'phone': "Telefon",
-        'email': "Email",
-        'companyName': "Firma"
+        'email': "Email"
     };
     $scope.columnClasses = {
         'name': "klient-name",
         'surname': "klient-surname",
         'phone': "klient-phone",
-        'email': "klient-email",
-        'companyName': "klient-companyName"
+        'email': "klient-email"
     };
 
     $scope.get = saveEditDelete.get($http, '/CMS/customer/customers.htm', $scope);
@@ -45,7 +43,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     loadDataPromise.then(function(returnData) {
         if (returnData != null) {
             $scope.customers = $scope.initData.customers;
-            $scope.privileges = $scope.initData.privileges;
+            $scope.companies = $scope.initData.companies;
         } else {
             alert('err');
         }
@@ -54,8 +52,14 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.select = function(object) {
         if ($scope.selected == object) {
             $scope.selected = "";
+            $scope.selectedCompany = "";
         } else {
             $scope.selected = object;
+            for (var i = 0; i<$scope.companies.length; i++) {
+                if($scope.companies[i].id == $scope.selected.companyId) {
+                    $scope.selectedCompany = $scope.companies[i];
+                }
+            }
         }
     }
 

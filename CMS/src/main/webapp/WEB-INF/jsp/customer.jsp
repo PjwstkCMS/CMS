@@ -14,6 +14,18 @@
         <h3>${server}</h3>
         <div ng-controller="CustomerListCtrl">            
             <t:dataTable/>
+            <div id="companyTable" ng-show="selected">
+                <h3>
+                    Dane firmy:
+                </h3>
+                <table>
+                    <tr>
+                        <td>
+                            {{selectedCompany.name}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <t:jsonOperations/>
             <div ng-show="editMode || selected">
                 <table>

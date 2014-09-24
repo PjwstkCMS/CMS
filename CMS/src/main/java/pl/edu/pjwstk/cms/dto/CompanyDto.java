@@ -10,10 +10,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import pl.edu.pjwstk.cms.dao.CompanyDao;
 import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Company;
-import pl.edu.pjwstk.cms.models.Contract;
 
 /**
  *
@@ -25,6 +23,7 @@ public class CompanyDto implements Serializable {
 
     private Long id;
     private String name;
+    private List<Address> addresses;
     
     public CompanyDto() {
         super();
@@ -52,8 +51,13 @@ public class CompanyDto implements Serializable {
         this.name = name;
     }
 
-    
-    
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
     
     public List<String> getPrivilegeKeyCodes() {
         return privilegeKeyCodes;

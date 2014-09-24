@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
+import pl.edu.pjwstk.cms.dto.CompanyDto;
 import pl.edu.pjwstk.cms.dto.CustomerDto;
+import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Customer;
 
 /**
@@ -34,9 +36,11 @@ public class CustomerDao extends GenericDao<Customer>{
             query += "WHERE";
             query = this.addParamConditions(query, params);
         }
-        //ResultSet set =this.selectForQuery(query);
-        ResultSet set = this.connectionManager.select(query);
+        ResultSet set = connectionManager.select(query);
+        CompanyDao comDao = new CompanyDao();
+        AddressDao addDao = new AddressDao();
         List<CustomerDto> cusDtos = new ArrayList<>();
+        List<CompanyDto> comDto = comDao.getCompanyDtoList();
         //ResultSet set2 = ConnectionManager.getConnectionManager().select("Select * from user");
        // AddressDao addressDao = new AddressDao();
        // CompanyDao comDao = new CompanyDao();

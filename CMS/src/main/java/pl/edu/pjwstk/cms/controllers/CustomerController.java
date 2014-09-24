@@ -68,12 +68,15 @@ public class CustomerController extends BaseController {
             customer.setName(customerDto.getName());
             customer.setSurname(customerDto.getSurname());
             customer.setEmail(customerDto.getEmail());
+            customer.setPhone(customerDto.getPhone());
             customerDao.update(customer);
             return Utils.createResponseEntity(session, model);
         } else {            
             customer.setName(customerDto.getName());
             customer.setSurname(customerDto.getSurname());
             customer.setEmail(customerDto.getEmail());
+            customer.setPhone(customerDto.getPhone());
+            customer.setCompanyId("-1");
             customerDao.insert(customer);
             return Utils.createResponseEntity(session, model);
         }

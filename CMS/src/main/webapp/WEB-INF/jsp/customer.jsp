@@ -23,6 +23,12 @@
                         <td>
                             Nazwisko: <input type="text" ng-model="selected.surname"/>
                         </td>
+                        <td>
+                            Email: <input type="text" ng-model="selected.email"/>
+                        </td>
+                        <td>
+                            Telefon: <input type="text" ng-model="selected.phone"/>
+                        </td>
                     </tr>
                 </table>
             </div>

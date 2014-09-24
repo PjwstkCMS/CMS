@@ -30,7 +30,7 @@ public class CustomerDao extends GenericDao<Customer>{
     }
     
     public List<CustomerDto> getCustomerDtoList(Map<String, List<String>> params) {
-        String query = "SELECT cus.name as name, cus.surname as surname, cus.id as id ";
+        String query = "SELECT cus.name as name, cus.surname as surname, cus.id as id, cus.email as email, cus.phone as phone ";
         query += "FROM customer as cus ";
         if(!params.isEmpty()) {
             query += "WHERE";
@@ -54,6 +54,9 @@ public class CustomerDao extends GenericDao<Customer>{
                 dto.setId(set.getLong("id"));
                 dto.setName(set.getString("name"));
                 dto.setSurname(set.getString("surname"));
+                dto.setEmail(set.getString("email"));
+                dto.setPhone(set.getString("phone"));
+                
               //  Company c = getCusCompany(comps, set.getString("companyId"));
               //  dto.setCompanyName(c.getName());
                 

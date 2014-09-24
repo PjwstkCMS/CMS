@@ -21,7 +21,8 @@ import pl.edu.pjwstk.cms.utils.ConnectionManager;
 public class GenericDao<T extends DatabaseObject> {
 
     public static final int OR = 0, AND = 1;
-
+    public static String server;
+    
     private final static Logger LOGGER = Logger.getLogger(GenericDao.class.getName());
     protected static ConnectionManager connectionManager;
     protected final Class modelClass;
@@ -32,10 +33,12 @@ public class GenericDao<T extends DatabaseObject> {
             try {
                 connectionManager = ConnectionManager.getConnectionManager();
                 List<T> selectRecordsWithFieldValues = this.selectAll();
+                server = "Pawełkowy serwer";
                 if (selectRecordsWithFieldValues.isEmpty()) {
                     throw new Exception();
                 }
             } catch (Exception noConnection) {
+                server = "Sergiowy serwer";
                 LOGGER.warning("Can't reach main sql server. Switching to auxilary.");
                 connectionManager = ConnectionManager.getConnectionManagerAuxilary();
             }

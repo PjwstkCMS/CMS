@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.CustomerDao;
+import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CustomerDto;
 import pl.edu.pjwstk.cms.models.Customer;
 import pl.edu.pjwstk.cms.utils.Utils;
@@ -43,8 +44,7 @@ public class CustomerController extends BaseController {
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("customer");
-        model.addObject("msg", "HelloGuestController");
-
+        model.addObject("server", GenericDao.server);
         return model;
     }
 

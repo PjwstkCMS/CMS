@@ -50,7 +50,7 @@ public class CustomerController extends BaseController {
 
     @RequestMapping(value = "/customer/customers")
     @ResponseBody
-    public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
+    public ResponseEntity<String> getData(HttpSession session) {
         CustomerDao cusDao = new CustomerDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("customers", cusDao.getCustomerDtoList());
@@ -59,10 +59,11 @@ public class CustomerController extends BaseController {
     
     @RequestMapping(value = "/customerSave/:object.htm")
     @ResponseBody
-    public ResponseEntity<String> save(@RequestBody String object, HttpSession session, ModelMap model) {
+    public ResponseEntity<String> save(@RequestBody String object, HttpSession session) {
         CustomerDao customerDao = new CustomerDao();
         CustomerDto customerDto = (CustomerDto) Utils.convertJSONStringToObject(object, "object", CustomerDto.class);
         Customer customer = new Customer();
+        Map<String, Object> data = new HashMap<>();
         if(customerDto.getId() != null ){            
             customer = customerDao.selectRecordsWithFieldValues("id", customerDto.getId()).get(0);
             customer.setName(customerDto.getName());
@@ -70,15 +71,16 @@ public class CustomerController extends BaseController {
             customer.setEmail(customerDto.getEmail());
             customer.setPhone(customerDto.getPhone());
             customerDao.update(customer);
-            return Utils.createResponseEntity(session, model);
+            data.put("id", customerDto.getId());
+            return Utils.createResponseEntity(session, data);
         } else {            
             customer.setName(customerDto.getName());
             customer.setSurname(customerDto.getSurname());
             customer.setEmail(customerDto.getEmail());
             customer.setPhone(customerDto.getPhone());
             customer.setCompanyId("-1");
-            customerDao.insert(customer);
-            return Utils.createResponseEntity(session, model);
+            data.put("id", customerDao.insert(customer));
+            return Utils.createResponseEntity(session, data);
         }
     }
 }

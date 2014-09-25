@@ -30,7 +30,7 @@ public class CompanyDao extends GenericDao<Company> {
     }
 
     public List<CompanyDto> getCompanyDtoList(Map<String, List<String>> params) {
-        String query = "SELECT com.name as name, com.id as id ";
+        String query = "SELECT com.name as name, com.id as id, com.contactpersonId as contactpersonId ";
         query += "FROM company as com ";
         if (!params.isEmpty()) {
             query += "WHERE";
@@ -43,6 +43,7 @@ public class CompanyDao extends GenericDao<Company> {
                 CompanyDto dto = new CompanyDto();
                 dto.setId(set.getLong("id"));
                 dto.setName(set.getString("name"));
+                dto.setContactPersonId(Long.parseLong(set.getString("contactpersonId")));
                 CustomerDao customerDao = new CustomerDao();
                 Customer cus = customerDao.selectRecordsWithFieldValues("companyId", dto.getId()).get(0);
                 AddressDao addDao = new AddressDao();

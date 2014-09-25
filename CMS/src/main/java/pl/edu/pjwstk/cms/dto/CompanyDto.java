@@ -21,7 +21,7 @@ public class CompanyDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(CompanyDto.class.getName()); 
 
-    private Long id;
+    private Long id, contactPersonId;
     private String name;
     private List<Address> addresses;
     
@@ -35,6 +35,14 @@ public class CompanyDto implements Serializable {
         
     }
 
+    public Long getContactPersonId() {
+        return contactPersonId;
+    }
+
+    public void setContactPersonId(Long contactPersonId) {
+        this.contactPersonId = contactPersonId;
+    }
+    
     public Long getId() {
         return id;
     }

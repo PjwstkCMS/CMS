@@ -13,10 +13,7 @@ public class Company extends DatabaseObject{
 
     private String name;
     private String addressId;
-    private String contactName;
-    private String contractSurname;
-    private String contactPhone;
-    private String contactEmail;
+    private String contactpersonId;
 
     public String getAddressId() {
         return addressId;
@@ -36,39 +33,13 @@ public class Company extends DatabaseObject{
         this.name = name;
     }
 
-    public String getContactName() {
-        return contactName;
+    public String getContactpersonId() {
+        return contactpersonId;
     }
 
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
+    public void setContactpersonId(String contactpersonId) {
+        this.contactpersonId = contactpersonId;
     }
-
-    public String getContractSurname() {
-        return contractSurname;
-    }
-
-    public void setContractSurname(String contractSurname) {
-        this.contractSurname = contractSurname;
-    }
-
-    public String getContactPhone() {
-        return contactPhone;
-    }
-
-    public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
-    }
-
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
-
     
     public Company() {
         super();

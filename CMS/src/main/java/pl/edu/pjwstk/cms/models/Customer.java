@@ -7,47 +7,12 @@ import pl.edu.pjwstk.cms.models.general.DatabaseObject;
  *
  * @author Sergio
  */
-public class Customer extends DatabaseObject{
-    
-    private final static Logger LOGGER = Logger.getLogger(Customer.class.getName()); 
-    
-    private String name;
-    private String surname;
-    private String email;
-    private String phone;
+public class Customer extends DatabaseObject {
+
+    private final static Logger LOGGER = Logger.getLogger(Customer.class.getName());
+
     private String companyId;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    private String persondataId;
 
     public String getCompanyId() {
         return companyId;
@@ -57,10 +22,16 @@ public class Customer extends DatabaseObject{
         this.companyId = companyId;
     }
 
-    
+    public String getPersondataId() {
+        return persondataId;
+    }
 
+    public void setPersondataId(String persondataId) {
+        this.persondataId = persondataId;
+    }
+    
     public Customer() {
-        super();       
+        super();
 
     }
 }

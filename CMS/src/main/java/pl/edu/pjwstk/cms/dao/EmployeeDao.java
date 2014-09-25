@@ -12,6 +12,7 @@ import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.EmployeeDto;
 import pl.edu.pjwstk.cms.models.Department;
 import pl.edu.pjwstk.cms.models.Employee;
+import pl.edu.pjwstk.cms.models.PersonData;
 /**
  *
  * @author Konrad
@@ -28,22 +29,26 @@ public List<EmployeeDto> getEmployeeDtoList() {
     }
     
     public List<EmployeeDto> getEmployeeDtoList(Map<String, List<String>> params) {
-        String query = "SELECT emp.name as name, emp.surname as surname, emp.email as email, emp.departmentId as departmentId, emp.phone as phone, emp.id as id ";
+        String query = "SELECT emp.departmentId as departmentId, emp.id as id, emp.persondataId as persondataId ";
         query += "FROM employee as emp ";
         if(!params.isEmpty()) {
             query += "WHERE";
             query = this.addParamConditions(query, params);
         }
         ResultSet set = this.connectionManager.select(query);
+        PersonDataDao personDao = new PersonDataDao();
         List<EmployeeDto> empDtos = new ArrayList<>();
+        List<PersonData> persons = personDao.selectAll();
         try {
             while(set.next()) {
                 EmployeeDto dto = new EmployeeDto();
+                PersonData person = getPersonData(set.getString("persondataId"), persons);
+                dto.setPersondataId(Long.parseLong(set.getString("persondataId")));
                 dto.setId(set.getLong("id"));
-                dto.setName(set.getString("name"));
-                dto.setSurname(set.getString("surname"));
-                dto.setEmail(set.getString("email"));
-                dto.setPhone(set.getString("phone"));
+                dto.setName(person.getName());
+                dto.setSurname(person.getSurname());
+                dto.setEmail(person.getEmail());
+                dto.setPhone(person.getPesel());
                 DepartmentDao depDao = new DepartmentDao();
                 List<Department> deps = depDao.selectAll();
                 Department d = getEmpDepartment(deps, set.getString("departmentId"));
@@ -60,6 +65,15 @@ public List<EmployeeDto> getEmployeeDtoList() {
         for (Department c : departments) {
             if(c.getId() == Long.parseLong(id)) {
                 return c;
+            }
+        }
+        return null;
+    }
+    
+    private PersonData getPersonData(String id, List<PersonData> persons) {
+        for (PersonData p : persons) {
+            if(p.getId()==Long.parseLong(id)) {
+                return p;
             }
         }
         return null;

@@ -30,16 +30,6 @@ public class DepartmentDto implements Serializable {
     public DepartmentDto() {
         super();
     }
-    
-    public DepartmentDto(Department department) {
-        this.setId(department.getId());
-        this.name = department.getName();
-        Employee employee = new Employee();
-        EmployeeDao employeeDao = new EmployeeDao();
-        employee = employeeDao.selectRecordsWithFieldValues("id", department.getManagerId()).get(0);
-        this.managerId = employee.getName()+" "+employee.getSurname();
-        
-    }
 
     public Long getId() {
         return id;

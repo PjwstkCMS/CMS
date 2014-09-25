@@ -49,8 +49,8 @@ public class ContractDao extends GenericDao<Contract>{
                 EmployeeDao empDao = new EmployeeDao();
                 List<Employee> emps = empDao.selectAll();
                 Employee e = getConEmployee(emps, set.getString("employeeId"));
-                dto.setCustomerId(c.getName());
-                dto.setEmployeeId(e.getName());
+                dto.setCustomerId(c.getId()+"");
+                dto.setEmployeeId(e.getId()+"");
               //  Company c = getCusCompany(comps, set.getString("companyId"));
               //  dto.setCompanyName(c.getName());
                 

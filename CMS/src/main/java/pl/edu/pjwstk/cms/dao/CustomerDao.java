@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CompanyDto;
 import pl.edu.pjwstk.cms.dto.CustomerDto;
-import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Customer;
+import pl.edu.pjwstk.cms.models.PersonData;
 
 /**
  *
@@ -30,7 +30,7 @@ public class CustomerDao extends GenericDao<Customer> {
     }
 
     public List<CustomerDto> getCustomerDtoList(Map<String, List<String>> params) {
-        String query = "SELECT cus.name as name, cus.surname as surname, cus.id as id, cus.email as email, cus.phone as phone, cus.companyId as companyId ";
+        String query = "SELECT cus.id as id, cus.companyId as companyId, cus.persondataId as persondataId ";
         query += "FROM customer as cus ";
         if (!params.isEmpty()) {
             query += "WHERE";
@@ -38,16 +38,20 @@ public class CustomerDao extends GenericDao<Customer> {
         }
         ResultSet set = connectionManager.select(query);
         CompanyDao comDao = new CompanyDao();
+        PersonDataDao personDao = new PersonDataDao();
         List<CustomerDto> cusDtos = new ArrayList<>();
         List<CompanyDto> comDtos = comDao.getCompanyDtoList();
+        List<PersonData> persons = personDao.selectAll();
         try {
             while (set.next()) {
                 CustomerDto dto = new CustomerDto();
+                PersonData person = getPersonData(set.getString("persondataId"), persons);
+                dto.setPersondataId(Long.parseLong(set.getString("persondataId")));
                 dto.setId(set.getLong("id"));
-                dto.setName(set.getString("name"));
-                dto.setSurname(set.getString("surname"));
-                dto.setEmail(set.getString("email"));
-                dto.setPhone(set.getString("phone"));
+                dto.setName(person.getName());
+                dto.setSurname(person.getSurname());
+                dto.setEmail(person.getEmail());
+                dto.setPhone(person.getPesel());
                 dto.setCompanyId(Long.parseLong(set.getString("companyId")));
                 cusDtos.add(dto);
             }
@@ -72,5 +76,14 @@ public class CustomerDao extends GenericDao<Customer> {
         values.add(id + "");
         params.put("id", values);
         return getCustomerDtoList(params).get(0);
+    }
+    
+    private PersonData getPersonData(String id, List<PersonData> persons) {
+        for (PersonData p : persons) {
+            if(p.getId()==Long.parseLong(id)) {
+                return p;
+            }
+        }
+        return null;
     }
 }

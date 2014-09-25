@@ -43,7 +43,7 @@ public class DepartmentDao extends GenericDao<Department>{
                 EmployeeDao empDao = new EmployeeDao();
                 List<Employee> emps = empDao.selectAll();
                 Employee e = getDepEmployee(emps, set.getString("managerId"));
-                dto.setManagerId(e.getName()+" "+e.getSurname());
+                dto.setManagerId(set.getString("managerId"));
                 depDtos.add(dto);
             }
         } catch (SQLException ex) {

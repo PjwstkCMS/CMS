@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,9 +21,11 @@ import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.AddressDao;
 import pl.edu.pjwstk.cms.dao.CompanyDao;
 import pl.edu.pjwstk.cms.dao.CustomerDao;
+import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CustomerDto;
 import pl.edu.pjwstk.cms.models.Customer;
+import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.utils.Utils;
 
 /**
@@ -67,24 +68,29 @@ public class CustomerController extends BaseController {
     @ResponseBody
     public ResponseEntity<String> save(@RequestBody String object, HttpSession session) {
         CustomerDao customerDao = new CustomerDao();
+        PersonDataDao perDao = new PersonDataDao();
         CustomerDto customerDto = (CustomerDto) Utils.convertJSONStringToObject(object, "object", CustomerDto.class);
         Customer customer = new Customer();
+        PersonData person = new PersonData();
         Map<String, Object> data = new HashMap<>();
         if(customerDto.getId() != null ){            
             customer = customerDao.selectRecordsWithFieldValues("id", customerDto.getId()).get(0);
-            customer.setName(customerDto.getName());
-            customer.setSurname(customerDto.getSurname());
-            customer.setEmail(customerDto.getEmail());
-            customer.setPhone(customerDto.getPhone());
+            person = perDao.selectRecordsWithFieldValues("id", customerDto.getPersondataId()).get(0);
+            person.setName(customerDto.getName());
+            person.setSurname(customerDto.getSurname());
+            person.setEmail(customerDto.getEmail());
+            person.setPhone(customerDto.getPhone());
             customerDao.update(customer);
+            perDao.update(person);
             data.put("id", customerDto.getId());
             return Utils.createResponseEntity(session, data);
         } else {            
-            customer.setName(customerDto.getName());
-            customer.setSurname(customerDto.getSurname());
-            customer.setEmail(customerDto.getEmail());
-            customer.setPhone(customerDto.getPhone());
+            person.setName(customerDto.getName());
+            person.setSurname(customerDto.getSurname());
+            person.setEmail(customerDto.getEmail());
+            person.setPhone(customerDto.getPhone());
             customer.setCompanyId("-1");
+            customer.setPersondataId(perDao.insert(person)+"");
             data.put("id", customerDao.insert(customer));
             return Utils.createResponseEntity(session, data);
         }

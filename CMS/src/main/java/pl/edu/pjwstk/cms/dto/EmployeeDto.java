@@ -10,10 +10,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import pl.edu.pjwstk.cms.dao.CompanyDao;
-import pl.edu.pjwstk.cms.models.Address;
-import pl.edu.pjwstk.cms.models.Company;
-import pl.edu.pjwstk.cms.models.Employee;
 
 /**
  *
@@ -23,23 +19,21 @@ public class EmployeeDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(EmployeeDto.class.getName()); 
 
-    private Long id;
+    private Long id, persondataId;
     private String name, surname, email, phone, departmentId;
     
     public EmployeeDto() {
         super();
     }
-    
-    public EmployeeDto(Employee employee) {
-        this.setId(employee.getId());
-        this.name = employee.getName();
-        this.surname = employee.getSurname();
-        this.email = employee.getEmail();
-        this.phone = employee.getPhone();
-        this.departmentId = employee.getDepartmentId();
-        
+
+    public Long getPersondataId() {
+        return persondataId;
     }
 
+    public void setPersondataId(Long persondataId) {
+        this.persondataId = persondataId;
+    }
+    
     public Long getId() {
         return id;
     }

@@ -17,63 +17,18 @@ public class Employee extends DatabaseObject{
 
     private final static Logger LOGGER = Logger.getLogger(Employee.class.getName());
     
-    private String name;
-    private String surname;
-    private String pesel;
-    private String email;
-    private String phone;
-    private String salary;
     private String positionId;
     private String departmentId;
+    private String persondataId;
 
-    public String getName() {
-        return name;
+    public String getPersondataId() {
+        return persondataId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPersondataId(String persondataId) {
+        this.persondataId = persondataId;
     }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPesel() {
-        return pesel;
-    }
-
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getSalary() {
-        return salary;
-    }
-
-    public void setSalary(String salary) {
-        this.salary = salary;
-    }
-
+    
     public String getPositionId() {
         return positionId;
     }

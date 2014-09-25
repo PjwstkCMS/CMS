@@ -7,24 +7,13 @@ import pl.edu.pjwstk.cms.models.general.DatabaseObject;
  *
  * @author Konrad
  */
-public class Company extends DatabaseObject{
-    
+public class Company extends DatabaseObject {
+
     private final static Logger LOGGER = Logger.getLogger(Company.class.getName());
 
     private String name;
-    private String addressId;
     private String contactpersonId;
 
-    public String getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
-    }
-
-    
-    
     public String getName() {
         return name;
     }
@@ -40,7 +29,7 @@ public class Company extends DatabaseObject{
     public void setContactpersonId(String contactpersonId) {
         this.contactpersonId = contactpersonId;
     }
-    
+
     public Company() {
         super();
     }

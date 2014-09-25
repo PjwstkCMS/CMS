@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import pl.edu.pjwstk.cms.models.Address;
 
 /**
  *
@@ -21,6 +22,7 @@ public class EmployeeDto implements Serializable {
 
     private Long id, persondataId;
     private String name, surname, email, phone, departmentId;
+    private Address adresZameldowania;
     
     public EmployeeDto() {
         super();
@@ -74,8 +76,14 @@ public class EmployeeDto implements Serializable {
         this.phone = phone;
     }
 
-    
+    public Address getAdresZameldowania() {
+        return adresZameldowania;
+    }
 
+    public void setAdresZameldowania(Address adresZameldowania) {
+        this.adresZameldowania = adresZameldowania;
+    }
+    
     public String getDepartmentId() {
         return departmentId;
     }

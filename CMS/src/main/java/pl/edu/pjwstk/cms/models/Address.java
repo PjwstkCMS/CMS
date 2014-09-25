@@ -17,9 +17,26 @@ public class Address extends DatabaseObject{
     private String streetNumber;
     private String apartmentNumber;
     private String postalCode;
-    private String personId;
+    private String persondataId;
+    private String companyId;
     private String dictId;
 
+    public String getPersondataId() {
+        return persondataId;
+    }
+
+    public void setPersondataId(String persondataId) {
+        this.persondataId = persondataId;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+    
     public String getCountry() {
         return country;
     }
@@ -66,14 +83,6 @@ public class Address extends DatabaseObject{
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
-
-    public String getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(String personId) {
-        this.personId = personId;
     }
 
     public String getDictId() {

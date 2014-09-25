@@ -47,7 +47,7 @@ public class CompanyDao extends GenericDao<Company> {
                 CustomerDao customerDao = new CustomerDao();
                 Customer cus = customerDao.selectRecordsWithFieldValues("companyId", dto.getId()).get(0);
                 AddressDao addDao = new AddressDao();
-                List<Address> adds = addDao.selectRecordsWithFieldValues("personId", cus.getId());
+                List<Address> adds = addDao.selectRecordsWithFieldValues("companyId", cus.getId());
                 //Ustawianie, aby pierwszy adres na listy to był adres głównej siedziby
                 if (adds.size() > 1 &&
                         !adds.get(0).getDictId().equals("4")) {

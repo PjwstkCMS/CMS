@@ -18,12 +18,12 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.attributes[1] = 'managerId';
     //$scope.attributes[4] = 'companyName';
     $scope.columns = {
-        'customerId' : "Nazwa",
-        'employeeId' : "Manager"
+        'name' : "Nazwa",
+        'managerId' : "Manager"
     };
     $scope.columnClasses = {
-        'customerId' : "departament-nazwa",
-        'employeeId' : "departament-manager"
+        'name' : "departament-nazwa",
+        'managerId' : "departament-manager"
     };
         
     $scope.get = saveEditDelete.get($http, '/CMS/department/departments.htm', $scope);

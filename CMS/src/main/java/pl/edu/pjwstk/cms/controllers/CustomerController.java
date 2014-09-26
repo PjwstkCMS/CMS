@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.AddressDao;
 import pl.edu.pjwstk.cms.dao.CompanyDao;
+import pl.edu.pjwstk.cms.dao.ContractDao;
 import pl.edu.pjwstk.cms.dao.CustomerDao;
 import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
@@ -56,11 +57,12 @@ public class CustomerController extends BaseController {
     public ResponseEntity<String> getData(HttpSession session) {
         CustomerDao cusDao = new CustomerDao();
         CompanyDao comDao = new CompanyDao();
-        AddressDao addDao = new AddressDao();
+        //AddressDao addDao = new AddressDao();
+        ContractDao conDao = new ContractDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("customers", cusDao.getCustomerDtoList());
         initData.put("companies", comDao.getCompanyDtoList());
-        initData.put("addresses", addDao.selectAll());
+        initData.put("contracts", conDao.selectAll());
         return Utils.createResponseEntity(session, initData);
     }
     

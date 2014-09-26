@@ -5,6 +5,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.pageMax = 14;
     $scope.checkMax = pagination.pageMaxSmallerThenSize($scope);
     $scope.selectedCompany = 'test';
+    $scope.selectedCompanyAddress = "";
 
     $scope.status = "Ładowanie danych";
     $scope.selected = "";
@@ -32,6 +33,34 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
         'phone': "klient-phone",
         'email': "klient-email"
     };
+    
+    $scope.contractAttributes = [];
+    $scope.contractAttributes[0] = 'id';
+    $scope.contractAttributes[1] = 'employeeId';
+    $scope.contractAttributes[2] = 'startDate';
+    $scope.contractAttributes[3] = 'closeDate';
+    $scope.contractAttributes[4] = 'finalisationDate';
+    $scope.contractAttributes[5] = 'description';
+    $scope.contractAttributes[6] = 'price';
+    $scope.contractColumns= {
+        'id': "Id umowy",
+        'employeeId': "Pracownik",
+        'startDate': "Data rozpoczęcia",
+        'closeDate': "Planowana data zakończenia",
+        'finalisationDate': "Data zakończenia",
+        'description': "Opis",
+        'price': "Cena"
+    };
+    $scope.contractColumnClasses = {
+        'id' : "kontrakt-id",
+        'employeeId': "kontrakt-employeeId",
+        'startDate': "kontrakt-startDate",
+        'closeDate': "kontrakt-closeDate",
+        'finalisationDate': "kontrakt-finalisationDate",
+        'description': "kontrakt-description",
+        'price': "kontrakt-price"
+    };
+    
 
     $scope.get = saveEditDelete.get($http, '/CMS/customer/customers.htm', $scope);
     var loadDataPromise = $scope.get;
@@ -44,6 +73,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
         if (returnData != null) {
             $scope.customers = $scope.initData.customers;
             $scope.companies = $scope.initData.companies;
+            $scope.contracts = $scope.initData.contracts;
         } else {
             alert('err');
         }
@@ -58,10 +88,18 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
             for (var i = 0; i<$scope.companies.length; i++) {
                 if($scope.companies[i].id == $scope.selected.companyId) {
                     $scope.selectedCompany = $scope.companies[i];
+                    $scope.selectedCompanyAddress = $scope.selectedCompany.addresses[0];
                 }
             }
         }
     }
+    
+    $scope.checkCustomerId = function(con){
+        if(con.customerId == $scope.selected.id) {
+            return true;
+        }
+        return false;
+    };
 
     $scope.edit = function() {
         $scope.editMode = true;

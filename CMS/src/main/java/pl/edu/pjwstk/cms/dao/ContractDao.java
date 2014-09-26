@@ -29,7 +29,7 @@ public class ContractDao extends GenericDao<Contract>{
     }
     
     public List<ContractDto> getContractDtoList(Map<String, List<String>> params) {
-        String query = "SELECT con.customerId as customerId, con.employeeId as employeeId, con.id as id ";
+        String query = "SELECT id, employeeId, customerId, startDate, closeDate, finalisationDate, description, price ";
         query += "FROM contract as con ";
         if(!params.isEmpty()) {
             query += "WHERE";

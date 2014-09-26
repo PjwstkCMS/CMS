@@ -24,7 +24,7 @@ public class ContractDto implements Serializable {
     private final static Logger LOGGER = Logger.getLogger(ContractDto.class.getName()); 
 
     private Long id;
-    private String employeeId, customerId;
+    private String employeeId, customerId, startDate, closeDate, finalisationDate, description, price;
     
     public ContractDto() {
         super();
@@ -34,6 +34,11 @@ public class ContractDto implements Serializable {
         this.setId(contract.getId());
         this.employeeId = contract.getEmployeeId();
         this.customerId = contract.getCustomerId();
+        this.startDate = contract.getStartDate();
+        this.closeDate = contract.getCloseDate();
+        this.finalisationDate = contract.getFinalisationDate();
+        this.description = contract.getDescription();
+        this.price = contract.getPrice();
         
     }
 
@@ -61,6 +66,46 @@ public class ContractDto implements Serializable {
 
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getCloseDate() {
+        return closeDate;
+    }
+
+    public void setCloseDate(String closeDate) {
+        this.closeDate = closeDate;
+    }
+
+    public String getFinalisationDate() {
+        return finalisationDate;
+    }
+
+    public void setFinalisationDate(String finalisationDate) {
+        this.finalisationDate = finalisationDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
     
 

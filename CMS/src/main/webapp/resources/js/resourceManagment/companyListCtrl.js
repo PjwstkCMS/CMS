@@ -22,6 +22,32 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.columnClasses = {
         'name' : "firma-nazwa",
     };
+    
+    $scope.addressAttributes = [];
+    $scope.addressAttributes[0] = 'country';
+    $scope.addressAttributes[1] = 'city';
+    $scope.addressAttributes[2] = 'streetName';
+    $scope.addressAttributes[3] = 'streetNumber';
+    $scope.addressAttributes[4] = 'apartmentNumber';
+    $scope.addressAttributes[5] = 'postalCode';
+    
+    $scope.addressColumns= {
+        'country': "Kraj",
+        'city': "Miasto",
+        'streetName': "Ulica",
+        'streetNumber': "Numer",
+        'apartmentNumber': "Lokal",
+        'postalCode': "Kod"
+    };
+    $scope.addressColumnClasses = {
+        'country': "address-country",
+        'city': "address-city",
+        'streetName': "address-streetName",
+        'streetNumber': "address-streetNumber",
+        'apartmentNumber': "address-apartmentNumber",
+        'postalCode': "address-postalCode"
+    };
+    
         
     $scope.get = saveEditDelete.get($http, '/CMS/company/companys.htm', $scope);
     var loadDataPromise = $scope.get;

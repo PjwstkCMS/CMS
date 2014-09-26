@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.ContractDao;
+import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *
@@ -41,6 +42,7 @@ public class ContractController extends BaseController {
 
         ModelAndView model = new ModelAndView("contract");
         model.addObject("msg", "HelloGuestController");
+        model.addObject("server", GenericDao.server);
         
         return model;
     }
@@ -49,7 +51,7 @@ public class ContractController extends BaseController {
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
         ContractDao conDao = new ContractDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("contracts", conDao.getContractDtoList());
+        initData.put("contracts", conDao.selectAll());
         return Utils.createResponseEntity(session, initData);
     }
 }

@@ -10,7 +10,8 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/contractListCtrl.js"></script>
-        <h1>Contract!</h1>        
+        <h1>Contract!</h1>
+        <h3>${server}</h3>
         <div ng-controller="ContractListCtrl">
             <t:dataTable/>
             <t:jsonOperations/>

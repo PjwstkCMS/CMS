@@ -24,9 +24,44 @@
                             {{selectedCompany.name}}
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            {{selectedCompanyAddress.city}} {{selectedCompanyAddress.streetName}}
+                        </td>
+                        <td>
+                            {{selectedCompanyAddress.streetNumber}}/m.{{selectedCompanyAddress.apartmentNumber}}
+                        </td>
+                        <td>
+                            {{selectedCompanyAddress.postalCode}} {{selectedCompanyAddress.country}}
+                        </td>
+                    </tr>
+                </table>
+                <h3>
+                    Aktualne umowy:
+                </h3>
+                <table>
+                    <tr>
+                        <th> 
+                            # 
+                        </th>
+                        <th ng-repeat="cattr in contractAttributes" ng-hide="cattr.substring(0, 1) == '%'" class = "{{contractColumnClasses[cattr]}}">
+                            <a ng-click="$parent.orderColumn = cattr;
+                            $parent.reverse = !$parent.reverse">{{$parent.contractColumns[cattr]}}</a>
+                        </th>   
+                    </tr>
+                    <tbody>
+                        <tr ng-repeat="con in contracts" ng-show="checkCustomerId(con)">
+                                <td class="numer">
+                                    {{$index + 1}}
+                                </td>
+                                <td ng-repeat="cattr in contractAttributes">
+                                    {{con[cattr]}}
+                                </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-            <t:jsonOperations/>
+            
             <div ng-show="editMode || selected">
                 <table>
                     <tr>
@@ -45,6 +80,7 @@
                     </tr>
                 </table>
             </div>
+            <t:jsonOperations/>
         </div>
         </jsp:body>
     </t:general>

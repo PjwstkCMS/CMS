@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.CompanyDao;
 import pl.edu.pjwstk.cms.dao.ContractDao;
+import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *
@@ -42,6 +43,7 @@ public class CompanyController extends BaseController {
 
         ModelAndView model = new ModelAndView("company");
         model.addObject("msg", "HelloGuestController");
+        model.addObject("server", GenericDao.server);
         
         return model;
     }

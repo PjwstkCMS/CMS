@@ -14,16 +14,35 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination) {
     
     $scope.objectsName = "contracts";
     $scope.attributes = [];
-    $scope.attributes[0] = 'customerId';
-    $scope.attributes[1] = 'employeeId';
+    $scope.attributes[0] = 'id';
+    $scope.attributes[1] = 'customerId';
+    $scope.attributes[2] = 'employeeId';
+    $scope.attributes[3] = 'startDate';
+    $scope.attributes[4] = 'closeDate';
+    $scope.attributes[5] = 'finalisationDate';
+    $scope.attributes[6] = 'description';
+    $scope.attributes[7] = 'price';
+    
     //$scope.attributes[4] = 'companyName';
     $scope.columns = {
+        'id' : "Id umowy",
         'customerId' : "Klient",
-        'employeeId' : "Pracownik"
+        'employeeId' : "Pracownik",
+        'startDate' : "Data rozpoczęcia",
+        'closeDate' : "Planowana data zakończenia",
+        'finalisationDate' : "Data zakończenia",
+        'description' : "Opis",
+        'price' : "Cena"
     };
     $scope.columnClasses = {
-        'customerId' : "umowa-klient",
-        'employeeId' : "umowa-pracownik"
+        'id' : "kontrakt-id",
+        'customerId' : "kontrakt-customerId",
+        'employeeId' : "kontrakt-employeeId",
+        'startDate': "kontrakt-startDate",
+        'closeDate': "kontrakt-closeDate",
+        'finalisationDate': "kontrakt-finalisationDate",
+        'description': "kontrakt-description",
+        'price': "kontrakt-price"
     };
         
     $scope.get = saveEditDelete.get($http, '/CMS/contract/contracts.htm', $scope);

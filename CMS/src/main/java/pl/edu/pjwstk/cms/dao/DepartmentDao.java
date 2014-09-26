@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.DepartmentDto;
+import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Department;
 import pl.edu.pjwstk.cms.models.Employee;
 /**
@@ -27,7 +28,7 @@ public class DepartmentDao extends GenericDao<Department>{
     }
     
     public List<DepartmentDto> getDepartmentDtoList(Map<String, List<String>> params) {
-        String query = "SELECT dep.name as name, dep.managerId as managerId, dep.id as id ";
+        String query = "SELECT dep.name as name, dep.managerId as managerId, dep.addressId as addressId, dep.id as id ";
         query += "FROM department as dep ";
         if(!params.isEmpty()) {
             query += "WHERE";
@@ -40,6 +41,12 @@ public class DepartmentDao extends GenericDao<Department>{
                 DepartmentDto dto = new DepartmentDto();
                 dto.setId(set.getLong("id"));
                 dto.setName(set.getString("name"));
+                dto.setAddressId(set.getString("addressId"));
+                
+                AddressDao addDao = new AddressDao();
+                List<Address> adds = addDao.selectRecordsWithFieldValues("id", dto.getAddressId());
+                dto.setAddress(adds.get(0));
+                
                 EmployeeDao empDao = new EmployeeDao();
                 List<Employee> emps = empDao.selectAll();
                 Employee e = getDepEmployee(emps, set.getString("managerId"));

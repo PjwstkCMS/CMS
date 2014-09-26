@@ -10,9 +10,16 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/departmentListCtrl.js"></script>
-        <h1>Customer!</h1>
+        <h1>Department!</h1>
+        <h3>${server}</h3>
         <div ng-controller="DepartmentListCtrl">
             <t:dataTable/>
+            <div id="companyTable" ng-show="selected">
+                <b>Adres:</b> {{selected.address.city}} {{selected.address.streetName}}
+                              {{selected.address.streetNumber}}/m.{{selected.address.apartmentNumber}}
+                              {{selected.address.postalCode}} {{selected.address.country}}
+
+            </div>
             <t:jsonOperations/>
         </div>
     </jsp:body>

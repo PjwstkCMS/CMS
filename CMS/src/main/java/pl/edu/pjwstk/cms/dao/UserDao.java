@@ -30,22 +30,26 @@ public class UserDao extends GenericDao<User>{
         if(conditions.length()>0) {
             conditions+=" AND "; 
         }
-        String query = "SELECT user.id as id, emp.name as name, emp.surname as surname, "
-                + "user.login as login, user.password as password, user.employeeId as employeeId, "
-                + "userconfiguration.groupId as groupId FROM user, userconfiguration, employee as emp "
-                + "WHERE " + conditions + "user.id = userconfiguration.userId AND user.employeeId = emp.id";
+        String query = "SELECT user.id as id, emp.persondataId as persondataId, pers.name as name, pers.surname as surname, "
+                + "user.login as login, user.password as password, user.employeeId as employeeId, pers.email as email, "
+                + "user.groupId as groupId, user.photoHash as photoHash FROM user, employee as emp, persondata as pers "
+                + "WHERE " + conditions + "user.employeeId = emp.id AND emp.persondataId = pers.id";
         ResultSet resultSet = this.connectionManager.select(query);
         PrivilegeGroupDao privGroupDao = new PrivilegeGroupDao();
         List<PrivilegeGroup> groups = privGroupDao.selectAll();
         try {
             while (resultSet.next()) {
                 UserDto dto = new UserDto();
+                dto.setId(resultSet.getLong("id"));
                 dto.setName(resultSet.getString("name"));
                 dto.setSurname(resultSet.getString("surname"));
                 dto.setLogin(resultSet.getString("login"));
-                dto.setId(resultSet.getLong("id"));
+                dto.setPassword(resultSet.getString("password"));
+                dto.setPersondataId(resultSet.getString("persondataId"));
                 dto.setGroupId(resultSet.getString("groupId"));
                 dto.setEmployeeId(resultSet.getString("employeeId"));
+                dto.setEmail(resultSet.getString("email"));
+                dto.setPhotoHash(resultSet.getString("photoHash"));
                 if(dto.getGroupId()!=null){
                     for (PrivilegeGroup g : groups) {
                         if(g.getId() == Long.parseLong(dto.getGroupId())) {

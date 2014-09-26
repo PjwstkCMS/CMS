@@ -14,6 +14,8 @@ public class User extends DatabaseObject{
     private String login;
     private String password;
     private String employeeId;
+    private String groupId;
+    private String photoHash;
 
     public String getLogin() {
         return login;
@@ -38,6 +40,23 @@ public class User extends DatabaseObject{
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getPhotoHash() {
+        return photoHash;
+    }
+
+    public void setPhotoHash(String photoHash) {
+        this.photoHash = photoHash;
+    }
+    
     
     public User() {
         super();

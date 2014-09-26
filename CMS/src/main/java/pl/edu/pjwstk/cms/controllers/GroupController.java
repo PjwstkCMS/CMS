@@ -20,7 +20,7 @@ import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.PrivilegeDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeKeyDao;
-import pl.edu.pjwstk.cms.dao.UserConfigurationDao;
+import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.GroupDto;
 import pl.edu.pjwstk.cms.models.Privilege;
 import pl.edu.pjwstk.cms.models.PrivilegeGroup;
@@ -114,11 +114,11 @@ public class GroupController extends BaseController {
         GroupDto dto = (GroupDto) Utils.convertJSONStringToObject(object, "object", GroupDto.class);
         if (dto != null) {
             PrivilegeGroupDao privilegeGroupDao = new PrivilegeGroupDao();
-            UserConfigurationDao userConfigDao = new UserConfigurationDao();
+            UserDao userDao = new UserDao();
             PrivilegeDao privilegeDao = new PrivilegeDao();
             privilegeDao.delete("groupId=" + dto.getId());
             privilegeGroupDao.delete("id=" + dto.getId());
-            userConfigDao.updateFieldForAllElementsWithId(
+            userDao.updateFieldForAllElementsWithId(
                     "groupId", dto.getId() + "",
                     "groupId", null);
 

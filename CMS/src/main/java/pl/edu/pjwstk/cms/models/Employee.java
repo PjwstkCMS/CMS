@@ -20,6 +20,7 @@ public class Employee extends DatabaseObject{
     private String positionId;
     private String departmentId;
     private String persondataId;
+    private String salary;
 
     public String getPersondataId() {
         return persondataId;
@@ -44,6 +45,16 @@ public class Employee extends DatabaseObject{
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
     }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+    
+    
 
     public Employee() {
         super();

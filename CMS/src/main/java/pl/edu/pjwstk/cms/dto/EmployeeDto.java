@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.Address;
+import pl.edu.pjwstk.cms.models.Position;
 
 /**
  *
@@ -20,14 +21,23 @@ public class EmployeeDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(EmployeeDto.class.getName()); 
 
-    private Long id, persondataId, positionId, cardId;
+    private Long id, persondataId, cardId;
     private String name, surname, email, phone, departmentId, salary;
     private Address adresZameldowania;
+    private Position position;
     
     public EmployeeDto() {
         super();
     }
 
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+    
     public String getSalary() {
         return salary;
     }
@@ -42,14 +52,6 @@ public class EmployeeDto implements Serializable {
 
     public void setCardId(Long cardId) {
         this.cardId = cardId;
-    }
-    
-    public Long getPositionId() {
-        return positionId;
-    }
-
-    public void setPositionId(Long positionId) {
-        this.positionId = positionId;
     }
     
     public Long getPersondataId() {
@@ -116,8 +118,9 @@ public class EmployeeDto implements Serializable {
         this.departmentId = departmentId;
     }
     
-    
-
+    public String getPositionName() {
+        return position.getName();
+    }
     
     public List<String> getPrivilegeKeyCodes() {
         return privilegeKeyCodes;

@@ -13,6 +13,8 @@
         <h1>Employee!</h1>        
         <div ng-controller="EmployeeListCtrl">
             <t:dataTable/>
+            {{selected.position.name}}
+            {{selected}}
             <div ng-show="selected">
                 <table>
                     <tr>

@@ -21,6 +21,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.attributes[3] = 'email';
     $scope.attributes[4] = 'departmentId';
     $scope.attributes[5] = 'cardId';
+    $scope.attributes[6] = 'positionName';
     //$scope.attributes[4] = 'companyName';
     $scope.columns = {
         'name' : "Imię",
@@ -28,7 +29,8 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination) {
         'phone': "Telefon",
         'email': "Email",
         'departmentId' : "Departemant",
-        'cardId' : "Numer karty"
+        'cardId' : "Numer karty",
+        'positionName' : "Stanowisko"
     };
     $scope.columnClasses = {
         'name' : "pracownik-name",

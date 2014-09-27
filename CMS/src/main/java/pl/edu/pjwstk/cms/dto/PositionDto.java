@@ -10,10 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import pl.edu.pjwstk.cms.dao.PositionDao;
-import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Position;
-import pl.edu.pjwstk.cms.models.Contract;
 
 /**
  *

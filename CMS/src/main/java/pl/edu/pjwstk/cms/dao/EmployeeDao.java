@@ -15,6 +15,7 @@ import pl.edu.pjwstk.cms.models.Card;
 import pl.edu.pjwstk.cms.models.Department;
 import pl.edu.pjwstk.cms.models.Employee;
 import pl.edu.pjwstk.cms.models.PersonData;
+import pl.edu.pjwstk.cms.models.Position;
 /**
  *
  * @author Konrad
@@ -41,10 +42,12 @@ public List<EmployeeDto> getEmployeeDtoList() {
         PersonDataDao personDao = new PersonDataDao();
         AddressDao addDao = new AddressDao();
         CardDao carDao = new CardDao();
+        PositionDao posDao = new PositionDao();
         List<EmployeeDto> empDtos = new ArrayList<>();
         List<PersonData> persons = personDao.selectAll();
         List<Address> adds = addDao.selectAll();
         List<Card> cards = carDao.selectAll();
+        List<Position> poss = posDao.selectAll();
         try {
             while(set.next()) {
                 EmployeeDto dto = new EmployeeDto();
@@ -57,7 +60,8 @@ public List<EmployeeDto> getEmployeeDtoList() {
                 dto.setSurname(person.getSurname());
                 dto.setEmail(person.getEmail());
                 dto.setPhone(person.getPesel());
-                dto.setPositionId(Long.parseLong(set.getString("positionId")));
+                Position p = getPosition(poss, set.getString("positionId"));
+                dto.setPosition(p);
                 DepartmentDao depDao = new DepartmentDao();
                 List<Department> deps = depDao.selectAll();
                 Department d = getEmpDepartment(deps, set.getString("departmentId"));
@@ -118,6 +122,15 @@ public List<EmployeeDto> getEmployeeDtoList() {
         for (Card c : cards) {
             if(c.getEmployeeId().equals(empId)) {
                 return c;
+            }
+        }
+        return null;
+    }
+    
+    private Position getPosition(List<Position> poss, String posId) {
+        for (Position p : poss) {
+            if(p.getId()==Long.parseLong(posId)) {
+                return p;
             }
         }
         return null;

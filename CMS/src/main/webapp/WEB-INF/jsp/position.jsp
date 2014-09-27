@@ -9,9 +9,15 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body><script src="/CMS/resources/js/resourceManagment/positionListCtrl.js"></script>
-        <h1>Customer!</h1>
+        <h1>Stanowisko</h1>
         <div ng-controller="PositionListCtrl">            
             <t:dataTable/>
+            <div ng-show="selectedEmployees.length > 0">
+                Pracownicy na ten stanowisku:<br/>
+                <select>
+                    <option ng-repeat="emp in selectedEmployees">{{emp.name}} {{emp.surname}}</option>
+                </select>
+            </div>
             <t:jsonOperations/>
         </div>
     </jsp:body>

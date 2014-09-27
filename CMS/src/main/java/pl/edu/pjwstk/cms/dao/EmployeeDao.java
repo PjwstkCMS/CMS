@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.EmployeeDto;
 import pl.edu.pjwstk.cms.models.Address;
+import pl.edu.pjwstk.cms.models.Card;
 import pl.edu.pjwstk.cms.models.Department;
 import pl.edu.pjwstk.cms.models.Employee;
 import pl.edu.pjwstk.cms.models.PersonData;
@@ -30,7 +31,7 @@ public List<EmployeeDto> getEmployeeDtoList() {
     }
     
     public List<EmployeeDto> getEmployeeDtoList(Map<String, List<String>> params) {
-        String query = "SELECT emp.departmentId as departmentId, emp.id as id, emp.persondataId as persondataId ";
+        String query = "SELECT emp.departmentId as departmentId, emp.id as id, emp.persondataId as persondataId, emp.positionId as positionId ";
         query += "FROM employee as emp ";
         if(!params.isEmpty()) {
             query += "WHERE";
@@ -39,9 +40,11 @@ public List<EmployeeDto> getEmployeeDtoList() {
         ResultSet set = this.connectionManager.select(query);
         PersonDataDao personDao = new PersonDataDao();
         AddressDao addDao = new AddressDao();
+        CardDao carDao = new CardDao();
         List<EmployeeDto> empDtos = new ArrayList<>();
         List<PersonData> persons = personDao.selectAll();
         List<Address> adds = addDao.selectAll();
+        List<Card> cards = carDao.selectAll();
         try {
             while(set.next()) {
                 EmployeeDto dto = new EmployeeDto();
@@ -54,11 +57,18 @@ public List<EmployeeDto> getEmployeeDtoList() {
                 dto.setSurname(person.getSurname());
                 dto.setEmail(person.getEmail());
                 dto.setPhone(person.getPesel());
+                dto.setPositionId(Long.parseLong(set.getString("positionId")));
                 DepartmentDao depDao = new DepartmentDao();
                 List<Department> deps = depDao.selectAll();
                 Department d = getEmpDepartment(deps, set.getString("departmentId"));
                 dto.setDepartmentId(d.getName());
                 dto.setAdresZameldowania(zameldowanie);
+                Card card = getCard(cards, dto.getId()+"");
+                if(card != null) {
+                    dto.setCardId(card.getId());
+                } else {
+                    dto.setCardId(-1L);
+                }                
                 empDtos.add(dto);
             }
         } catch (SQLException ex) {
@@ -99,6 +109,15 @@ public List<EmployeeDto> getEmployeeDtoList() {
         for (Address a : adds) {
             if(a.getDictId().equals("3")) {
                 return a;
+            }
+        }
+        return null;
+    }
+    
+    private Card getCard(List<Card> cards, String empId) {
+        for (Card c : cards) {
+            if(c.getEmployeeId().equals(empId)) {
+                return c;
             }
         }
         return null;

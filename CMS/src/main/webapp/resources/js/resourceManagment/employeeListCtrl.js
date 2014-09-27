@@ -8,6 +8,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.selected = "";
     $scope.employees = "";
     $scope.privileges = "";
+    $scope.cards = "";
     $scope.editMode = false;
     //$scope.displayPage = true;
     //$scope.displayPageName = "customerPage";
@@ -19,13 +20,15 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.attributes[2] = 'phone';
     $scope.attributes[3] = 'email';
     $scope.attributes[4] = 'departmentId';
+    $scope.attributes[5] = 'cardId';
     //$scope.attributes[4] = 'companyName';
     $scope.columns = {
         'name' : "Imię",
         'surname': "Nazwisko",
         'phone': "Telefon",
         'email': "Email",
-        'departmentId' : "Departemant"
+        'departmentId' : "Departemant",
+        'cardId' : "Numer karty"
     };
     $scope.columnClasses = {
         'name' : "pracownik-name",
@@ -51,6 +54,10 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination) {
         if (returnData != null) {
             $scope.employees = $scope.initData.employees;
             $scope.privileges = $scope.initData.privileges;
+            $scope.cards = $scope.initData.cards;
+            $scope.addresses = $scope.initData.addresses;
+            $scope.employments = $scope.initData.employments;
+            $scope.contracts = $scope.initData.contracts;
         } else {
             alert('err');
         }
@@ -61,6 +68,24 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination) {
             $scope.selected = "";
         } else {
             $scope.selected = object;
+            $scope.selectedAddress = new Array();
+            $scope.selectedContracts = new Array();
+            $scope.selectedEmployments = new Array();
+            for (var i = 0; i<$scope.employments.length; i++) {
+                if($scope.employments[i].employeeId == $scope.selected.id) {
+                    $scope.selectedEmployments.push($scope.employments[i]);
+                }
+            }
+            for (var i = 0; i<$scope.addresses.length; i++) {
+                if($scope.addresses[i].persondataId == $scope.selected.persondataId) {
+                    $scope.selectedAddress.push($scope.addresses[i]);
+                }
+            }
+            for (var i = 0; i<$scope.contracts.length; i++) {
+                if($scope.contracts[i].employeeId == $scope.selected.id) {
+                    $scope.selectedContracts.push($scope.contracts[i]);
+                }
+            }
         }
     }
 

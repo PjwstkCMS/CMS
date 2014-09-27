@@ -20,14 +20,38 @@ public class EmployeeDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(EmployeeDto.class.getName()); 
 
-    private Long id, persondataId;
-    private String name, surname, email, phone, departmentId;
+    private Long id, persondataId, positionId, cardId;
+    private String name, surname, email, phone, departmentId, salary;
     private Address adresZameldowania;
     
     public EmployeeDto() {
         super();
     }
 
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+    
+    public Long getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
+    }
+    
+    public Long getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
+    }
+    
     public Long getPersondataId() {
         return persondataId;
     }

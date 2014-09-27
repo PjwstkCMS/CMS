@@ -13,6 +13,38 @@
         <h1>Employee!</h1>        
         <div ng-controller="EmployeeListCtrl">
             <t:dataTable/>
+            <div ng-show="selected">
+                <table>
+                    <tr>
+                        <th>
+                            Adresy
+                        </th>
+                        <th>
+                            Zatrudnienia
+                        </th>
+                        <th>
+                            Kontrakty
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select>
+                                <option ng-repeat="add in selectedAddress">ID: {{add.id}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select>
+                                <option ng-repeat="empl in selectedEmployments">ID: {{empl.id}}</option>
+                            </select> 
+                        </td>
+                        <td>
+                            <select>
+                                <option ng-repeat="con in selectedContracts">ID: {{con.id}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <t:jsonOperations/>
         </div>
     </jsp:body>

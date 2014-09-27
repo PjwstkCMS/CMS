@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pl.edu.pjwstk.cms.controllers;
 
 import java.util.HashMap;
@@ -19,8 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.AddressDao;
+import pl.edu.pjwstk.cms.dao.CardDao;
+import pl.edu.pjwstk.cms.dao.ContractDao;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
+import pl.edu.pjwstk.cms.dao.EmploymentDao;
 import pl.edu.pjwstk.cms.utils.Utils;
+
 /**
  *
  * @author Konrad
@@ -38,19 +42,24 @@ public class EmployeeController extends BaseController {
     @RequestMapping("employee")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
         ModelAndView model = new ModelAndView("employee");
-        model.addObject("msg", "HelloGuestController");
-        
         return model;
     }
+
     @RequestMapping(value = "/employee/employees")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
         EmployeeDao empDao = new EmployeeDao();
+        CardDao carDao = new CardDao();
+        AddressDao addDao = new AddressDao();
+        EmploymentDao emplDao = new EmploymentDao();
+        ContractDao conDao = new ContractDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("employees", empDao.getEmployeeDtoList());
+        initData.put("cards", carDao.selectAll());
+        initData.put("addresses", addDao.selectAll());
+        initData.put("employments", emplDao.selectAll());
+        initData.put("contracts", conDao.selectAll());
         return Utils.createResponseEntity(session, initData);
     }
 }
-

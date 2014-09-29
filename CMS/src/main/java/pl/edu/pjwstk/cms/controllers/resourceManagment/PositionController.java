@@ -4,7 +4,7 @@
  * and open the tposlate in the editor.
  */
 
-package pl.edu.pjwstk.cms.controllers;
+package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 
 import java.util.HashMap;

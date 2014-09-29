@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 
-package pl.edu.pjwstk.cms.controllers;
-
+package pl.edu.pjwstk.cms.controllers.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,39 +19,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.PrivilegeKeyDao;
+import pl.edu.pjwstk.cms.dao.DictionaryDao;
+import pl.edu.pjwstk.cms.dao.DictionaryTypeDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *
  * @author Konrad
  */
 @Controller
-public class KeyController extends BaseController {
+public class DictionaryController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(KeyController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(DictionaryController.class.getName());
 
-    public KeyController() {
+    public DictionaryController() {
 
     }
 
     @Override
-    @RequestMapping("key")
+    @RequestMapping("dictionaryList")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("key");
-        PrivilegeKeyDao privilegeKeyDao = new PrivilegeKeyDao();
-        privilegeKeyDao.selectAll();
+        ModelAndView model = new ModelAndView("dictionaryList");
+        model.addObject("msg", "HelloGuestController");
+        
         return model;
     }
     
-    @RequestMapping("privilegeKeyList/privKeys.htm")
+    @RequestMapping("/dictionaryList/dictTypes")
     @ResponseBody
-    public ResponseEntity<String> getData(HttpServletRequest request, HttpSession session, ModelMap model) {
-        //UserConfigurationDao userConfigDao = new UserConfigurationDao();
-        PrivilegeKeyDao privilegeKeyDao = new PrivilegeKeyDao();
-        Map<String, Object> initData = new HashMap<>();
-        initData.put("privilegeKeys", privilegeKeyDao.selectAll());
-        return Utils.createResponseEntity(request.getSession(), initData);
+    public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
+        DictionaryDao dictDao = new DictionaryDao();
+        DictionaryTypeDao dictTypeDao = new DictionaryTypeDao();
+        Map<String, Object> initData = new HashMap<String, Object>();
+        initData.put("dicts", dictDao.selectAll());
+        initData.put("dictTypes", dictTypeDao.selectAll());
+        return Utils.createResponseEntity(session, initData);
     }
 }
+

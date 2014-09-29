@@ -1,4 +1,4 @@
-package pl.edu.pjwstk.cms.controllers;
+package pl.edu.pjwstk.cms.controllers.configuration;
 
 import java.io.IOException;
 import java.io.InputStream;

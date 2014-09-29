@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package pl.edu.pjwstk.cms.controllers;
+package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,46 +18,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.AddressDao;
+import pl.edu.pjwstk.cms.dao.CardDao;
+import pl.edu.pjwstk.cms.dao.ContractDao;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
-import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
-import pl.edu.pjwstk.cms.dao.UserDao;
+import pl.edu.pjwstk.cms.dao.EmploymentDao;
 import pl.edu.pjwstk.cms.utils.Utils;
+
 /**
  *
  * @author Konrad
  */
 @Controller
-public class UserController extends BaseController {
+public class EmployeeController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(UserController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(EmployeeController.class.getName());
 
-    public UserController() {
+    public EmployeeController() {
 
     }
 
     @Override
-    @RequestMapping("userList")
+    @RequestMapping("employee")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
-        ModelAndView model = new ModelAndView("userList");
-        model.addObject("msg", "HelloGuestController");
-        
+        ModelAndView model = new ModelAndView("employee");
         return model;
     }
-    
-     @RequestMapping(value = "/userList/users")
+
+    @RequestMapping(value = "/employee/employees")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
-        UserDao userDao = new UserDao();
         EmployeeDao empDao = new EmployeeDao();
-        PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
-        Map<String, Object> initData = new HashMap<>();
-        initData.put("users", userDao.getUserWithConfig());
+        CardDao carDao = new CardDao();
+        AddressDao addDao = new AddressDao();
+        EmploymentDao emplDao = new EmploymentDao();
+        ContractDao conDao = new ContractDao();
+        Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("employees", empDao.getEmployeeDtoList());
-        initData.put("groups", groupDao.selectAll());
-        //List<UserDTO> userDtos = userDao.getUserWithConfig();
+        initData.put("cards", carDao.selectAll());
+        initData.put("addresses", addDao.selectAll());
+        initData.put("employments", emplDao.selectAll());
+        initData.put("contracts", conDao.selectAll());
         return Utils.createResponseEntity(session, initData);
     }
 }
-

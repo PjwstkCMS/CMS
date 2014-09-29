@@ -1,4 +1,4 @@
-package pl.edu.pjwstk.cms.controllers;
+package pl.edu.pjwstk.cms.controllers.configuration;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package pl.edu.pjwstk.cms.controllers;
+package pl.edu.pjwstk.cms.controllers.configuration;
 
 import java.util.HashMap;
 import java.util.Map;

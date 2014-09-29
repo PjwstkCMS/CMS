@@ -1,4 +1,4 @@
-package pl.edu.pjwstk.cms.controllers;
+package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 import java.util.HashMap;
 import java.util.Map;

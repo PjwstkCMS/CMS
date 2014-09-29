@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package pl.edu.pjwstk.cms.controllers;
+package pl.edu.pjwstk.cms.controllers.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,41 +19,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.DictionaryDao;
-import pl.edu.pjwstk.cms.dao.DictionaryTypeDao;
+import pl.edu.pjwstk.cms.dao.EmployeeDao;
+import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
+import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *
  * @author Konrad
  */
 @Controller
-public class DictionaryController extends BaseController {
+public class UserController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(DictionaryController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(UserController.class.getName());
 
-    public DictionaryController() {
+    public UserController() {
 
     }
 
     @Override
-    @RequestMapping("dictionaryList")
+    @RequestMapping("userList")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("dictionaryList");
+        ModelAndView model = new ModelAndView("userList");
         model.addObject("msg", "HelloGuestController");
         
         return model;
     }
     
-    @RequestMapping("/dictionaryList/dictTypes")
+     @RequestMapping(value = "/userList/users")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
-        DictionaryDao dictDao = new DictionaryDao();
-        DictionaryTypeDao dictTypeDao = new DictionaryTypeDao();
-        Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("dicts", dictDao.selectAll());
-        initData.put("dictTypes", dictTypeDao.selectAll());
+        UserDao userDao = new UserDao();
+        EmployeeDao empDao = new EmployeeDao();
+        PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
+        Map<String, Object> initData = new HashMap<>();
+        initData.put("users", userDao.getUserWithConfig());
+        initData.put("employees", empDao.getEmployeeDtoList());
+        initData.put("groups", groupDao.selectAll());
+        //List<UserDTO> userDtos = userDao.getUserWithConfig();
         return Utils.createResponseEntity(session, initData);
     }
 }

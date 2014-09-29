@@ -17,8 +17,13 @@
 
             </div>
             <t:dataTable/>
-            <div ng-include="selected.formCode">
+            <div ng-show="selected.formCode" ng-include="selected.formCode">
                 
+            </div>
+            <div ng-show="selected && !selected.formCode">
+                <form action="reportPrint{{selected.id}}.htm">
+                    <input type="submit" value="Pobierz"/>
+                </form>
             </div>
         </div>
     </jsp:body>

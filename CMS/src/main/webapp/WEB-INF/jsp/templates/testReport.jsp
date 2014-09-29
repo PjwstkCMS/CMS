@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        Msg1: ${msg1}
+        Msg2: ${msg2}
+        Msg3: ${msg3}
     </body>
 </html>

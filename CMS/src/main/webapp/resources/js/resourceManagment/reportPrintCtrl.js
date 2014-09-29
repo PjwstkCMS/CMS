@@ -1,43 +1,35 @@
-function ManageFileCtrl($scope, $http, saveEditDelete, pagination) {
-    $scope.fileListUpload = true;
-
+function ReportPrintCtrl($scope, $http, saveEditDelete, pagination) {
+    
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
     $scope.pageMax = 14;
     $scope.checkMax = pagination.pageMaxSmallerThenSize($scope);
     
+    $scope.employees = "";
+    $scope.contract = "";
+    $scope.customers = "";
+    $scope.departments = "";
+    
     $scope.status = "Ładowanie danych";
+    $scope.objectsName = "reports";
     $scope.attributes = [];
     $scope.attributes[0] = 'name';
     $scope.attributes[1] = 'description';
-    $scope.attributes[2] = 'mimeType';
-    $scope.attributes[3] = 'id';
     $scope.columns = {
-      'description' : "Opis",
       'name' : "Nazwa",
-      'mimeType' : "Rodzaj pliku",
-      'id' : "ID"
+      'description' : "Opis"
     };
     $scope.selected = "";
     $scope.reports = "";
-    $scope.objectsName = "reports";
-    
-    $scope.mimetypes = new Object();    
-    $scope.mimetypes["Excel"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";           
-    $scope.mimetypes["Word"] = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    $scope.mimetypes["TXT"] = "text/plain";
-    $scope.mimetypes["PDF"] = "application/pdf";
-    $scope.mimetypes["RTF"] = "application/rtf";
-    $scope.get = saveEditDelete.get($http, '/CMS/manageFile/reports.htm', $scope);
+    $scope.get = saveEditDelete.get($http, '/CMS/reports.htm', $scope);
     var loadDataPromise = $scope.get;
-
-    $scope.save = function() {
-        saveEditDelete.save($http, '/CMS/manageFile/save/:object.htm', $scope);
-    };
 
     loadDataPromise.then(function(returnData) {
         if (returnData != null) {
-            $scope.reports = $scope.initData.reports;
+            $scope.employees = $scope.initData.employees;
+            $scope.contract = $scope.initData.contract;
+            $scope.customers = $scope.initData.customers;
+            $scope.departments = $scope.initData.departments;
         } else {
             $scope.status = "Błąd:";
             alert('err');
@@ -55,10 +47,9 @@ function ManageFileCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.edit = function() {
         $scope.editMode = true;
     };
-
+    
     $scope.cancel = function() {
         $scope.editMode = false;
-        $scope.selected = "";
     };
 
     $scope.create = function() {

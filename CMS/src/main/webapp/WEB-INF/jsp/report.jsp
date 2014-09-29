@@ -9,6 +9,17 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-        <h1>report!</h1>
+         <script src="/CMS/resources/js/resourceManagment/reportPrintCtrl.js"></script>
+        <div ng-init="reportDownload = true" ng-controller="ReportPrintCtrl">
+            <div class="top-right">
+                <div class="more-button" ng-show="(!selected && !editMode) && checkEditPrivileges()" ng-click="create()" id="flip"></div>
+                <input class="wyszukiwarka" placeholder="wyszukaj..." type="text" ng-model="searchText"/>
+
+            </div>
+            <t:dataTable/>
+            <div ng-include="selected.formCode">
+                
+            </div>
+        </div>
     </jsp:body>
 </t:general>

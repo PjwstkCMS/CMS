@@ -45,7 +45,6 @@ public class ManageFileController extends BaseController {
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("manageFile");
-        model.addObject("msg", "HelloGuestController");
         
         return model;
     }

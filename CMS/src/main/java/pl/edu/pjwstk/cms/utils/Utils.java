@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
@@ -143,6 +144,31 @@ public abstract class Utils {
                     fileName);
             response.setHeader(headerKey, headerValue);
 
+            IOUtils.copy(fis, response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException io) {
+            System.err.println("Download IO error");
+            io.printStackTrace();
+        }
+    }
+    
+    public static void download(String hash, String fileName, String mimeType, HttpServletResponse response, HttpServletRequest request) {
+        File file;
+        try {
+            byte[] barr = HexConverter.toBytesFromHex(hash);
+            file = new File(fileName);
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(barr);
+            fos.close();
+
+            FileInputStream fis = new FileInputStream(file);
+            response.setContentType(mimeType);
+
+            String headerKey = "Content-Disposition";
+            String headerValue = String.format("attachment; filename=\"%s\"",
+                    fileName);
+            response.setHeader(headerKey, headerValue);
+            request.getSession().setAttribute("msg1", "blablabla");
             IOUtils.copy(fis, response.getOutputStream());
             response.flushBuffer();
         } catch (IOException io) {

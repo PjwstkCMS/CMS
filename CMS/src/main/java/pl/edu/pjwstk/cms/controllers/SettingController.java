@@ -15,11 +15,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.SystemConfigurationDao;
+import pl.edu.pjwstk.cms.models.SystemConfiguration;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *
@@ -52,6 +55,34 @@ public class SettingController extends BaseController {
         SystemConfigurationDao sysDao = new SystemConfigurationDao();
         initData.put("systemConfigs", sysDao.selectAll());
         return Utils.createResponseEntity(session, initData);
+    }
+    
+    @RequestMapping(value = "/systemConfig/save/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<String> saveData(@RequestBody String object, HttpSession session) {
+        SystemConfiguration sc = (SystemConfiguration) Utils.convertJSONStringToObject(object, "object", SystemConfiguration.class);
+        SystemConfigurationDao dao = new SystemConfigurationDao();
+        if (sc.getId() == null) {
+            Long id = dao.insert(sc);
+            Map<String, Object> data = new HashMap<>();
+            data.put("id", id);
+            return Utils.createResponseEntity(session, data);
+        } else {
+            dao.update(sc);
+            Map<String, Object> data = new HashMap<>();
+            data.put("id", sc.getId());
+            return Utils.createResponseEntity(session, data);
+        }
+    }
+
+    @RequestMapping(value = "/systemConfig/delete/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    void deleteData(@RequestBody String object) {
+        SystemConfiguration sc = (SystemConfiguration) Utils.convertJSONStringToObject(object, "object", SystemConfiguration.class);
+        SystemConfigurationDao dao = new SystemConfigurationDao();
+        if (sc.getId() != null) {
+            dao.delete("id="+sc.getId());
+        }
     }
 }
 

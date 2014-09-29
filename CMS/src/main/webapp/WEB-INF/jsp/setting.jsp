@@ -13,6 +13,21 @@
         <h1>setting!</h1>
         <div ng-controller="SystemConfigCtrl">
             <t:dataTable/>
+            <div ng-show="editMode || selected">
+                <table>
+                    <tr>
+                        <td>
+                            Nazwa: <input type="text" ng-model="selected.name"/>
+                        </td>
+                        <td>
+                            Wartość: <input type="text" ng-model="selected.value"/>
+                        </td>
+                        <td>
+                            Opis: <input type="text" ng-model="selected.description"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <t:jsonOperations/>
         </div>
     </jsp:body>

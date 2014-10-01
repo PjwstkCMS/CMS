@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.edu.pjwstk.cms.controllers;
+
+package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,48 +19,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.AddressDao;
-import pl.edu.pjwstk.cms.dao.CardDao;
 import pl.edu.pjwstk.cms.dao.ContractDao;
-import pl.edu.pjwstk.cms.dao.EmployeeDao;
-import pl.edu.pjwstk.cms.dao.EmploymentDao;
+import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.utils.Utils;
-
 /**
  *
  * @author Konrad
  */
 @Controller
-public class EmployeeController extends BaseController {
+public class ContractController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(EmployeeController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(ContractController.class.getName());
 
-    public EmployeeController() {
+    public ContractController() {
 
     }
 
     @Override
-    @RequestMapping("employee")
+    @RequestMapping("contract")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        ModelAndView model = new ModelAndView("employee");
+
+        ModelAndView model = new ModelAndView("contract");
+        model.addObject("msg", "HelloGuestController");
+        model.addObject("server", GenericDao.server);
+        
         return model;
     }
-
-    @RequestMapping(value = "/employee/employees")
+    @RequestMapping(value = "/contract/contracts")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
-        EmployeeDao empDao = new EmployeeDao();
-        CardDao carDao = new CardDao();
-        AddressDao addDao = new AddressDao();
-        EmploymentDao emplDao = new EmploymentDao();
         ContractDao conDao = new ContractDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("employees", empDao.getEmployeeDtoList());
-        initData.put("cards", carDao.selectAll());
-        initData.put("addresses", addDao.selectAll());
-        initData.put("employments", emplDao.selectAll());
         initData.put("contracts", conDao.selectAll());
         return Utils.createResponseEntity(session, initData);
     }
 }
+

@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 
-package pl.edu.pjwstk.cms.controllers;
+package pl.edu.pjwstk.cms.controllers.configuration;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,41 +20,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.CompanyDao;
-import pl.edu.pjwstk.cms.dao.ContractDao;
-import pl.edu.pjwstk.cms.dao.general.GenericDao;
+import pl.edu.pjwstk.cms.dao.PrivilegeKeyDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *
  * @author Konrad
  */
 @Controller
-public class CompanyController extends BaseController {
+public class KeyController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(CompanyController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(KeyController.class.getName());
 
-    public CompanyController() {
+    public KeyController() {
 
     }
 
     @Override
-    @RequestMapping("company")
+    @RequestMapping("key")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("company");
-        model.addObject("msg", "HelloGuestController");
-        model.addObject("server", GenericDao.server);
-        
+        ModelAndView model = new ModelAndView("key");
+        PrivilegeKeyDao privilegeKeyDao = new PrivilegeKeyDao();
+        privilegeKeyDao.selectAll();
         return model;
     }
-    @RequestMapping(value = "/company/companys")
+    
+    @RequestMapping("privilegeKeyList/privKeys.htm")
     @ResponseBody
-    public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
-        CompanyDao comDao = new CompanyDao();
-        Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("companys", comDao.getCompanyDtoList());
-        return Utils.createResponseEntity(session, initData);
+    public ResponseEntity<String> getData(HttpServletRequest request, HttpSession session, ModelMap model) {
+        //UserConfigurationDao userConfigDao = new UserConfigurationDao();
+        PrivilegeKeyDao privilegeKeyDao = new PrivilegeKeyDao();
+        Map<String, Object> initData = new HashMap<>();
+        initData.put("privilegeKeys", privilegeKeyDao.selectAll());
+        return Utils.createResponseEntity(request.getSession(), initData);
     }
 }
-

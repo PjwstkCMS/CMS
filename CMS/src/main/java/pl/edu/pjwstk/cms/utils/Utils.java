@@ -152,31 +152,6 @@ public abstract class Utils {
         }
     }
     
-    public static void download(String hash, String fileName, String mimeType, HttpServletResponse response, HttpServletRequest request) {
-        File file;
-        try {
-            byte[] barr = HexConverter.toBytesFromHex(hash);
-            file = new File(fileName);
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(barr);
-            fos.close();
-
-            FileInputStream fis = new FileInputStream(file);
-            response.setContentType(mimeType);
-
-            String headerKey = "Content-Disposition";
-            String headerValue = String.format("attachment; filename=\"%s\"",
-                    fileName);
-            response.setHeader(headerKey, headerValue);
-            request.getSession().setAttribute("msg1", "blablabla");
-            IOUtils.copy(fis, response.getOutputStream());
-            response.flushBuffer();
-        } catch (IOException io) {
-            System.err.println("Download IO error");
-            io.printStackTrace();
-        }
-    }
-    
     /**
      * Metoda służąca do odpowiedniego przygotowania JSONa z danymi aby prawidłowo przekazać je do klienta (np. do angulara).
      * @param session <HttpSession> 

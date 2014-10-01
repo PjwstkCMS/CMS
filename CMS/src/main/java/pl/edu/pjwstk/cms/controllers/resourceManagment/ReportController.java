@@ -1,5 +1,4 @@
-package pl.edu.pjwstk.cms.controllers;
-
+package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +21,7 @@ import pl.edu.pjwstk.cms.dao.FileDao;
 import pl.edu.pjwstk.cms.dao.ReportDao;
 import pl.edu.pjwstk.cms.models.File;
 import pl.edu.pjwstk.cms.utils.Utils;
+
 /**
  *
  * @author Konrad
@@ -41,10 +41,10 @@ public class ReportController extends BaseController {
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("report");
-        
+
         return model;
     }
-    
+
     @RequestMapping(value = "/reports")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
@@ -62,17 +62,17 @@ public class ReportController extends BaseController {
         File r = new File();
         FileDao fileDao = new FileDao();
         r = fileDao.selectRecordsWithFieldValues("id", id).get(0);
-        Utils.download(r.getHashCode(), r.getName(), r.getMimeType(), response, request);
+        Utils.download(r.getHashCode(), r.getName(), r.getMimeType(), response);
     }
-    
+
     @RequestMapping(value = "/reportGetForm/{form}")
-    public ModelAndView testFormLoad(@PathVariable("form") String form) {     
-        ModelAndView model = new ModelAndView("reportForms/"+form);
+    public ModelAndView testFormLoad(@PathVariable("form") String form) {
+        ModelAndView model = new ModelAndView("reportForms/" + form);
         return model;
     }
-    
+
     @RequestMapping(value = "/reportTest")
-    public ModelAndView testFormLoad() {     
+    public ModelAndView testFormLoad() {
         ModelAndView model = new ModelAndView("reportForms/testReportForm");
         return model;
     }

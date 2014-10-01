@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 
-package pl.edu.pjwstk.cms.controllers;
-
+package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.AddressDao;
-import pl.edu.pjwstk.cms.dao.DepartmentDao;
+import pl.edu.pjwstk.cms.dao.CompanyDao;
+import pl.edu.pjwstk.cms.dao.ContractDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
@@ -29,31 +28,32 @@ import pl.edu.pjwstk.cms.utils.Utils;
  * @author Konrad
  */
 @Controller
-public class DepartmentController extends BaseController {
+public class CompanyController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(DepartmentController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(CompanyController.class.getName());
 
-    public DepartmentController() {
+    public CompanyController() {
 
     }
 
     @Override
-    @RequestMapping("department")
+    @RequestMapping("company")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("department");
+        ModelAndView model = new ModelAndView("company");
         model.addObject("msg", "HelloGuestController");
         model.addObject("server", GenericDao.server);
         
         return model;
     }
-    @RequestMapping(value = "/department/departments")
+    @RequestMapping(value = "/company/companys")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
-        DepartmentDao depDao = new DepartmentDao();
+        CompanyDao comDao = new CompanyDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("departments", depDao.getDepartmentDtoList());
+        initData.put("companys", comDao.getCompanyDtoList());
         return Utils.createResponseEntity(session, initData);
     }
 }
+

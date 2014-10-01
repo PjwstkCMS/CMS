@@ -1,4 +1,11 @@
-package pl.edu.pjwstk.cms.controllers;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package pl.edu.pjwstk.cms.controllers.resourceManagment;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,52 +17,43 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.FileDao;
-import pl.edu.pjwstk.cms.models.File;
+import pl.edu.pjwstk.cms.dao.AddressDao;
+import pl.edu.pjwstk.cms.dao.DepartmentDao;
+import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *
  * @author Konrad
  */
 @Controller
-public class FileController extends BaseController {
+public class DepartmentController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(FileController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(DepartmentController.class.getName());
 
-    public FileController() {
+    public DepartmentController() {
 
     }
 
     @Override
-    @RequestMapping("fileList")
+    @RequestMapping("department")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        ModelAndView model = new ModelAndView("fileList");
+        ModelAndView model = new ModelAndView("department");
         model.addObject("msg", "HelloGuestController");
+        model.addObject("server", GenericDao.server);
         
         return model;
     }
-    
-    @RequestMapping(value = "/fileList/files")
+    @RequestMapping(value = "/department/departments")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
+        DepartmentDao depDao = new DepartmentDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        FileDao reportDao = new FileDao();
-        initData.put("files", reportDao.getReportDtos());
+        initData.put("departments", depDao.getDepartmentDtoList());
         return Utils.createResponseEntity(session, initData);
-    }
-
-    @RequestMapping(value = "/fileList/download")
-    public @ResponseBody
-    void download(@RequestParam("id") Long id, HttpServletResponse response) {
-        File r = new File();
-        FileDao dao = new FileDao();
-        r = dao.selectRecordsWithFieldValues("id", id).get(0);
-        Utils.download(r.getHashCode(), r.getName(), r.getMimeType(), response);
     }
 }

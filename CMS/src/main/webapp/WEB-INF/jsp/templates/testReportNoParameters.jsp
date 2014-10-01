@@ -12,8 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        Msg1: ${msg1}
-        Msg2: ${msg2}
-        Msg3: ${msg3}
+        ${someData}
     </body>
 </html>

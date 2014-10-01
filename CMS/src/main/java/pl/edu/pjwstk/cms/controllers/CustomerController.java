@@ -78,7 +78,7 @@ public class CustomerController extends BaseController {
         if(customerDto.getId() != null ){            
             customer = customerDao.selectRecordsWithFieldValues("id", customerDto.getId()).get(0);
             person = perDao.selectRecordsWithFieldValues("id", customerDto.getPersondataId()).get(0);
-            person.setName(customerDto.getName());
+            person.setForename(customerDto.getForename());
             person.setSurname(customerDto.getSurname());
             person.setEmail(customerDto.getEmail());
             person.setPhone(customerDto.getPhone());
@@ -87,7 +87,7 @@ public class CustomerController extends BaseController {
             data.put("id", customerDto.getId());
             return Utils.createResponseEntity(session, data);
         } else {            
-            person.setName(customerDto.getName());
+            person.setForename(customerDto.getForename());
             person.setSurname(customerDto.getSurname());
             person.setEmail(customerDto.getEmail());
             person.setPhone(customerDto.getPhone());

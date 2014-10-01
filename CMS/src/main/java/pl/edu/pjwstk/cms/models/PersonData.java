@@ -11,18 +11,18 @@ public class PersonData extends DatabaseObject{
     
     private final static Logger LOGGER = Logger.getLogger(Customer.class.getName()); 
     
-    private String name;
+    private String forename;
     private String surname;
     private String email;
     private String phone;
     private String pesel;
 
-    public String getName() {
-        return name;
+    public String getForename() {
+        return forename;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setForename(String forename) {
+        this.forename = forename;
     }
 
     public String getSurname() {

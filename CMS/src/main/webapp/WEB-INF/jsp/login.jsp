@@ -10,7 +10,7 @@
 <t:general>
     <jsp:body>
         ${user}
-        ${user.name}
+        ${user.forename}
         <c:if test="${user==null}">
         <form method="post" action="login.htm">
             <input type="text" name="login"/>

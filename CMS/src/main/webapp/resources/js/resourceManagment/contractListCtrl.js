@@ -34,16 +34,6 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination) {
         'description' : "Opis",
         'price' : "Cena"
     };
-    $scope.columnClasses = {
-        'id' : "kontrakt-id",
-        'customerId' : "kontrakt-customerId",
-        'employeeId' : "kontrakt-employeeId",
-        'startDate': "kontrakt-startDate",
-        'closeDate': "kontrakt-closeDate",
-        'finalisationDate': "kontrakt-finalisationDate",
-        'description': "kontrakt-description",
-        'price': "kontrakt-price"
-    };
         
     $scope.get = saveEditDelete.get($http, '/CMS/contract/contracts.htm', $scope);
     var loadDataPromise = $scope.get;

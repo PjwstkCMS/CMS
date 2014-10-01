@@ -14,7 +14,7 @@ public class UserDto implements Serializable{
     private final static Logger LOGGER = Logger.getLogger(UserDto.class.getName()); 
 
     private Long id;
-    private String name, surname, groupId, login, password, groupName, employeeId, persondataId, email, photoHash;
+    private String forename, surname, groupId, login, password, groupName, employeeId, persondataId, email, photoHash;
     private List<String> privilegeKeyCodes = new ArrayList<>();
     
     public UserDto() {
@@ -29,12 +29,12 @@ public class UserDto implements Serializable{
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getForename() {
+        return forename;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setForename(String forename) {
+        this.forename = forename;
     }
 
     public String getSurname() {

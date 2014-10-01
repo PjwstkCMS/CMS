@@ -30,7 +30,7 @@ public class UserDao extends GenericDao<User>{
         if(conditions.length()>0) {
             conditions+=" AND "; 
         }
-        String query = "SELECT user.id as id, emp.persondataId as persondataId, pers.name as name, pers.surname as surname, "
+        String query = "SELECT user.id as id, emp.persondataId as persondataId, pers.forename as forename, pers.surname as surname, "
                 + "user.login as login, user.password as password, user.employeeId as employeeId, pers.email as email, "
                 + "user.groupId as groupId, user.photoHash as photoHash FROM user, employee as emp, persondata as pers "
                 + "WHERE " + conditions + "user.employeeId = emp.id AND emp.persondataId = pers.id";
@@ -41,7 +41,7 @@ public class UserDao extends GenericDao<User>{
             while (resultSet.next()) {
                 UserDto dto = new UserDto();
                 dto.setId(resultSet.getLong("id"));
-                dto.setName(resultSet.getString("name"));
+                dto.setForename(resultSet.getString("forename"));
                 dto.setSurname(resultSet.getString("surname"));
                 dto.setLogin(resultSet.getString("login"));
                 dto.setPassword(resultSet.getString("password"));

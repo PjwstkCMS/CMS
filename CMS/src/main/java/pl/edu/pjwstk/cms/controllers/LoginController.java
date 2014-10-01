@@ -51,10 +51,10 @@ public class LoginController extends BaseController {
             User user = users.get(0);
             if(user.getPassword().equals(pass)) {
                 UserDto userDto = new UserDto();
-                userDto.setName(login);
+                userDto.setForename(login);
                 userDto.setPassword(pass);
                 userDto.setGroupId(user.getGroupId());
-                LOGGER.info(userDto.getName());
+                LOGGER.info(userDto.getForename());
                 PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
                 PrivilegeGroup group = groupDao.selectRecordsWithFieldValues("id", userDto.getGroupId()).get(0);
                 userDto.setGroupName(group.getName());

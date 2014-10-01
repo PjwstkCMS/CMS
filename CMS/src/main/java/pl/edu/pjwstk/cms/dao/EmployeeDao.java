@@ -56,7 +56,7 @@ public List<EmployeeDto> getEmployeeDtoList() {
                 Address zameldowanie = getZameldowanie(empAdds);
                 dto.setPersondataId(Long.parseLong(set.getString("persondataId")));
                 dto.setId(set.getLong("id"));
-                dto.setName(person.getName());
+                dto.setForename(person.getForename());
                 dto.setSurname(person.getSurname());
                 dto.setEmail(person.getEmail());
                 dto.setPhone(person.getPesel());

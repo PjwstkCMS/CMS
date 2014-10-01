@@ -19,7 +19,7 @@
     <body ng-app="cms">
         <input type="text" ng-model="test"/>
         <h1>
-            ${user.name}            
+            ${user.forename}            
             {{test}}
         </h1>
         <ul>

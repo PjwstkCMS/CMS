@@ -24,7 +24,7 @@ public class CustomerDto implements Serializable {
     private final static Logger LOGGER = Logger.getLogger(CustomerDto.class.getName()); 
 
     private Long id, companyId, persondataId;
-    private String name, surname, email, phone;
+    private String forename, surname, email, phone;
     
     public CustomerDto() {
         super();
@@ -54,12 +54,12 @@ public class CustomerDto implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getForename() {
+        return forename;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setForename(String forename) {
+        this.forename = forename;
     }
 
     public String getSurname() {

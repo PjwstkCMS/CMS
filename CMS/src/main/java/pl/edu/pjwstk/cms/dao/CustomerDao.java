@@ -37,10 +37,8 @@ public class CustomerDao extends GenericDao<Customer> {
             query = this.addParamConditions(query, params);
         }
         ResultSet set = connectionManager.select(query);
-        CompanyDao comDao = new CompanyDao();
         PersonDataDao personDao = new PersonDataDao();
         List<CustomerDto> cusDtos = new ArrayList<>();
-        List<CompanyDto> comDtos = comDao.getCompanyDtoList();
         List<PersonData> persons = personDao.selectAll();
         try {
             while (set.next()) {
@@ -48,10 +46,10 @@ public class CustomerDao extends GenericDao<Customer> {
                 PersonData person = getPersonData(set.getString("persondataId"), persons);
                 dto.setPersondataId(Long.parseLong(set.getString("persondataId")));
                 dto.setId(set.getLong("id"));
-                dto.setName(person.getName());
+                dto.setForename(person.getForename());
                 dto.setSurname(person.getSurname());
                 dto.setEmail(person.getEmail());
-                dto.setPhone(person.getPesel());
+                dto.setPhone(person.getPhone());
                 dto.setCompanyId(Long.parseLong(set.getString("companyId")));
                 cusDtos.add(dto);
             }

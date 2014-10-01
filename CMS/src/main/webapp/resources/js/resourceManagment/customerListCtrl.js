@@ -17,21 +17,15 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
 
     $scope.objectsName = "customers";
     $scope.attributes = [];
-    $scope.attributes[0] = 'name';
+    $scope.attributes[0] = 'forename';
     $scope.attributes[1] = 'surname';
     $scope.attributes[2] = 'phone';
     $scope.attributes[3] = 'email';
     $scope.columns = {
-        'name': "Imię",
+        'forename': "Imie",
         'surname': "Nazwisko",
         'phone': "Telefon",
         'email': "Email"
-    };
-    $scope.columnClasses = {
-        'name': "klient-name",
-        'surname': "klient-surname",
-        'phone': "klient-phone",
-        'email': "klient-email"
     };
     
     $scope.contractAttributes = [];

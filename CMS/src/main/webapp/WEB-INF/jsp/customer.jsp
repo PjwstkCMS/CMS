@@ -62,24 +62,7 @@
                 </table>
             </div>
             
-            <div ng-show="editMode || selected">
-                <table>
-                    <tr>
-                        <td>
-                            Imię: <input type="text" ng-model="selected.name"/>
-                        </td>
-                        <td>
-                            Nazwisko: <input type="text" ng-model="selected.surname"/>
-                        </td>
-                        <td>
-                            Email: <input type="text" ng-model="selected.email"/>
-                        </td>
-                        <td>
-                            Telefon: <input type="text" ng-model="selected.phone"/>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <t:editTable/>
             <t:jsonOperations/>
         </div>
         </jsp:body>

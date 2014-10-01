@@ -22,7 +22,7 @@ public class EmployeeDto implements Serializable {
     private final static Logger LOGGER = Logger.getLogger(EmployeeDto.class.getName()); 
 
     private Long id, persondataId, cardId;
-    private String name, surname, email, phone, departmentId, salary;
+    private String forename, surname, email, phone, departmentId, salary;
     private Address adresZameldowania;
     private Position position;
     
@@ -70,14 +70,14 @@ public class EmployeeDto implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getForename() {
+        return forename;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setForename(String forename) {
+        this.forename = forename;
     }
-
+    
     public String getSurname() {
         return surname;
     }

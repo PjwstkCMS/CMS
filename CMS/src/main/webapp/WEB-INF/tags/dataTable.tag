@@ -86,14 +86,21 @@
         </th>   
 
     </tr>
-    <tbody>
-        <tr ng-class="{selectedTableRow: obj == selected}" ng-repeat="obj in objects| filter:searchText | orderBy:orderColumn:reverse" 
+    <tbody ng-repeat="obj in objects| filter:searchText | orderBy:orderColumn:reverse" 
             ng-show="indexOnPage($index)">
+        <tr ng-class="{selectedTableRow: obj == selected}" >
             <td class="numer">
                 {{$index + 1}}
             </td>
             <td ng-repeat="attr in attributes" ng-click="$parent.select(obj)">
                 {{obj[attr]}}
+            </td>
+        </tr>
+        <tr ng-show="obj == selected">
+            <td>
+                <h1>
+                    BLE
+                </h1>
             </td>
         </tr>
     </tbody>

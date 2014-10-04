@@ -85,9 +85,9 @@
         </th>   
 
     </tr>
-    <tbody>
-        <tr ng-class="{selectedTableRow: obj == selected}" ng-repeat="obj in objects| filter:searchText | orderBy:orderColumn:reverse" 
+    <tbody ng-repeat="obj in objects| filter:searchText | orderBy:orderColumn:reverse" 
             ng-show="indexOnPage($index)">
+        <tr ng-class="{selectedTableRow: obj == selected}" >
             <td class="numer">
                 {{$index + 1}}
             </td>
@@ -119,6 +119,13 @@
                 </div>
                 <div ng-if="attr != 'customerId' && attr != 'employeeId' && attr != 'dictId' 
                          && attr != 'managerId' && attr != 'positionId' && attr != 'departmentId'"> {{obj[attr]}} </div>
+            </td>
+        </tr>
+        <tr ng-show="obj == selected">
+            <td>
+                <h1>
+                    BLE
+                </h1>
             </td>
         </tr>
     </tbody>

@@ -21,8 +21,11 @@ import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.AddressDao;
 import pl.edu.pjwstk.cms.dao.CardDao;
 import pl.edu.pjwstk.cms.dao.ContractDao;
+import pl.edu.pjwstk.cms.dao.DepartmentDao;
+import pl.edu.pjwstk.cms.dao.DictionaryDao;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.EmploymentDao;
+import pl.edu.pjwstk.cms.dao.PositionDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 
 /**
@@ -50,16 +53,21 @@ public class EmployeeController extends BaseController {
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
         EmployeeDao empDao = new EmployeeDao();
+        PositionDao posDao = new PositionDao();
+        DepartmentDao depDao = new DepartmentDao();
+        DictionaryDao dicDao = new DictionaryDao();
+        
         CardDao carDao = new CardDao();
-        AddressDao addDao = new AddressDao();
         EmploymentDao emplDao = new EmploymentDao();
         ContractDao conDao = new ContractDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("employees", empDao.getEmployeeDtoList());
         initData.put("cards", carDao.selectAll());
-        initData.put("addresses", addDao.selectAll());
         initData.put("employments", emplDao.selectAll());
         initData.put("contracts", conDao.selectAll());
+        initData.put("positions", posDao.selectAll());
+        initData.put("departments", depDao.selectAll());
+        initData.put("dictionaries", dicDao.selectAll());
         return Utils.createResponseEntity(session, initData);
     }
 }

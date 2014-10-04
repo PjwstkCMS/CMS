@@ -14,7 +14,7 @@
         <h3>${server}</h3>
         <div ng-controller="CustomerListCtrl">            
             <t:dataTable/>
-            <div id="companyTable" ng-show="selected">
+            <div id="companyTable" ng-show="selected && !editMode">
                 <h3>
                     Dane firmy:
                 </h3>
@@ -39,30 +39,52 @@
                 <h3>
                     Aktualne umowy:
                 </h3>
-                <table>
+                <%-- <table>
                     <tr>
                         <th> 
                             # 
                         </th>
-                        <th ng-repeat="cattr in contractAttributes" ng-hide="cattr.substring(0, 1) == '%'" class = "{{contractColumnClasses[cattr]}}">
+                        <th ng-repeat="cattr in contractAttributes" ng-hide="cattr.substring(0, 1) == '%'">
                             <a ng-click="$parent.orderColumn = cattr;
-                            $parent.reverse = !$parent.reverse">{{$parent.contractColumns[cattr]}}</a>
+                            $parent.reverse = !$parent.reverse">{{$parent.columnDescription(cattr)}}</a>
                         </th>   
                     </tr>
                     <tbody>
-                        <tr ng-repeat="con in contracts" ng-show="checkCustomerId(con)">
+                        <tr ng-class="{selectedTableRow: con == contractSelector}" ng-repeat="con in contracts" ng-show="checkCustomerId(con)">
                                 <td class="numer">
                                     {{$index + 1}}
                                 </td>
-                                <td ng-repeat="cattr in contractAttributes">
+                                <td ng-repeat="cattr in contractAttributes" ng-click="$parent.contractSelect(con)">
                                     {{con[cattr]}}
                                 </td>
                         </tr>
                     </tbody>
+                </table>--%>
+                <select ng-model="contractSelector" ng-options="con.id
+                        for con in selectedContracts"></select><br>
+                <table>
+                    <tr>
+                        <th ng-repeat="catr in contractAttributes">
+                            {{$parent.columnDescription(catr)}}
+                        </th>   
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td ng-repeat="attr in contractAttributes">
+                                {{contractSelector[attr]}}
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
+                <%--<div ng-show="contractSelector">
+                    <t:editTable map="contractValues" object="contractSelector"/>
+                </div>--%>
+                
             </div>
+                <div ng-show="editMode">
+                    <t:editTable map="editValues" object="selected"/>
+                </div>
             
-            <t:editTable/>
             <t:jsonOperations/>
         </div>
         </jsp:body>

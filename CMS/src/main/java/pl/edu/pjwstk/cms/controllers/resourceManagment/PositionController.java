@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.DepartmentDao;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.PositionDao;
 import pl.edu.pjwstk.cms.dto.EmployeeDto;
@@ -51,11 +52,11 @@ public class PositionController extends BaseController {
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
         PositionDao posDao = new PositionDao();
         EmployeeDao empDao = new EmployeeDao();
-        List<Position> positions = posDao.selectAll();
-        List<EmployeeDto> empDtos = empDao.getEmployeeDtoList();
+        DepartmentDao depDao = new DepartmentDao();
         Map<String, Object> initData = new HashMap<>();
-        initData.put("positions", positions);
-        initData.put("employees", empDtos);
+        initData.put("positions", posDao.selectAll());
+        initData.put("employees", empDao.getEmployeeDtoList());
+        initData.put("departments", depDao.getDepartmentDtoList());
         return Utils.createResponseEntity(session, initData);
     }
 }

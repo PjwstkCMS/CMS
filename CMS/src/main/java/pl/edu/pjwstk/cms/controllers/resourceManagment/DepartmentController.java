@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.AddressDao;
 import pl.edu.pjwstk.cms.dao.DepartmentDao;
+import pl.edu.pjwstk.cms.dao.DictionaryDao;
+import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
@@ -52,8 +54,12 @@ public class DepartmentController extends BaseController {
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
         DepartmentDao depDao = new DepartmentDao();
+        EmployeeDao empDao = new EmployeeDao();
+        DictionaryDao dictDao = new DictionaryDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("departments", depDao.getDepartmentDtoList());
+        initData.put("employees", empDao.getEmployeeDtoList());
+        initData.put("dictionaries", dictDao.getCompanyAddressesTypes());
         return Utils.createResponseEntity(session, initData);
     }
 }

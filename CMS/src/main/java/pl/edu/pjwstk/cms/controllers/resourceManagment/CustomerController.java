@@ -91,7 +91,7 @@ public class CustomerController extends BaseController {
             person.setSurname(customerDto.getSurname());
             person.setEmail(customerDto.getEmail());
             person.setPhone(customerDto.getPhone());
-            customer.setCompanyId("-1");
+            customer.setCompanyId(customerDto.getCompanyId()+"");
             customer.setPersondataId(perDao.insert(person)+"");
             data.put("id", customerDao.insert(customer));
             return Utils.createResponseEntity(session, data);

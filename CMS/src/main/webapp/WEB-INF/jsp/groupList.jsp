@@ -7,7 +7,7 @@
 
         <div ng-controller="GroupListCtrl">
             <t:dataTable/>
-            
+            <t:editTable/>
              <table class="genericTable">
                
                 <tr ng-show="selected.id">
@@ -28,7 +28,7 @@
                     </td>
                 </tr>
             </table>
-            <input type="button" class="zapisz-button" ng-show="selected.id" ng-click="save()" value="ZAPISZ">
+            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

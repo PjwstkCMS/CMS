@@ -22,7 +22,7 @@ public class PositionDao extends GenericDao<Position>{
     public PositionDao() {
         super(Position.class);
     }
-public List<PositionDto> getPositionDtoList() {
+    public List<PositionDto> getPositionDtoList() {
         return getPositionDtoList(new HashMap<String, List<String>>());
     }
     

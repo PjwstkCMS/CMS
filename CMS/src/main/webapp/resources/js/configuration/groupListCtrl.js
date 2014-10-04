@@ -1,4 +1,4 @@
-function GroupListCtrl($scope, $http, saveEditDelete, pagination) {
+function GroupListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
@@ -95,5 +95,9 @@ function GroupListCtrl($scope, $http, saveEditDelete, pagination) {
     
     $scope.checkEditPrivileges = function() {
         return true;
+    };
+    
+    $scope.columnDescription = function(obj){
+        return columnDesc.get(obj);
     };
 }

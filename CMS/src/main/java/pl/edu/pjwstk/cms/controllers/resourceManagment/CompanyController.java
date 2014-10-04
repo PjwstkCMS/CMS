@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.CompanyDao;
-import pl.edu.pjwstk.cms.dao.ContractDao;
+import pl.edu.pjwstk.cms.dao.DictionaryDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
@@ -47,12 +47,14 @@ public class CompanyController extends BaseController {
         
         return model;
     }
-    @RequestMapping(value = "/company/companys")
+    @RequestMapping(value = "/company/companies")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
         CompanyDao comDao = new CompanyDao();
+        DictionaryDao dictDao = new DictionaryDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("companys", comDao.getCompanyDtoList());
+        initData.put("companies", comDao.getCompanyDtoList());
+        initData.put("dictionaries", dictDao.getCompanyAddressesTypes());
         return Utils.createResponseEntity(session, initData);
     }
 }

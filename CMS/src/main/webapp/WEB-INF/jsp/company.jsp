@@ -18,30 +18,39 @@
                 <h3>
                     Adresy Firmy:
                 </h3>
+                <select ng-model="addressSelector" ng-options="add.streetName+' '+add.streetNumber+' '+add.city
+                        for add in selected.addresses"></select><br>
                 <table>
                     <tr>
-                        <th> 
-                            # 
-                        </th>
-                        <th ng-repeat="adatr in addressAttributes" ng-hide="adatr.substring(0, 1) == '%'" class = "{{addressColumnClasses[adatr]}}">
-                            <a ng-click="$parent.orderColumn = adatr;
-                            $parent.reverse = !$parent.reverse">{{$parent.addressColumns[adatr]}}</a>
+                        <th ng-repeat="adatr in addressAttributes">
+                            {{$parent.columnDescription(adatr)}}
                         </th>   
                     </tr>
+                    <input type="button" ng-click="addAddress()" value="ADD"/>
+                    <input type="button" ng-show="addressSelector" ng-click="editAddress()" value="EDIT"/>
+                    <input type="button" ng-click="removeKey()" value="DELETE"/>
                     <tbody>
-                        <tr ng-repeat="add in selected.addresses">
-                                <td class="numer">
-                                    {{$index + 1}}
-                                </td>
-                                <td ng-repeat="adatr in addressAttributes">
-                                    {{add[adatr]}}
-                                </td>
+                        <tr>
+                            <td ng-repeat="attr in addressAttributes">
+                                <div ng-if="attr == 'dictId'"> 
+                                    <div ng-repeat="dict in dictionaries" ng-show="dict.id == addressSelector[attr]">
+                                        {{dict.description}}
+                                    </div>
+                                </div>
+                                <div ng-if="attr != 'dictId'"> {{addressSelector[attr]}} </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-                
+                <div ng-show="addressEdit">
+                    <t:editTable map="addressValues" object="addressSelector"/>
+                    <input type="button" ng-click="addKey()" value="Add"/>
+                    <input type="button" ng-click="cancelAddress()" value="Cancel"/>
+                </div>
             </div>
-            
+            <div ng-show="editMode">
+                <t:editTable map="editValues" object="selected"/>
+            </div>
             <t:jsonOperations/>
         </div>
     </jsp:body>

@@ -1,4 +1,4 @@
-function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
+function TerminalListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
     $scope.pageMax = 14;
@@ -6,35 +6,21 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     
     $scope.status = "Ładowanie danych";
     $scope.selected = "";
-    $scope.contracts = "";
+    $scope.companies = "";
     $scope.privileges = "";
     $scope.editMode = false;
     //$scope.displayPage = true;
     //$scope.displayPageName = "customerPage";
     
-    $scope.objectsName = "contracts";
+    $scope.objectsName = "terminals";
     $scope.attributes = [];
-    $scope.attributes[0] = 'id';
-    $scope.attributes[1] = 'customerId';
-    $scope.attributes[2] = 'employeeId';
-    $scope.attributes[3] = 'startDate';
-    $scope.attributes[4] = 'closeDate';
-    $scope.attributes[5] = 'finalisationDate';
-    $scope.attributes[6] = 'description';
-    $scope.attributes[7] = 'price';
+    $scope.attributes[0] = 'description';
     
     $scope.editValues = [];
     $scope.editValues[0] = {0:'id', 1:false};
-    $scope.editValues[1] = {0:'customerId',1:true};
-    $scope.editValues[2] = {0:'employeeId',1:true};
-    $scope.editValues[3] = {0:'startDate',1:true};
-    $scope.editValues[4] = {0:'closeDate',1:true};
-    $scope.editValues[5] = {0:'finalisationDate',1:false};
-    $scope.editValues[6] = {0:'description',1:true};
-    $scope.editValues[7] = {0:'price',1:true};
-
+    $scope.editValues[1] = {0:'description',1:true};
         
-    $scope.get = saveEditDelete.get($http, '/CMS/contract/contracts.htm', $scope);
+    $scope.get = saveEditDelete.get($http, '/CMS/terminal/terminals.htm', $scope);
     var loadDataPromise = $scope.get;
 
     $scope.save = function() {
@@ -45,16 +31,13 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
                 return;
             }
         }
-        saveEditDelete.save($http, '/CMS/contract/save/:object.htm', $scope);
+        saveEditDelete.save($http, '/CMS/terminal/save/:object.htm', $scope);
         $scope.editMode = false;
     };
 
     loadDataPromise.then(function(returnData) {
         if (returnData != null) {
-            $scope.contracts = $scope.initData.contracts;
-            $scope.customers = $scope.initData.customers;
-            $scope.employees = $scope.initData.employees;
-            $scope.privileges = $scope.initData.privileges;
+            $scope.terminals = $scope.initData.terminals;
         } else {
             alert('err');
         }
@@ -63,6 +46,7 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.select = function(object) {
         if ($scope.selected == object) {
             $scope.selected = "";
+            $scope.editMode = false;
         } else {
             $scope.selected = object;
         }
@@ -79,15 +63,14 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
 
     $scope.create = function() {
         $scope.selected = {
-            'id': "", 'customerId':"", 'employeeId':"",'startDate':"",'closeDate':"",
-            'finalisationDate':"",'description':"",'price':""
+            'id': "", 'description':""
         };
-        
         $scope.editMode = true;
+
     };
 
     $scope.delete = function() {
-        saveEditDelete.remove($http, '/CMS/contract/delete/:object.htm', $scope);
+        saveEditDelete.remove($http, '/CMS/terminal/delete/:object.htm', $scope);
     };
     
     $scope.columnDescription = function(obj){

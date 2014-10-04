@@ -1,4 +1,4 @@
-function PositionListCtrl($scope, $http, saveEditDelete, pagination) {
+function PositionListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
     $scope.pageMax = 14;
@@ -17,26 +17,35 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.attributes = [];
     $scope.attributes[0] = 'name';
     $scope.attributes[1] = 'description';
-    //$scope.attributes[4] = 'companyName';
-    $scope.columns = {
-        'name' : "Nazwa",
-        'description': "Opis",
-    };
-    $scope.columnClasses = {
-        'name' : "stanowisko-nazwa",
-        'description': "stanowisko-opis",
-    };
+    
+    $scope.editValues = [];
+    $scope.editValues[0] = {0:'id', 1:false};
+    $scope.editValues[1] = {0:'name',1:true};
+    $scope.editValues[2] = {0:'description',1:true};
+    
+    $scope.employeeSelector = "";
+    
+    $scope.employeeAttributes = [];
+    $scope.employeeAttributes[0] = 'id';
+    $scope.employeeAttributes[1] = 'forename';
+    $scope.employeeAttributes[2] = 'surname';
+    $scope.employeeAttributes[3] = 'phone';
+    $scope.employeeAttributes[4] = 'email';
+    $scope.employeeAttributes[5] = 'departmentId';
         
     $scope.get = saveEditDelete.get($http, '/CMS/position/positions.htm', $scope);
     var loadDataPromise = $scope.get;
 
     $scope.save = function() {
-        
-        if(($scope.selected.name == null) || $scope.selected.surname == null || $scope.selected.phone == null || $scope.selected.email == null) {
-            alert("Sprawdź poprowność wprowadzonych danych");
-        } else {
-            saveEditDelete.save($http, '/CMS/position/save/:object.htm', $scope);
+        for (var i = 0; i<$scope.editValues.length; i++) {  
+            if($scope.editValues[i][1] && 
+               ($scope.selected[$scope.editValues[i][0]] == null || $scope.selected[$scope.editValues[i][0]] == "")){
+                alert("Sprawdź poprowność wprowadzonych danych");
+                return;
+            }
         }
+        saveEditDelete.save($http, '/CMS/position/save/:object.htm', $scope);
+        $scope.editMode = false;
     };
 
     loadDataPromise.then(function(returnData) {
@@ -44,6 +53,7 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination) {
             $scope.positions = $scope.initData.positions;
             $scope.privileges = $scope.initData.privileges;
             $scope.employees = $scope.initData.employees;
+            $scope.departments = $scope.initData.departments;
         } else {
             alert('err');
         }
@@ -52,6 +62,8 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.select = function(object) {
         if ($scope.selected == object) {
             $scope.selected = "";
+            $scope.selectedEmployees = "";
+            $scope.editMode = false;
         } else {
             $scope.selected = object;
             $scope.selectedEmployees = new Array();
@@ -62,7 +74,7 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination) {
             }
         }
     }
-
+    
     $scope.edit = function() {
         $scope.editMode = true;
     };
@@ -73,7 +85,10 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination) {
     };
 
     $scope.create = function() {
-        $scope.selected = "";
+        $scope.selected = {
+            'id':"",'name':"",'description':""
+        };
+        $scope.selectedEmployees = "";
         $scope.editMode = true;
 
     };
@@ -82,5 +97,7 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination) {
         saveEditDelete.remove($http, '/CMS/position/delete/:object.htm', $scope);
     };
     
-    
+    $scope.columnDescription = function(obj){
+        return columnDesc.get(obj);
+    };
 }

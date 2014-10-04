@@ -72,7 +72,6 @@
     }
 </style>
 
-
 <table>
     <tr>
 
@@ -82,7 +81,7 @@
         <th ng-repeat="attr in attributes" ng-hide="attr.substring(0, 1) == '%'"
             class = "{{columnClasses[attr]}}">
             <a ng-click="$parent.orderColumn = attr;
-                        $parent.reverse = !$parent.reverse">{{$parent.columns[attr]}}</a>
+                        $parent.reverse = !$parent.reverse">{{$parent.columnDescription(attr)}}</a>
         </th>   
 
     </tr>
@@ -93,7 +92,33 @@
                 {{$index + 1}}
             </td>
             <td ng-repeat="attr in attributes" ng-click="$parent.select(obj)">
-                {{obj[attr]}}
+                <div ng-if="attr == 'customerId'"> 
+                    <div ng-repeat="customer in customers" ng-show="customer.id == obj[attr]">
+                        {{customer.forename}} {{customer.surname}}
+                    </div>
+                </div>
+                <div ng-if="attr == 'employeeId' || attr == 'managerId'"> 
+                    <div ng-repeat="employee in employees" ng-show="employee.id == obj[attr]">
+                        {{employee.forename}} {{employee.surname}}
+                    </div>
+                </div>
+                <div ng-if="attr == 'dictId'"> 
+                    <div ng-repeat="dict in dictionaries" ng-show="dict.id == obj[attr]">
+                        {{dict.description}}
+                    </div>
+                </div>
+                <div ng-if="attr == 'departmentId'"> 
+                    <div ng-repeat="dep in departments" ng-show="dep.id == obj[attr]">
+                        {{dep.name}}
+                    </div>
+                </div>
+                <div ng-if="attr == 'positionId'"> 
+                    <div ng-repeat="pos in positions" ng-show="pos.id == obj[attr]">
+                        {{pos.name}}
+                    </div>
+                </div>
+                <div ng-if="attr != 'customerId' && attr != 'employeeId' && attr != 'dictId' 
+                         && attr != 'managerId' && attr != 'positionId' && attr != 'departmentId'"> {{obj[attr]}} </div>
             </td>
         </tr>
     </tbody>

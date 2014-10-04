@@ -9,8 +9,15 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-        <h1>terminal!</h1>
-        <t:dataTable/>
-        <t:jsonOperations/>
+        <script src="/CMS/resources/js/resourceManagment/terminalListCtrl.js"></script>
+        <h1>Terminal!</h1>
+        <h3>${server}</h3>
+        <div ng-controller="TerminalListCtrl">
+            <t:dataTable/>
+            <div ng-show="editMode">
+                <t:editTable map="editValues" object="selected"/>
+            </div>
+            <t:jsonOperations/>
+        </div>
     </jsp:body>
 </t:general>

@@ -14,7 +14,9 @@
         <h3>${server}</h3>
         <div ng-controller="ContractListCtrl">
             <t:dataTable/>
-            <t:editTable/>
+            <div ng-show="editMode">
+                <t:editTable map="editValues" object="selected"/>
+            </div>
             <t:jsonOperations/>
         </div>
     </jsp:body>

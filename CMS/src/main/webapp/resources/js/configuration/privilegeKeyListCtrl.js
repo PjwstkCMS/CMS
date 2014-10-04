@@ -1,4 +1,4 @@
-function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination) {
+function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     
     
     $scope.bla = "bla";
@@ -65,5 +65,9 @@ function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination) {
     
     $scope.checkEditPrivileges = function() {
         return true;
+    };
+    
+    $scope.columnDescription = function(obj){
+        return columnDesc.get(obj);
     };
 }

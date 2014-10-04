@@ -14,11 +14,15 @@
         <h3>${server}</h3>
         <div ng-controller="DepartmentListCtrl">
             <t:dataTable/>
-            <div id="companyTable" ng-show="selected">
+            <div id="companyTable" ng-show="selected && !editMode">
                 <b>Adres:</b> {{selected.address.city}} {{selected.address.streetName}}
                               {{selected.address.streetNumber}}/m.{{selected.address.apartmentNumber}}
-                              {{selected.address.postalCode}} {{selected.address.country}}
+                              {{selected.address.postalCode}} {{selected.address.country}} {{selected.address.dictId}}
 
+            </div>
+            <div ng-show="editMode">
+                <t:editTable map="editValues" object="selected"/>
+                <t:editTable map="addressValues" object="selected.address"/>
             </div>
             <t:jsonOperations/>
         </div>

@@ -86,3 +86,56 @@ cmsModule.factory('pagination', function() {
         }
     };
 });
+
+cmsModule.factory('columnDesc', function() {
+    return {
+        get:function(object){
+            descriptions = {
+                'id': "ID",
+                'employeeId': "Pracownik",
+                'customerId' : "Klient",
+                'managerId' : "Manager",
+                'companyId' : "Firma",
+                'departmentId' : "Departement",
+                'cardId' : "Numer karty",
+                'dictTypeId' : "Rodzaj słownika",
+                'dictId' : "Dodatkowy Opis",
+                'positionId' : "Stanowisko",
+                
+                'forename': "Imie",
+                'surname': "Nazwisko",
+                'phone': "Telefon",
+                'email': "Email",
+                'groupName' : "Grupa",
+                'login' : "Login",
+                'salary' : "Pensja",
+                
+                'name' : "Nazwa",
+                'description': "Opis",
+                'price': "Cena",
+                'mimeType' : "Rodzaj pliku",
+                'value' : "Wartość",
+                'code' : "Kod",
+                
+                'startDate': "Data rozpoczęcia",
+                'closeDate': "Planowana data zakończenia",
+                'finalisationDate': "Data zakończenia",
+                
+                'country': "Kraj",
+                'city': "Miasto",
+                'streetName': "Ulica",
+                'streetNumber': "Numer",
+                'apartmentNumber': "Lokal",
+                'postalCode': "Kod"
+                               
+            };
+            
+            for (desc in descriptions) {  
+                if(desc == object) {
+                    return descriptions[desc];
+                }                
+            }
+            return "N/A";
+        }
+    };
+});

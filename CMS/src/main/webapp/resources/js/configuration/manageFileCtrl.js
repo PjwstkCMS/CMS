@@ -1,4 +1,4 @@
-function ManageFileCtrl($scope, $http, saveEditDelete, pagination) {
+function ManageFileCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     $scope.fileListUpload = true;
 
     $scope.indexOnPage = pagination.indexOnPage($scope);
@@ -67,5 +67,7 @@ function ManageFileCtrl($scope, $http, saveEditDelete, pagination) {
 
     };
 
-
+    $scope.columnDescription = function(obj){
+        return columnDesc.get(obj);
+    };
 }

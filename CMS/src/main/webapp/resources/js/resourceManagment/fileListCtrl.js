@@ -1,4 +1,4 @@
-function FileListCtrl($scope, $http, saveEditDelete, pagination) {
+function FileListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
@@ -58,5 +58,7 @@ function FileListCtrl($scope, $http, saveEditDelete, pagination) {
 
     };
 
-
+    $scope.columnDescription = function(obj){
+        return columnDesc.get(obj);
+    };
 }

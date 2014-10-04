@@ -11,7 +11,8 @@
 <hr/>
 <div style="height: 50px">
     <input style="padding-top: 0px" ng-show="!editMode && !selected" type="button" ng-click="create()" value="NOWE">
-    <input ng-show="editMode || selected" type="button" ng-click="save()" value="ZAPISZ">
-    <input ng-show="editMode || selected" type="button" ng-click="cancel()" value="ANULUJ">
+    <input ng-show="!editMode && selected" type="button" ng-click="edit()" value="EDYTUJ">
+    <input ng-show="editMode" type="button" ng-click="save()" value="ZAPISZ">
+    <input ng-show="editMode" type="button" ng-click="cancel()" value="ANULUJ">
     <input ng-show="selected.id" type="button" ng-click="delete()" value="USUŃ"/>
 </div>

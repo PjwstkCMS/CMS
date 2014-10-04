@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.Address;
-import pl.edu.pjwstk.cms.models.Position;
 
 /**
  *
@@ -21,21 +20,22 @@ public class EmployeeDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(EmployeeDto.class.getName()); 
 
-    private Long id, persondataId, cardId;
-    private String forename, surname, email, phone, departmentId, salary;
-    private Address adresZameldowania;
-    private Position position;
+    private Long id, persondataId, cardId, departmentId, positionId;
+    private String forename, surname, email, phone, salary;
+    private List<Address> addresses;
+    
+    private List<String> privilegeKeyCodes = new ArrayList<>();
     
     public EmployeeDto() {
         super();
     }
 
-    public Position getPosition() {
-        return position;
+    public Long getPositionId() {
+        return positionId;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setPositionId(Long positionId) {
+        this.positionId = positionId;
     }
     
     public String getSalary() {
@@ -101,25 +101,21 @@ public class EmployeeDto implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public Address getAdresZameldowania() {
-        return adresZameldowania;
-    }
-
-    public void setAdresZameldowania(Address adresZameldowania) {
-        this.adresZameldowania = adresZameldowania;
-    }
     
-    public String getDepartmentId() {
+    public Long getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(String departmentId) {
+    public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
     }
-    
-    public String getPositionName() {
-        return position.getName();
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
     
     public List<String> getPrivilegeKeyCodes() {
@@ -129,6 +125,6 @@ public class EmployeeDto implements Serializable {
     public void setPrivilegeKeyCodes(List<String> privilegeKeyCodes) {
         this.privilegeKeyCodes = privilegeKeyCodes;
     }
-    private List<String> privilegeKeyCodes = new ArrayList<>();
+    
     
 }

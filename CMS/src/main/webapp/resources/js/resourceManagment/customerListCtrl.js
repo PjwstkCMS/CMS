@@ -1,4 +1,4 @@
-function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
+function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
 
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
@@ -6,6 +6,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.checkMax = pagination.pageMaxSmallerThenSize($scope);
     $scope.selectedCompany = 'test';
     $scope.selectedCompanyAddress = "";
+    $scope.selectedContracts = [];
 
     $scope.status = "Ładowanie danych";
     $scope.selected = "";
@@ -21,12 +22,6 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.attributes[1] = 'surname';
     $scope.attributes[2] = 'phone';
     $scope.attributes[3] = 'email';
-    $scope.columns = {
-        'forename': "Imie",
-        'surname': "Nazwisko",
-        'phone': "Telefon",
-        'email': "Email"
-    };
     
     $scope.contractAttributes = [];
     $scope.contractAttributes[0] = 'id';
@@ -36,31 +31,40 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     $scope.contractAttributes[4] = 'finalisationDate';
     $scope.contractAttributes[5] = 'description';
     $scope.contractAttributes[6] = 'price';
-    $scope.contractColumns= {
-        'id': "Id umowy",
-        'employeeId': "Pracownik",
-        'startDate': "Data rozpoczęcia",
-        'closeDate': "Planowana data zakończenia",
-        'finalisationDate': "Data zakończenia",
-        'description': "Opis",
-        'price': "Cena"
-    };
-    $scope.contractColumnClasses = {
-        'id' : "kontrakt-id",
-        'employeeId': "kontrakt-employeeId",
-        'startDate': "kontrakt-startDate",
-        'closeDate': "kontrakt-closeDate",
-        'finalisationDate': "kontrakt-finalisationDate",
-        'description': "kontrakt-description",
-        'price': "kontrakt-price"
-    };
+    
+    $scope.editValues = [];
+    $scope.editValues[0] = {0:'id', 1:false};
+    $scope.editValues[1] = {0:'forename', 1:true};
+    $scope.editValues[2] = {0:'surname', 1:true};
+    $scope.editValues[3] = {0:'phone', 1:true};
+    $scope.editValues[4] = {0:'email', 1:true};
+    $scope.editValues[5] = {0:'companyId', 1:true};
+    
+    $scope.contractSelector = "";
+    $scope.contractValues = [];
+    $scope.contractValues[0] = {0:'id', 1:false};
+    $scope.contractValues[1] = {0:'customerId',1:true};
+    $scope.contractValues[2] = {0:'employeeId',1:true};
+    $scope.contractValues[3] = {0:'startDate',1:true};
+    $scope.contractValues[4] = {0:'closeDate',1:true};
+    $scope.contractValues[5] = {0:'finalisationDate',1:false};
+    $scope.contractValues[6] = {0:'description',1:true};
+    $scope.contractValues[7] = {0:'price',1:true};
     
 
     $scope.get = saveEditDelete.get($http, '/CMS/customer/customers.htm', $scope);
     var loadDataPromise = $scope.get;
 
     $scope.save = function() {
+        for (var i = 0; i<$scope.editValues.length; i++) {  
+            if($scope.editValues[i][1] && 
+               ($scope.selected[$scope.editValues[i][0]] == null || $scope.selected[$scope.editValues[i][0]] == "")){
+                alert("Sprawdź poprowność wprowadzonych danych");
+                return;
+            }
+        }
         saveEditDelete.save($http, '/CMS/customerSave/:object.htm', $scope);
+        $scope.editMode = false;
     };
 
     loadDataPromise.then(function(returnData) {
@@ -73,16 +77,33 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
         }
     });
 
+    $scope.contractSelect = function(object) {
+        if ($scope.contractSelector == object) {
+            $scope.contractSelector = "";
+        } else {
+            $scope.contractSelector = object;
+        }
+    }
+    
     $scope.select = function(object) {
         if ($scope.selected == object) {
             $scope.selected = "";
             $scope.selectedCompany = "";
+            $scope.contractSelector = "";
         } else {
             $scope.selected = object;
+            $scope.contractSelector = "";
+            $scope.selectedContracts = [];
+            $scope.selectedCompany = "";
             for (var i = 0; i<$scope.companies.length; i++) {
                 if($scope.companies[i].id == $scope.selected.companyId) {
                     $scope.selectedCompany = $scope.companies[i];
                     $scope.selectedCompanyAddress = $scope.selectedCompany.addresses[0];
+                }
+            }
+            for (var i = 0; i<$scope.contracts.length; i++) {
+                if($scope.contracts[i].customerId == $scope.selected.id) {
+                    $scope.selectedContracts.push($scope.contracts[i]);
                 }
             }
         }
@@ -105,7 +126,8 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
     };
 
     $scope.create = function() {
-        $scope.selected = "";
+        $scope.selected = {'id':"",'companyId':"","persondataId":""
+            ,"forename":"","surname":"","email":"","phone":"","privilegeKeyCodes":[]};
         $scope.editMode = true;
 
     };
@@ -114,5 +136,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination) {
         saveEditDelete.remove($http, '/CMS/customer/delete/:object.htm', $scope);
     };
 
-
+    $scope.columnDescription = function(obj){
+        return columnDesc.get(obj);
+    };
 }

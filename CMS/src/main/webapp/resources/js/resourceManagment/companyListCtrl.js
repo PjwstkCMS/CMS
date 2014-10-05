@@ -19,6 +19,7 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
     $scope.editValues = [];
     $scope.editValues[0] = {0:'id', 1:false};
     $scope.editValues[1] = {0:'name',1:true};
+    $scope.editValues[2] = {0:'addresses',1:true};
     
     
     $scope.addressSelector = "";

@@ -8,7 +8,6 @@ package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +23,6 @@ import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.DepartmentDao;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.PositionDao;
-import pl.edu.pjwstk.cms.dto.EmployeeDto;
-import pl.edu.pjwstk.cms.models.Position;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *

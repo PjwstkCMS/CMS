@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -15,18 +10,22 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.AddressDao;
 import pl.edu.pjwstk.cms.dao.CompanyDao;
 import pl.edu.pjwstk.cms.dao.DictionaryDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
+import pl.edu.pjwstk.cms.dto.CompanyDto;
+import pl.edu.pjwstk.cms.models.Address;
+import pl.edu.pjwstk.cms.models.Company;
 import pl.edu.pjwstk.cms.utils.Utils;
-/**
- *
- * @author Konrad
- */
+
+
 @Controller
 public class CompanyController extends BaseController {
 
@@ -56,6 +55,55 @@ public class CompanyController extends BaseController {
         initData.put("companies", comDao.getCompanyDtoList());
         initData.put("dictionaries", dictDao.getCompanyAddressesTypes());
         return Utils.createResponseEntity(session, initData);
+    }
+    
+    @RequestMapping(value = "/company/save/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<String> saveData(@RequestBody String object, HttpSession session) {
+        CompanyDto compDto = (CompanyDto) Utils.convertJSONStringToObject(object, "object", CompanyDto.class);
+        CompanyDao compDao = new CompanyDao();
+        Company comp = new Company();
+        Map<String, Object> data = new HashMap<>();
+        if(compDto.getId() != null ){
+            comp = compDao.selectRecordsWithFieldValues("id", compDto.getId()).get(0);
+            comp.setName(compDto.getName());
+            if(compDto.getContactPersonId()==null){
+                comp.setContactpersonId("-1");
+            }else{
+                comp.setContactpersonId(compDto.getContactPersonId()+"");
+            }
+            compDao.update(comp);
+            data.put("id", compDto.getId());
+            return Utils.createResponseEntity(session, data);
+        } else {
+            comp.setName(compDto.getName());
+            if(compDto.getContactPersonId()==null){
+                comp.setContactpersonId("-1");
+            }else{
+                comp.setContactpersonId(compDto.getContactPersonId()+"");
+            }
+            Long id = compDao.insert(comp);
+            List<Address> addList = compDto.getAddresses();
+            AddressDao addDao = new AddressDao();
+            for(Address address : addList){
+                address.setCompanyId(id+"");
+                addDao.update(address);
+            }
+            data.put("id", id);
+            return Utils.createResponseEntity(session, data);
+        }
+    }
+    
+    @RequestMapping(value = "/company/delete/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    void deleteData(@RequestBody String object) {
+        CompanyDto compDto = (CompanyDto) Utils.convertJSONStringToObject(object, "object", CompanyDto.class);
+        CompanyDao compDao = new CompanyDao();
+        AddressDao addDao = new AddressDao();
+        if (compDto.getId() != null) {
+            compDao.delete("id="+compDto.getId());
+            addDao.delete("companyId="+compDto.getId());
+        }
     }
 }
 

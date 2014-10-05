@@ -55,6 +55,47 @@ cmsModule.factory('saveEditDelete', function() {
                 $scope.showOperationMessage = true;
                 $scope.operationMessage = "Operacja zapisywania nie udana"
             });
+        },
+        saveAddress: function($http, link, $scope) {
+            if ($scope.addressSelector.id == null || $scope.addressSelector.id < 1) {
+                $scope.selected.addresses.push($scope.addressSelector);
+            }
+
+            return $http.post(
+                    link,
+                    {object: $scope.addressSelector}).success(function(returnId) {
+                $scope.showOperationMessage = true;
+                $scope.operationMessage = "Adres zapisany"
+                
+                if(returnId!=null) {
+                    $scope.addressSelector.id = returnId.id;
+                }                
+                $scope.addressSelector = null;
+                $scope.editMode = false;
+            }).error(function(error) {
+                $scope.showOperationMessage = true;
+                $scope.operationMessage = "Błąd przy dodawaniu adresu"
+                alert(error);
+            });
+        },
+        removeAddress: function($http, link, $scope) {
+            return $http.post(
+                    link,
+                    {object: $scope.addressSelector}).success(function() {
+                var index;
+                for (var i = 0; i < $scope.selected.addresses.length; i++) {
+                    if ($scope.selected.addresses.id == $scope.addressSelector.id) {
+                        index = i;
+                    }
+                }
+                $scope.selected.addresses.splice(index, 1);
+                $scope.addressSelector = "";
+                $scope.showOperationMessage = true;
+                $scope.operationMessage = "Adres usunięty"
+            }).error(function(error) {
+                $scope.showOperationMessage = true;
+                $scope.operationMessage = "Błąd przy usuwaniu adresu"
+            });
         }
     };
 });

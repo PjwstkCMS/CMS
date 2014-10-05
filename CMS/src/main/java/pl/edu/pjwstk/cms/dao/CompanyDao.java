@@ -11,7 +11,6 @@ import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CompanyDto;
 import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Company;
-import pl.edu.pjwstk.cms.models.Customer;
 
 /**
  *
@@ -44,10 +43,8 @@ public class CompanyDao extends GenericDao<Company> {
                 dto.setId(set.getLong("id"));
                 dto.setName(set.getString("name"));
                 dto.setContactPersonId(Long.parseLong(set.getString("contactpersonId")));
-                CustomerDao customerDao = new CustomerDao();
-                Customer cus = customerDao.selectRecordsWithFieldValues("companyId", dto.getId()).get(0);
                 AddressDao addDao = new AddressDao();
-                List<Address> adds = addDao.selectRecordsWithFieldValues("companyId", cus.getId());
+                List<Address> adds = addDao.selectRecordsWithFieldValues("companyId", dto.getId());
                 //Ustawianie, aby pierwszy adres na listy to był adres głównej siedziby
                 if (adds.size() > 1 &&
                         !adds.get(0).getDictId().equals("4")) {
@@ -64,17 +61,7 @@ public class CompanyDao extends GenericDao<Company> {
             ex.printStackTrace();
             return null;
         }
-        int a = 2;
         return comDtos;
-    }
-
-    private Address getComAddress(List<Address> address, String id) {
-        for (Address c : address) {
-            if (c.getId() == Long.parseLong(id)) {
-                return c;
-            }
-        }
-        return null;
     }
 
 }

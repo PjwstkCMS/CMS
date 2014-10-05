@@ -10,10 +10,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import pl.edu.pjwstk.cms.dao.CompanyDao;
-import pl.edu.pjwstk.cms.models.Address;
-import pl.edu.pjwstk.cms.models.Company;
-import pl.edu.pjwstk.cms.models.Customer;
 
 /**
  *

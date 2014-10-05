@@ -14,7 +14,6 @@ import pl.edu.pjwstk.cms.models.Card;
 import pl.edu.pjwstk.cms.models.Department;
 import pl.edu.pjwstk.cms.models.Employee;
 import pl.edu.pjwstk.cms.models.PersonData;
-import pl.edu.pjwstk.cms.models.Position;
 /**
  *
  * @author Konrad

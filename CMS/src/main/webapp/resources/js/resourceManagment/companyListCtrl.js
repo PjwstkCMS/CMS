@@ -19,7 +19,7 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
     $scope.editValues = [];
     $scope.editValues[0] = {0:'id', 1:false};
     $scope.editValues[1] = {0:'name',1:true};
-    $scope.editValues[2] = {0:'addresses',1:true};
+    
     
     $scope.addressSelector = "";
     
@@ -91,7 +91,7 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
 
     $scope.create = function() {
         $scope.selected = {
-            'id': "", 'name':"", 'contactPersonId':"",'addresses':[],'privilegeKeyCodes':""
+            'id': "", 'name':"", 'contactPersonId':"",'addresses':[],'privilegeKeyCodes':[]
         };
         $scope.editMode = true;
 
@@ -108,7 +108,7 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
     $scope.addAddress = function(){
         $scope.addressSelector = {
             'id': "", 'country':"", 'city':"",'streetName':"",'streetNumber':"",
-            'apartmentNumber':"",'postalCode':"",'persondataId':"",'companyId':"",'dictId':""
+            'apartmentNumber':"",'postalCode':"",'persondataId':"-1",'companyId':"",'dictId':""
         };
         $scope.addressEdit = true;
     };
@@ -121,12 +121,14 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
         $scope.addressEdit = false;
     };
     $scope.addKey = function() {
+        $scope.addressSelector.companyId = $scope.selected.id;
         for (var i = 0; i<$scope.addressValues.length; i++) {  
             if($scope.addressValues[i][1] && $scope.addressSelector[$scope.addressValues[i][0]] == null){
                 alert("Sprawdź poprowność wprowadzonych danych");
                 return;
             }
         }
+        saveEditDelete.saveAddress($http, '/CMS/address/save/:object.htm', $scope);
         if (!$scope.selectedGroupHasKey($scope.addressSelector)) {
             $scope.selected.addresses.push($scope.addressSelector);
         }
@@ -135,8 +137,8 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
 
     $scope.removeKey = function() {
         if($scope.addressSelector !== undefined){
-            var index = $scope.selected.addresses.indexOf($scope.addressSelector.id);
-            $scope.selected.addresses.splice(index, 1);
+            saveEditDelete.removeAddress($http, '/CMS/address/delete/:object.htm', $scope);
+            
             $scope.addressSelector = "";
             $scope.addressEdit = false;
         }

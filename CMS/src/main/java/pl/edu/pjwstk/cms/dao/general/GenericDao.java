@@ -329,7 +329,11 @@ public class GenericDao<T extends DatabaseObject> {
                 String fieldValue = "";
                 fields[i].setAccessible(true);
                 fieldValue = (String) fields[i].get(obj);
-                query += "'" + fieldValue + "'";
+                if(fieldValue == "NULL"){
+                    query += "" + fieldValue + "";
+                }else{
+                    query += "'" + fieldValue + "'";
+                }
                 if (i < fields.length - 1) {
                     query += ", ";
                 }
@@ -402,7 +406,11 @@ public class GenericDao<T extends DatabaseObject> {
                 fields[i].setAccessible(true);
                 String newSet = "";
                 if (!Modifier.isStatic(fields[i].getModifiers())) {
-                    newSet = fields[i].getName() + "='" + fields[i].get(obj)+"'";
+                    if(fields[i].get(obj) == "NULL"){
+                        newSet = fields[i].getName() + "=" + fields[i].get(obj)+"";
+                    }else{
+                        newSet = fields[i].getName() + "='" + fields[i].get(obj)+"'";
+                    }
                     sets.add(newSet);
                 }                
             }

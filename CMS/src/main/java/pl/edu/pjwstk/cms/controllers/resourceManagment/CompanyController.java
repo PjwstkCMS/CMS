@@ -18,11 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.AddressDao;
 import pl.edu.pjwstk.cms.dao.CompanyDao;
+import pl.edu.pjwstk.cms.dao.CustomerDao;
 import pl.edu.pjwstk.cms.dao.DictionaryDao;
+import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CompanyDto;
 import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Company;
+import pl.edu.pjwstk.cms.models.Customer;
 import pl.edu.pjwstk.cms.utils.Utils;
 
 
@@ -100,9 +103,21 @@ public class CompanyController extends BaseController {
         CompanyDto compDto = (CompanyDto) Utils.convertJSONStringToObject(object, "object", CompanyDto.class);
         CompanyDao compDao = new CompanyDao();
         AddressDao addDao = new AddressDao();
+        PersonDataDao perDao = new PersonDataDao();
+        CustomerDao cusDao = new CustomerDao();
         if (compDto.getId() != null) {
             compDao.delete("id="+compDto.getId());
             addDao.delete("companyId="+compDto.getId());
+            if(compDto.getContactPersonId() != -1){
+                perDao.delete("id="+compDto.getContactPersonId());
+            }
+            List<Customer> cusList = cusDao.selectAll();
+            for(Customer cus : cusList){
+                if(Long.parseLong(cus.getCompanyId()) == compDto.getId()){
+                    perDao.delete("id="+cus.getPersondataId());
+                }
+            }
+            cusDao.delete("companyId="+compDto.getId());
         }
     }
 }

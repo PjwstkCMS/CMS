@@ -1,4 +1,8 @@
+package general;
 
+
+import dao.CardDao;
+import model.Card;
 import java.io.InputStream;
 import java.io.OutputStream;
 import gnu.io.CommPortIdentifier;
@@ -9,7 +13,6 @@ import gnu.io.SerialPortEventListener;
 import gnu.io.UnsupportedCommOperationException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
@@ -119,15 +122,18 @@ public class czytnik implements SerialPortEventListener {
                 }
                 if (print.length() >= 26) {
                     licznik++;
-                    Date today = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");                    
                     startPause = System.currentTimeMillis();
+                    SaveToDatabase.sendToDataDB(print);
+                    /*
+                    CardDao carDao = new CardDao();
+                    List<Card> cards = carDao.selectRecordsWithFieldValues("number", print);
                     Card c;
-                    if (Card.persistance.containsKey(print)) {
-                        c = Card.persistance.get(print);
+                    if (!cards.isEmpty()) {
+                        c = cards.get(0);
                     } else {
                         c = new Card();
                     }
+                    
                     if (c.working) {
                         c.working = false;
                         c.dates.get(c.dates.size()-1)[1] = today;
@@ -137,6 +143,7 @@ public class czytnik implements SerialPortEventListener {
                         dates[0] = today;
                         c.dates.add(dates);
                     }
+                            
                     Card.persistance.put(print, c);
                     System.out.println(licznik + " " + print + " " + sdf.format(today));
                     if(c.working) {
@@ -149,7 +156,7 @@ public class czytnik implements SerialPortEventListener {
                         Long dif = end.getTime() - start.getTime();
                         System.out.println(dif);
                     }
-                    
+                    */
                     print = "";
 
                 }

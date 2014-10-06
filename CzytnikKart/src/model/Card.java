@@ -3,12 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -20,10 +16,7 @@ public class Card extends DatabaseObject{
     private static final Logger LOGGER = Logger.getLogger(Card.class.getName());
     
     private String employeeId;
-    boolean working = false;
-    List<Date[]> dates = new ArrayList<>();
-    
-    static Map<String, Card> persistance = new HashMap<>();
+    private String number;
     
     public Card() {
         super();

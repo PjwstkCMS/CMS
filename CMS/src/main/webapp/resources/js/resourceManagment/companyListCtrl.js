@@ -9,8 +9,7 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
     $scope.companies = "";
     $scope.privileges = "";
     $scope.editMode = false;
-    //$scope.displayPage = true;
-    //$scope.displayPageName = "customerPage";
+    $scope.newRecord = false;
     
     $scope.objectsName = "companies";
     $scope.attributes = [];
@@ -19,8 +18,6 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
     $scope.editValues = [];
     $scope.editValues[0] = {0:'id', 1:false};
     $scope.editValues[1] = {0:'name',1:true};
-    $scope.editValues[2] = {0:'addresses',1:true};
-    
     
     $scope.addressSelector = "";
     
@@ -74,20 +71,24 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
             $scope.addressSelector = "";
             $scope.addressEdit = false;
             $scope.editMode = false;
+            $scope.newRecord = false;
         } else {
             $scope.selected = object;
             $scope.addressSelector = "";
             $scope.addressEdit = false;
+            $scope.newRecord = false;
         }
     }
 
     $scope.edit = function() {
         $scope.editMode = true;
+        $scope.newRecord = false;
     };
 
     $scope.cancel = function() {
         $scope.editMode = false;
         $scope.selected = "";
+        $scope.newRecord = false;
     };
 
     $scope.create = function() {
@@ -95,7 +96,7 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
             'id': "", 'name':"", 'contactPersonId':"",'addresses':[],'privilegeKeyCodes':[]
         };
         $scope.editMode = true;
-
+        $scope.newRecord = true;
     };
 
     $scope.delete = function() {
@@ -109,18 +110,21 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
     $scope.addAddress = function(){
         $scope.addressSelector = {
             'id': "", 'country':"", 'city':"",'streetName':"",'streetNumber':"",
-            'apartmentNumber':"",'postalCode':"",'persondataId':"-1",'companyId':"",'dictId':""
+            'apartmentNumber':"",'postalCode':"",'persondataId':"-1",'companyId':$scope.selected.id,'dictId':""
         };
         $scope.addressEdit = true;
     };
+    
     $scope.editAddress = function(){
         if($scope.addressSelector != ""){
             $scope.addressEdit = true;
         }
     };
+    
     $scope.cancelAddress = function(){
         $scope.addressEdit = false;
     };
+    
     $scope.addKey = function() {
         $scope.addressSelector.companyId = $scope.selected.id;
         for (var i = 0; i<$scope.addressValues.length; i++) {  

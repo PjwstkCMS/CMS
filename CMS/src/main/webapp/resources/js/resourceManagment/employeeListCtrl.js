@@ -10,6 +10,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.privileges = "";
     $scope.cards = "";
     $scope.editMode = false;
+    $scope.newRecord = false;
     
     $scope.addressSelector = "";
     $scope.employmentSelector = "";
@@ -21,10 +22,11 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.attributes[1] = 'surname';
     $scope.attributes[2] = 'phone';
     $scope.attributes[3] = 'email';
-    $scope.attributes[4] = 'departmentId';
-    $scope.attributes[5] = 'cardId';
-    $scope.attributes[6] = 'positionId';
-    $scope.attributes[7] = 'salary';
+    $scope.attributes[4] = 'pesel';
+    $scope.attributes[5] = 'departmentId';
+    $scope.attributes[6] = 'cardId';
+    $scope.attributes[7] = 'positionId';
+    $scope.attributes[8] = 'salary';
     
     $scope.editValues = [];
     $scope.editValues[0] = {0:'id', 1:false};
@@ -32,11 +34,11 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.editValues[2] = {0:'surname', 1:true};
     $scope.editValues[3] = {0:'phone', 1:true};
     $scope.editValues[4] = {0:'email', 1:true};
-    $scope.editValues[5] = {0:'departmentId', 1:true};
-    $scope.editValues[6] = {0:'cardId', 1:false};
-    $scope.editValues[7] = {0:'positionId', 1:true};
-    $scope.editValues[8] = {0:'salary', 1:true};
-    $scope.editValues[2] = {0:'addresses',1:true};
+    $scope.editValues[5] = {0:'pesel', 1:true};
+    $scope.editValues[6] = {0:'departmentId', 1:true};
+    $scope.editValues[7] = {0:'cardId', 1:false};
+    $scope.editValues[8] = {0:'positionId', 1:true};
+    $scope.editValues[9] = {0:'salary', 1:true};
     
     $scope.addressAttributes = [];
     $scope.addressAttributes[0] = 'country';
@@ -99,8 +101,10 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.addressEdit = false;
             $scope.addressSelector = "";
             $scope.editMode = false;
+            $scope.newRecord = false;
         } else {
             $scope.addressEdit = false;
+            $scope.newRecord = false;
             $scope.addressSelector = "";
             $scope.selected = object;
             $scope.selectedContracts = new Array();
@@ -120,19 +124,21 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
 
     $scope.edit = function() {
         $scope.editMode = true;
+        $scope.newRecord = false;
     };
 
     $scope.cancel = function() {
         $scope.editMode = false;
         $scope.selected = "";
+        $scope.newRecord = false;
     };
 
     $scope.create = function() {
         $scope.selected = {'id':"",'persondataId':"","cardId":"","departmentId":"","positionId":"",
-            "forename":"","surname":"","email":"","phone":"","salary":"",
+            "forename":"","surname":"","email":"","phone":"","salary":"","pesel":"",
             "privilegeKeyCodes":[]};
         $scope.editMode = true;
-
+        $scope.newRecord = true;
     };
 
     $scope.delete = function() {
@@ -146,7 +152,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.addAddress = function(){
         $scope.addressSelector = {
             'id': "", 'country':"", 'city':"",'streetName':"",'streetNumber':"",
-            'apartmentNumber':"",'postalCode':"",'persondataId':"",'companyId':"",'dictId':""
+            'apartmentNumber':"",'postalCode':"",'persondataId':$scope.selected.persondataId,'companyId':"-1",'dictId':""
         };
         $scope.addressEdit = true;
     };
@@ -162,12 +168,14 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     };
     
     $scope.addKey = function() {
+        $scope.addressSelector.persondataId = $scope.selected.persondataId;
         for (var i = 0; i<$scope.addressValues.length; i++) {  
             if($scope.addressValues[i][1] && $scope.addressSelector[$scope.addressValues[i][0]] == null){
                 alert("Sprawdź poprowność wprowadzonych danych");
                 return;
             }
         }
+        saveEditDelete.saveAddress($http, '/CMS/address/save/:object.htm', $scope);
         if (!$scope.selectedGroupHasKey($scope.addressSelector)) {
             $scope.selected.addresses.push($scope.addressSelector);
         }
@@ -176,8 +184,8 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
 
     $scope.removeKey = function() {
         if($scope.addressSelector !== undefined){
-            var index = $scope.selected.addresses.indexOf($scope.addressSelector.id);
-            $scope.selected.addresses.splice(index, 1);
+            saveEditDelete.removeAddress($http, '/CMS/address/delete/:object.htm', $scope);
+            
             $scope.addressSelector = "";
             $scope.addressEdit = false;
         }

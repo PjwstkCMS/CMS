@@ -14,7 +14,7 @@
         <h3>${server}</h3>
         <div ng-controller="CompanyListCtrl">
             <t:dataTable/>
-            <div id="companyTable" ng-show="selected">
+            <div ng-show="selected && !newRecord">
                 <h3>
                     Adresy Firmy:
                 </h3>

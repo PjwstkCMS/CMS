@@ -63,7 +63,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
                 return;
             }
         }
-        saveEditDelete.save($http, '/CMS/customerSave/:object.htm', $scope);
+        saveEditDelete.save($http, '/CMS/customer/save/:object.htm', $scope);
         $scope.editMode = false;
     };
 

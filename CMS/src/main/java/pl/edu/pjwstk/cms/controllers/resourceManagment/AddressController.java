@@ -1,7 +1,6 @@
 package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;

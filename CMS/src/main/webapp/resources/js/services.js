@@ -147,6 +147,7 @@ cmsModule.factory('columnDesc', function() {
                 'surname': "Nazwisko",
                 'phone': "Telefon",
                 'email': "Email",
+                'pesel' : "Pesel",
                 'groupName' : "Grupa",
                 'login' : "Login",
                 'salary' : "Pensja",

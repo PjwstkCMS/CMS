@@ -15,10 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.AddressDao;
 import pl.edu.pjwstk.cms.dao.CompanyDao;
 import pl.edu.pjwstk.cms.dao.ContractDao;
 import pl.edu.pjwstk.cms.dao.CustomerDao;
@@ -66,7 +66,7 @@ public class CustomerController extends BaseController {
         return Utils.createResponseEntity(session, initData);
     }
     
-    @RequestMapping(value = "/customerSave/:object.htm")
+    @RequestMapping(value = "/customer/save/:object.htm")
     @ResponseBody
     public ResponseEntity<String> save(@RequestBody String object, HttpSession session) {
         CustomerDao customerDao = new CustomerDao();
@@ -95,6 +95,24 @@ public class CustomerController extends BaseController {
             customer.setPersondataId(perDao.insert(person)+"");
             data.put("id", customerDao.insert(customer));
             return Utils.createResponseEntity(session, data);
+        }
+    }
+    
+    @RequestMapping(value = "/customer/delete/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    void deleteData(@RequestBody String object) {
+        CustomerDto dto = (CustomerDto) Utils.convertJSONStringToObject(object, "object", CustomerDto.class);
+        CustomerDao cusDao = new CustomerDao();
+        PersonDataDao perDao = new PersonDataDao();
+        ContractDao conDao = new ContractDao();
+        CompanyDao comDao = new CompanyDao();
+        if (dto.getId() != null) {
+            conDao.delete("customerId="+dto.getId());
+            perDao.delete("id="+dto.getPersondataId());
+            comDao.updateFieldForAllElementsWithId(
+                    "contactpersonId", dto.getPersondataId() + "",
+                    "contactpersonId", "-1");
+            cusDao.delete("id="+dto.getId());
         }
     }
 }

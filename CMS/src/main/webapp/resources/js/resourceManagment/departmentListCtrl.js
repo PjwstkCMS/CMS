@@ -83,8 +83,10 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     $scope.create = function() {
         $scope.selected = {
             'id': "", 'name':"", 'managerId':"",
-            'address':"",
-            'privilegeKeyCodes':""
+            'address':{ 'id':"",'country':"",'city':"",'streetName':"",'streetNumber':"",
+                        'apartmentNumber':"",'postalCode':"",'dictId':"",'companyId':"-1", 'persondataId':"-1"
+            },
+            'privilegeKeyCodes':[]
         };
         $scope.editMode = true;
 

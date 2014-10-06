@@ -13,9 +13,7 @@
         <h1>Employee!</h1>        
         <div ng-controller="EmployeeListCtrl">
             <t:dataTable/>
-            {{selected.position.name}}
-            {{selected}}
-            <div ng-show="selected">
+            <div ng-show="selected && !newRecord">
                 <table>
                     <tr>
                         <th>
@@ -46,7 +44,7 @@
                 <input type="button" ng-click="addAddress()" value="ADD ADDRESS"/>
                 <input type="button" ng-show="addressSelector" ng-click="editAddress()" value="EDIT ADDRESS"/>
                 <input type="button" ng-click="removeKey()" value="DELETE ADDRESS"/>
-                <div ng-show="addressSelector">
+                <div ng-show="addressSelector >
                     <table>
                     <tr>
                         <th ng-repeat="adatr in addressAttributes">

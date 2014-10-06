@@ -85,14 +85,7 @@ public class CompanyController extends BaseController {
             }else{
                 comp.setContactpersonId(compDto.getContactPersonId()+"");
             }
-            Long id = compDao.insert(comp);
-            List<Address> addList = compDto.getAddresses();
-            AddressDao addDao = new AddressDao();
-            for(Address address : addList){
-                address.setCompanyId(id+"");
-                addDao.update(address);
-            }
-            data.put("id", id);
+            data.put("id", compDao.insert(comp));
             return Utils.createResponseEntity(session, data);
         }
     }

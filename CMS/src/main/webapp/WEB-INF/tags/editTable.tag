@@ -12,19 +12,22 @@
     <table>
             <tr ng-repeat="col in ${atr.map} ">
                 <td ng-show="col[0] == 'email'">
-                    {{columnDescription(col[0])}}: <input  type="text" required="required" ng-pattern="/^[.A-Za-z0-9-_]+@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" ng-model="${atr.object}.email"/>
+                    {{columnDescription(col[0])}}: <input type="text" required="required" ng-pattern="/^[.A-Za-z0-9-_]+@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" ng-model="${atr.object}.email"/>
                 </td>
                 <td ng-show="col[0] == 'forename'">
-                    {{columnDescription(col[0])}}: <input  type="text" maxlength="21" required="required" ng-pattern="/^[A-Z]+[a-ząęółżćźńśĄĘÓŁŻŹĆŚŃ]+$/" ng-model="${atr.object}.forename"/>
+                    {{columnDescription(col[0])}}: <input type="text" maxlength="21" required="required" ng-pattern="/^[A-Z]+[a-ząęółżćźńśĄĘÓŁŻŹĆŚŃ]+$/" ng-model="${atr.object}.forename"/>
                 </td>
                 <td ng-show="col[0] == 'surname'">
-                    {{columnDescription(col[0])}}: <input  type="text" required="required" ng-pattern="/^[A-Z]+[a-ząęółżćźńśĄĘÓŁŻŹĆŚŃ]+(-[A-Z]+[a-ząęółżćźńśĄĘÓŁŻŹĆŚŃ]+){0,1}$/" ng-model="${atr.object}.surname"/>
+                    {{columnDescription(col[0])}}: <input type="text" required="required" ng-pattern="/^[A-Z]+[a-ząęółżćźńśĄĘÓŁŻŹĆŚŃ]+(-[A-Z]+[a-ząęółżćźńśĄĘÓŁŻŹĆŚŃ]+){0,1}$/" ng-model="${atr.object}.surname"/>
                 </td>
                 <td ng-show="col[0] == 'name'">
-                    {{columnDescription(col[0])}}: <input class="firma-field" placeholder="Nazwa firmy..." name="firma" type="text" required="required" ng-model="${atr.object}.name"/>
+                    {{columnDescription(col[0])}}: <input type="text" required="required" ng-model="${atr.object}.name"/>
                 </td>
                 <td ng-show="col[0] == 'phone'">
                     {{columnDescription(col[0])}}: <input type="text" ng-pattern="/^[0-9]+$/" maxlength="9" required="required" ng-model="${atr.object}.phone"/>
+                </td>
+                <td ng-show="col[0] == 'pesel'">
+                    {{columnDescription(col[0])}}: <input type="text" ng-pattern="/^[0-9]+$/" required="required"  ng-minlength="11" maxlength="11" ng-model="${atr.object}.pesel"/>
                 </td>
                 <td ng-show="col[0] == 'country'">
                     {{columnDescription(col[0])}}: <input type="text" ng-pattern="/^[ A-Za-ząęółżćźńśĄĘÓŁŻŹĆŚŃ]+$/" required="required" ng-model="${atr.object}.country"/>

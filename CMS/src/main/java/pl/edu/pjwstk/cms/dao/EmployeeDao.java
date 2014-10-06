@@ -55,6 +55,7 @@ public class EmployeeDao extends GenericDao<Employee>{
                 dto.setSurname(person.getSurname());
                 dto.setEmail(person.getEmail());
                 dto.setPhone(person.getPhone());
+                dto.setPesel(person.getPesel());
                 dto.setPositionId(Long.parseLong(set.getString("positionId")));
                 dto.setSalary(set.getString("salary"));
                 List<Address> adds = addDao.selectRecordsWithFieldValues("persondataId", dto.getPersondataId());
@@ -63,7 +64,11 @@ public class EmployeeDao extends GenericDao<Employee>{
                 DepartmentDao depDao = new DepartmentDao();
                 List<Department> deps = depDao.selectAll();
                 Department d = getEmpDepartment(deps, set.getString("departmentId"));
-                dto.setDepartmentId(d.getId());
+                if(d == null){
+                    dto.setDepartmentId(Long.parseLong("-1"));
+                }else{
+                    dto.setDepartmentId(d.getId());
+                }
                 Card card = getCard(cards, dto.getId()+"");
                 if(card != null) {
                     dto.setCardId(card.getId());

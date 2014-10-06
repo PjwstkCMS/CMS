@@ -17,6 +17,7 @@ public class Card extends DatabaseObject{
     private static final Logger LOGGER = Logger.getLogger(Card.class.getName());
     
     private String employeeId;
+    private String number;
     
     public Card() {
         super();

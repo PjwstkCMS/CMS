@@ -22,7 +22,7 @@ public class GenericDao<T extends DatabaseObject> {
 
     public static final int OR = 0, AND = 1;
     public static String server;
-    
+
     private final static Logger LOGGER = Logger.getLogger(GenericDao.class.getName());
     protected static ConnectionManager connectionManager;
     protected final Class modelClass;
@@ -119,6 +119,23 @@ public class GenericDao<T extends DatabaseObject> {
         }
 
         return query;
+    }
+
+    /**
+     * Metoda pobiera pojedyńczy rekord spełniający wymagania. Jeśli więcej niż
+     * jeden obiekt spełnia wymagania zwracany jest pierwszy z listy.
+     *
+     * @param fieldName
+     * @param fieldValue
+     * @return
+     */
+    public T selectSingleRecord(String fieldName, Object fieldValue) {
+        List<T> list = selectRecordsWithFieldValues(fieldName, fieldValue);
+        if (!list.isEmpty()) {
+            return list.get(0);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -296,10 +313,10 @@ public class GenericDao<T extends DatabaseObject> {
         query += " WHERE " + conditions;
         return connectionManager.update(query);
     }
-    
+
     public boolean update(String conditions, List<String> sets) {
         String[] arr = new String[sets.size()];
-        for (int i = 0; i<arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
             arr[i] = sets.get(i);
         }
         return update(conditions, arr);
@@ -329,9 +346,9 @@ public class GenericDao<T extends DatabaseObject> {
                 String fieldValue = "";
                 fields[i].setAccessible(true);
                 fieldValue = (String) fields[i].get(obj);
-                if(fieldValue == "NULL"){
+                if (fieldValue == "NULL") {
                     query += "" + fieldValue + "";
-                }else{
+                } else {
                     query += "'" + fieldValue + "'";
                 }
                 if (i < fields.length - 1) {
@@ -406,21 +423,21 @@ public class GenericDao<T extends DatabaseObject> {
                 fields[i].setAccessible(true);
                 String newSet = "";
                 if (!Modifier.isStatic(fields[i].getModifiers())) {
-                    if(fields[i].get(obj) == "NULL"){
-                        newSet = fields[i].getName() + "=" + fields[i].get(obj)+"";
-                    }else{
-                        newSet = fields[i].getName() + "='" + fields[i].get(obj)+"'";
+                    if (fields[i].get(obj) == "NULL") {
+                        newSet = fields[i].getName() + "=" + fields[i].get(obj) + "";
+                    } else {
+                        newSet = fields[i].getName() + "='" + fields[i].get(obj) + "'";
                     }
                     sets.add(newSet);
-                }                
+                }
             }
-            String condition = "id="+obj.getId();
+            String condition = "id=" + obj.getId();
             return update(condition, sets);
         } catch (IllegalAccessException iae) {
             iae.printStackTrace();
             return false;
         }
-        
+
     }
 
 }

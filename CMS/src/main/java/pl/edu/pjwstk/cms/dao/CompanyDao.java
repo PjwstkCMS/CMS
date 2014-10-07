@@ -11,6 +11,7 @@ import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CompanyDto;
 import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Company;
+import pl.edu.pjwstk.cms.models.PersonData;
 
 /**
  *
@@ -43,6 +44,13 @@ public class CompanyDao extends GenericDao<Company> {
                 dto.setId(set.getLong("id"));
                 dto.setName(set.getString("name"));
                 dto.setContactPersonId(Long.parseLong(set.getString("contactpersonId")));
+                if(dto.getContactPersonId()!=Long.parseLong("-1")){
+                    PersonData per = new PersonDataDao().selectRecordsWithFieldValues("id", dto.getContactPersonId()).get(0);
+                    dto.setForename(per.getForename());
+                    dto.setSurname(per.getSurname());
+                    dto.setEmail(per.getEmail());
+                    dto.setPhone(per.getPhone());
+                }
                 AddressDao addDao = new AddressDao();
                 List<Address> adds = addDao.selectRecordsWithFieldValues("companyId", dto.getId());
                 //Ustawianie, aby pierwszy adres na listy to był adres głównej siedziby

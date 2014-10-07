@@ -10,6 +10,7 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
     $scope.privileges = "";
     $scope.editMode = false;
     $scope.newRecord = false;
+    $scope.contactPersonBoxShow = false;
     
     $scope.objectsName = "companies";
     $scope.attributes = [];
@@ -18,6 +19,12 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
     $scope.editValues = [];
     $scope.editValues[0] = {0:'id', 1:false};
     $scope.editValues[1] = {0:'name',1:true};
+    
+    $scope.contactPersonValues = [];
+    $scope.contactPersonValues[0] = {0:'forename',1:true};
+    $scope.contactPersonValues[1] = {0:'surname',1:true};
+    $scope.contactPersonValues[2] = {0:'email',1:true};
+    $scope.contactPersonValues[3] = {0:'phone',1:true};
     
     $scope.addressSelector = "";
     
@@ -93,7 +100,9 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
 
     $scope.create = function() {
         $scope.selected = {
-            'id': "", 'name':"", 'contactPersonId':"",'addresses':[],'privilegeKeyCodes':[]
+            'id': "", 'name':"", 'contactPersonId':"", 
+            'forename':"", 'surname':"", 'email':"", 'phone':"",
+            'addresses':[],'privilegeKeyCodes':[]
         };
         $scope.editMode = true;
         $scope.newRecord = true;
@@ -158,5 +167,13 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
             }
         }
         return false;
+    };
+    
+    $scope.showContactPersonBox = function(){
+        if ($scope.contactPersonBoxShow == true) {
+            $scope.contactPersonBoxShow = false;
+        } else {
+            $scope.contactPersonBoxShow = true;
+        }
     }
 }

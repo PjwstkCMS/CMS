@@ -23,9 +23,9 @@ import pl.edu.pjwstk.cms.dao.DictionaryDao;
 import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CompanyDto;
-import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Company;
 import pl.edu.pjwstk.cms.models.Customer;
+import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.utils.Utils;
 
 
@@ -66,13 +66,27 @@ public class CompanyController extends BaseController {
         CompanyDto compDto = (CompanyDto) Utils.convertJSONStringToObject(object, "object", CompanyDto.class);
         CompanyDao compDao = new CompanyDao();
         Company comp = new Company();
+        PersonDataDao perDao = new PersonDataDao();
+        PersonData per = new PersonData();
         Map<String, Object> data = new HashMap<>();
         if(compDto.getId() != null ){
             comp = compDao.selectRecordsWithFieldValues("id", compDto.getId()).get(0);
             comp.setName(compDto.getName());
-            if(compDto.getContactPersonId()==null){
-                comp.setContactpersonId("-1");
+            if(compDto.getContactPersonId()==-1){
+                per.setForename(compDto.getForename());
+                per.setSurname(compDto.getSurname());
+                per.setEmail(compDto.getEmail());
+                per.setPhone(compDto.getPhone());
+                Long id = perDao.insert(per);
+                comp.setContactpersonId(id+"");
+                data.put("contactPersonId", id);
             }else{
+                per.setForename(compDto.getForename());
+                per.setSurname(compDto.getSurname());
+                per.setEmail(compDto.getEmail());
+                per.setPhone(compDto.getPhone());
+                per.setId(compDto.getContactPersonId());
+                perDao.update(per);
                 comp.setContactpersonId(compDto.getContactPersonId()+"");
             }
             compDao.update(comp);
@@ -81,8 +95,20 @@ public class CompanyController extends BaseController {
         } else {
             comp.setName(compDto.getName());
             if(compDto.getContactPersonId()==null){
-                comp.setContactpersonId("-1");
+                per.setForename(compDto.getForename());
+                per.setSurname(compDto.getSurname());
+                per.setEmail(compDto.getEmail());
+                per.setPhone(compDto.getPhone());
+                Long id = perDao.insert(per);
+                comp.setContactpersonId(id+"");
+                data.put("contactPersonId", id);
             }else{
+                per.setForename(compDto.getForename());
+                per.setSurname(compDto.getSurname());
+                per.setEmail(compDto.getEmail());
+                per.setPhone(compDto.getPhone());
+                per.setId(compDto.getContactPersonId());
+                perDao.update(per);
                 comp.setContactpersonId(compDto.getContactPersonId()+"");
             }
             data.put("id", compDao.insert(comp));

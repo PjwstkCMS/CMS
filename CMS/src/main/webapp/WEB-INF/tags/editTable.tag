@@ -75,21 +75,18 @@
                 <td ng-show="col[0] == 'customerId'">
                     {{columnDescription(col[0])}}: 
                     <select required="required" ng-model="${atr.object}.customerId">
-                        <option value="-1">Wybierz klienta</option>
                         <option ng-repeat="cus in customers" value="{{cus.id}}"  ng-selected="${atr.object}.customerId == cus.id">{{cus.forename}} {{cus.surname}}</option>
                     </select>
                 </td>
                 <td ng-show="col[0] == 'employeeId'">
                     {{columnDescription(col[0])}}: 
                     <select required="required" ng-model="${atr.object}.employeeId">
-                        <option value="-1">Wybierz pracownika</option>
                         <option ng-repeat="emp in employees" value="{{emp.id}}"  ng-selected="${atr.object}.employeeId == emp.id">{{emp.forename}} {{emp.surname}}</option>
                     </select>
                 </td>
                 <td ng-show="col[0] == 'managerId'">
                     {{columnDescription(col[0])}}: 
                     <select required="required" ng-model="${atr.object}.managerId">
-                        <option value="-1">Wybierz Managera</option>
                         <option ng-repeat="emp in employees" value="{{emp.id}}"  ng-selected="${atr.object}.managerId == emp.id">{{emp.forename}} {{emp.surname}}</option>
                     </select>
                 </td>

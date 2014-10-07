@@ -13,6 +13,7 @@
         <h1>Department!</h1>
         <h3>${server}</h3>
         <div ng-controller="DepartmentListCtrl">
+            {{selected}}
             <t:dataTable/>
             <div id="companyTable" ng-show="selected && !editMode">
                 <b>Adres:</b> {{selected.address.city}} {{selected.address.streetName}}

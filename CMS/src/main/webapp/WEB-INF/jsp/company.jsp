@@ -50,6 +50,10 @@
             </div>
             <div ng-show="editMode">
                 <t:editTable map="editValues" object="selected"/>
+                <input type="checkbox" ng-click="showContactPersonBox()" /> Dodać osobę kontaktową <br/>
+                <div name="contactPersonBox" ng-show="contactPersonBoxShow">
+                    <t:editTable map="contactPersonValues" object="selected"/>
+                </div>
             </div>
             <t:jsonOperations/>
         </div>

@@ -22,7 +22,7 @@ public class CompanyDto implements Serializable {
     private final static Logger LOGGER = Logger.getLogger(CompanyDto.class.getName()); 
 
     private Long id, contactPersonId;
-    private String name;
+    private String name, forename, surname, email, phone;
     private List<Address> addresses;
     
     public CompanyDto() {
@@ -61,6 +61,38 @@ public class CompanyDto implements Serializable {
 
     public List<Address> getAddresses() {
         return addresses;
+    }
+
+    public String getForename() {
+        return forename;
+    }
+
+    public void setForename(String forename) {
+        this.forename = forename;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setAddresses(List<Address> addresses) {

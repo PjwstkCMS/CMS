@@ -84,7 +84,8 @@ public class DepartmentController extends BaseController {
             dep.setManagerId(dto.getManagerId());
             
             Address add = dto.getAddress();
-            dep.setAddressId(addDao.update(add)+"");
+            addDao.update(add);
+            dep.setAddressId(dto.getAddressId());
             depDao.update(dep);
             data.put("id", dto.getId());
             return Utils.createResponseEntity(session, data);
@@ -93,7 +94,9 @@ public class DepartmentController extends BaseController {
             dep.setManagerId(dto.getManagerId());
             
             Address add = dto.getAddress();
-            dep.setAddressId(addDao.insert(add)+"");
+            Long id = addDao.insert(add);
+            dep.setAddressId(id+"");
+            data.put("addressId", id+"");
             data.put("id", depDao.insert(dep));
             return Utils.createResponseEntity(session, data);
         }

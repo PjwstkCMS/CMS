@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
+import pl.edu.pjwstk.cms.dao.PrivilegeKeyDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
+import pl.edu.pjwstk.cms.models.Privilege;
 import pl.edu.pjwstk.cms.models.PrivilegeGroup;
 import pl.edu.pjwstk.cms.models.User;
 /**
@@ -58,6 +60,8 @@ public class LoginController extends BaseController {
                 PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
                 PrivilegeGroup group = groupDao.selectRecordsWithFieldValues("id", userDto.getGroupId()).get(0);
                 userDto.setGroupName(group.getName());
+                PrivilegeKeyDao keyDao = new PrivilegeKeyDao();
+                userDto.setPrivilegeKeyCodes(keyDao.getPrivilegeKeyCodesForGroup(user.getGroupId()));
                 //Cookie c = new Cookie("user", Utils.convertObjectToJSON(userDto));
                 //response.addCookie(c);
                 //request.setAttribute("user", userDto);

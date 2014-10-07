@@ -11,8 +11,8 @@
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/employeeListCtrl.js"></script>
         <h1>Employee!</h1>        
-        <div ng-controller="EmployeeListCtrl">
-            <t:dataTable/>
+        <div ng-controller="EmployeeListCtrl">            
+            <t:dataTable/>            
             <div ng-show="selected && !newRecord">
                 <table>
                     <tr>

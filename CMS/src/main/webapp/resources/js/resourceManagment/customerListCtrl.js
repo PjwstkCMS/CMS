@@ -13,6 +13,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.customers = "";
     $scope.privileges = "";
     $scope.editMode = false;
+    $scope.restoreData = "";
     //$scope.displayPage = true;
     //$scope.displayPageName = "customerPage";
 
@@ -90,7 +91,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.selected = "";
             $scope.selectedCompany = "";
             $scope.contractSelector = "";
-        } else {
+        } else {            
             $scope.selected = object;
             $scope.contractSelector = "";
             $scope.selectedContracts = [];
@@ -106,6 +107,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
                     $scope.selectedContracts.push($scope.contracts[i]);
                 }
             }
+            saveEditDelete.saveOldData($scope);
         }
     }
     

@@ -87,6 +87,34 @@ public class GenericDao<T extends DatabaseObject> {
     }
 
     /**
+     * Metdoa pobiera rekodrdy, dla których dana kolumna przyjmuje jedną z
+     * wartości w liście.
+     *
+     * @param fieldName
+     * @param fieldValues
+     * @return
+     */
+    public List<T> selectRecordsWithFieldValueForObjects(String fieldName, List<Object> fieldValues) {
+        List<String> fields = new ArrayList<>();
+        fields.add(fieldName);
+        return selectRecordsWithFieldValuesForObjectList(fields, fieldValues);
+    }
+    
+    /**
+     * Metdoa pobiera rekodrdy, dla których dana kolumna przyjmuje jedną z
+     * wartości w liście.
+     *
+     * @param fieldName
+     * @param fieldValues
+     * @return
+     */
+    public List<T> selectRecordsWithFieldValueForStrings(String fieldName, List<String> fieldValues) {
+        List<String> fields = new ArrayList<>();
+        fields.add(fieldName);
+        return selectRecordsWithFieldValues(fields, fieldValues);
+    }
+
+    /**
      * Podstawowa metoda do pobierania danych z bazy danych. Przyjmuje listę
      * nazw pól i wartości tych pól oraz zwraca listę rekordów spełniających
      * wymagania.

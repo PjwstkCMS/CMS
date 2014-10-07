@@ -96,6 +96,18 @@ cmsModule.factory('saveEditDelete', function() {
                 $scope.showOperationMessage = true;
                 $scope.operationMessage = "Błąd przy usuwaniu adresu"
             });
+        },
+        saveOldData: function($scope) {            
+            for (i = 0; i<$scope.attributes.length; i++) {
+                $scope.restoreData[i] = "";
+                $scope.restoreData[i] = $scope.selected[$scope.attributes[i]];
+                //alert($scope.selected[$scope.attributes[i]]);
+            }
+        },
+        restoreOldData: function($scope) {
+            for (i = 0; i<$scope.attributes.length; i++) {
+                $scope.selected[$scope.attributes[i]] = $scope.restoreData[i];
+            }
         }
     };
 });

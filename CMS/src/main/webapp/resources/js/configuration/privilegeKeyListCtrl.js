@@ -38,8 +38,10 @@ function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination, columnD
 
     $scope.select = function(object) {
         if ($scope.selected == object) {
+            saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
         } else {
+            saveEditDelete.saveOldData($scope,object);
             $scope.selected = object;
         }
     }
@@ -49,11 +51,13 @@ function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination, columnD
     };
 
     $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
     };
 
     $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.selected = "";
         $scope.editMode = true;
 

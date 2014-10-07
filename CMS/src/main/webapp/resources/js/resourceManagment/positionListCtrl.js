@@ -61,10 +61,12 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
 
     $scope.select = function(object) {
         if ($scope.selected == object) {
+            saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
             $scope.selectedEmployees = "";
             $scope.editMode = false;
         } else {
+            saveEditDelete.saveOldData($scope,object);
             $scope.selected = object;
             $scope.selectedEmployees = new Array();
             for (var i = 0; i<$scope.employees.length; i++) {  
@@ -80,11 +82,13 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     };
 
     $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
     };
 
     $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.selected = {
             'id':"",'name':"",'description':""
         };

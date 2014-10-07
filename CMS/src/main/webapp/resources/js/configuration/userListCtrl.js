@@ -37,8 +37,10 @@ function UserListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
 
     $scope.select = function(object) {
         if ($scope.selected == object) {
+            saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
         } else {
+            saveEditDelete.saveOldData($scope,object);
             $scope.selected = object;
         }
     }
@@ -48,11 +50,13 @@ function UserListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     };
 
     $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
     };
 
     $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.selected = new Object();
         $scope.selected.groupId = -1;
         $scope.selected.employeeId = -1;

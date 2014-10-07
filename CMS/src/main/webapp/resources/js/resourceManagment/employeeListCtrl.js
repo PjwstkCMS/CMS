@@ -95,6 +95,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
 
     $scope.select = function(object) {
         if ($scope.selected == object) {
+            saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
             $scope.selectedContracts = "";
             $scope.selectedEmployments = "";
@@ -129,12 +130,14 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     };
 
     $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
         $scope.newRecord = false;
     };
 
     $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.selected = {'id':"",'persondataId':"","cardId":"","departmentId":"","positionId":"",
             "forename":"","surname":"","email":"","phone":"","salary":"","pesel":"",
             "privilegeKeyCodes":[]};

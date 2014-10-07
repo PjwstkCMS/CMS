@@ -37,8 +37,10 @@ function DictionaryListCtrl($scope, $http, saveEditDelete, pagination, columnDes
 
     $scope.select = function(object) {
         if ($scope.selected == object) {
+            saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
         } else {
+            saveEditDelete.saveOldData($scope,object);
             $scope.selected = object;
         }
     }
@@ -48,11 +50,13 @@ function DictionaryListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     };
 
     $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
     };
 
     $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.selected = "";
         $scope.editMode = true;
 

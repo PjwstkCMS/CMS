@@ -33,8 +33,10 @@ function GroupListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
 
     $scope.select = function(object) {
         if ($scope.selected == object) {
+            saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
         } else {
+            saveEditDelete.saveOldData($scope,object);
             $scope.selected = object;
             $scope.selected.privilegeKeyIds = object.privilegeKeyIds;
         }
@@ -45,11 +47,13 @@ function GroupListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     };
 
     $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
     };
 
     $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.selected = "";
         $scope.editMode = true;
 

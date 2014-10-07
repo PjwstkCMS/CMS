@@ -65,9 +65,11 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
 
     $scope.select = function(object) {
         if ($scope.selected == object) {
+            saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
         } else {
             $scope.selected = object;
+            saveEditDelete.saveOldData($scope,object);
         }
     }
 
@@ -76,11 +78,13 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     };
 
     $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
     };
 
     $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.selected = {
             'id': "", 'name':"", 'managerId':"",
             'address':{ 'id':"",'country':"",'city':"",'streetName':"",'streetNumber':"",

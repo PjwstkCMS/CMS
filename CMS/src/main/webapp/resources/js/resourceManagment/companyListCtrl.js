@@ -74,12 +74,14 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
 
     $scope.select = function(object) {
         if ($scope.selected == object) {
+            saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
             $scope.addressSelector = "";
             $scope.addressEdit = false;
             $scope.editMode = false;
             $scope.newRecord = false;
         } else {
+            saveEditDelete.saveOldData($scope,object);
             $scope.selected = object;
             $scope.addressSelector = "";
             $scope.addressEdit = false;
@@ -93,12 +95,14 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
     };
 
     $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
         $scope.newRecord = false;
     };
 
     $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.selected = {
             'id': "", 'name':"", 'contactPersonId':"", 
             'forename':"", 'surname':"", 'email':"", 'phone':"",

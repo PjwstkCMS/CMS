@@ -37,9 +37,11 @@ function FileListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
 
     $scope.select = function(report) {
         if ($scope.selected == report) {
+            saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
         } else {
             $scope.selected = report;
+            saveEditDelete.saveOldData($scope,report);
         }
     }
 
@@ -48,11 +50,13 @@ function FileListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     };
     
     $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
     };
 
     $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.selected = "";
         $scope.editMode = true;
 

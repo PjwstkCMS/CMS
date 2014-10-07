@@ -13,9 +13,6 @@
         <h1>Customer!</h1>        
         <div ng-controller="CustomerListCtrl">            
             <t:dataTable/>
-            <h1>
-                Restore data: {{restoreData}}
-            </h1>
             <div id="companyTable" ng-show="selected && !editMode">
                 <h3>
                     Dane firmy:

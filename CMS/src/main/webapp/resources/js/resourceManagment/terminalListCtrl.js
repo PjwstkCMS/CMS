@@ -45,10 +45,12 @@ function TerminalListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
 
     $scope.select = function(object) {
         if ($scope.selected == object) {
+            saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
             $scope.editMode = false;
         } else {
             $scope.selected = object;
+            saveEditDelete.saveOldData($scope,object);
         }
     }
 
@@ -57,11 +59,13 @@ function TerminalListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     };
 
     $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
     };
 
     $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
         $scope.selected = {
             'id': "", 'description':""
         };

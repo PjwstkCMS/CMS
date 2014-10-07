@@ -1,8 +1,5 @@
 package general;
 
-
-import dao.CardDao;
-import model.Card;
 import java.io.InputStream;
 import java.io.OutputStream;
 import gnu.io.CommPortIdentifier;
@@ -12,10 +9,8 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 import gnu.io.UnsupportedCommOperationException;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.net.NetworkInterface;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.TooManyListenersException;
 
 public class czytnik implements SerialPortEventListener {
@@ -123,40 +118,42 @@ public class czytnik implements SerialPortEventListener {
                 if (print.length() >= 26) {
                     licznik++;
                     startPause = System.currentTimeMillis();
+                    System.out.println(print);
                     SaveToDatabase.sendToDataDB(print);
-                    /*
-                    CardDao carDao = new CardDao();
-                    List<Card> cards = carDao.selectRecordsWithFieldValues("number", print);
-                    Card c;
-                    if (!cards.isEmpty()) {
-                        c = cards.get(0);
-                    } else {
-                        c = new Card();
-                    }
                     
-                    if (c.working) {
-                        c.working = false;
-                        c.dates.get(c.dates.size()-1)[1] = today;
-                    } else {
-                        c.working = true;
-                        Date[] dates = new Date[2];
-                        dates[0] = today;
-                        c.dates.add(dates);
-                    }
+                    /*
+                     CardDao carDao = new CardDao();
+                     List<Card> cards = carDao.selectRecordsWithFieldValues("number", print);
+                     Card c;
+                     if (!cards.isEmpty()) {
+                     c = cards.get(0);
+                     } else {
+                     c = new Card();
+                     }
+                    
+                     if (c.working) {
+                     c.working = false;
+                     c.dates.get(c.dates.size()-1)[1] = today;
+                     } else {
+                     c.working = true;
+                     Date[] dates = new Date[2];
+                     dates[0] = today;
+                     c.dates.add(dates);
+                     }
                             
-                    Card.persistance.put(print, c);
-                    System.out.println(licznik + " " + print + " " + sdf.format(today));
-                    if(c.working) {
-                       System.out.println("Początek pracy: "+sdf.format(today)); 
-                       System.out.println(Card.persistance.size());
-                    } else {
-                        System.out.println("Koniec pracy: "+sdf.format(today));
-                        Date start = c.dates.get(c.dates.size()-1)[0];
-                        Date end = c.dates.get(c.dates.size()-1)[1];
-                        Long dif = end.getTime() - start.getTime();
-                        System.out.println(dif);
-                    }
-                    */
+                     Card.persistance.put(print, c);
+                     System.out.println(licznik + " " + print + " " + sdf.format(today));
+                     if(c.working) {
+                     System.out.println("Początek pracy: "+sdf.format(today)); 
+                     System.out.println(Card.persistance.size());
+                     } else {
+                     System.out.println("Koniec pracy: "+sdf.format(today));
+                     Date start = c.dates.get(c.dates.size()-1)[0];
+                     Date end = c.dates.get(c.dates.size()-1)[1];
+                     Long dif = end.getTime() - start.getTime();
+                     System.out.println(dif);
+                     }
+                     */
                     print = "";
 
                 }
@@ -166,6 +163,25 @@ public class czytnik implements SerialPortEventListener {
     }
 
     public static void main(String[] args) throws Exception {
+        try {
+                        Enumeration<NetworkInterface> networks = NetworkInterface.getNetworkInterfaces();
+                        while (networks.hasMoreElements()) {
+                            NetworkInterface network = networks.nextElement();
+                            byte[] mac = network.getHardwareAddress();
+
+                            if (mac != null) {
+                                System.out.print("Current MAC address : ");
+
+                                StringBuilder sb = new StringBuilder();
+                                for (int i = 0; i < mac.length; i++) {
+                                    sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+                                }
+                                System.out.println(sb.toString());
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
         czytnik main = new czytnik();
         main.initialize();
         System.out.println("Started");

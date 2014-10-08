@@ -120,40 +120,6 @@ public class czytnik implements SerialPortEventListener {
                     startPause = System.currentTimeMillis();
                     System.out.println(print);
                     SaveToDatabase.sendToDataDB(print);
-                    
-                    /*
-                     CardDao carDao = new CardDao();
-                     List<Card> cards = carDao.selectRecordsWithFieldValues("number", print);
-                     Card c;
-                     if (!cards.isEmpty()) {
-                     c = cards.get(0);
-                     } else {
-                     c = new Card();
-                     }
-                    
-                     if (c.working) {
-                     c.working = false;
-                     c.dates.get(c.dates.size()-1)[1] = today;
-                     } else {
-                     c.working = true;
-                     Date[] dates = new Date[2];
-                     dates[0] = today;
-                     c.dates.add(dates);
-                     }
-                            
-                     Card.persistance.put(print, c);
-                     System.out.println(licznik + " " + print + " " + sdf.format(today));
-                     if(c.working) {
-                     System.out.println("Początek pracy: "+sdf.format(today)); 
-                     System.out.println(Card.persistance.size());
-                     } else {
-                     System.out.println("Koniec pracy: "+sdf.format(today));
-                     Date start = c.dates.get(c.dates.size()-1)[0];
-                     Date end = c.dates.get(c.dates.size()-1)[1];
-                     Long dif = end.getTime() - start.getTime();
-                     System.out.println(dif);
-                     }
-                     */
                     print = "";
 
                 }

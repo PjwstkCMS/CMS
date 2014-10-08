@@ -11,7 +11,6 @@
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/departmentListCtrl.js"></script>
         <h1>Department!</h1>
-        <h3>${server}</h3>
         <div ng-controller="DepartmentListCtrl">
             {{selected}}
             <t:dataTable/>

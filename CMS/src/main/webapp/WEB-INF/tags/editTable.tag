@@ -65,6 +65,12 @@
                 <td ng-show="col[0] == 'finalisationDate'">
                     {{columnDescription(col[0])}}: <input required="required" ng-pattern="/^((19|20)[0-9]{2}[\-/](0[1-9]|1[0-2])[\-/](0[1-9]|[12][0-9]|3[01]))*$/" type="text" ng-model="${atr.object}.finalisationDate"/> 
                 </td>
+                <td ng-show="col[0] == 'dateTo'">
+                    {{columnDescription(col[0])}}: <input required="required" ng-pattern="/^((19|20)[0-9]{2}[\-/](0[1-9]|1[0-2])[\-/](0[1-9]|[12][0-9]|3[01]))*$/" type="text" ng-model="${atr.object}.dateTo"/> 
+                </td>
+                <td ng-show="col[0] == 'dateFrom'">
+                    {{columnDescription(col[0])}}: <input required="required" ng-pattern="/^((19|20)[0-9]{2}[\-/](0[1-9]|1[0-2])[\-/](0[1-9]|[12][0-9]|3[01]))*$/" type="text" ng-model="${atr.object}.dateFrom"/> 
+                </td>
                 
                 <td ng-show="col[0] == 'id'">
                     {{columnDescription(col[0])}}: <input required="required" disabled="true" type="text" ng-model="${atr.object}.id"/> 

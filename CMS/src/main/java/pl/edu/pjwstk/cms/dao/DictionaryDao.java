@@ -21,14 +21,18 @@ public class DictionaryDao extends GenericDao<Dictionary>{
     }
     
     public List<Dictionary> getCompanyAddressesTypes() {
-        return getAddressesTypes("3");
+        return getDictionaryTypeContent("3");
     }
     
     public List<Dictionary> getPersonAddressesTypes() {
-        return getAddressesTypes("2");
+        return getDictionaryTypeContent("2");
     }
     
-    public List<Dictionary> getAddressesTypes(String type) {
+    public List<Dictionary> getEmploymentTypes() {
+        return getDictionaryTypeContent("1");
+    }
+    
+    public List<Dictionary> getDictionaryTypeContent(String type) {
         String query = "SELECT id, value, dictTypeId, description ";
         query += "FROM dictionary WHERE dictTypeId = ";
         query += type;

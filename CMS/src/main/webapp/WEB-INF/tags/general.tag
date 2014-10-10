@@ -44,7 +44,11 @@
                     </c:if>
                     <c:if test="${user.privilegeKeyCodes.contains('all') || 
                                   user.privilegeKeyCodes.contains('ViewEmployees')}">
-                <a href="/CMS/employee.htm"><li id="nav0">employee</li></a>
+                <a href="/CMS/employee.htm"><li id="nav0">Employee</li></a>
+                    </c:if>
+                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
+                                  user.privilegeKeyCodes.contains('ViewEmployments')}">
+                <a href="/CMS/employment.htm"><li id="nav0">Employment</li></a>
                     </c:if>
                     <c:if test="${user.privilegeKeyCodes.contains('all') || 
                                   user.privilegeKeyCodes.contains('DownloadFiles')}">

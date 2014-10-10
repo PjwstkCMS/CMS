@@ -187,6 +187,8 @@ cmsModule.factory('columnDesc', function () {
                 'startDate': "Data rozpoczęcia",
                 'closeDate': "Planowana data zakończenia",
                 'finalisationDate': "Data zakończenia",
+                'dateFrom': "Od",
+                'dateTo':"Do",
                 'country': "Kraj",
                 'city': "Miasto",
                 'streetName': "Ulica",

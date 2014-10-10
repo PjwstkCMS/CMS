@@ -104,7 +104,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.editMode = false;
             $scope.newRecord = false;
         } else {
-            saveEditDelete.saveOldData($scope);
+            saveEditDelete.saveOldData($scope, object);
             $scope.addressEdit = false;
             $scope.newRecord = false;
             $scope.addressSelector = "";

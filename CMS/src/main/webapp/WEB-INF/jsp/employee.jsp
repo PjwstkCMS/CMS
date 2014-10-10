@@ -44,7 +44,7 @@
                 <input type="button" ng-click="addAddress()" value="ADD ADDRESS"/>
                 <input type="button" ng-show="addressSelector" ng-click="editAddress()" value="EDIT ADDRESS"/>
                 <input type="button" ng-click="removeKey()" value="DELETE ADDRESS"/>
-                <div ng-show="addressSelector >
+                <div ng-show="addressSelector">
                     <table>
                     <tr>
                         <th ng-repeat="adatr in addressAttributes">

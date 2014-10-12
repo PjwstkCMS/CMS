@@ -50,6 +50,9 @@
                 <td ng-show="col[0] == 'description'">
                     {{columnDescription(col[0])}}: <input required="required" maxlength="200" type="text" ng-model="${atr.object}.description"/> 
                 </td>
+                <td ng-show="col[0] == 'value'">
+                    {{columnDescription(col[0])}}: <input required="required" maxlength="200" type="text" ng-model="${atr.object}.value"/> 
+                </td>
                 <td ng-show="col[0] == 'price'">
                     {{columnDescription(col[0])}}: <input required="required" maxlength="45" ng-pattern="/^[0-9]+$/" type="text" ng-model="${atr.object}.price"/> 
                 </td>
@@ -100,6 +103,12 @@
                     {{columnDescription(col[0])}}: 
                     <select required="required" ng-model="${atr.object}.dictId">
                         <option ng-repeat="dict in dictionaries" value="{{dict.id}}"  ng-selected="${atr.object}.dictId == dict.id">{{dict.description}}</option>
+                    </select>
+                </td>
+                <td ng-show="col[0] == 'dictTypeId'">
+                    {{columnDescription(col[0])}}: 
+                    <select required="required" ng-model="${atr.object}.dictTypeId">
+                        <option ng-repeat="dict in dictTypes" value="{{dict.id}}"  ng-selected="${atr.object}.dictTypeId == dict.id">{{dict.description}}</option>
                     </select>
                 </td>
                 <td ng-show="col[0] == 'companyId'">

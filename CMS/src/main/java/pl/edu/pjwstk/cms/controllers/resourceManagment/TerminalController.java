@@ -17,13 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.LogDao;
 import pl.edu.pjwstk.cms.dao.TerminalDao;
+import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.TerminalDto;
 import pl.edu.pjwstk.cms.models.Terminal;
 import pl.edu.pjwstk.cms.utils.Utils;
-/**
- *
- * @author Konrad
- */
+
+
 @Controller
 public class TerminalController extends BaseController {
 
@@ -40,6 +39,7 @@ public class TerminalController extends BaseController {
 
         ModelAndView model = new ModelAndView("terminal");
         model.addObject("msg", "HelloGuestController");
+        model.addObject("server", GenericDao.server);
         
         return model;
     }

@@ -18,13 +18,12 @@ import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.DepartmentDao;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.PositionDao;
+import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.PositionDto;
 import pl.edu.pjwstk.cms.models.Position;
 import pl.edu.pjwstk.cms.utils.Utils;
-/**
- *
- * @author Konrad
- */
+
+
 @Controller
 public class PositionController extends BaseController {
 
@@ -38,7 +37,11 @@ public class PositionController extends BaseController {
     @RequestMapping("position")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        ModelAndView model = new ModelAndView("position");        
+        
+        ModelAndView model = new ModelAndView("position");     
+        model.addObject("msg", "HelloGuestController");
+        model.addObject("server", GenericDao.server);
+        
         return model;
     }
     @RequestMapping(value = "/position/positions")

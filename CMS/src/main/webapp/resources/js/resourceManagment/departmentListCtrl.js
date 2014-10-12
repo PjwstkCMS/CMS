@@ -1,4 +1,5 @@
 function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
+    $scope.page = "Department";
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
     $scope.pageMax = 14;

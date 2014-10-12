@@ -1,7 +1,6 @@
 function PrivilegeKeyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     
-    
-    $scope.bla = "bla";
+    $scope.page = "simple";
     
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;

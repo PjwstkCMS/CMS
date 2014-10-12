@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pl.edu.pjwstk.cms.controllers.configuration;
 
 import java.util.HashMap;
@@ -21,11 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.DictionaryDao;
 import pl.edu.pjwstk.cms.dao.DictionaryTypeDao;
+import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.utils.Utils;
-/**
- *
- * @author Konrad
- */
+
+
 @Controller
 public class DictionaryController extends BaseController {
 
@@ -42,6 +35,7 @@ public class DictionaryController extends BaseController {
 
         ModelAndView model = new ModelAndView("dictionaryList");
         model.addObject("msg", "HelloGuestController");
+        model.addObject("server", GenericDao.server);
         
         return model;
     }

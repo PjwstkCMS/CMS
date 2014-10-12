@@ -1,5 +1,5 @@
 function ReportPrintCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
-    
+    $scope.page = "Report";
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
     $scope.pageMax = 14;

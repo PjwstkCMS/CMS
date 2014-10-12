@@ -19,13 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.FileDao;
 import pl.edu.pjwstk.cms.dao.ReportDao;
+import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.models.File;
 import pl.edu.pjwstk.cms.utils.Utils;
 
-/**
- *
- * @author Konrad
- */
+
 @Controller
 public class ReportController extends BaseController {
 
@@ -41,6 +39,8 @@ public class ReportController extends BaseController {
             HttpServletResponse response) throws Exception {
 
         ModelAndView model = new ModelAndView("report");
+        model.addObject("msg", "HelloGuestController");
+        model.addObject("server", GenericDao.server);
 
         return model;
     }

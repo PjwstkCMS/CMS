@@ -1,9 +1,3 @@
-<%-- 
-    Document   : dictionary
-    Created on : 2014-08-30, 14:59:30
-    Author     : Macha
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -13,7 +7,6 @@
         <h1>Dictionary!</h1>        
         <div ng-controller="DictionaryListCtrl">
             <t:dataTable/>
-            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

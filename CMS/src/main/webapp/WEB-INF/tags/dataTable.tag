@@ -5,7 +5,7 @@
 --%>
 
 <%@tag description="Tabela z danymi" pageEncoding="UTF-8"%>
-
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="message"%>
 <script type="text/javascript">
@@ -117,15 +117,19 @@
                         {{pos.name}}
                     </div>
                 </div>
+                <div ng-if="attr == 'dictTypeId'"> 
+                    <div ng-repeat="dict in dictTypes" ng-show="dict.id == obj[attr]">
+                        {{dict.description}}
+                    </div>
+                </div>
                 <div ng-if="attr != 'customerId' && attr != 'employeeId' && attr != 'dictId' 
-                         && attr != 'managerId' && attr != 'positionId' && attr != 'departmentId'"> {{obj[attr]}} </div>
+                         && attr != 'managerId' && attr != 'positionId' && attr != 'departmentId'
+                         && attr != 'dictTypeId'"> {{obj[attr]}} </div>
             </td>
         </tr>
         <tr ng-show="obj == selected">
             <td>
-                <h1>
-                    BLE
-                </h1>
+                <t:innerPage/>
             </td>
         </tr>
     </tbody>

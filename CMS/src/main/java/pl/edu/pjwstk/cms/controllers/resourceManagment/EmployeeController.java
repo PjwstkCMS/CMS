@@ -1,7 +1,6 @@
 package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -26,17 +25,14 @@ import pl.edu.pjwstk.cms.dao.EmploymentDao;
 import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.PositionDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
+import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.EmployeeDto;
-import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Employee;
 import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.Position;
 import pl.edu.pjwstk.cms.utils.Utils;
 
-/**
- *
- * @author Konrad
- */
+
 @Controller
 public class EmployeeController extends BaseController {
 
@@ -50,7 +46,11 @@ public class EmployeeController extends BaseController {
     @RequestMapping("employee")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
+        
         ModelAndView model = new ModelAndView("employee");
+        model.addObject("msg", "HelloGuestController");
+        model.addObject("server", GenericDao.server);
+        
         return model;
     }
 

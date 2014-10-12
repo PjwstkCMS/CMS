@@ -5,14 +5,8 @@
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/employmentListCtrl.js"></script>
         <h1>Employment!</h1>
-        <h3>${server}</h3>
         <div ng-controller="EmploymentListCtrl">            
             <t:dataTable/>
-            {{selected}}
-            <div ng-show="editMode">
-                <t:editTable map="editValues" object="selected"/>
-            </div>
-            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

@@ -1,4 +1,5 @@
 function PositionListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
+    $scope.page = "Position";
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
     $scope.pageMax = 14;

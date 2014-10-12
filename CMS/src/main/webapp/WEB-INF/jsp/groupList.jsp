@@ -4,31 +4,9 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/configuration/groupListCtrl.js"></script>
-
+        <h1>GroupList!</h1>
         <div ng-controller="GroupListCtrl">
             <t:dataTable/>
-            <t:editTable/>
-             <table class="genericTable">
-               
-                <tr ng-show="selected.id">
-                    <td>Klucze:
-                        <p ng-repeat="groupPrivKey in privilegeKeys" ng-show="selectedGroupHasKey(groupPrivKey.id)">{{groupPrivKey.code}}</p>
-                    </td>
-                    <td>Dodaj nowy klucz:
-                        <select ng-model="newKeyId">
-                            <option ng-repeat="privKey in privilegeKeys" ng-hide="selectedGroupHasKey(privKey.id)" value="{{privKey.id}}">{{privKey.code}}</option> 
-                        </select>
-                        <input type="button" ng-click="addKey()" value="Dodaj"/>
-                        <br/>
-                        Usuń istniejący klucz:
-                        <select ng-model="oldKeyId">
-                            <option ng-repeat="privKey in privilegeKeys" ng-show="selectedGroupHasKey(privKey.id)" value="{{privKey.id}}">{{privKey.code}}</option> 
-                        </select>
-                        <input type="button" ng-click="removeKey()" value="Usuń"/>
-                    </td>
-                </tr>
-            </table>
-            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

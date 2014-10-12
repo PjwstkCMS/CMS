@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 import java.util.HashMap;
@@ -29,10 +24,7 @@ import pl.edu.pjwstk.cms.models.Customer;
 import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.utils.Utils;
 
-/**
- *
- * @author Konrad
- */
+
 @Controller
 public class CustomerController extends BaseController {
 
@@ -57,7 +49,6 @@ public class CustomerController extends BaseController {
     public ResponseEntity<String> getData(HttpSession session) {
         CustomerDao cusDao = new CustomerDao();
         CompanyDao comDao = new CompanyDao();
-        //AddressDao addDao = new AddressDao();
         ContractDao conDao = new ContractDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("customers", cusDao.getCustomerDtoList());

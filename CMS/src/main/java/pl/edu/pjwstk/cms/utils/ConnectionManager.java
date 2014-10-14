@@ -28,6 +28,8 @@ public class ConnectionManager {
     public static String staticLogin2 = "Sergio";
     public static String staticPass2 = "quovadis1";
     
+    public static int queryTimeout = 5;
+    
     private final static Logger LOGGER = Logger.getLogger("utils.ConnectionManager");
     private String url;
     private String login;
@@ -150,6 +152,7 @@ public class ConnectionManager {
         LOGGER.info("Execute query - "+query);
         try {
             Statement s = getConnection().createStatement();
+            s.setQueryTimeout(queryTimeout);
             rs = s.executeQuery(query);            
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();

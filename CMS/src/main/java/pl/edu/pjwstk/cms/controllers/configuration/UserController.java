@@ -33,14 +33,17 @@ public class UserController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(UserController.class.getName());
 
     public UserController() {
-
+        super("ManageUsers","all");
     }
 
     @Override
     @RequestMapping("userList")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("userList");
         model.addObject("msg", "HelloGuestController");
         

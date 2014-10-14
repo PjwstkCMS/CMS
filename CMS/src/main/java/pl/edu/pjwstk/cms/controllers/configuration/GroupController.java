@@ -36,14 +36,17 @@ public class GroupController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(GroupController.class.getName());
 
     public GroupController() {
-
+        super("ManageGroups","all");
     }
 
     @Override
     @RequestMapping("groupList")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("groupList");
         model.addObject("msg", "HelloGuestController");
         

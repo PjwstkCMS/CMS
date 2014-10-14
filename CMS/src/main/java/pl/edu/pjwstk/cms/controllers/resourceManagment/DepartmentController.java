@@ -25,27 +25,30 @@ import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Department;
 import pl.edu.pjwstk.cms.utils.Utils;
 
-
 @Controller
 public class DepartmentController extends BaseController {
 
     private final static Logger LOGGER = Logger.getLogger(DepartmentController.class.getName());
 
     public DepartmentController() {
-
+        super("ManageDepartments","all");
     }
 
     @Override
     @RequestMapping("department")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if (!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("department");
         model.addObject("msg", "HelloGuestController");
         model.addObject("server", GenericDao.server);
-        
+
         return model;
     }
+
     @RequestMapping(value = "/department/departments")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
@@ -58,7 +61,7 @@ public class DepartmentController extends BaseController {
         initData.put("dictionaries", dictDao.getCompanyAddressesTypes());
         return Utils.createResponseEntity(session, initData);
     }
-    
+
     @RequestMapping(value = "/department/save/:object", method = RequestMethod.POST)
     public @ResponseBody
     ResponseEntity<String> saveData(@RequestBody String object, HttpSession session) {
@@ -67,11 +70,11 @@ public class DepartmentController extends BaseController {
         Department dep = new Department();
         AddressDao addDao = new AddressDao();
         Map<String, Object> data = new HashMap<>();
-        if(dto.getId() != null ){
+        if (dto.getId() != null) {
             dep = depDao.selectRecordsWithFieldValues("id", dto.getId()).get(0);
             dep.setName(dto.getName());
             dep.setManagerId(dto.getManagerId());
-            
+
             Address add = dto.getAddress();
             addDao.update(add);
             dep.setAddressId(dto.getAddressId());
@@ -81,16 +84,16 @@ public class DepartmentController extends BaseController {
         } else {
             dep.setName(dto.getName());
             dep.setManagerId(dto.getManagerId());
-            
+
             Address add = dto.getAddress();
             Long id = addDao.insert(add);
-            dep.setAddressId(id+"");
-            data.put("addressId", id+"");
+            dep.setAddressId(id + "");
+            data.put("addressId", id + "");
             data.put("id", depDao.insert(dep));
             return Utils.createResponseEntity(session, data);
         }
     }
-    
+
     @RequestMapping(value = "/department/delete/:object", method = RequestMethod.POST)
     public @ResponseBody
     void deleteData(@RequestBody String object) {
@@ -102,8 +105,8 @@ public class DepartmentController extends BaseController {
             empDao.updateFieldForAllElementsWithId(
                     "departmentId", dto.getId() + "",
                     "departmentId", "-1");
-            addDao.delete("id="+dto.getAddressId());
-            depDao.delete("id="+dto.getId());
+            addDao.delete("id=" + dto.getAddressId());
+            depDao.delete("id=" + dto.getId());
         }
     }
 }

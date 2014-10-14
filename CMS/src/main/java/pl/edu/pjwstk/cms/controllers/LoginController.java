@@ -14,7 +14,6 @@ import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeKeyDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
-import pl.edu.pjwstk.cms.models.Privilege;
 import pl.edu.pjwstk.cms.models.PrivilegeGroup;
 import pl.edu.pjwstk.cms.models.User;
 /**
@@ -27,7 +26,7 @@ public class LoginController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(LoginController.class.getName());
 
     public LoginController() {
-
+        
     }    
     
     @RequestMapping("loginPage")

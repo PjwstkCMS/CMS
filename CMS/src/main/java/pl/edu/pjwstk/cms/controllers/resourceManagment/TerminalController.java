@@ -29,14 +29,17 @@ public class TerminalController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(TerminalController.class.getName());
 
     public TerminalController() {
-
+        super("ManageTerminals","all");
     }
 
     @Override
     @RequestMapping("terminal")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("terminal");
         model.addObject("msg", "HelloGuestController");
         model.addObject("server", GenericDao.server);

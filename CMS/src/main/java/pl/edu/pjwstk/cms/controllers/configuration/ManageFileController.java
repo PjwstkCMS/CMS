@@ -36,14 +36,17 @@ public class ManageFileController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(ManageFileController.class.getName());
 
     public ManageFileController() {
-
+        super("ManageFiles","all");
     }
 
     @Override
     @RequestMapping("manageFile")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("manageFile");
         
         return model;

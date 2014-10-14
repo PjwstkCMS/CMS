@@ -25,14 +25,17 @@ public class DictionaryController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(DictionaryController.class.getName());
 
     public DictionaryController() {
-
+        super("ManageDictionaries","all");
     }
 
     @Override
     @RequestMapping("dictionaryList")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("dictionaryList");
         model.addObject("msg", "HelloGuestController");
         model.addObject("server", GenericDao.server);

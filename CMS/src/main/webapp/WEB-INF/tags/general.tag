@@ -17,9 +17,23 @@
         <title>HR System</title>        
     </head>
     <body ng-app="cms">
-        <table>
+        <style>
+            .content-table {
+                width: 100%;
+                height: 100%;
+            }
+            .jspBody {
+                width: 100%;
+                height: 100%;
+            }
+            .menu {
+                width: 15%;
+                vertical-align: top;
+            }
+        </style>
+        <table class="content-table">
             <tr>
-                <td>
+                <td class="menu">
                     <h3>${server}</h3>
                     <h1>
                         ${user.forename}   
@@ -99,7 +113,7 @@
                 </td>
                 <td>
 
-                    <div class="content-table">
+                    <div class="jspBody">
                         <jsp:doBody/>
                     </div>
                 </td>

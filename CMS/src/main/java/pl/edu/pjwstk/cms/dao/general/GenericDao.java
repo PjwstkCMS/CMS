@@ -33,12 +33,12 @@ public class GenericDao<T extends DatabaseObject> {
             try {
                 connectionManager = ConnectionManager.getConnectionManager();
                 List<T> selectRecordsWithFieldValues = this.selectAll();
-                server = "Pawełkowy serwer";
+                server = "Sergiowy serwer";
                 if (selectRecordsWithFieldValues.isEmpty()) {
                     throw new Exception();
                 }
             } catch (Exception noConnection) {
-                server = "Sergiowy serwer";
+                server = "Pawełkowy serwer";
                 LOGGER.warning("Can't reach main sql server. Switching to auxilary.");
                 connectionManager = ConnectionManager.getConnectionManagerAuxilary();
             }

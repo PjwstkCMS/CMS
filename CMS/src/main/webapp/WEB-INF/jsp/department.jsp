@@ -7,6 +7,11 @@
         <h1>Department!</h1>
         <div ng-controller="DepartmentListCtrl">
             <t:dataTable/>
+            <div ng-show="editMode && newRecord">
+                <t:editTable map="editValues" object="selected"/>
+                <t:editTable map="addressValues" object="selected.address"/>
+            </div>
+            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

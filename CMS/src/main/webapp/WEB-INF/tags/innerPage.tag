@@ -1,11 +1,5 @@
-<%-- 
-    Document   : jsonOperations
-    Created on : 2013-10-28, 17:19:08
-    Author     : Sergio
---%>
-
 <%@tag description="InnerPage" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="message"%>
@@ -14,7 +8,6 @@
     <div ng-show="editMode">
         <t:editTable map="editValues" object="selected"/>
     </div>
-   <t:jsonOperations/>
 </div>
 
 <div ng-if="page == 'Employee'">
@@ -33,9 +26,10 @@
             </tr>
             <tr>
                 <td>
-                    <select ng-model="addressSelector" ng-options="add.streetName+' '+add.streetNumber+' '+add.city
-                        for add in selected.addresses"></select><br>
-                    </td>
+                    <select  ng-model="$parent.$parent.addressSelector" ng-options="add.streetName+' '+add.streetNumber+' '+add.city
+                        for add in selected.addresses">
+                    </select><br>
+                </td>
                 <td>
                     <select ng-model="employmentSelector" ng-options="'ID: '+empl.id
                         for empl in selectedEmployments"></select><br>
@@ -46,9 +40,9 @@
                 </td>
                 </tr>
         </table>
-        <input type="button" ng-click="addAddress()" value="ADD ADDRESS"/>
-        <input type="button" ng-show="addressSelector" ng-click="editAddress()" value="EDIT ADDRESS"/>
-        <input type="button" ng-click="removeKey()" value="DELETE ADDRESS"/>
+        <input type="button" ng-show="!addressEdit" ng-click="addAddress()" value="Add Address"/>
+        <input type="button" ng-show="addressSelector && !addressEdit" ng-click="editAddress()" value="Edit Address"/>
+        <input type="button" ng-show="addressSelector && !addressEdit" ng-click="removeKey()" value="Delete Address"/>
         <div ng-show="addressSelector" >
             <table>
                 <tr>
@@ -79,7 +73,6 @@
     <div ng-show="editMode">
         <t:editTable map="editValues" object="selected"/>
     </div>
-    <t:jsonOperations/>
 </div>
 
 <div ng-if="page == 'Company'">
@@ -87,17 +80,19 @@
         <h3>
             Adresy Firmy:
         </h3>
-        <select ng-model="addressSelector" ng-options="add.streetName+' '+add.streetNumber+' '+add.city
-            for add in selected.addresses"></select><br>
+        <select  ng-model="$parent.$parent.addressSelector" ng-options="add.streetName+' '+add.streetNumber+' '+add.city
+                for add in selected.addresses">
+        </select><br>
+            
         <table>
             <tr>
                 <th ng-repeat="adatr in addressAttributes">
-                    {{$parent.columnDescription(adatr)}}
+                    {{columnDescription(adatr)}}
                 </th>   
             </tr>
-            <input type="button" ng-click="addAddress()" value="ADD"/>
-            <input type="button" ng-show="addressSelector" ng-click="editAddress()" value="EDIT"/>
-            <input type="button" ng-click="removeKey()" value="DELETE"/>
+            <input type="button" ng-show="!addressEdit" ng-click="addAddress()" value="ADD"/>
+            <input type="button" ng-show="addressSelector && !addressEdit" ng-click="editAddress()" value="EDIT"/>
+            <input type="button" ng-show="addressSelector && !addressEdit" ng-click="removeKey()" value="DELETE"/>
             <tbody>
                 <tr>
                     <td ng-repeat="attr in addressAttributes">
@@ -124,7 +119,6 @@
             <t:editTable map="contactPersonValues" object="selected"/>
         </div>
     </div>
-    <t:jsonOperations/>
 </div>
 
 <div ng-if="page == 'Customer'">
@@ -198,7 +192,6 @@
                 <div ng-show="editMode">
                     <t:editTable map="editValues" object="selected"/>
                 </div>
-    <t:jsonOperations/>    
 </div>
 
 <div ng-if="page == 'Department'">
@@ -211,7 +204,6 @@
         <t:editTable map="editValues" object="selected"/>
         <t:editTable map="addressValues" object="selected.address"/>
     </div>
-    <t:jsonOperations/>
 </div>
 
 <div ng-if="page == 'FileList'">
@@ -252,7 +244,6 @@
     <div ng-show="editMode">
         <t:editTable map="editValues" object="selected"/>
     </div>
-    <t:jsonOperations/>
 </div>
 
 <div ng-if="page == 'Report'">
@@ -266,42 +257,86 @@
 </div>
 
 <div ng-if="page == 'GroupList'">
-    <t:editTable/>
     <table class="genericTable">
         <tr ng-show="selected.id">
             <td>Klucze:
                 <p ng-repeat="groupPrivKey in privilegeKeys" ng-show="selectedGroupHasKey(groupPrivKey.id)">{{groupPrivKey.code}}</p>
             </td>
             <td>Dodaj nowy klucz:
-                <select ng-model="newKeyId">
+                <select ng-model="$parent.$parent.newKey">
                     <option ng-repeat="privKey in privilegeKeys" ng-hide="selectedGroupHasKey(privKey.id)" value="{{privKey.id}}">{{privKey.code}}</option> 
                 </select>
                 <input type="button" ng-click="addKey()" value="Dodaj"/>
                 <br/>
                 Usuń istniejący klucz:
-                <select ng-model="oldKeyId">
+                <select ng-model="$parent.$parent.oldKey">
                     <option ng-repeat="privKey in privilegeKeys" ng-show="selectedGroupHasKey(privKey.id)" value="{{privKey.id}}">{{privKey.code}}</option> 
                 </select>
                 <input type="button" ng-click="removeKey()" value="Usuń"/>
             </td>
         </tr>
     </table>
+    <div ng-show="editMode">
+        <t:editTable map="editValues" object="selected"/>
+    </div>
+</div>
+
+<div ng-if="page == 'DictionaryList'">
+    <div ng-show="selected && !newRecord">
+        <h3>
+            Słowniki:
+        </h3>
+        <select ng-model="$parent.$parent.dictionarySelector" ng-options="dictT.description
+            for dictT in selected.dictionaries"></select><br>
+        <table>
+            <tr>
+                <th ng-repeat="dictAtr in dictionaryAttributes">
+                    {{$parent.columnDescription(dictAtr)}}
+                </th>   
+            </tr>
+            <input type="button" ng-show="!dictionaryEdit" ng-click="addDictionary()" value="ADD"/>
+            <input type="button" ng-show="dictionarySelector && !dictionaryEdit" ng-click="editDictionary()" value="EDIT"/>
+            <input type="button" ng-show="dictionarySelector && !dictionaryEdit" ng-click="removeKey()" value="DELETE"/>
+            <tbody>
+                <tr>
+                    <td ng-repeat="dictAtr in dictionaryAttributes">
+                        {{dictionarySelector[dictAtr]}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="dictionaryEdit">
+            <t:editTable map="dictionaryValues" object="dictionarySelector"/>
+            <input type="button" ng-click="addKey()" value="Add"/>
+            <input type="button" ng-click="cancelDictionary()" value="Cancel"/>
+        </div>
+    </div>
+    <div ng-show="editMode">
+        <t:editTable map="editValues" object="selected"/>
+    </div>
     <t:jsonOperations/>
 </div>
 
-<div ng-if="page == 'ManageFile'">
-    <br/>
-    <form action="manageFile/upload.htm" method="POST" enctype="multipart/form-data">
-        Plik: <input type="file" name="file"/>
-        Typ pliku: <select name="fileExt">
-            <option ng-repeat="(key, value) in mimetypes" value="{{value}}">
-                {{key}}
-            </option>
-        </select>
-        <br/>
-        Opis: <textarea style="width: 100%; height: 10%" name="description"> </textarea>        
-        <br/>
-        <input type="submit" value="Zapisz plik"/>
-    </form>    
+<div ng-if="page == 'SystemConfig'">
+    <t:editTable map="editValues" object="selected"/>
+    <input type="button" ng-click="save()" value="ZAPISZ">
 </div>
-
+    
+<div ng-if="page == 'UserList'">
+    <div id="companyTable" ng-show="selected && !editMode">
+        <table>
+            <tr>
+                <th ng-repeat="adatr in additionalAttributes">
+                    {{$parent.columnDescription(adatr)}}
+                </th>   
+            </tr>
+            <tbody ng-repeat="emp in employees" ng-show="emp.id == selected.employeeId">
+                <tr>
+                    <td ng-repeat="attr in additionalAttributes">
+                        {{emp[attr]}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

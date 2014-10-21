@@ -7,6 +7,7 @@
         <h1>User!</h1>
         <div ng-controller="UserListCtrl">
             <t:dataTable/>
+            <input ng-show="selected.id" type="button" ng-click="delete()" value="USUŃ"/>
         </div>
     </jsp:body>
 </t:general>

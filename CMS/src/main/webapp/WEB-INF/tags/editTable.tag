@@ -1,9 +1,3 @@
-<%-- 
-    Document   : jsonOperations
-    Created on : 2013-10-28, 17:19:08
-    Author     : Sergio
---%>
-
 <%@tag description="EditTable" pageEncoding="UTF-8" dynamic-attributes="atr"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- The list of normal or fragment attributes can be specified here: --%>
@@ -74,6 +68,9 @@
                 <td ng-show="col[0] == 'dateFrom'">
                     {{columnDescription(col[0])}}: <input required="required" ng-pattern="/^((19|20)[0-9]{2}[\-/](0[1-9]|1[0-2])[\-/](0[1-9]|[12][0-9]|3[01]))*$/" type="text" ng-model="${atr.object}.dateFrom"/> 
                 </td>
+                <td ng-show="col[0] == 'login'">
+                    {{columnDescription(col[0])}}: <input required="required" type="text" ng-model="${atr.object}.login"/> 
+                </td>
                 
                 <td ng-show="col[0] == 'id'">
                     {{columnDescription(col[0])}}: <input required="required" disabled="true" type="text" ng-model="${atr.object}.id"/> 
@@ -127,6 +124,12 @@
                     {{columnDescription(col[0])}}: 
                     <select required="required" ng-model="${atr.object}.positionId">
                         <option ng-repeat="pos in positions" value="{{pos.id}}"  ng-selected="${atr.object}.positionId == pos.id">{{pos.name}}</option>
+                    </select>
+                </td>
+                <td ng-show="col[0] == 'groupId'">
+                    {{columnDescription(col[0])}}: 
+                    <select required="required" ng-model="${atr.object}.groupId">
+                        <option ng-repeat="gr in groups" value="{{gr.id}}"  ng-selected="${atr.object}.groupId == gr.id">{{gr.name}}</option>
                     </select>
                 </td>
             </tr>

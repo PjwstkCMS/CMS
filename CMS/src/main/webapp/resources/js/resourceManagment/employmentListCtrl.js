@@ -10,6 +10,7 @@ function EmploymentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     $scope.employees = "";
     $scope.privileges = "";
     $scope.editMode = false;
+    $scope.newRecord = false;
     
     $scope.objectsName = "employments";
     $scope.attributes = [];
@@ -58,26 +59,31 @@ function EmploymentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
             saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
             $scope.editMode = false;
+            $scope.newRecord = false;
         } else {
             saveEditDelete.saveOldData($scope, object);
             $scope.selected = object;
+            $scope.newRecord = false;
         }
     }
 
     $scope.edit = function() {
         $scope.editMode = true;
+        $scope.newRecord = false;
     };
 
     $scope.cancel = function() {
         saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
+        $scope.newRecord = false;
     };
 
     $scope.create = function() {
         saveEditDelete.restoreOldData($scope);
         $scope.selected = {'id':"",'dateFrom':"","dateTo":"","dictId":"","employeeId":""};
         $scope.editMode = true;
+        $scope.newRecord = true;
     };
 
     $scope.delete = function() {

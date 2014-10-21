@@ -7,6 +7,10 @@
         <h1>Contract!</h1>
         <div ng-controller="ContractListCtrl">
             <t:dataTable/>
+            <div ng-show="editMode && newRecord">
+                <t:editTable map="editValues" object="selected"/>
+            </div>
+            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

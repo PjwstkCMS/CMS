@@ -10,6 +10,7 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     $scope.departments = "";
     $scope.privileges = "";
     $scope.editMode = false;
+    $scope.newRecord = false;
     
     $scope.objectsName = "departments";
     $scope.attributes = [];
@@ -68,20 +69,24 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
         if ($scope.selected == object) {
             saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
+            $scope.newRecord = false;
         } else {
             $scope.selected = object;
             saveEditDelete.saveOldData($scope,object);
+            $scope.newRecord = false;
         }
     }
 
     $scope.edit = function() {
         $scope.editMode = true;
+        $scope.newRecord = false;
     };
 
     $scope.cancel = function() {
         saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
+        $scope.newRecord = false;
     };
 
     $scope.create = function() {
@@ -94,6 +99,7 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
             'privilegeKeyCodes':[]
         };
         $scope.editMode = true;
+        $scope.newRecord = true;
 
     };
 

@@ -9,12 +9,20 @@ function GroupListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     $scope.objectsName = "groups";
     $scope.attributes = [];
     $scope.attributes[0] = 'name';
-    $scope.columns = {
-        'name': "Nazwa",
-    };
+    
+    $scope.editValues = [];
+    $scope.editValues[0] = {0:'id', 1:false};
+    $scope.editValues[1] = {0:'name',1:true};
+    
+    $scope.privilegeAttributes = [];
+    $scope.privilegeAttributes[0] = 'id';
+    $scope.privilegeAttributes[1] = 'code';
+    $scope.privilegeAttributes[2] = 'description';
+    
     $scope.editMode = false;
+    $scope.newRecord = false;
     $scope.selected = "";
-    $scope.selected.privilegeKeyIds = "";
+    $scope.selected.privileges = "";
 
     $scope.get = saveEditDelete.get($http, '/CMS/groupList/groups.htm', $scope);
     var loadDataPromise = $scope.get;
@@ -35,27 +43,34 @@ function GroupListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
         if ($scope.selected == object) {
             saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
+            $scope.newRecord = false;
         } else {
             saveEditDelete.saveOldData($scope,object);
             $scope.selected = object;
-            $scope.selected.privilegeKeyIds = object.privilegeKeyIds;
+            $scope.newRecord = false;
+            $scope.selected.privileges = object.privileges;
         }
     }
 
     $scope.edit = function() {
         $scope.editMode = true;
+        $scope.newRecord = false;
     };
 
     $scope.cancel = function() {
         saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
+        $scope.newRecord = false;
         $scope.selected = "";
     };
 
     $scope.create = function() {
         saveEditDelete.restoreOldData($scope);
-        $scope.selected = "";
+        $scope.selected = {
+            "id":"","name":"","privileges":[]
+        };
         $scope.editMode = true;
+        $scope.newRecord = true;
 
     };
 
@@ -64,18 +79,33 @@ function GroupListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     };
 
     $scope.addKey = function() {
-        if (!$scope.selectedGroupHasKey($scope.newKeyId)) {
-            $scope.selected.privilegeKeyIds.push($scope.newKeyId);
+        if (!$scope.selectedGroupHasKey($scope.newKey)) {
+            key = {
+                'id':"",'groupId':$scope.selected.id,'keyId':$scope.newKey
+            };
+            saveEditDelete.saveKey($http, '/CMS/privilege/save/:object.htm', $scope, key, $scope.selected.privileges);
+        
+            $scope.newKey = 0;
         }
     };
 
     $scope.removeKey = function() {
-        if ($scope.selectedGroupHasKey($scope.oldKeyId)) {
-            var index = $scope.selected.privilegeKeyIds.indexOf($scope.oldKeyId);
-            $scope.selected.privilegeKeyIds.splice(index, 1);
-            $scope.oldKeyId = 0;
+        if ($scope.selectedGroupHasKey($scope.oldKey)) {
+            
+            var index = -1;
+                for (var i = 0; i < $scope.selected.privileges.length; i++) {
+                    if ($scope.selected.privileges[i].keyId == $scope.oldKey) {
+                        index = i;
+                    }
+                }
+            key = {
+                'id':$scope.selected.privileges[index].id,'groupId':$scope.selected.id,'keyId':$scope.oldKey
+            };
+            saveEditDelete.deleteKey($http, '/CMS/privilege/delete/:object.htm', $scope, key, $scope.selected.privileges);
+            
+            $scope.oldKey = 0;
         }
-    }
+    };
 
     $scope.groupHasKey = function(group, privKeyId) {
         for (var i = 0; i < group.privilegeKeyIds.length; i++) {
@@ -84,18 +114,18 @@ function GroupListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
             }
         }
         return false;
-    }
+    };
 
     $scope.selectedGroupHasKey = function(privKeyId) {
-        if ($scope.selected.privilegeKeyIds !== undefined) {
-            for (var i = 0; i < $scope.selected.privilegeKeyIds.length; i++) {
-                if ($scope.selected.privilegeKeyIds[i] == privKeyId) {
+        if ($scope.selected.privileges !== undefined) {
+            for (var i = 0; i < $scope.selected.privileges.length; i++) {
+                if ($scope.selected.privileges[i].keyId == privKeyId) {
                     return true;
                 }
             }
         }
         return false;
-    }
+    };
     
     $scope.checkEditPrivileges = function() {
         return true;

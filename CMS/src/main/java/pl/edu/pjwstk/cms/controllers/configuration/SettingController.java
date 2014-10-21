@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pl.edu.pjwstk.cms.controllers.configuration;
 
 import java.util.HashMap;
@@ -24,10 +18,8 @@ import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.SystemConfigurationDao;
 import pl.edu.pjwstk.cms.models.SystemConfiguration;
 import pl.edu.pjwstk.cms.utils.Utils;
-/**
- *
- * @author Konrad
- */
+
+
 @Controller
 public class SettingController extends BaseController {
 
@@ -62,27 +54,22 @@ public class SettingController extends BaseController {
     ResponseEntity<String> saveData(@RequestBody String object, HttpSession session) {
         SystemConfiguration sc = (SystemConfiguration) Utils.convertJSONStringToObject(object, "object", SystemConfiguration.class);
         SystemConfigurationDao dao = new SystemConfigurationDao();
-        if (sc.getId() == null) {
-            Long id = dao.insert(sc);
-            Map<String, Object> data = new HashMap<>();
-            data.put("id", id);
-            return Utils.createResponseEntity(session, data);
-        } else {
-            dao.update(sc);
-            Map<String, Object> data = new HashMap<>();
-            data.put("id", sc.getId());
-            return Utils.createResponseEntity(session, data);
-        }
+        dao.update(sc);
+        Map<String, Object> data = new HashMap<>();
+        data.put("id", sc.getId());
+        return Utils.createResponseEntity(session, data);
     }
-
-    @RequestMapping(value = "/systemConfig/delete/:object", method = RequestMethod.POST)
-    public @ResponseBody
-    void deleteData(@RequestBody String object) {
-        SystemConfiguration sc = (SystemConfiguration) Utils.convertJSONStringToObject(object, "object", SystemConfiguration.class);
-        SystemConfigurationDao dao = new SystemConfigurationDao();
-        if (sc.getId() != null) {
-            dao.delete("id="+sc.getId());
-        }
+    
+    @RequestMapping(value = "/systemConfig/defaultConfigs")
+    @ResponseBody
+    public ResponseEntity<String> getDefaultConfigs(HttpSession session, ModelMap model) {
+        Map<String, Object> initData = new HashMap<>();
+        SystemConfigurationDao sysDao = new SystemConfigurationDao();
+        
+        //Póki co no idea jeszcze jak to zrobić
+        
+        initData.put("systemConfigs", sysDao.selectAll());
+        return Utils.createResponseEntity(session, initData);
     }
 }
 

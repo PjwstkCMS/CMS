@@ -7,6 +7,7 @@
         <h1>Setting!</h1>
         <div ng-controller="SystemConfigCtrl">
             <t:dataTable/>
+            <input type="button" ng-click="defaultSettings()" value="Default settings">
         </div>
     </jsp:body>
 </t:general>

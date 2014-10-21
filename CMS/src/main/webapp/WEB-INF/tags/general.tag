@@ -22,7 +22,7 @@
                 <td>
                     <h3>${server}</h3>
                     <h1>
-                        ${user.forename}   
+                        ${user.login}   
                         ${user.privilegeKeyCodes}
                     </h1>
                     <ul>
@@ -90,10 +90,6 @@
                                 <c:if test="${user.privilegeKeyCodes.contains('all') || 
                                               user.privilegeKeyCodes.contains('ViewGroups')}">
                             <a href="/CMS/groupList.htm"><li id="nav0">groupList</li></a>
-                                </c:if>
-                                <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                              user.privilegeKeyCodes.contains('ViewKeys')}">
-                            <a href="/CMS/key.htm"><li id="nav0">key</li></a>
                                 </c:if>
                     </ul>
                 </td>

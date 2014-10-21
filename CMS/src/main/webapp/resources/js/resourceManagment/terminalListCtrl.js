@@ -10,6 +10,7 @@ function TerminalListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.companies = "";
     $scope.privileges = "";
     $scope.editMode = false;
+    $scope.newRecord = false;
     //$scope.displayPage = true;
     //$scope.displayPageName = "customerPage";
     
@@ -49,20 +50,24 @@ function TerminalListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
             $scope.editMode = false;
+            $scope.newRecord = false;
         } else {
             $scope.selected = object;
             saveEditDelete.saveOldData($scope,object);
+            $scope.newRecord = false;
         }
     }
 
     $scope.edit = function() {
         $scope.editMode = true;
+        $scope.newRecord = false;
     };
 
     $scope.cancel = function() {
         saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
+        $scope.newRecord = false;
     };
 
     $scope.create = function() {
@@ -71,6 +76,7 @@ function TerminalListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             'id': "", 'description':""
         };
         $scope.editMode = true;
+        $scope.newRecord = true;
 
     };
 

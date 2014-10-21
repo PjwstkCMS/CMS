@@ -53,13 +53,12 @@ public class LoginController extends BaseController {
             User user = users.get(0);
             if(user.getPassword().equals(pass)) {
                 UserDto userDto = new UserDto();
-                userDto.setForename(login);
+                userDto.setLogin(login);
                 userDto.setPassword(pass);
-                userDto.setGroupId(user.getGroupId());
-                LOGGER.info(userDto.getForename());
+                userDto.setGroupId(Long.parseLong(user.getGroupId()));
+                LOGGER.info(userDto.getLogin());
                 PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
                 PrivilegeGroup group = groupDao.selectRecordsWithFieldValues("id", userDto.getGroupId()).get(0);
-                userDto.setGroupName(group.getName());
                 PrivilegeKeyDao keyDao = new PrivilegeKeyDao();
                 userDto.setPrivilegeKeyCodes(keyDao.getPrivilegeKeyCodesForGroup(user.getGroupId()));
                 //Cookie c = new Cookie("user", Utils.convertObjectToJSON(userDto));

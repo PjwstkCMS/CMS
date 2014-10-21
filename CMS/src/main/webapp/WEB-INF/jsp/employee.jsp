@@ -6,7 +6,11 @@
         <script src="/CMS/resources/js/resourceManagment/employeeListCtrl.js"></script>
         <h1>Employee!</h1>        
         <div ng-controller="EmployeeListCtrl">            
-            <t:dataTable/>            
+            <t:dataTable/>
+            <div ng-show="editMode && newRecord">
+                <t:editTable map="editValues" object="selected"/>
+            </div>
+            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

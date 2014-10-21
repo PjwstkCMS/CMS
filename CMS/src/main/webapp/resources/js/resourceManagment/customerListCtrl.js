@@ -14,6 +14,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.privileges = "";
     $scope.editMode = false;
     $scope.restoreData = "";
+    $scope.newRecord = false;
     //$scope.displayPage = true;
     //$scope.displayPageName = "customerPage";
 
@@ -92,8 +93,10 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.selected = "";
             $scope.selectedCompany = "";
             $scope.contractSelector = "";
+            $scope.newRecord = false;
         } else {            
             $scope.selected = object; 
+            $scope.newRecord = false;
             $scope.contractSelector = "";
             $scope.selectedContracts = [];
             $scope.selectedCompany = "";
@@ -121,12 +124,14 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
 
     $scope.edit = function() {
         $scope.editMode = true;
+        $scope.newRecord = false;
     };
 
     $scope.cancel = function() {
         saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
+        $scope.newRecord = false;
     };
 
     $scope.create = function() {
@@ -134,7 +139,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         $scope.selected = {'id':"",'companyId':"","persondataId":""
             ,"forename":"","surname":"","email":"","phone":"","privilegeKeyCodes":[]};
         $scope.editMode = true;
-
+        $scope.newRecord = true;
     };
 
     $scope.delete = function() {

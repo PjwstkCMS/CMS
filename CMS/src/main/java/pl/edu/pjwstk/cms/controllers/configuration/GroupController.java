@@ -1,8 +1,6 @@
 package pl.edu.pjwstk.cms.controllers.configuration;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +19,8 @@ import pl.edu.pjwstk.cms.dao.PrivilegeDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeKeyDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
-import pl.edu.pjwstk.cms.dto.GroupDto;
-import pl.edu.pjwstk.cms.models.Privilege;
+import pl.edu.pjwstk.cms.dto.PrivilegeGroupDto;
 import pl.edu.pjwstk.cms.models.PrivilegeGroup;
-import pl.edu.pjwstk.cms.models.PrivilegeKey;
 import pl.edu.pjwstk.cms.utils.Utils;
 /**
  *
@@ -53,69 +49,44 @@ public class GroupController extends BaseController {
     @RequestMapping("/groupList/groups")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
-        PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
-        List<PrivilegeGroup> list = groupDao.selectAll();
-        List<GroupDto> groups = new ArrayList<>();
-        for (PrivilegeGroup g : list) {
-            groups.add(new GroupDto(g));
-        }
-
+        PrivilegeGroupDao privGroupDao = new PrivilegeGroupDao();
         PrivilegeKeyDao privKeyDao = new PrivilegeKeyDao();
-        List<PrivilegeKey> privKeys = privKeyDao.selectAll();
-
-        Map<String, Object> initData = new HashMap<>();
-        initData.put("groups", groups);
-        initData.put("privilegeKeys", privKeys);
+        Map<String, Object> initData = new HashMap<String, Object>();
+        initData.put("groups", privGroupDao.getDtoList());
+        initData.put("privilegeKeys", privKeyDao.selectAll());
         return Utils.createResponseEntity(session, initData);
     }
     
     @RequestMapping(value = "/groupList/save/:object", method = RequestMethod.POST)
     public @ResponseBody
     ResponseEntity<String> saveData(@RequestBody String object, HttpSession session) {
-        GroupDto dto = (GroupDto) Utils.convertJSONStringToObject(object, "object", GroupDto.class);
-        if (dto != null) {
-            PrivilegeGroup actualGroup = new PrivilegeGroup();
-            PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
+        PrivilegeGroupDto privGroupDto = (PrivilegeGroupDto) Utils.convertJSONStringToObject(object, "object", PrivilegeGroupDto.class);
+        PrivilegeGroupDao privGroupDao = new PrivilegeGroupDao();
+        PrivilegeGroup privGroup = new PrivilegeGroup();
+        Map<String, Object> data = new HashMap<>();
+        if (privGroupDto != null) {
+            privGroup = privGroupDao.selectRecordsWithFieldValues("id", privGroupDto.getId()).get(0);
+            privGroup.setName(privGroupDto.getName());
             
-            PrivilegeDao privilegeDao = new PrivilegeDao();
-            if (dto.getId() != null) {
-                actualGroup = groupDao.selectRecordsWithFieldValues("id", dto.getId()).get(0);
-                actualGroup.setName(dto.getName());
-
-                groupDao.update("id="+actualGroup.getId(), "name='"+actualGroup.getName()+"'");
-                
-                privilegeDao.delete("groupId=" + actualGroup.getId());
-            } else {
-                actualGroup.setName(dto.getName());
-                Long id = groupDao.insert(actualGroup);
-                actualGroup.setId(id);
-            }
-            if (dto.getPrivilegeKeyIds() != null) {
-                for (Long keyId : dto.getPrivilegeKeyIds()) {
-                    Privilege p = new Privilege();
-                    p.setGroupId(actualGroup.getId() + "");
-                    p.setKeyId(keyId + "");
-                    privilegeDao.insert(p);
-                }
-            }
-            Map<String, Object> data = new HashMap<>();
-            data.put("id", actualGroup.getId());
+            privGroupDao.update(privGroup);
+            data.put("id", privGroupDto.getId());
             return Utils.createResponseEntity(session, data);
-
+        } else {
+            privGroup.setName(privGroupDto.getName());
+            data.put("id", privGroupDao.insert(privGroup));
+            return Utils.createResponseEntity(session, data);
         }
-        return null;
-
     }
 
     @RequestMapping(value = "/groupList/delete/:object", method = RequestMethod.POST)
     public @ResponseBody
     void deleteData(@RequestBody String object) {
         System.out.println("delete");
-        GroupDto dto = (GroupDto) Utils.convertJSONStringToObject(object, "object", GroupDto.class);
+        PrivilegeGroupDto dto = (PrivilegeGroupDto) Utils.convertJSONStringToObject(object, "object", PrivilegeGroupDto.class);
+        PrivilegeGroupDao privilegeGroupDao = new PrivilegeGroupDao();
+        PrivilegeDao privilegeDao = new PrivilegeDao();
+        UserDao userDao = new UserDao();
         if (dto != null) {
-            PrivilegeGroupDao privilegeGroupDao = new PrivilegeGroupDao();
-            UserDao userDao = new UserDao();
-            PrivilegeDao privilegeDao = new PrivilegeDao();
             privilegeDao.delete("groupId=" + dto.getId());
             privilegeGroupDao.delete("id=" + dto.getId());
             userDao.updateFieldForAllElementsWithId(

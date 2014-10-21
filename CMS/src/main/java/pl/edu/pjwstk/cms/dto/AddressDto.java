@@ -3,10 +3,6 @@ package pl.edu.pjwstk.cms.dto;
 import java.io.Serializable;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Macha
- */
 public class AddressDto implements Serializable{
     
     private final static Logger LOGGER = Logger.getLogger(AddressDto.class.getName()); 

@@ -63,21 +63,21 @@ cmsModule.factory('saveEditDelete', function () {
                 $scope.operationMessage = "Operacja zapisywania nie udana"
             });
         },
-        saveAddress: function ($http, link, $scope) {
-            if ($scope.addressSelector.id == null || $scope.addressSelector.id < 1) {
-                $scope.selected.addresses.push($scope.addressSelector);
+        saveKey: function ($http, link, $scope, $selector, $container) {
+            if ($selector.id == null || $selector.id < 1) {
+                $container.push($selector);
             }
 
             return $http.post(
                     link,
-                    {object: $scope.addressSelector}).success(function (returnId) {
+                    {object: $selector}).success(function (returnId) {
                 $scope.showOperationMessage = true;
                 $scope.operationMessage = "Adres zapisany"
 
                 if (returnId != null) {
-                    $scope.addressSelector.id = returnId.id;
+                    $selector.id = returnId.id;
                 }
-                $scope.addressSelector = null;
+                $selector = null;
                 $scope.editMode = false;
             }).error(function (error) {
                 $scope.showOperationMessage = true;
@@ -85,18 +85,20 @@ cmsModule.factory('saveEditDelete', function () {
                 alert(error);
             });
         },
-        removeAddress: function ($http, link, $scope) {
+        deleteKey: function ($http, link, $scope, $selector, $container) {
             return $http.post(
                     link,
-                    {object: $scope.addressSelector}).success(function () {
-                var index;
-                for (var i = 0; i < $scope.selected.addresses.length; i++) {
-                    if ($scope.selected.addresses.id == $scope.addressSelector.id) {
+                    {object: $selector}).success(function () {
+                var index = -1;
+                for (var i = 0; i < $container.length; i++) {
+                    if ($container[i].id == $selector.id) {
                         index = i;
                     }
                 }
-                $scope.selected.addresses.splice(index, 1);
-                $scope.addressSelector = "";
+                if(index !== -1){
+                    $container.splice(index, 1);
+                }
+                $selector = "";
                 $scope.showOperationMessage = true;
                 $scope.operationMessage = "Adres usunięty"
             }).error(function (error) {
@@ -170,12 +172,12 @@ cmsModule.factory('columnDesc', function () {
                 'dictTypeId': "Rodzaj słownika",
                 'dictId': "Dodatkowy Opis",
                 'positionId': "Stanowisko",
+                'groupId': "Grupa",
                 'forename': "Imie",
                 'surname': "Nazwisko",
                 'phone': "Telefon",
                 'email': "Email",
                 'pesel': "Pesel",
-                'groupName': "Grupa",
                 'login': "Login",
                 'salary': "Pensja",
                 'name': "Nazwa",

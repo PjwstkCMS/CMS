@@ -10,6 +10,7 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.contracts = "";
     $scope.privileges = "";
     $scope.editMode = false;
+    $scope.newRecord = false;
     //$scope.displayPage = true;
     //$scope.displayPageName = "customerPage";
     
@@ -65,20 +66,24 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         if ($scope.selected == object) {
             saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
+            $scope.newRecord = false;
         } else {
             $scope.selected = object;
             saveEditDelete.saveOldData($scope,object);
+            $scope.newRecord = false;
         }
     }
 
     $scope.edit = function() {
         $scope.editMode = true;
+        $scope.newRecord = false;
     };
 
     $scope.cancel = function() {
         saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
         $scope.selected = "";
+        $scope.newRecord = false;
     };
 
     $scope.create = function() {
@@ -87,7 +92,7 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             'id': "", 'customerId':"", 'employeeId':"",'startDate':"",'closeDate':"",
             'finalisationDate':"",'description':"",'price':""
         };
-        
+        $scope.newRecord = true;
         $scope.editMode = true;
     };
 

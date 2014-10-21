@@ -7,6 +7,24 @@
         <h1>GroupList!</h1>
         <div ng-controller="GroupListCtrl">
             <t:dataTable/>
+            <div ng-show="editMode && newRecord">
+                <t:editTable map="editValues" object="selected"/>
+            </div>
+            <t:jsonOperations/>
+            <table>
+                <tr>
+                    <th ng-repeat="privA in privilegeAttributes" ng-hide="privA.substring(0, 1) == '%'">
+                        {{$parent.columnDescription(privA)}}
+                    </th>   
+                </tr>
+                <tbody>
+                    <tr ng-repeat="priv in privilegeKeys">
+                            <td ng-repeat="privA in privilegeAttributes">
+                                {{priv[privA]}}
+                            </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </jsp:body>
 </t:general>

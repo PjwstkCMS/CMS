@@ -7,6 +7,14 @@
         <h1>Company!</h1>
         <div ng-controller="CompanyListCtrl">
             <t:dataTable/>
+            <div ng-show="editMode && newRecord">
+                <t:editTable map="editValues" object="selected"/>
+                <input type="checkbox" ng-click="showContactPersonBox()" /> Dodać osobę kontaktową <br/>
+                <div name="contactPersonBox" ng-show="contactPersonBoxShow">
+                    <t:editTable map="contactPersonValues" object="selected"/>
+                </div>
+            </div>
+            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

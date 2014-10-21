@@ -3,19 +3,17 @@ package pl.edu.pjwstk.cms.controllers.configuration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.DictionaryDao;
-import pl.edu.pjwstk.cms.dao.DictionaryTypeDao;
-import pl.edu.pjwstk.cms.dao.general.GenericDao;
+import pl.edu.pjwstk.cms.dto.DictionaryDto;
+import pl.edu.pjwstk.cms.models.Dictionary;
 import pl.edu.pjwstk.cms.utils.Utils;
 
 
@@ -28,27 +26,41 @@ public class DictionaryController extends BaseController {
 
     }
 
-    @Override
-    @RequestMapping("dictionaryList")
-    protected ModelAndView home(HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
-
-        ModelAndView model = new ModelAndView("dictionaryList");
-        model.addObject("msg", "HelloGuestController");
-        model.addObject("server", GenericDao.server);
-        
-        return model;
+    @RequestMapping(value = "/dictionary/save/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<String> saveData(@RequestBody String object, HttpSession session) {
+        DictionaryDto dictDto = (DictionaryDto) Utils.convertJSONStringToObject(object, "object", DictionaryDto.class);
+        DictionaryDao dictDao = new DictionaryDao();
+        Dictionary dict = new Dictionary();
+        Map<String, Object> data = new HashMap<>();
+        if(dictDto.getId() != null ){
+            dict = dictDao.selectRecordsWithFieldValues("id", dictDto.getId()).get(0);
+            dict.setDescription(dictDto.getDescription());
+            dict.setValue(dictDto.getValue());
+            dict.setDictTypeId(dictDto.getDictTypeId()+"");
+            
+            dictDao.update(dict);
+            data.put("id", dictDto.getId());
+            return Utils.createResponseEntity(session, data);
+        } else {
+            dict.setDescription(dictDto.getDescription());
+            dict.setValue(dictDto.getValue());
+            dict.setDictTypeId(dictDto.getDictTypeId()+"");
+            
+            data.put("id", dictDao.insert(dict));
+            return Utils.createResponseEntity(session, data);
+        }
     }
     
-    @RequestMapping("/dictionaryList/dictTypes")
-    @ResponseBody
-    public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
-        DictionaryDao dictDao = new DictionaryDao();
-        DictionaryTypeDao dictTypeDao = new DictionaryTypeDao();
-        Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("dicts", dictDao.selectAll());
-        initData.put("dictTypes", dictTypeDao.selectAll());
-        return Utils.createResponseEntity(session, initData);
+    @RequestMapping(value = "/dictionary/delete/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    void deleteData(@RequestBody String object) {
+        System.out.println("delete");
+        DictionaryDto dto = (DictionaryDto) Utils.convertJSONStringToObject(object, "object", DictionaryDto.class);
+        if (dto != null) {
+            DictionaryDao dictDao = new DictionaryDao();
+            dictDao.delete("id=" + dto.getId());
+        }
     }
 }
 

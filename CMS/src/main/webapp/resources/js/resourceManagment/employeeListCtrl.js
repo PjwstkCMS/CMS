@@ -170,6 +170,9 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     
     $scope.cancelAddress = function(){
         $scope.addressEdit = false;
+        if($scope.addressSelector.id == ""){
+            $scope.addressSelector = null;
+        }
     };
     
     $scope.addKey = function() {
@@ -180,7 +183,8 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
                 return;
             }
         }
-        saveEditDelete.saveAddress($http, '/CMS/address/save/:object.htm', $scope);
+        saveEditDelete.saveKey($http, '/CMS/address/save/:object.htm', $scope, $scope.addressSelector, $scope.selected.addresses);
+        
         if (!$scope.selectedGroupHasKey($scope.addressSelector)) {
             $scope.selected.addresses.push($scope.addressSelector);
         }
@@ -189,7 +193,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
 
     $scope.removeKey = function() {
         if($scope.addressSelector !== undefined){
-            saveEditDelete.removeAddress($http, '/CMS/address/delete/:object.htm', $scope);
+            saveEditDelete.deleteKey($http, '/CMS/address/delete/:object.htm', $scope, $scope.addressSelector, $scope.selected.addresses);
             
             $scope.addressSelector = "";
             $scope.addressEdit = false;

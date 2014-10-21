@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pl.edu.pjwstk.cms.controllers.configuration;
 
 import java.util.HashMap;
@@ -15,18 +9,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
+import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.utils.Utils;
-/**
- *
- * @author Konrad
- */
+
+
 @Controller
 public class UserController extends BaseController {
 
@@ -54,11 +49,22 @@ public class UserController extends BaseController {
         EmployeeDao empDao = new EmployeeDao();
         PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
         Map<String, Object> initData = new HashMap<>();
-        initData.put("users", userDao.getUserWithConfig());
+        initData.put("users", userDao.getUserDtos());
         initData.put("employees", empDao.getEmployeeDtoList());
         initData.put("groups", groupDao.selectAll());
         //List<UserDTO> userDtos = userDao.getUserWithConfig();
         return Utils.createResponseEntity(session, initData);
+    }
+     
+    @RequestMapping(value = "/userList/delete/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    void deleteData(@RequestBody String object) {
+        System.out.println("delete");
+        UserDto dto = (UserDto) Utils.convertJSONStringToObject(object, "object", UserDto.class);
+        if (dto != null) {
+            UserDao dao = new UserDao();
+            dao.delete("id=" + dto.getId());
+        }
     }
 }
 

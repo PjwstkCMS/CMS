@@ -5,20 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Sergio
- */
+
 public class UserDto implements Serializable{
     
     private final static Logger LOGGER = Logger.getLogger(UserDto.class.getName()); 
 
-    private Long id;
-    private String forename, surname, groupId, login, password, groupName, employeeId, persondataId, email, photoHash;
+    private Long id, employeeId, groupId;
+    private String login, password, persondataId, photoHash;
     private List<String> privilegeKeyCodes = new ArrayList<>();
     
     public UserDto() {
-
+        super();
     }
 
     public Long getId() {
@@ -29,27 +26,11 @@ public class UserDto implements Serializable{
         this.id = id;
     }
 
-    public String getForename() {
-        return forename;
-    }
-
-    public void setForename(String forename) {
-        this.forename = forename;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(String groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
@@ -69,28 +50,12 @@ public class UserDto implements Serializable{
         this.password = password;
     }
 
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
-
-    public String getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPersondataId() {

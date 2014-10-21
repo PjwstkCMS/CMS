@@ -117,6 +117,11 @@
                         {{pos.name}}
                     </div>
                 </div>
+                <div ng-if="attr == 'groupId'"> 
+                    <div ng-repeat="gr in groups" ng-show="gr.id == obj[attr]">
+                        {{gr.name}}
+                    </div>
+                </div>
                 <div ng-if="attr == 'dictTypeId'"> 
                     <div ng-repeat="dict in dictTypes" ng-show="dict.id == obj[attr]">
                         {{dict.description}}
@@ -124,7 +129,7 @@
                 </div>
                 <div ng-if="attr != 'customerId' && attr != 'employeeId' && attr != 'dictId' 
                          && attr != 'managerId' && attr != 'positionId' && attr != 'departmentId'
-                         && attr != 'dictTypeId'"> {{obj[attr]}} </div>
+                         && attr != 'dictTypeId' && attr != 'groupId'"> {{obj[attr]}} </div>
             </td>
         </tr>
         <tr ng-show="obj == selected">

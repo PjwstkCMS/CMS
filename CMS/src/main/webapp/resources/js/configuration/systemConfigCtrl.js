@@ -1,5 +1,5 @@
 function SystemConfigCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
-    $scope.page = "simple";
+    $scope.page = "SystemConfig";
     $scope.indexOnPage = pagination.indexOnPage($scope);
     $scope.pageMin = 0;
     $scope.pageMax = 14;
@@ -11,11 +11,10 @@ function SystemConfigCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.attributes[0] = 'name';
     $scope.attributes[1] = 'value';
     $scope.attributes[2] = 'description';
-    $scope.columns = {
-        'description' : "Opis" ,
-        'name' : "Nazwa",
-        'value' : "Wartość"
-    };
+    
+    $scope.editValues = [];
+    $scope.editValues[0] = {0:'value',1:true};
+    
     $scope.editMode = false;
     $scope.editValue = "Edytuj";
     $scope.selected = null;
@@ -45,29 +44,14 @@ function SystemConfigCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         }
     }
 
-    $scope.edit = function() {
-        $scope.editMode = true;
-    };
-
-    $scope.cancel = function() {
-        saveEditDelete.restoreOldData($scope);
-        $scope.editMode = false;
-        $scope.selected = "";
-    };
-
-    $scope.create = function() {
-        saveEditDelete.restoreOldData($scope);
-        $scope.selected = "";
-        $scope.editMode = true;
-
-    };
-
-    $scope.delete = function() {
-        saveEditDelete.remove($http, '/CMS/systemConfig/delete/:object.htm', $scope);
-    };
-    
     $scope.checkEditPrivileges = function() {
         return true;
+    };
+    
+    $scope.defaultSettings = function() {
+        $scope.get = saveEditDelete.get($http, '/CMS/systemConfig/defaultConfigs.htm', $scope);
+        $scope.loadDataPromise = $scope.get;
+        
     };
     
     $scope.columnDescription = function(obj){

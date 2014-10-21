@@ -11,6 +11,7 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.privileges = "";
     $scope.selectedEmployees = "";
     $scope.editMode = false;
+    $scope.newRecord = false;
     //$scope.displayPage = true;
     //$scope.displayPageName = "customerPage";
     
@@ -66,9 +67,11 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.selected = "";
             $scope.selectedEmployees = "";
             $scope.editMode = false;
+            $scope.newRecord = false;
         } else {
             saveEditDelete.saveOldData($scope,object);
             $scope.selected = object;
+            $scope.newRecord = false;
             $scope.selectedEmployees = new Array();
             for (var i = 0; i<$scope.employees.length; i++) {  
                 if($scope.employees[i].positionId == $scope.selected.id) {
@@ -80,11 +83,13 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     
     $scope.edit = function() {
         $scope.editMode = true;
+        $scope.newRecord = false;
     };
 
     $scope.cancel = function() {
         saveEditDelete.restoreOldData($scope);
         $scope.editMode = false;
+        $scope.newRecord = false;
         $scope.selected = "";
     };
 
@@ -95,6 +100,7 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         };
         $scope.selectedEmployees = "";
         $scope.editMode = true;
+        $scope.newRecord = true;
 
     };
 

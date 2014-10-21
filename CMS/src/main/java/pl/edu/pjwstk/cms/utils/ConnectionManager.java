@@ -20,13 +20,15 @@ import java.util.logging.Logger;
  */
 public class ConnectionManager {
 
-    public static String staticUrl = "jdbc:mysql://hrsystem.noip.pl/hrsystem?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
-    public static String staticLogin = "pawelek";
-    public static String staticPass = "leofram";
+    public static String staticUrl2 = "jdbc:mysql://hrsystem.noip.pl/hrsystem?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
+    public static String staticLogin2 = "pawelek";
+    public static String staticPass2 = "leofram";
     
-    public static String staticUrl2 = "jdbc:mysql://famalis.no-ip.info/hrsystem?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
-    public static String staticLogin2 = "Sergio";
-    public static String staticPass2 = "quovadis1";
+    public static String staticUrl = "jdbc:mysql://famalis.no-ip.info/hrsystem?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
+    public static String staticLogin = "Sergio";
+    public static String staticPass = "quovadis1";
+    
+    public static int queryTimeout = 5;
     
     private final static Logger LOGGER = Logger.getLogger("utils.ConnectionManager");
     private String url;
@@ -150,6 +152,7 @@ public class ConnectionManager {
         LOGGER.info("Execute query - "+query);
         try {
             Statement s = getConnection().createStatement();
+            s.setQueryTimeout(queryTimeout);
             rs = s.executeQuery(query);            
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();

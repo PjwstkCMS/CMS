@@ -23,7 +23,7 @@ public class DictionaryController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(DictionaryController.class.getName());
 
     public DictionaryController() {
-
+        super("ManageDictionaries","all");
     }
 
     @RequestMapping(value = "/dictionary/save/:object", method = RequestMethod.POST)

@@ -30,14 +30,17 @@ public class PositionController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(PositionController.class.getName());
 
     public PositionController() {
-
+        super("ManagePositions","all");
     }
 
     @Override
     @RequestMapping("position")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("position");     
         model.addObject("msg", "HelloGuestController");
         model.addObject("server", GenericDao.server);

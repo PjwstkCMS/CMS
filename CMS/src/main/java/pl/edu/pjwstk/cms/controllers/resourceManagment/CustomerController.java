@@ -31,14 +31,17 @@ public class CustomerController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(CustomerController.class.getName());
 
     public CustomerController() {
-
+        super("ManageContracts","all");
     }
 
     @Override
     @RequestMapping("customer")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("customer");
         model.addObject("server", GenericDao.server);
         return model;

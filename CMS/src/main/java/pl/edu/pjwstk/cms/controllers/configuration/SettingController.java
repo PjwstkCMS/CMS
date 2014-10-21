@@ -26,14 +26,17 @@ public class SettingController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(SettingController.class.getName());
 
     public SettingController() {
-
+        super("ManageSettings","all");
     }
 
     @Override
     @RequestMapping("setting")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("setting");
         model.addObject("msg", "HelloGuestController");
         

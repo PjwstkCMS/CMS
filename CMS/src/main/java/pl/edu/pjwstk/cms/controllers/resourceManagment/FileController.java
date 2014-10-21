@@ -26,14 +26,17 @@ public class FileController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(FileController.class.getName());
 
     public FileController() {
-
+        super("DownloadFiles","all");
     }
 
     @Override
     @RequestMapping("fileList")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("fileList");
         model.addObject("msg", "HelloGuestController");
         model.addObject("server", GenericDao.server);

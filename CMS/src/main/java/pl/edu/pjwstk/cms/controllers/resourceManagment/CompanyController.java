@@ -35,14 +35,17 @@ public class CompanyController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(CompanyController.class.getName());
 
     public CompanyController() {
-
+        super("ManageCompanies","all");
     }
 
     @Override
     @RequestMapping("company")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("company");
         model.addObject("msg", "HelloGuestController");
         model.addObject("server", GenericDao.server);

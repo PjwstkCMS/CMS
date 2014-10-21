@@ -70,8 +70,13 @@
     .selectedTableRow {
         background-color: lightblue;
     }
+    th {
+        width: {{100/attributes.length}}%;
+    }
+    table {
+        width: 100%;
+    }
 </style>
-
 <table>
     <tr>
 

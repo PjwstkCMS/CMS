@@ -30,14 +30,17 @@ public class EmploymentController extends BaseController {
     private final static Logger LOGGER = Logger.getLogger(EmploymentController.class.getName());
 
     public EmploymentController() {
-
+        super("ManageEmployments","all");
     }
     
     @Override
     @RequestMapping("employment")
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
+        if(!checkPrivileges(request)) {
+            ModelAndView model = new ModelAndView("accessdenied");
+            return model;
+        }
         ModelAndView model = new ModelAndView("employment");
         model.addObject("msg", "HelloGuestController");
         model.addObject("server", GenericDao.server);

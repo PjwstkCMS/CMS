@@ -15,14 +15,14 @@ cmsModule.factory('saveEditDelete', function () {
 
                 if (returnId != null) {
                     $scope.selected.id = returnId.id;
-                    if(returnId.contactPersonId!=null){
+                    if (returnId.contactPersonId != null) {
                         $scope.selected.contactPersonId = returnId.contactPersonId;
                     }
-                    if(returnId.addressId!=null){
+                    if (returnId.addressId != null) {
                         $scope.selected.address.id = returnId.addressId;
                         $scope.selected.addressId = returnId.addressId;
                     }
-                }                
+                }
                 $scope.selected = null;
                 $scope.editMode = false;
             }).error(function (error) {
@@ -63,6 +63,28 @@ cmsModule.factory('saveEditDelete', function () {
                 $scope.operationMessage = "Operacja zapisywania nie udana"
             });
         },
+        saveElement: function ($http, link, $scope) {
+            if ($scope.addressSelector.id == null || $scope.addressSelector.id < 1) {
+                $scope.selected.addresses.push($scope.addressSelector);
+            }
+
+            return $http.post(
+                    link,
+                    {object: $selector}).success(function (returnId) {
+                $scope.showOperationMessage = true;
+                $scope.operationMessage = "Adres zapisany"
+
+                if (returnId != null) {
+                    $selector.id = returnId.id;
+                }
+                $selector = null;
+                $scope.editMode = false;
+            }).error(function (error) {
+                $scope.showOperationMessage = true;
+                $scope.operationMessage = "Błąd przy dodawaniu adresu"
+                alert(error);
+            });
+        },
         saveKey: function ($http, link, $scope, $selector, $container) {
             if ($selector.id == null || $selector.id < 1) {
                 $container.push($selector);
@@ -95,7 +117,7 @@ cmsModule.factory('saveEditDelete', function () {
                         index = i;
                     }
                 }
-                if(index !== -1){
+                if (index !== -1) {
                     $container.splice(index, 1);
                 }
                 $selector = "";
@@ -114,12 +136,12 @@ cmsModule.factory('saveEditDelete', function () {
             }
             $scope.restoreData = copy;
             /*
-            for (i = 0; i < $scope.attributes.length; i++) {                
-                $scope.restoreData[$scope.attributes[i]] = "";
-                $scope.restoreData[$scope.attributes[i]] = object[$scope.attributes[i]];
-                //alert($scope.selected[$scope.attributes[i]]);
-            }
-            */
+             for (i = 0; i < $scope.attributes.length; i++) {                
+             $scope.restoreData[$scope.attributes[i]] = "";
+             $scope.restoreData[$scope.attributes[i]] = object[$scope.attributes[i]];
+             //alert($scope.selected[$scope.attributes[i]]);
+             }
+             */
             //alert($scope.restoreData);
         },
         restoreOldData: function ($scope) {
@@ -190,7 +212,7 @@ cmsModule.factory('columnDesc', function () {
                 'closeDate': "Planowana data zakończenia",
                 'finalisationDate': "Data zakończenia",
                 'dateFrom': "Od",
-                'dateTo':"Do",
+                'dateTo': "Do",
                 'country': "Kraj",
                 'city': "Miasto",
                 'streetName': "Ulica",

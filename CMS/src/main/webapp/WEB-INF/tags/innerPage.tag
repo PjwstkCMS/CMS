@@ -11,68 +11,77 @@
 </div>
 
 <div ng-if="page == 'Employee'">
+    <style>
+        .aclass {
+            background-color: lightblue;
+        }
+    </style>    
     <div ng-show="selected && !newRecord">
-        <table>
-            <tr>
-                <th>
-                    Adresy
-                </th>
-                <th>
-                    Zatrudnienia
-                </th>
-                <th>
-                    Kontrakty
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <select  ng-model="$parent.$parent.addressSelector" ng-options="add.streetName+' '+add.streetNumber+' '+add.city
-                        for add in selected.addresses">
-                    </select><br>
-                </td>
-                <td>
-                    <select ng-model="employmentSelector" ng-options="'ID: '+empl.id
-                        for empl in selectedEmployments"></select><br>
-                </td>
-                <td>
-                    <select ng-model="contractSelector" ng-options="'ID: '+con.id
-                        for con in selectedContracts"></select><br>
-                </td>
-                </tr>
-        </table>
-        <input type="button" ng-show="!addressEdit" ng-click="addAddress()" value="Add Address"/>
-        <input type="button" ng-show="addressSelector && !addressEdit" ng-click="editAddress()" value="Edit Address"/>
-        <input type="button" ng-show="addressSelector && !addressEdit" ng-click="removeKey()" value="Delete Address"/>
-        <div ng-show="addressSelector" >
-            <table>
-                <tr>
-                    <th ng-repeat="adatr in addressAttributes">
-                        {{$parent.columnDescription(adatr)}}
-                    </th>   
-                </tr>
-                <tbody>
-                    <tr>
-                        <td ng-repeat="attr in addressAttributes">
-                            <div ng-if="attr == 'dictId'"> 
-                                <div ng-repeat="dict in dictionaries" ng-show="dict.id == addressSelector[attr]">
-                                    {{dict.description}}
-                                </div>
-                            </div>
-                            <div ng-if="attr != 'dictId'"> {{addressSelector[attr]}} </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div ng-show="addressEdit">
-                <t:editTable map="addressValues" object="addressSelector"/>
-                <input type="button" ng-click="addKey()" value="Add"/>
-                <input type="button" ng-click="cancelAddress()" value="Cancel"/>
-             </div>    
+        <div>
+            <a ng-class="{aclass: selectedSubpage == 'empData'}" ng-click="attributesArray = '';
+                selectedSubpage = 'empData'">
+                Dane osobowe
+            </a>
+            <a ng-class="{aclass: selectedSubpage == 'address'}" ng-click="attributesArray = addressAttributes;
+                selectedSubpage = 'address';
+                selectedValues = 'addressValues'">
+                Adresy
+            </a>
+            <a ng-class="{aclass: selectedSubpage == 'employment'}" ng-click="attributesArray = employmentAttributes;
+                selectedSubpage = 'employment';
+                selectedValues = 'employmentValues'">
+                Zatrudnienia
+            </a>
+            <a ng-class="{aclass: selectedSubpage == 'contract'}" ng-click="attributesArray = contractAttributes;
+                selectedSubpage = 'contract';
+                selectedValues = 'contractValues'">
+                Kontrakty
+            </a>
         </div>
-    </div>
-    <div ng-show="editMode">
-        <t:editTable map="editValues" object="selected"/>
-    </div>
+        <div ng-show="selectedSubpage == 'empData'">
+            <div ng-show="editMode">
+                <t:editTable map="editValues" object="selected"/>
+            </div>
+            <t:jsonOperations/> 
+        </div>        
+        <div ng-show="selectedSubpage != 'empData'">
+            <select ng-init="$parent.$parent.selector.address = null" ng-show="selectedSubpage == 'address'" ng-model="$parent.$parent.selector.address" 
+                    ng-options="add.streetName+' '+add.streetNumber+' '+add.city for add in selected.addresses"></select>
+            <select ng-init="$parent.$parent.selector.employment = null" ng-show="selectedSubpage == 'employment'" ng-model="$parent.$parent.selector.employment" ng-options="empl.id for empl in selectedEmployments"></select>
+            <select ng-init="$parent.$parent.selector.contract = null" ng-show="selectedSubpage == 'contract'" ng-model="$parent.$parent.selector.contract" ng-options="con.id for con in selectedContracts"></select><br>
+            <input type="button" ng-click="addNewElement(selectedSubpage)" value="ADD ADDRESS"/>
+            <input type="button" ng-show="selector[selectedSubpage]" ng-click="showEdit()" value="EDIT ADDRESS"/>
+            <input type="button" ng-click="removeElement(selectedSubpage)" value="DELETE ADDRESS"/>
+            <div ng-show="selector[selectedSubpage]" >
+                <table>
+                    <tr>
+                        <th ng-repeat="adatr in attributesArray">
+                            {{$parent.$parent.columnDescription(adatr)}}
+                        </th>   
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td ng-repeat="attr in attributesArray">
+                                <div ng-if="attr == 'dictId'"> 
+                                    <div ng-repeat="dict in dictionaries" ng-show="dict.id == selector[selectedSubpage][attr]">
+                                        {{dict.description}}
+                                    </div>
+                                </div>
+                                <div ng-if="attr != 'dictId'">{{selector[selectedSubpage][attr]}}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-show="editSubElement">                    
+                    <t:editTable ng-show="selectedSubpage == 'address'" map="addressValues" object="selector[selectedSubpage]"/>
+                    <t:editTable ng-show="selectedSubpage == 'employment'" map="employmentValues" object="selector[selectedSubpage]"/>
+                    <t:editTable ng-show="selectedSubpage == 'contract'" map="contractValues" object="selector[selectedSubpage]"/>
+                    <input type="button" ng-click="addElement(selectedSubpage)" value="Add"/>
+                    <input type="button" ng-click="cancelElement()" value="Cancel"/>
+                </div> 
+            </div>
+        </div>
+    </div>    
 </div>
 
 <div ng-if="page == 'Company'">
@@ -81,9 +90,9 @@
             Adresy Firmy:
         </h3>
         <select  ng-model="$parent.$parent.addressSelector" ng-options="add.streetName+' '+add.streetNumber+' '+add.city
-                for add in selected.addresses">
+                 for add in selected.addresses">
         </select><br>
-            
+
         <table>
             <tr>
                 <th ng-repeat="adatr in addressAttributes">
@@ -123,82 +132,82 @@
 
 <div ng-if="page == 'Customer'">
     <div id="companyTable" ng-show="selected && !editMode">
-                <h3>
-                    Dane firmy:
-                </h3>
-                <table>
-                    <tr>
-                        <td>
-                            {{selectedCompany.name}}
+        <h3>
+            Dane firmy:
+        </h3>
+        <table>
+            <tr>
+                <td>
+                    {{selectedCompany.name}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{selectedCompanyAddress.city}} {{selectedCompanyAddress.streetName}}
+                </td>
+                <td>
+                    {{selectedCompanyAddress.streetNumber}}/m.{{selectedCompanyAddress.apartmentNumber}}
+                </td>
+                <td>
+                    {{selectedCompanyAddress.postalCode}} {{selectedCompanyAddress.country}}
+                </td>
+            </tr>
+        </table>
+        <h3>
+            Aktualne umowy:
+        </h3>
+        <%-- <table>
+            <tr>
+                <th> 
+                    # 
+                </th>
+                <th ng-repeat="cattr in contractAttributes" ng-hide="cattr.substring(0, 1) == '%'">
+                    <a ng-click="$parent.orderColumn = cattr;
+                    $parent.reverse = !$parent.reverse">{{$parent.columnDescription(cattr)}}</a>
+                </th>   
+            </tr>
+            <tbody>
+                <tr ng-class="{selectedTableRow: con == contractSelector}" ng-repeat="con in contracts" ng-show="checkCustomerId(con)">
+                        <td class="numer">
+                            {{$index + 1}}
                         </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{selectedCompanyAddress.city}} {{selectedCompanyAddress.streetName}}
+                        <td ng-repeat="cattr in contractAttributes" ng-click="$parent.contractSelect(con)">
+                            {{con[cattr]}}
                         </td>
-                        <td>
-                            {{selectedCompanyAddress.streetNumber}}/m.{{selectedCompanyAddress.apartmentNumber}}
-                        </td>
-                        <td>
-                            {{selectedCompanyAddress.postalCode}} {{selectedCompanyAddress.country}}
-                        </td>
-                    </tr>
-                </table>
-                <h3>
-                    Aktualne umowy:
-                </h3>
-                <%-- <table>
-                    <tr>
-                        <th> 
-                            # 
-                        </th>
-                        <th ng-repeat="cattr in contractAttributes" ng-hide="cattr.substring(0, 1) == '%'">
-                            <a ng-click="$parent.orderColumn = cattr;
-                            $parent.reverse = !$parent.reverse">{{$parent.columnDescription(cattr)}}</a>
-                        </th>   
-                    </tr>
-                    <tbody>
-                        <tr ng-class="{selectedTableRow: con == contractSelector}" ng-repeat="con in contracts" ng-show="checkCustomerId(con)">
-                                <td class="numer">
-                                    {{$index + 1}}
-                                </td>
-                                <td ng-repeat="cattr in contractAttributes" ng-click="$parent.contractSelect(con)">
-                                    {{con[cattr]}}
-                                </td>
-                        </tr>
-                    </tbody>
-                </table>--%>
-                <select ng-model="contractSelector" ng-options="con.id
-                        for con in selectedContracts"></select><br>
-                <table>
-                    <tr>
-                        <th ng-repeat="catr in contractAttributes">
-                            {{$parent.columnDescription(catr)}}
-                        </th>   
-                    </tr>
-                    <tbody>
-                        <tr>
-                            <td ng-repeat="attr in contractAttributes">
-                                {{contractSelector[attr]}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <%--<div ng-show="contractSelector">
-                    <t:editTable map="contractValues" object="contractSelector"/>
-                </div>--%>
-                
-            </div>
-                <div ng-show="editMode">
-                    <t:editTable map="editValues" object="selected"/>
-                </div>
+                </tr>
+            </tbody>
+        </table>--%>
+        <select ng-model="contractSelector" ng-options="con.id
+                for con in selectedContracts"></select><br>
+        <table>
+            <tr>
+                <th ng-repeat="catr in contractAttributes">
+                    {{$parent.columnDescription(catr)}}
+                </th>   
+            </tr>
+            <tbody>
+                <tr>
+                    <td ng-repeat="attr in contractAttributes">
+                        {{contractSelector[attr]}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <%--<div ng-show="contractSelector">
+            <t:editTable map="contractValues" object="contractSelector"/>
+        </div>--%>
+
+    </div>
+    <div ng-show="editMode">
+        <t:editTable map="editValues" object="selected"/>
+    </div>
 </div>
 
 <div ng-if="page == 'Department'">
     <div id="companyTable" ng-show="selected && !editMode">
         <b>Adres:</b> {{selected.address.city}} {{selected.address.streetName}}
-                      {{selected.address.streetNumber}}/m.{{selected.address.apartmentNumber}}
-                      {{selected.address.postalCode}} {{selected.address.country}} {{selected.address.dictId}}
+        {{selected.address.streetNumber}}/m.{{selected.address.apartmentNumber}}
+        {{selected.address.postalCode}} {{selected.address.country}} {{selected.address.dictId}}
     </div>
     <div ng-show="editMode">
         <t:editTable map="editValues" object="selected"/>
@@ -287,7 +296,7 @@
             Słowniki:
         </h3>
         <select ng-model="$parent.$parent.dictionarySelector" ng-options="dictT.description
-            for dictT in selected.dictionaries"></select><br>
+                for dictT in selected.dictionaries"></select><br>
         <table>
             <tr>
                 <th ng-repeat="dictAtr in dictionaryAttributes">
@@ -321,7 +330,7 @@
     <t:editTable map="editValues" object="selected"/>
     <input type="button" ng-click="save()" value="ZAPISZ">
 </div>
-    
+
 <div ng-if="page == 'UserList'">
     <div id="companyTable" ng-show="selected && !editMode">
         <table>

@@ -7,21 +7,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<t:general>
-    <jsp:body>
-        ${user}
-        ${user.forename}
+<html>
+    <body>
         <c:if test="${user==null}">
-        <form method="post" action="login.htm">
-            <input type="text" name="login"/>
-            <input type="password" name="password"/>
-            <input type="submit"/>
-        </form>
+            <div class="login">
+                Logowanie:<br/>
+                <form method="post" action="login.htm">
+                    Login: <input type="text" name="login"/>
+                    Hasło: <input type="password" name="password"/>
+                    <input type="submit"/>
+                </form>
+            </div>
+            <div class="createAccount">
+                Tworzenie konta:<br/>
+                <form method="post" action="createAccount.htm">
+                    Imię: <input type="text" name="name"/>
+                    Nazwisko: <input type="text" name="surname"/>
+                    Login: <input type="text" name="login"/>
+                    Hasło: <input type="password" name="password"/>
+                    <input type="submit"/>
+                </form>
+            </div>
         </c:if>
         <c:if test="${user!=null}">
-        <form method="post" action="logout.htm">
-            <input type="submit" value="logout"/>
-        </form>
+            Jesteś zalogowany!
         </c:if>
-    </jsp:body>
-</t:general>
+        </body>
+    </html>

@@ -35,13 +35,17 @@
             <tr>
                 <td class="menu">
                     <h3>${server}</h3>
+                    <c:if test="${user!=null}">
+                        <form method="post" action="logout.htm">
+                            <input type="submit" value="logout"/>
+                        </form>
+                    </c:if>
                     <h1>
                         ${user.login}   
                         ${user.privilegeKeyCodes}
                     </h1>
                     <ul>
                         <li id="nav14">Zarządzanie zasobami</li>
-                        <a href="/CMS/loginPage.htm"><li id="nav0">Login</li></a>
                         <a href="/CMS/home.htm"><li id="nav0">home</li></a>
                                 <c:if test="${user.privilegeKeyCodes.contains('all') || 
                                               user.privilegeKeyCodes.contains('ViewContracts')}">

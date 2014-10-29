@@ -78,7 +78,6 @@
     }
 </style>
 <input class="wyszukiwarka" placeholder="wyszukaj..." type="text" ng-model="searchText"/>
-{{searchText}}
 <table>
     <tr>
 
@@ -99,44 +98,7 @@
                 {{$index + 1}}
             </td>
             <td ng-repeat="attr in attributes" ng-click="$parent.select(obj)">
-                <div ng-if="attr == 'customerId'"> 
-                    <div ng-repeat="customer in customers" ng-show="customer.id == obj[attr]">
-                        {{customer.forename}} {{customer.surname}}
-                    </div>
-                </div>
-                <div ng-if="attr == 'employeeId' || attr == 'managerId'"> 
-                    <div ng-repeat="employee in employees" ng-show="employee.id == obj[attr]">
-                        {{employee.forename}} {{employee.surname}}
-                    </div>
-                </div>
-                <div ng-if="attr == 'dictId'"> 
-                    <div ng-repeat="dict in dictionaries" ng-show="dict.id == obj[attr]">
-                        {{dict.description}}
-                    </div>
-                </div>
-                <div ng-if="attr == 'departmentId'"> 
-                    <div ng-repeat="dep in departments" ng-show="dep.id == obj[attr]">
-                        {{dep.name}}
-                    </div>
-                </div>
-                <div ng-if="attr == 'positionId'"> 
-                    <div ng-repeat="pos in positions" ng-show="pos.id == obj[attr]">
-                        {{pos.name}}
-                    </div>
-                </div>
-                <div ng-if="attr == 'groupId'"> 
-                    <div ng-repeat="gr in groups" ng-show="gr.id == obj[attr]">
-                        {{gr.name}}
-                    </div>
-                </div>
-                <div ng-if="attr == 'dictTypeId'"> 
-                    <div ng-repeat="dict in dictTypes" ng-show="dict.id == obj[attr]">
-                        {{dict.description}}
-                    </div>
-                </div>
-                <div ng-if="attr != 'customerId' && attr != 'employeeId' && attr != 'dictId' 
-                         && attr != 'managerId' && attr != 'positionId' && attr != 'departmentId'
-                         && attr != 'dictTypeId' && attr != 'groupId'"> {{obj[attr]}} </div>
+                {{obj[attr]}}
             </td>
         </tr>
         <tr ng-show="obj == selected">
@@ -151,4 +113,15 @@
     <span ng-show="status != null"><div id="loaderImage"></div>ładowanie danych...</span>
     <span ng-show="status == 'Błąd'">błąd podczas ładowania danych...</span>
 
+</div>
+<div class="pageMax">
+    <input ng-show="pageMin > 0" type="button" class="wstecz-button" ng-click="pageMax = pageMax - 15;
+                pageMin = pageMin - 10" value="WSTECZ"/>
+    <input ng-show="checkMax()" type="button" class="dalej-button" ng-click="pageMax = pageMax + 15;
+                pageMin = pageMin + 10" value="DALEJ"/>
+
+</div>
+<div class="pageMax-tekst">
+    wyświetlane wpisy<br>
+    <span style="font-weight:700;float: right;">{{pageMin + 1}}-{{pageMax + 1}}</span>
 </div>

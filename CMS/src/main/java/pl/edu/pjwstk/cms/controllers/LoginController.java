@@ -70,7 +70,7 @@ public class LoginController extends BaseController {
                 userDto.setId(user.getId());
                 EmployeeDao empDao = new EmployeeDao();
                 Employee emp = empDao.selectForId(user.getEmployeeId());
-                userDto.setPersondataId(emp.getPersondataId());
+                userDto.setPersondataId(Long.parseLong(emp.getPersondataId()));
                 LOGGER.info(userDto.getLogin());
                 PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
                 PrivilegeGroup group = groupDao.selectRecordsWithFieldValues("id", userDto.getGroupId()).get(0);

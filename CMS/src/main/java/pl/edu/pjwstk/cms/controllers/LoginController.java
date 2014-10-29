@@ -1,5 +1,7 @@
 package pl.edu.pjwstk.cms.controllers;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -28,6 +30,7 @@ import pl.edu.pjwstk.cms.models.Employee;
 import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.PrivilegeGroup;
 import pl.edu.pjwstk.cms.models.User;
+import pl.edu.pjwstk.cms.utils.HexConverter;
 
 /**
  *
@@ -71,6 +74,7 @@ public class LoginController extends BaseController {
                 EmployeeDao empDao = new EmployeeDao();
                 Employee emp = empDao.selectForId(user.getEmployeeId());
                 userDto.setPersondataId(Long.parseLong(emp.getPersondataId()));
+                userDto.setPhotoHash(user.getPhotoHash());
                 LOGGER.info(userDto.getLogin());
                 PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
                 PrivilegeGroup group = groupDao.selectRecordsWithFieldValues("id", userDto.getGroupId()).get(0);
@@ -88,6 +92,21 @@ public class LoginController extends BaseController {
             model.addObject("loginMsg", "Username not found.");
         }
         LOGGER.info(login + " " + pass);
+
+        UserDto userDto = (UserDto) request.getSession().getAttribute("user");
+        try {
+            byte barray[] = HexConverter.toBytesFromHex(userDto.getPhotoHash());
+            //String get_price = rs.getString(5);
+            java.io.File someFile = new java.io.File("image.jpg");
+            FileOutputStream fos = new FileOutputStream(someFile);
+            fos.write(barray);
+            fos.flush();
+            fos.close();
+            model.addObject("userImage", someFile);
+            System.out.println("photo");
+        } catch (IOException io) {
+            LOGGER.warning(io.getLocalizedMessage());
+        }
         return model;
     }
 
@@ -109,7 +128,7 @@ public class LoginController extends BaseController {
         String name = (String) request.getParameter("name");
         String surname = (String) request.getParameter("surname");
         String subject = "Account request";
-        String body = "Imie: "+name+"</br>Nazwisko: "+surname+"</br> Login: "+login+"</br> Hasło "+pass;
+        String body = "Imie: " + name + "</br>Nazwisko: " + surname + "</br> Login: " + login + "</br> Hasło " + pass;
         String username = "pjwstkhrsystem@vp.pl";
         String password = "hrsystem123";
         String host = "smtp.poczta.onet.pl";

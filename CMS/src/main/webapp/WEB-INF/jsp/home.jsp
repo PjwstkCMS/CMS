@@ -10,10 +10,12 @@
 <t:general>
     <jsp:body>
         <h1>Hello World!</h1>
-        <img src="/CMS/PhotoShowServlet?empId=${user.employeeId}.htm" alt="Brak zdjęcia"/>
+        <img src="${userImage}" alt="Brak zdjęcia"/>
         <form action="/CMS/uploadPhoto.htm" method="POST" enctype="multipart/form-data">
             Plik: <input type="file" name="file"/>
             <input type="submit" value="Wyslij plik"/>
         </form>
+        ${userImage}
+        ${user.photoHash}
     </jsp:body>
 </t:general>

@@ -9,8 +9,8 @@ function UserListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     $scope.objectsName = "users";
     $scope.attributes = [];
     $scope.attributes[0] = 'login';
-    $scope.attributes[1] = 'employeeId';
-    $scope.attributes[2] = 'groupId';
+    $scope.attributes[1] = 'employee';
+    $scope.attributes[2] = 'group';
     
     $scope.additionalAttributes = [];
     $scope.additionalAttributes[0] = 'email';
@@ -67,5 +67,26 @@ function UserListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     
     $scope.columnDescription = function(obj){
         return columnDesc.get(obj);
+    };
+    
+    $scope.selectAction = function(obj) {
+        if(obj == 'groupId'){
+            var index;
+            for (var i = 0; i < $scope.groups.length; i++) {
+                if ($scope.groups[i].id == $scope.selected.groupId) {
+                    index = i;
+                }
+            }
+            $scope.selected.group = $scope.groups[index].name;
+        }
+        if(obj == 'employeeId'){
+            var index;
+            for (var i = 0; i < $scope.employees.length; i++) {
+                if ($scope.employees[i].id == $scope.selected.employeeId) {
+                    index = i;
+                }
+            }
+            $scope.selected.employee = $scope.employees[index].forename + ' ' + $scope.employees[index].surname;
+        }
     };
 }

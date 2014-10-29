@@ -80,25 +80,25 @@
                 </td>
                 <td ng-show="col[0] == 'customerId'">
                     {{columnDescription(col[0])}}: 
-                    <select required="required" ng-model="${atr.object}.customerId">
+                    <select required="required" ng-model="${atr.object}.customerId" ng-change="selectAction('customerId')">
                         <option ng-repeat="cus in customers" value="{{cus.id}}"  ng-selected="${atr.object}.customerId == cus.id">{{cus.forename}} {{cus.surname}}</option>
                     </select>
                 </td>
                 <td ng-show="col[0] == 'employeeId'">
                     {{columnDescription(col[0])}}: 
-                    <select required="required" ng-model="${atr.object}.employeeId">
+                    <select required="required" ng-model="${atr.object}.employeeId" ng-change="selectAction('employeeId')">
                         <option ng-repeat="emp in employees" value="{{emp.id}}"  ng-selected="${atr.object}.employeeId == emp.id">{{emp.forename}} {{emp.surname}}</option>
                     </select>
                 </td>
                 <td ng-show="col[0] == 'managerId'">
                     {{columnDescription(col[0])}}: 
-                    <select required="required" ng-model="${atr.object}.managerId">
+                    <select required="required" ng-model="${atr.object}.managerId" ng-change="selectAction('managerId')">
                         <option ng-repeat="emp in employees" value="{{emp.id}}"  ng-selected="${atr.object}.managerId == emp.id">{{emp.forename}} {{emp.surname}}</option>
                     </select>
                 </td>
                 <td ng-show="col[0] == 'dictId'">
                     {{columnDescription(col[0])}}: 
-                    <select required="required" ng-model="${atr.object}.dictId">
+                    <select required="required" ng-model="${atr.object}.dictId" ng-change="selectAction('dictId')">
                         <option ng-repeat="dict in dictionaries" value="{{dict.id}}"  ng-selected="${atr.object}.dictId == dict.id">{{dict.description}}</option>
                     </select>
                 </td>
@@ -116,19 +116,19 @@
                 </td>
                 <td ng-show="col[0] == 'departmentId'">
                     {{columnDescription(col[0])}}: 
-                    <select required="required" ng-model="${atr.object}.departmentId">
+                    <select required="required" ng-model="${atr.object}.departmentId" ng-change="selectAction('departmentId')">
                         <option ng-repeat="dep in departments" value="{{dep.id}}"  ng-selected="${atr.object}.departmentId == dep.id">{{dep.name}}</option>
                     </select>
                 </td>
                 <td ng-show="col[0] == 'positionId'">
                     {{columnDescription(col[0])}}: 
-                    <select required="required" ng-model="${atr.object}.positionId">
+                    <select required="required" ng-model="${atr.object}.positionId" ng-change="selectAction('positionId')">
                         <option ng-repeat="pos in positions" value="{{pos.id}}"  ng-selected="${atr.object}.positionId == pos.id">{{pos.name}}</option>
                     </select>
                 </td>
                 <td ng-show="col[0] == 'groupId'">
                     {{columnDescription(col[0])}}: 
-                    <select required="required" ng-model="${atr.object}.groupId">
+                    <select required="required" ng-model="${atr.object}.groupId" ng-change="selectAction('groupId')">
                         <option ng-repeat="gr in groups" value="{{gr.id}}"  ng-selected="${atr.object}.groupId == gr.id">{{gr.name}}</option>
                     </select>
                 </td>

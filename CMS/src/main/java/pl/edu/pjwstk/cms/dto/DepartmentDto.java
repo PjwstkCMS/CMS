@@ -6,16 +6,13 @@ import java.util.List;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.Address;
 
-/**
- *
- * @author Macha
- */
+
 public class DepartmentDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(DepartmentDto.class.getName()); 
 
-    private Long id;
-    private String name, addressId, managerId;
+    private Long id, addressId, managerId;
+    private String name, manager;
     private Address address;
     
     public DepartmentDto() {
@@ -38,20 +35,28 @@ public class DepartmentDto implements Serializable {
         this.name = name;
     }
 
-    public String getAddressId() {
+    public Long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
+    public void setAddressId(Long addressId) {
         this.addressId = addressId;
     }
 
-    public String getManagerId() {
+    public Long getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(String managerId) {
+    public void setManagerId(Long managerId) {
         this.managerId = managerId;
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
     }
 
     public Address getAddress() {

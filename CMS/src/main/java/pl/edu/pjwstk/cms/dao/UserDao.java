@@ -8,13 +8,11 @@ import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.models.Employee;
+import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.PrivilegeGroup;
 import pl.edu.pjwstk.cms.models.User;
 
-/**
- *
- * @author Sergio
- */
+
 public class UserDao extends GenericDao<User>{
     
     private final static Logger LOGGER = Logger.getLogger(UserDao.class.getName()); 
@@ -34,6 +32,15 @@ public class UserDao extends GenericDao<User>{
                 + "FROM user;";
         
         ResultSet resultSet = this.connectionManager.select(query);
+        
+        EmployeeDao empDao = new EmployeeDao();
+        List<Employee> employees = empDao.selectAll();
+        PersonDataDao personDao = new PersonDataDao();
+        List<PersonData> persons = personDao.selectAll();
+        
+        PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
+        List<PrivilegeGroup> groups = groupDao.selectAll();
+        
         try {
             while (resultSet.next()) {
                 UserDto dto = new UserDto();
@@ -41,12 +48,18 @@ public class UserDao extends GenericDao<User>{
                 dto.setLogin(resultSet.getString("login"));
                 dto.setPassword(resultSet.getString("password"));
                 dto.setEmployeeId(resultSet.getLong("employeeId"));
-                dto.setGroupId(resultSet.getLong("groupId"));
+                
                 dto.setPhotoHash(resultSet.getString("photoHash"));
                 
-                EmployeeDao empDao = new EmployeeDao();
-                List<Employee> emp = empDao.selectRecordsWithFieldValues("id", dto.getEmployeeId());
-                dto.setPersondataId(emp.get(0).getPersondataId());
+                Employee e = getEmployee(employees, resultSet.getString("employeeId"));
+                dto.setPersondataId(Long.parseLong(e.getPersondataId()));
+                PersonData person = getPersonData(e.getPersondataId(), persons);
+                dto.setEmployee(person.getForename() + " " + person.getSurname());
+                
+                PrivilegeGroup group = getPrivilegeGroup(groups, resultSet.getString("groupId"));
+                dto.setGroupId(group.getId());
+                dto.setGroup(group.getName());
+                
                 
                 dtos.add(dto);
             }
@@ -55,5 +68,30 @@ public class UserDao extends GenericDao<User>{
         }
         return dtos;
     }
+    private Employee getEmployee(List<Employee> employee, String id) {
+        for (Employee c : employee) {
+            if(c.getId() == Long.parseLong(id)) {
+                return c;
+            }
+        }
+        return null;
+    }
     
+    private PersonData getPersonData(String personDataId, List<PersonData> persons) {
+        for (PersonData p : persons) {
+            if(p.getId()==Long.parseLong(personDataId)) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    private PrivilegeGroup getPrivilegeGroup(List<PrivilegeGroup> privilege, String id) {
+        for (PrivilegeGroup p : privilege) {
+            if(p.getId()==Long.parseLong(id)) {
+                return p;
+            }
+        }
+        return null;
+    }
 }

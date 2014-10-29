@@ -17,8 +17,8 @@ function EmploymentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     $scope.attributes[0] = 'id';
     $scope.attributes[1] = 'dateFrom';
     $scope.attributes[2] = 'dateTo';
-    $scope.attributes[3] = 'dictId';
-    $scope.attributes[4] = 'employeeId';
+    $scope.attributes[3] = 'dict';
+    $scope.attributes[4] = 'employee';
     
     $scope.editValues = [];
     $scope.editValues[0] = {0:'id', 1:false};
@@ -81,7 +81,7 @@ function EmploymentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
 
     $scope.create = function() {
         saveEditDelete.restoreOldData($scope);
-        $scope.selected = {'id':"",'dateFrom':"","dateTo":"","dictId":"","employeeId":""};
+        $scope.selected = {'id':"",'dateFrom':"","dateTo":"","dictId":"","employeeId":"", 'dict':"",'employee':""};
         $scope.editMode = true;
         $scope.newRecord = true;
     };
@@ -92,6 +92,27 @@ function EmploymentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     
     $scope.columnDescription = function(obj){
         return columnDesc.get(obj);
+    };
+    
+    $scope.selectAction = function(obj) {
+        if(obj == 'dictId'){
+            var index;
+            for (var i = 0; i < $scope.dictionaries.length; i++) {
+                if ($scope.dictionaries[i].id == $scope.selected.dictId) {
+                    index = i;
+                }
+            }
+            $scope.selected.dict = $scope.dictionaries[index].description;
+        }
+        if(obj == 'employeeId'){
+            var index;
+            for (var i = 0; i < $scope.employees.length; i++) {
+                if ($scope.employees[i].id == $scope.selected.employeeId) {
+                    index = i;
+                }
+            }
+            $scope.selected.employee = $scope.employees[index].forename + ' ' + $scope.employees[index].surname;
+        }
     };
     
 }

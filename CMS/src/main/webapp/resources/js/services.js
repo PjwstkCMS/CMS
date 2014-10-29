@@ -195,6 +195,15 @@ cmsModule.factory('columnDesc', function () {
                 'dictId': "Dodatkowy Opis",
                 'positionId': "Stanowisko",
                 'groupId': "Grupa",
+                
+                'employee': "Pracownik",
+                'customer': "Klient",
+                'manager': "Manager",
+                'department': "Departement",
+                'position': "Stanowisko",
+                'dict': "Dodatkowy Opis",
+                'group': "Grupa",
+                
                 'forename': "Imie",
                 'surname': "Nazwisko",
                 'phone': "Telefon",

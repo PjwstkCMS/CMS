@@ -8,15 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
-import pl.edu.pjwstk.cms.dto.CompanyDto;
 import pl.edu.pjwstk.cms.dto.CustomerDto;
 import pl.edu.pjwstk.cms.models.Customer;
 import pl.edu.pjwstk.cms.models.PersonData;
 
-/**
- *
- * @author Sergio
- */
+
 public class CustomerDao extends GenericDao<Customer> {
 
     private final static Logger LOGGER = Logger.getLogger(CustomerDao.class.getName());

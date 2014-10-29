@@ -10,8 +10,8 @@ public class UserDto implements Serializable{
     
     private final static Logger LOGGER = Logger.getLogger(UserDto.class.getName()); 
 
-    private Long id, employeeId, groupId;
-    private String login, password, persondataId, photoHash;
+    private Long id, employeeId, groupId, persondataId;
+    private String login, password, employee, group, photoHash;
     private List<String> privilegeKeyCodes = new ArrayList<>();
     
     public UserDto() {
@@ -58,16 +58,32 @@ public class UserDto implements Serializable{
         this.employeeId = employeeId;
     }
 
-    public String getPersondataId() {
+    public Long getPersondataId() {
         return persondataId;
     }
 
-    public void setPersondataId(String persondataId) {
+    public void setPersondataId(Long persondataId) {
         this.persondataId = persondataId;
     }
 
     public String getPhotoHash() {
         return photoHash;
+    }
+
+    public String getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(String employee) {
+        this.employee = employee;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public void setPhotoHash(String photoHash) {

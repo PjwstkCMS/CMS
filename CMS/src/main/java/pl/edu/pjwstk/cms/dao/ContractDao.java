@@ -13,10 +13,9 @@ import pl.edu.pjwstk.cms.dto.ContractDto;
 import pl.edu.pjwstk.cms.models.Contract;
 import pl.edu.pjwstk.cms.models.Customer;
 import pl.edu.pjwstk.cms.models.Employee;
-/**
- *
- * @author Konrad
- */
+import pl.edu.pjwstk.cms.models.PersonData;
+
+
 public class ContractDao extends GenericDao<Contract>{
     
     private final static Logger LOGGER = Logger.getLogger(ContractDao.class.getName()); 
@@ -37,38 +36,40 @@ public class ContractDao extends GenericDao<Contract>{
         }
         ResultSet set = this.connectionManager.select(query);
         List<ContractDto> conDtos = new ArrayList<>();
+        
+        CustomerDao cusDao = new CustomerDao();
+        List<Customer> custs = cusDao.selectAll();
+        
+        EmployeeDao empDao = new EmployeeDao();
+        List<Employee> emps = empDao.selectAll();
+        
+        PersonDataDao perDao = new PersonDataDao();
+        List<PersonData> persons = perDao.selectAll();
+                
         try {
             while(set.next()) {
                 ContractDto dto = new ContractDto();
                 dto.setId(set.getLong("id"));
-                //dto.setName(set.getString("name"));
-                //dto.setSurname(set.getString("surname"));
-                CustomerDao cusDao = new CustomerDao();
-                List<Customer> custs = cusDao.selectAll();
+                dto.setStartDate(set.getString("startDate"));
+                dto.setCloseDate(set.getString("closeDate"));
+                dto.setFinalisationDate(set.getString("finalisationDate"));
+                dto.setDescription(set.getString("description"));
+                dto.setPrice(set.getString("price"));
                 Customer c = getConCustomer(custs, set.getString("customerId"));
-                EmployeeDao empDao = new EmployeeDao();
-                List<Employee> emps = empDao.selectAll();
+                dto.setCustomerId(c.getId());
                 Employee e = getConEmployee(emps, set.getString("employeeId"));
-                dto.setCustomerId(c.getId()+"");
-                dto.setEmployeeId(e.getId()+"");
-              //  Company c = getCusCompany(comps, set.getString("companyId"));
-              //  dto.setCompanyName(c.getName());
+                dto.setEmployeeId(e.getId());
+                PersonData per = getPersonData(persons, c.getPersondataId());
+                dto.setCustomer(per.getForename() + " " + per.getSurname());
+                per = getPersonData(persons, e.getPersondataId());
+                dto.setEmployee(per.getForename() + " " + per.getSurname());
                 
-               /* Address a = getComAddress(addrs, c.getAddressId());
-                dto.setApartmentNumber(a.getApartmentNumber());
-                dto.setCountry(a.getCountry());
-                dto.setCity(a.getCity());
-                dto.setStreetName(a.getStreetName());
-                dto.setStreetNumber(a.getStreetNumber());
-                dto.setPostalCode(a.getPostalCode());
-                conDtos.add(dto);*/
                 conDtos.add(dto);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         }
-        int a = 2;
         return conDtos;
     }
     private Customer getConCustomer(List<Customer> customers, String id) {
@@ -89,5 +90,13 @@ public class ContractDao extends GenericDao<Contract>{
         return null;
     }
     
+    private PersonData getPersonData(List<PersonData> persons, String id) {
+        for (PersonData c : persons) {
+            if(c.getId() == Long.parseLong(id)) {
+                return c;
+            }
+        }
+        return null;
+    }
     
 }

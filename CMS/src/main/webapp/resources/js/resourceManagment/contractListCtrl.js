@@ -17,8 +17,8 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.objectsName = "contracts";
     $scope.attributes = [];
     $scope.attributes[0] = 'id';
-    $scope.attributes[1] = 'customerId';
-    $scope.attributes[2] = 'employeeId';
+    $scope.attributes[1] = 'customer';
+    $scope.attributes[2] = 'employee';
     $scope.attributes[3] = 'startDate';
     $scope.attributes[4] = 'closeDate';
     $scope.attributes[5] = 'finalisationDate';
@@ -73,7 +73,7 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.newRecord = false;
         }
     }
-
+    
     $scope.edit = function() {
         $scope.editMode = true;
         $scope.newRecord = false;
@@ -90,7 +90,7 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         saveEditDelete.restoreOldData($scope);
         $scope.selected = {
             'id': "", 'customerId':"", 'employeeId':"",'startDate':"",'closeDate':"",
-            'finalisationDate':"",'description':"",'price':""
+            'finalisationDate':"",'description':"",'price':"", employee:"", customer:""
         };
         $scope.newRecord = true;
         $scope.editMode = true;
@@ -102,5 +102,26 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     
     $scope.columnDescription = function(obj){
         return columnDesc.get(obj);
+    };
+    
+    $scope.selectAction = function(obj) {
+        if(obj == 'customerId'){
+            var index;
+            for (var i = 0; i < $scope.customers.length; i++) {
+                if ($scope.customers[i].id == $scope.selected.customerId) {
+                    index = i;
+                }
+            }
+            $scope.selected.customer = $scope.customers[index].forename + ' ' + $scope.customers[index].surname;
+        }
+        if(obj == 'employeeId'){
+            var index;
+            for (var i = 0; i < $scope.employees.length; i++) {
+                if ($scope.employees[i].id == $scope.selected.employeeId) {
+                    index = i;
+                }
+            }
+            $scope.selected.employee = $scope.employees[index].forename + ' ' + $scope.employees[index].surname;
+        }
     };
 }

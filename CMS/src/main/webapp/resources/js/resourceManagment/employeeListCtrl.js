@@ -26,9 +26,9 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.attributes[2] = 'phone';
     $scope.attributes[3] = 'email';
     $scope.attributes[4] = 'pesel';
-    $scope.attributes[5] = 'departmentId';
+    $scope.attributes[5] = 'department';
     $scope.attributes[6] = 'cardId';
-    $scope.attributes[7] = 'positionId';
+    $scope.attributes[7] = 'position';
     $scope.attributes[8] = 'salary';
 
     $scope.editValues = [];
@@ -148,7 +148,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.create = function () {
         saveEditDelete.restoreOldData($scope);
         $scope.selected = {'id': "", 'persondataId': "", "cardId": "", "departmentId": "", "positionId": "",
-            "forename": "", "surname": "", "email": "", "phone": "", "salary": "", "pesel": "",
+            "forename": "", "surname": "", "email": "", "phone": "", "salary": "", "pesel": "", "department": "", "position": "",
             "privilegeKeyCodes": []};
         $scope.editMode = true;
         $scope.newRecord = true;
@@ -233,4 +233,25 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         }
         return false;
     }
+    
+    $scope.selectAction = function(obj) {
+        if(obj == 'departmentId'){
+            var index;
+            for (var i = 0; i < $scope.departments.length; i++) {
+                if ($scope.departments[i].id == $scope.selected.departmentId) {
+                    index = i;
+                }
+            }
+            $scope.selected.department = $scope.departments[index].name;
+        }
+        if(obj == 'positionId'){
+            var index;
+            for (var i = 0; i < $scope.positions.length; i++) {
+                if ($scope.positions[i].id == $scope.selected.positionId) {
+                    index = i;
+                }
+            }
+            $scope.selected.position = $scope.positions[index].name;
+        }
+    };
 }

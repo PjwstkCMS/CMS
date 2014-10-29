@@ -77,6 +77,8 @@
         width: 100%;
     }
 </style>
+<input class="wyszukiwarka" placeholder="wyszukaj..." type="text" ng-model="searchText"/>
+{{searchText}}
 <table>
     <tr>
 

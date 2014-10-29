@@ -73,17 +73,17 @@ public class DepartmentController extends BaseController {
         if (dto.getId() != null) {
             dep = depDao.selectRecordsWithFieldValues("id", dto.getId()).get(0);
             dep.setName(dto.getName());
-            dep.setManagerId(dto.getManagerId());
+            dep.setManagerId(dto.getManagerId()+"");
 
             Address add = dto.getAddress();
             addDao.update(add);
-            dep.setAddressId(dto.getAddressId());
+            dep.setAddressId(dto.getAddressId()+"");
             depDao.update(dep);
             data.put("id", dto.getId());
             return Utils.createResponseEntity(session, data);
         } else {
             dep.setName(dto.getName());
-            dep.setManagerId(dto.getManagerId());
+            dep.setManagerId(dto.getManagerId()+"");
 
             Address add = dto.getAddress();
             Long id = addDao.insert(add);

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pl.edu.pjwstk.cms.dto;
 
 import java.io.Serializable;
@@ -11,16 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Konrad
- */
+
 public class CustomerDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(CustomerDto.class.getName()); 
 
     private Long id, companyId, persondataId;
-    private String forename, surname, email, phone;
+    private String forename, surname, email, phone, company;
     
     public CustomerDto() {
         super();
@@ -32,6 +23,14 @@ public class CustomerDto implements Serializable {
 
     public void setPersondataId(Long persondataId) {
         this.persondataId = persondataId;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
     
     public Long getCompanyId() {

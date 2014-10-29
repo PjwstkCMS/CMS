@@ -14,10 +14,9 @@ import pl.edu.pjwstk.cms.models.Card;
 import pl.edu.pjwstk.cms.models.Department;
 import pl.edu.pjwstk.cms.models.Employee;
 import pl.edu.pjwstk.cms.models.PersonData;
-/**
- *
- * @author Konrad
- */
+import pl.edu.pjwstk.cms.models.Position;
+
+
 public class EmployeeDao extends GenericDao<Employee>{
      
     private final static Logger LOGGER = Logger.getLogger(EmployeeDao.class.getName()); 
@@ -44,6 +43,12 @@ public class EmployeeDao extends GenericDao<Employee>{
         List<EmployeeDto> empDtos = new ArrayList<>();
         List<PersonData> persons = personDao.selectAll();
         
+        DepartmentDao depDao = new DepartmentDao();
+        List<Department> deps = depDao.selectAll();
+        
+        PositionDao posDao = new PositionDao();
+        List<Position> pos = posDao.selectAll();
+        
         List<Card> cards = carDao.selectAll();
         try {
             while(set.next()) {
@@ -56,19 +61,19 @@ public class EmployeeDao extends GenericDao<Employee>{
                 dto.setEmail(person.getEmail());
                 dto.setPhone(person.getPhone());
                 dto.setPesel(person.getPesel());
-                dto.setPositionId(Long.parseLong(set.getString("positionId")));
+                
                 dto.setSalary(set.getString("salary"));
                 List<Address> adds = addDao.selectRecordsWithFieldValues("persondataId", dto.getPersondataId());
                 dto.setAddresses(adds);
 
-                DepartmentDao depDao = new DepartmentDao();
-                List<Department> deps = depDao.selectAll();
                 Department d = getEmpDepartment(deps, set.getString("departmentId"));
-                if(d == null){
-                    dto.setDepartmentId(Long.parseLong("-1"));
-                }else{
-                    dto.setDepartmentId(d.getId());
-                }
+                dto.setDepartmentId(d.getId());
+                dto.setDepartment(d.getName());
+                
+                Position p = getEmpPosition(pos, set.getString("positionId"));
+                dto.setPositionId(p.getId());
+                dto.setPosition(p.getName());
+                
                 Card card = getCard(cards, dto.getId()+"");
                 if(card != null) {
                     dto.setCardId(card.getId());
@@ -85,6 +90,15 @@ public class EmployeeDao extends GenericDao<Employee>{
     }
     private Department getEmpDepartment(List<Department> departments, String id) {
         for (Department c : departments) {
+            if(c.getId() == Long.parseLong(id)) {
+                return c;
+            }
+        }
+        return null;
+    }
+    
+    private Position getEmpPosition(List<Position> positions, String id) {
+        for (Position c : positions) {
             if(c.getId() == Long.parseLong(id)) {
                 return c;
             }

@@ -15,7 +15,7 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     $scope.objectsName = "departments";
     $scope.attributes = [];
     $scope.attributes[0] = 'name';
-    $scope.attributes[1] = 'managerId';
+    $scope.attributes[1] = 'manager';
     
     $scope.editValues = [];
     $scope.editValues[0] = {0:'id', 1:false};
@@ -92,7 +92,7 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     $scope.create = function() {
         saveEditDelete.restoreOldData($scope);
         $scope.selected = {
-            'id': "", 'name':"", 'managerId':"",
+            'id': "", 'name':"", 'managerId':"", 'manager':"",
             'address':{ 'id':"",'country':"",'city':"",'streetName':"",'streetNumber':"",
                         'apartmentNumber':"",'postalCode':"",'dictId':"",'companyId':"-1", 'persondataId':"-1"
             },
@@ -109,5 +109,17 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     
     $scope.columnDescription = function(obj){
         return columnDesc.get(obj);
+    };
+    
+    $scope.selectAction = function(obj) {
+        if(obj == 'managerId'){
+            var index;
+            for (var i = 0; i < $scope.employees.length; i++) {
+                if ($scope.employees[i].id == $scope.selected.managerId) {
+                    index = i;
+                }
+            }
+            $scope.selected.manager = $scope.employees[index].forename + ' ' + $scope.employees[index].surname;
+        }
     };
 }

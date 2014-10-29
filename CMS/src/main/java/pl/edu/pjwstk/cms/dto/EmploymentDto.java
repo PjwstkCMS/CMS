@@ -12,7 +12,7 @@ public class EmploymentDto implements Serializable {
     private final static Logger LOGGER = Logger.getLogger(EmployeeDto.class.getName()); 
 
     private Long id, employeeId, dictId;
-    private String dateFrom, dateTo;
+    private String dateFrom, dateTo, employee, dict;
     
     public EmploymentDto() {
         super();
@@ -56,6 +56,22 @@ public class EmploymentDto implements Serializable {
 
     public void setDateTo(String dateTo) {
         this.dateTo = dateTo;
+    }
+
+    public String getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(String employee) {
+        this.employee = employee;
+    }
+
+    public String getDict() {
+        return dict;
+    }
+
+    public void setDict(String dict) {
+        this.dict = dict;
     }
     
     

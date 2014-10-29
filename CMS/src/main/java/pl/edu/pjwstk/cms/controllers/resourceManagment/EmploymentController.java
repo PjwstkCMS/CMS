@@ -55,7 +55,7 @@ public class EmploymentController extends BaseController {
         EmployeeDao empDao = new EmployeeDao();
         DictionaryDao dictDao = new DictionaryDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("employments", dao.selectAll());
+        initData.put("employments", dao.getEmploymentList());
         initData.put("employees", empDao.getEmployeeDtoList());
         initData.put("dictionaries", dictDao.getEmploymentTypes());
         return Utils.createResponseEntity(session, initData);

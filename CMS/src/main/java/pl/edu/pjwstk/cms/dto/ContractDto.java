@@ -4,21 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import pl.edu.pjwstk.cms.dao.CompanyDao;
-import pl.edu.pjwstk.cms.models.Address;
-import pl.edu.pjwstk.cms.models.Company;
 import pl.edu.pjwstk.cms.models.Contract;
 
-/**
- *
- * @author Konrad
- */
+
 public class ContractDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(ContractDto.class.getName()); 
 
-    private Long id;
-    private String employeeId, customerId, startDate, closeDate, finalisationDate, description, price;
+    private Long id, employeeId, customerId;
+    private String employee, customer, startDate, closeDate, finalisationDate, description, price;
     
     public ContractDto() {
         super();
@@ -26,8 +20,8 @@ public class ContractDto implements Serializable {
     
     public ContractDto(Contract contract) {
         this.setId(contract.getId());
-        this.employeeId = contract.getEmployeeId();
-        this.customerId = contract.getCustomerId();
+        this.employeeId = Long.parseLong(contract.getEmployeeId());
+        this.customerId = Long.parseLong(contract.getCustomerId());
         this.startDate = contract.getStartDate();
         this.closeDate = contract.getCloseDate();
         this.finalisationDate = contract.getFinalisationDate();
@@ -44,22 +38,36 @@ public class ContractDto implements Serializable {
         this.id = id;
     }
 
-    
-
-    public String getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
-    public String getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
+    }
+
+    public String getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(String employee) {
+        this.employee = employee;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
     }
 
     public String getStartDate() {
@@ -101,10 +109,6 @@ public class ContractDto implements Serializable {
     public void setPrice(String price) {
         this.price = price;
     }
-    
-
-    
-
     
     public List<String> getPrivilegeKeyCodes() {
         return privilegeKeyCodes;

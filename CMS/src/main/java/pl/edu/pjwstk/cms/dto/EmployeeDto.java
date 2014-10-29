@@ -12,7 +12,7 @@ public class EmployeeDto implements Serializable {
     private final static Logger LOGGER = Logger.getLogger(EmployeeDto.class.getName()); 
 
     private Long id, persondataId, cardId, departmentId, positionId;
-    private String forename, surname, email, phone, salary, pesel;
+    private String forename, surname, email, phone, salary, pesel, department, position;
     private List<Address> addresses;
     
     private List<String> privilegeKeyCodes = new ArrayList<>();
@@ -103,6 +103,22 @@ public class EmployeeDto implements Serializable {
     
     public Long getDepartmentId() {
         return departmentId;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public void setDepartmentId(Long departmentId) {

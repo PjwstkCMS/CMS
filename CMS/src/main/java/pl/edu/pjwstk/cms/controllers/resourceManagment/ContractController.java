@@ -53,7 +53,7 @@ public class ContractController extends BaseController {
         CustomerDao cusDao = new CustomerDao();
         EmployeeDao empDao = new EmployeeDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("contracts", conDao.selectAll());
+        initData.put("contracts", conDao.getContractDtoList());
         initData.put("customers", cusDao.getCustomerDtoList());
         initData.put("employees", empDao.getEmployeeDtoList());
         return Utils.createResponseEntity(session, initData);
@@ -68,8 +68,8 @@ public class ContractController extends BaseController {
         Map<String, Object> data = new HashMap<>();
         if(conDto.getId() != null ){
             con = conDao.selectRecordsWithFieldValues("id", conDto.getId()).get(0);
-            con.setEmployeeId(conDto.getEmployeeId());
-            con.setCustomerId(conDto.getCustomerId());
+            con.setEmployeeId(conDto.getEmployeeId()+"");
+            con.setCustomerId(conDto.getCustomerId()+"");
             con.setStartDate(conDto.getStartDate());
             con.setCloseDate(conDto.getCloseDate());
             if(conDto.getFinalisationDate() != null && conDto.getFinalisationDate() != ""){
@@ -83,8 +83,8 @@ public class ContractController extends BaseController {
             data.put("id", conDto.getId());
             return Utils.createResponseEntity(session, data);
         } else {
-            con.setEmployeeId(conDto.getEmployeeId());
-            con.setCustomerId(conDto.getCustomerId());
+            con.setEmployeeId(conDto.getEmployeeId()+"");
+            con.setCustomerId(conDto.getCustomerId()+"");
             con.setStartDate(conDto.getStartDate());
             con.setCloseDate(conDto.getCloseDate());
             if(conDto.getFinalisationDate() != null && conDto.getFinalisationDate() != ""){

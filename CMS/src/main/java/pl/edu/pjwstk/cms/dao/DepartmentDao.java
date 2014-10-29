@@ -12,10 +12,9 @@ import pl.edu.pjwstk.cms.dto.DepartmentDto;
 import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Department;
 import pl.edu.pjwstk.cms.models.Employee;
-/**
- *
- * @author Macha
- */
+import pl.edu.pjwstk.cms.models.PersonData;
+
+
 public class DepartmentDao extends GenericDao<Department>{
     
     private final static Logger LOGGER = Logger.getLogger(DepartmentDao.class.getName()); 
@@ -36,21 +35,27 @@ public class DepartmentDao extends GenericDao<Department>{
         }
         ResultSet set = this.connectionManager.select(query);
         List<DepartmentDto> depDtos = new ArrayList<>();
+        
+        EmployeeDao empDao = new EmployeeDao();
+        List<Employee> emps = empDao.selectAll();
+        
+        PersonDataDao perDao = new PersonDataDao();
+        List<PersonData> persons = perDao.selectAll();
         try {
             while(set.next()) {
                 DepartmentDto dto = new DepartmentDto();
                 dto.setId(set.getLong("id"));
                 dto.setName(set.getString("name"));
-                dto.setAddressId(set.getString("addressId"));
+                dto.setAddressId(set.getLong("addressId"));
                 
                 AddressDao addDao = new AddressDao();
                 List<Address> adds = addDao.selectRecordsWithFieldValues("id", dto.getAddressId());
                 dto.setAddress(adds.get(0));
                 
-                EmployeeDao empDao = new EmployeeDao();
-                List<Employee> emps = empDao.selectAll();
                 Employee e = getDepEmployee(emps, set.getString("managerId"));
-                dto.setManagerId(set.getString("managerId"));
+                dto.setManagerId(set.getLong("managerId"));
+                PersonData person = getPersonData(persons, e.getPersondataId());
+                dto.setManager(person.getForename() + " " + person.getSurname());
                 depDtos.add(dto);
             }
         } catch (SQLException ex) {
@@ -62,6 +67,15 @@ public class DepartmentDao extends GenericDao<Department>{
     }
     private Employee getDepEmployee(List<Employee> employees, String id) {
         for (Employee c : employees) {
+            if(c.getId() == Long.parseLong(id)) {
+                return c;
+            }
+        }
+        return null;
+    }
+    
+    private PersonData getPersonData(List<PersonData> persons, String id) {
+        for (PersonData c : persons) {
             if(c.getId() == Long.parseLong(id)) {
                 return c;
             }

@@ -180,6 +180,10 @@ public class GenericDao<T extends DatabaseObject> {
         l2.add(fieldValue + "");
         return selectRecordsWithFieldValues(l1, l2);
     }
+    
+    public T selectForId(Object id) {
+        return selectSingleRecord("id", id);        
+    }
 
     /**
      * Metoda pobiera rekordy, gdzie dane pole przyjmuje daną wartość

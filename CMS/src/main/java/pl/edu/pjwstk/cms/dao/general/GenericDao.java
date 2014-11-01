@@ -33,12 +33,12 @@ public class GenericDao<T extends DatabaseObject> {
             try {
                 connectionManager = ConnectionManager.getConnectionManager();
                 List<T> selectRecordsWithFieldValues = this.selectAll();
-                server = "Sergiowy serwer";
+                server = "Wynajęty serwer";
                 if (selectRecordsWithFieldValues.isEmpty()) {
                     throw new Exception();
                 }
             } catch (Exception noConnection) {
-                server = "Pawełkowy serwer";
+                server = "Sergiowy serwer";
                 LOGGER.warning("Can't reach main sql server. Switching to auxilary.");
                 connectionManager = ConnectionManager.getConnectionManagerAuxilary();
             }
@@ -210,7 +210,7 @@ public class GenericDao<T extends DatabaseObject> {
      * @return
      */
     public List<T> selectRecordsWithFieldValues(List<String> fieldNames, List<String> fieldValues) {
-        String className = modelClass.getSimpleName();
+        String className = modelClass.getSimpleName().toLowerCase();
         String query = "SELECT * ";
         query += "FROM " + className + " ";
         if (fieldValues.size() == 0) {

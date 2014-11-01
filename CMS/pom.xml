@@ -18,7 +18,8 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4</version>
+            <version>1.4.6-rc1</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>

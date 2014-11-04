@@ -21,16 +21,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
-import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeKeyDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.models.Employee;
-import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.PrivilegeGroup;
 import pl.edu.pjwstk.cms.models.User;
 import pl.edu.pjwstk.cms.utils.HexConverter;
+import pl.edu.pjwstk.cms.utils.Utils;
 
 /**
  *
@@ -83,7 +82,10 @@ public class LoginController extends BaseController {
                 //Cookie c = new Cookie("user", Utils.convertObjectToJSON(userDto));
                 //response.addCookie(c);
                 //request.setAttribute("user", userDto);
+                java.io.File file = Utils.getFileFromHash(userDto.getPhotoHash());
                 request.getSession().setAttribute("user", userDto);
+                request.getSession().setAttribute("userimage", file);
+                String ssss = request.getServletPath();
                 model.addObject("loginMsg", "Welcome " + login + "!");
             } else {
                 model.addObject("loginMsg", "Wrong password.");

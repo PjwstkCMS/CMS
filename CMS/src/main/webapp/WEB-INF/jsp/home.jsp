@@ -7,10 +7,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<t:general>
+<t:general>    
     <jsp:body>
         <h1>Hello World!</h1>
         <img src="${userImage}" alt="Brak zdjęcia"/>
+        
         <form action="/CMS/uploadPhoto.htm" method="POST" enctype="multipart/form-data">
             Plik: <input type="file" name="file"/>
             <input type="submit" value="Wyslij plik"/>

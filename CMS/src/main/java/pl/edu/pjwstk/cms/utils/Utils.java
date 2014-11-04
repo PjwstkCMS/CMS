@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -36,11 +37,12 @@ public abstract class Utils {
     /**
      * Metoda zamieniająca JSON w postaci Stringa na object Javovy; zwracany
      * obiekt wciąż trzeba zrzutować do konkretnego obiektu.
+     *
      * @param json
      * @param javaClass
-     * @return 
+     * @return
      */
-    public static Object convertJSONStringToObject(String json, Class javaClass) {       
+    public static Object convertJSONStringToObject(String json, Class javaClass) {
         ObjectMapper mapper = new ObjectMapper();
         Object o = null;
         try {
@@ -50,10 +52,11 @@ public abstract class Utils {
         }
         return o;
     }
+
     /**
      * Metoda zamieniająca JSON w postaci Stringa (z nazwą obiektu na początku)
-     * na object Javovy; zwracany
-     * obiekt wciąż trzeba zrzutować do konkretnego obiektu.
+     * na object Javovy; zwracany obiekt wciąż trzeba zrzutować do konkretnego
+     * obiektu.
      *
      * @param json - JSON w formie Stringa
      * @param objectName - Nazwa zmiennej String w której zawarty jest JSON
@@ -122,6 +125,7 @@ public abstract class Utils {
 
     /**
      * Metoda przygotowuje odpowiedź serwera pod kątem pobrania pliku
+     *
      * @param hash
      * @param fileName
      * @param mimeType
@@ -151,25 +155,51 @@ public abstract class Utils {
             io.printStackTrace();
         }
     }
-    
+
     /**
-     * Metoda służąca do odpowiedniego przygotowania JSONa z danymi aby prawidłowo przekazać je do klienta (np. do angulara).
-     * @param session <HttpSession> 
+     * Metoda służąca do odpowiedniego przygotowania JSONa z danymi aby
+     * prawidłowo przekazać je do klienta (np. do angulara).
+     *
+     * @param session <HttpSession>
      * @param initData Dane, które mają zostać zamienione w JSON
      * @return dane odpowiedzi serwera
      */
-    
-    public static ResponseEntity<String> createResponseEntity(HttpSession session, Map<String, Object> initData){
+    public static ResponseEntity<String> createResponseEntity(HttpSession session, Map<String, Object> initData) {
         HttpHeaders responseHeaders = new HttpHeaders();
         SystemConfigurationDao sysConfigDao = new SystemConfigurationDao();
-        SystemConfiguration charset = sysConfigDao.selectRecordsWithFieldValues("name","DefaultPageEncoding").get(0);
-        responseHeaders.add("Content-Type", "text/html; charset="+charset.getValue());
-        UserDto user = (UserDto)(session.getAttribute("user"));
+        SystemConfiguration charset = sysConfigDao.selectRecordsWithFieldValues("name", "DefaultPageEncoding").get(0);
+        responseHeaders.add("Content-Type", "text/html; charset=" + charset.getValue());
+        UserDto user = (UserDto) (session.getAttribute("user"));
 //        initData.put("privileges", user.getPrivilegeKeyCodes());
-        
+
         Logger.getLogger(Utils.class.getName()).log(Level.INFO, "SEND: {0}", Utils.convertOMapToJSON(initData));
-        
+
         return new ResponseEntity<>(convertOMapToJSON(initData), responseHeaders, HttpStatus.OK);
     }
-    
+
+    public static ResponseEntity<java.io.File> createResponseEntityForFile(HttpSession session) {
+        java.io.File file = null;
+        HttpHeaders responseHeaders = new HttpHeaders();
+        try {
+            responseHeaders.add("Content-Type", "image/jpg");
+            UserDto user = (UserDto) (session.getAttribute("user"));
+            file = Utils.getFileFromHash(user.getPhotoHash());
+            //Logger.getLogger(Utils.class.getName()).log(Level.INFO, "SEND: {0}", Utils.convertOMapToJSON(initData));
+            int a = 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<java.io.File>(file, responseHeaders, HttpStatus.OK);
+    }
+
+    public static File getFileFromHash(String hash) throws FileNotFoundException, IOException {
+        byte barray[] = HexConverter.toBytesFromHex(hash);
+        //String get_price = rs.getString(5);
+        java.io.File someFile = new java.io.File("image.jpg");
+        FileOutputStream fos = new FileOutputStream(someFile);
+        fos.write(barray);
+        fos.flush();
+        fos.close();
+        return someFile;
+    }
 }

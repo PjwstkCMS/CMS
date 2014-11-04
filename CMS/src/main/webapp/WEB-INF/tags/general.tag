@@ -35,7 +35,8 @@
             <tr>
                 <td class="menu">
                     <h3>${server}</h3>
-                    <c:if test="${user!=null}">
+                    <c:if test="${user!=null}">                        
+                        <img src="getUserImage.htm" alt="Brak obrazka" />
                         <form method="post" action="logout.htm">
                             <input type="submit" value="logout"/>
                         </form>

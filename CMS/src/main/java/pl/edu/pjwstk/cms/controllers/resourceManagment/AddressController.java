@@ -85,7 +85,7 @@ public class AddressController extends BaseController {
     @RequestMapping(value = "/address/delete/:object", method = RequestMethod.POST)
     public @ResponseBody
     void deleteData(@RequestBody String object) {
-        System.out.println("delete");
+        System.out.println(object);
         AddressDto dto = (AddressDto) Utils.convertJSONStringToObject(object, "object", AddressDto.class);
         if (dto != null) {
             AddressDao addDao = new AddressDao();

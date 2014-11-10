@@ -63,25 +63,40 @@ cmsModule.factory('saveEditDelete', function () {
                 $scope.operationMessage = "Operacja zapisywania nie udana"
             });
         },
-        saveElement: function ($http, link, $scope) {
-            if ($scope.addressSelector.id == null || $scope.addressSelector.id < 1) {
-                $scope.selected.addresses.push($scope.addressSelector);
-            }
-
+        saveElement: function ($http, link, $scope, type) {
             return $http.post(
                     link,
-                    {object: $selector}).success(function (returnId) {
+                    {object: $scope.selector[type]}).success(function (returnId) {
                 $scope.showOperationMessage = true;
-                $scope.operationMessage = "Adres zapisany"
+                $scope.operationMessage = "Dane zapisane";
 
                 if (returnId != null) {
-                    $selector.id = returnId.id;
+                    $scope.selector[type].id = returnId.id;
                 }
-                $selector = null;
+                $scope.selector[type] = null;
                 $scope.editMode = false;
             }).error(function (error) {
                 $scope.showOperationMessage = true;
-                $scope.operationMessage = "Błąd przy dodawaniu adresu"
+                $scope.operationMessage = "Błąd dodawania";
+                alert(error);
+            });
+        },
+        removeElement: function ($http, link, $scope, type) {
+            alert($scope.selector[type]);
+            return $http.post(
+                    link,
+                    {object: $scope.selector[type]}).success(function (returnId) {
+                $scope.showOperationMessage = true;
+                $scope.operationMessage = "Dane usunięte";
+
+                if (returnId != null) {
+                    $scope.selector[type].id = returnId.id;
+                }
+                $scope.selector[type] = null;
+                $scope.editMode = false;
+            }).error(function (error) {
+                $scope.showOperationMessage = true;
+                $scope.operationMessage = "Błąd operacji usuwania";
                 alert(error);
             });
         },

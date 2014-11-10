@@ -302,7 +302,7 @@ public class GenericDao<T extends DatabaseObject> {
      */
     public List<T> selectForFieldsWithMultiplePossibileValues(Map<String, List<Object>> map) {
         String query = "SELECT *";
-        query += " FROM " + modelClass.getSimpleName() + " WHERE ";
+        query += " FROM " + modelClass.getSimpleName().toLowerCase() + " WHERE ";
         int iKey = 0;
         for (String field : map.keySet()) {
             iKey++;
@@ -335,7 +335,7 @@ public class GenericDao<T extends DatabaseObject> {
      * @return
      */
     public boolean update(String conditions, String... sets) {
-        String query = "UPDATE " + modelClass.getSimpleName() + " SET ";
+        String query = "UPDATE " + modelClass.getSimpleName().toLowerCase() + " SET ";
         for (int i = 0; i < sets.length; i++) {
             query += sets[i];
             if (i < sets.length - 1) {
@@ -356,7 +356,7 @@ public class GenericDao<T extends DatabaseObject> {
 
     public Long insert(T obj) {
         try {
-            String query = "INSERT INTO " + obj.getClass().getSimpleName() + " (";
+            String query = "INSERT INTO " + obj.getClass().getSimpleName().toLowerCase() + " (";
             Field[] fields = obj.getClass().getDeclaredFields();
             List<Field> list = new ArrayList<Field>(Arrays.asList(fields));
             for (Field f : list) {
@@ -389,7 +389,7 @@ public class GenericDao<T extends DatabaseObject> {
             }
             query += ") ";
             if (connectionManager.update(query)) {
-                ResultSet set = connectionManager.select("SELECT id FROM " + obj.getClass().getSimpleName());
+                ResultSet set = connectionManager.select("SELECT id FROM " + obj.getClass().getSimpleName().toLowerCase());
                 try {
                     set.last();
                     return set.getLong("id");
@@ -442,7 +442,7 @@ public class GenericDao<T extends DatabaseObject> {
      * @return
      */
     public boolean delete(String conditions) {
-        String query = "DELETE FROM " + modelClass.getSimpleName()
+        String query = "DELETE FROM " + modelClass.getSimpleName().toLowerCase()
                 + " WHERE " + conditions;
         return connectionManager.update(query);
     }

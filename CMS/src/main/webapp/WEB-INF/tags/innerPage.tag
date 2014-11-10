@@ -73,9 +73,15 @@
                     </tbody>
                 </table>
                 <div ng-show="editSubElement">                    
-                    <t:editTable ng-show="selectedSubpage == 'address'" map="addressValues" object="selector[selectedSubpage]"/>
-                    <t:editTable ng-show="selectedSubpage == 'employment'" map="employmentValues" object="selector[selectedSubpage]"/>
-                    <t:editTable ng-show="selectedSubpage == 'contract'" map="contractValues" object="selector[selectedSubpage]"/>
+                    <div ng-show="selectedSubpage == 'address'">
+                    <t:editTable map="addressValues" object="selector[selectedSubpage]"/>
+                    </div>
+                    <div ng-show="selectedSubpage == 'employment'">
+                    <t:editTable map="employmentValues" object="selector[selectedSubpage]"/>
+                    </div>
+                    <div ng-show="selectedSubpage == 'contract'">
+                    <t:editTable map="contractValues" object="selector[selectedSubpage]"/>
+                    </div>
                     <input type="button" ng-click="addElement(selectedSubpage)" value="Add"/>
                     <input type="button" ng-click="cancelElement()" value="Cancel"/>
                 </div> 

@@ -52,7 +52,6 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.addressAttributes[5] = 'postalCode';
     $scope.addressAttributes[6] = 'dictId';
 
-
     $scope.addressValues = [];
     $scope.addressValues[0] = {0: 'id', 1: false};
     $scope.addressValues[1] = {0: 'country', 1: true};
@@ -64,7 +63,38 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.addressValues[7] = {0: 'dictId', 1: true};
 
     $scope.employmentAttributes = [];
-    $scope.employmentAttributes[0] = '';
+    $scope.employmentAttributes[0] = 'id';
+    $scope.employmentAttributes[1] = 'dateFrom';
+    $scope.employmentAttributes[2] = 'dateTo';
+    $scope.employmentAttributes[3] = 'dict';
+    $scope.employmentAttributes[4] = 'employee';
+
+    $scope.employmentValues = [];
+    $scope.employmentValues[0] = {0: 'id', 1: false};
+    $scope.employmentValues[1] = {0: 'dateFrom', 1: true};
+    $scope.employmentValues[2] = {0: 'dateTo', 1: true};
+    $scope.employmentValues[3] = {0: 'dictId', 1: true};
+    $scope.employmentValues[4] = {0: 'employeeId', 1: true};
+
+    $scope.contractAttributes = [];
+    $scope.contractAttributes[0] = 'id';
+    $scope.contractAttributes[1] = 'customer';
+    $scope.contractAttributes[2] = 'employee';
+    $scope.contractAttributes[3] = 'startDate';
+    $scope.contractAttributes[4] = 'closeDate';
+    $scope.contractAttributes[5] = 'finalisationDate';
+    $scope.contractAttributes[6] = 'description';
+    $scope.contractAttributes[7] = 'price';
+
+    $scope.contractValues = [];
+    $scope.contractValues[0] = {0: 'id', 1: false};
+    $scope.contractValues[1] = {0: 'customerId', 1: true};
+    $scope.contractValues[2] = {0: 'employeeId', 1: true};
+    $scope.contractValues[3] = {0: 'startDate', 1: true};
+    $scope.contractValues[4] = {0: 'closeDate', 1: true};
+    $scope.contractValues[5] = {0: 'finalisationDate', 1: false};
+    $scope.contractValues[6] = {0: 'description', 1: true};
+    $scope.contractValues[7] = {0: 'price', 1: true};
 
     $scope.attributesArray = $scope.addressAttributes;
 
@@ -169,16 +199,17 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
                 'apartmentNumber': "", 'postalCode': "", 'persondataId': $scope.selected.persondataId, 'companyId': "-1", 'dictId': ""
             };
             $scope.editSubElement = true;
+        } else if (type == 'employment') {
+            $scope.selector.employment = {'id': "", 'dateFrom': "", "dateTo": "", "dictId": "", "employeeId": "", 'dict': "", 'employee': ""};
+            $scope.editSubElement = true;
+        } else if (type == 'contract') {
+            $scope.selector.contract = {
+                'id': "", 'customerId': "", 'employeeId': "", 'startDate': "", 'closeDate': "",
+                'finalisationDate': "", 'description': "", 'price': "", employee: "", customer: ""
+            };
+            $scope.editSubElement = true;
         }
     };
-
-    $scope.cancelAddress = function () {
-        $scope.addressEdit = false;
-        if ($scope.addressSelector.id == "") {
-            $scope.addressSelector = null;
-        }
-    };
-
 
     $scope.showEdit = function () {
 
@@ -187,7 +218,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.editSubElement = true;
         }
     };
-    
+
     $scope.cancelElement = function () {
         $scope.editSubElement = false;
         $scope.selector.address = null;
@@ -199,28 +230,48 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         if (type == 'address') {
             $scope.selector.address.persondataId = $scope.selected.persondataId;
             for (var i = 0; i < $scope.addressValues.length; i++) {
+                /*
                 if ($scope.addressValues[i][1] && $scope.addressSelector[$scope.addressValues[i][0]] == null) {
                     alert("Sprawdź poprowność wprowadzonych danych");
                     return;
                 }
+                */
             }
-            saveEditDelete.saveAddress($http, '/CMS/address/save/:object.htm', $scope);
-            if (!$scope.selectedGroupHasKey($scope.addressSelector)) {
-                $scope.selected.addresses.push($scope.addressSelector);
+            saveEditDelete.saveElement($http, '/CMS/address/save/:object.htm', $scope, type);
+            if (!$scope.selectedGroupHasKey($scope.selector.address)) {
+                $scope.selected.addresses.push($scope.selector.address);
             }
+            $scope.editSubElement = false;
+        } else if (type == 'employment') {
+            $scope.selector.employment.employeeId = $scope.selected.id;
+            alert($scope.selector.employment.dateFrom);
+            saveEditDelete.saveElement($http, '/CMS/employment/save/:object.htm', $scope, type);
+            $scope.selectedEmployments.push($scope.selector.employment);
+            $scope.editSubElement = false;
+        } else if (type == 'contract') {
+            $scope.selector.contract.employeeId = $scope.selected.id;
+            saveEditDelete.saveElement($http, '/CMS/contract/save/:object.htm', $scope, type);
+            $scope.selectedContracts.push($scope.selector.contract);
             $scope.editSubElement = false;
         }
     };
 
     $scope.removeElement = function (type) {
         if (type == 'address') {
-            if ($scope.addressSelector !== undefined) {
-                saveEditDelete.removeAddress($http, '/CMS/address/delete/:object.htm', $scope);
-
-                $scope.addressSelector = "";
-                $scope.editSubElement = false;
+            if ($scope.selector.address !== undefined) {
+                saveEditDelete.removeElement($http, '/CMS/address/delete/:object.htm', $scope, type);                
+            }
+        } else if (type == 'employment') {
+            if ($scope.selector.employment !== undefined) {
+                saveEditDelete.removeElement($http, '/CMS/employment/delete/:object.htm', $scope, type);
+            }
+        } else if (type == 'contract') {
+            if ($scope.selector.contract !== undefined) {
+                saveEditDelete.removeElement($http, '/CMS/contract/delete/:object.htm', $scope, type);
             }
         }
+        $scope.selector[type] = "";
+        $scope.editSubElement = false;
     };
 
     $scope.selectedGroupHasKey = function (privKeyId) {
@@ -233,9 +284,9 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         }
         return false;
     }
-    
-    $scope.selectAction = function(obj) {
-        if(obj == 'departmentId'){
+
+    $scope.selectAction = function (obj) {
+        if (obj == 'departmentId') {
             var index;
             for (var i = 0; i < $scope.departments.length; i++) {
                 if ($scope.departments[i].id == $scope.selected.departmentId) {
@@ -244,7 +295,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             }
             $scope.selected.department = $scope.departments[index].name;
         }
-        if(obj == 'positionId'){
+        if (obj == 'positionId') {
             var index;
             for (var i = 0; i < $scope.positions.length; i++) {
                 if ($scope.positions[i].id == $scope.selected.positionId) {

@@ -30,7 +30,7 @@ public class DictionaryTypeDao extends GenericDao<DictionaryType>{
     
     public List<DictionaryTypeDto> getDictionaryTypeDtos(Map<String, List<String>> params) {
         String query = "SELECT id, value, description ";
-        query += "FROM dictionaryType ";
+        query += "FROM dictionarytype ";
         if (!params.isEmpty()) {
             query += "WHERE";
             query = this.addParamConditions(query, params);

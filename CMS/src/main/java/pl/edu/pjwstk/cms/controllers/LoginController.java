@@ -108,6 +108,10 @@ public class LoginController extends BaseController {
             System.out.println("photo");
         } catch (IOException io) {
             LOGGER.warning(io.getLocalizedMessage());
+        } catch (NullPointerException nullEx) {
+            LOGGER.warning(nullEx.getLocalizedMessage());
+            model = new ModelAndView("login");
+            model.addObject("error", "Brak użytkownika");
         }
         return model;
     }

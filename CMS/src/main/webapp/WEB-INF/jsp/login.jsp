@@ -9,6 +9,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <html>
     <body>
+        ${error}
         <c:if test="${user==null}">
             <div class="login">
                 Logowanie:<br/>

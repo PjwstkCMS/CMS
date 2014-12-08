@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -99,7 +100,7 @@ public class GenericDao<T extends DatabaseObject> {
         fields.add(fieldName);
         return selectRecordsWithFieldValuesForObjectList(fields, fieldValues);
     }
-    
+
     /**
      * Metdoa pobiera rekodrdy, dla których dana kolumna przyjmuje jedną z
      * wartości w liście.
@@ -180,9 +181,9 @@ public class GenericDao<T extends DatabaseObject> {
         l2.add(fieldValue + "");
         return selectRecordsWithFieldValues(l1, l2);
     }
-    
+
     public T selectForId(Object id) {
-        return selectSingleRecord("id", id);        
+        return selectSingleRecord("id", id);
     }
 
     /**
@@ -235,8 +236,7 @@ public class GenericDao<T extends DatabaseObject> {
                 Field[] fields = obj.getClass().getDeclaredFields();
                 for (Field f : fields) {
                     if (!"LOGGER".equals(f.getName())) {
-                        String fieldValue = "";
-                        fieldValue = resultSet.getString(f.getName());
+                        String fieldValue = resultSet.getString(f.getName());
                         f.setAccessible(true);
                         f.set(obj, fieldValue);
                     }

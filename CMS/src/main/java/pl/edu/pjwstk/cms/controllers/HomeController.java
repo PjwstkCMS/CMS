@@ -8,6 +8,8 @@ package pl.edu.pjwstk.cms.controllers;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,8 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.MessageDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
+import pl.edu.pjwstk.cms.models.Message;
 import pl.edu.pjwstk.cms.models.User;
 import pl.edu.pjwstk.cms.utils.HexConverter;
 import pl.edu.pjwstk.cms.utils.Utils;
@@ -47,8 +51,6 @@ public class HomeController extends BaseController {
     protected ModelAndView home(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         ModelAndView model = new ModelAndView("home");
-        UserDto userDto = (UserDto) request.getSession().getAttribute("user");
-        java.io.File file = Utils.getFileFromHash(userDto.getPhotoHash());
         return model;
     }
 
@@ -68,6 +70,46 @@ public class HomeController extends BaseController {
             InputStream in1 = new ByteArrayInputStream(buffer);
             IOUtils.copy(in1, response.getOutputStream());
         }
+    }
+
+    @RequestMapping(value = "getUserMessages")
+    public void getUserMessages(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        MessageDao mesDao = new MessageDao();
+        UserDto userDto = (UserDto) request.getSession().getAttribute("user");
+        UserDao userDao = new UserDao();
+        List<Message> messages = mesDao.selectRecordsWithFieldValues("to_userid", userDto.getId());
+        response.setContentType("text/HTML");
+        String content = "";
+        for (Message m : messages) {
+            User user = userDao.selectForId(m.getFrom_userid());
+            content += user.getLogin() + "<br/>";
+            content += m.getTimestamp() + "<br/>";
+            content += m.getContent() + "<br/>";
+            content += "<input type='button' ng-click='' value='Przeczytane'></input><br/>";
+            content += "<hr/><br/>";
+        }
+        response.getOutputStream().print(content);
+
+    }
+
+    @RequestMapping(value = "sendMessage", method = RequestMethod.POST)
+    public ModelAndView sendMessage(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView("home");
+        UserDto userDto = (UserDto) request.getSession().getAttribute("user");
+        //UserDao userDao = new UserDao();
+        //User fromUser = userDao.selectForId(userDto.getId());
+        String sendTo = request.getParameter("sendTo");
+        String content = request.getParameter("message");
+        Message m = new Message();
+        m.setFrom_userid(userDto.getId()+"");
+        m.setContent(content);
+        m.setTo_userid(sendTo);
+        Date today = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        m.setTimestamp(format.format(today));
+        MessageDao mesDao = new MessageDao();
+        mesDao.insert(m);
+        return model;
     }
 
     @RequestMapping(value = "uploadPhoto", method = RequestMethod.POST)

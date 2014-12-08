@@ -40,6 +40,8 @@
                         <form method="post" action="logout.htm">
                             <input type="submit" value="logout"/>
                         </form>
+                        <iframe src="getUserMessages.htm" width=450 height=100>
+                        </iframe>
                     </c:if>
                     <h1>
                         ${user.login}   

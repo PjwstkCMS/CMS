@@ -24,6 +24,7 @@ import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.EmploymentDao;
 import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.PositionDao;
+import pl.edu.pjwstk.cms.dao.TaskDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.EmployeeDto;
@@ -132,12 +133,16 @@ public class EmployeeController extends BaseController {
         AddressDao addDao = new AddressDao();
         ContractDao conDao = new ContractDao();
         UserDao userDao = new UserDao();
+        TaskDao taskDao = new TaskDao();
         if (dto.getId() != null) {
             perDao.delete("id="+dto.getPersondataId());
             addDao.delete("persondataId="+dto.getPersondataId());
             userDao.delete("employeeId="+dto.getId());
             employDao.delete("employeeId="+dto.getId());
             conDao.updateFieldForAllElementsWithId(
+                    "employeeId", dto.getId() + "",
+                    "employeeId", "-1");
+            taskDao.updateFieldForAllElementsWithId(
                     "employeeId", dto.getId() + "",
                     "employeeId", "-1");
             empDao.delete("id="+dto.getId());

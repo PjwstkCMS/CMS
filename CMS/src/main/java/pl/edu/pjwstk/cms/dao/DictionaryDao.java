@@ -29,6 +29,10 @@ public class DictionaryDao extends GenericDao<Dictionary>{
         return getDictionaryTypeContent("1");
     }
     
+    public List<Dictionary> getTaskPriorityTypes(){
+        return getDictionaryTypeContent("4");
+    }
+    
     public List<Dictionary> getDictionaryTypeContent(String type) {
         String query = "SELECT id, value, dictTypeId, description ";
         query += "FROM dictionary WHERE dictTypeId = ";

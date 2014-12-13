@@ -110,9 +110,24 @@ public class GenericDao<T extends DatabaseObject> {
      * @return
      */
     public List<T> selectRecordsWithFieldValueForStrings(String fieldName, List<String> fieldValues) {
-        List<String> fields = new ArrayList<>();
-        fields.add(fieldName);
-        return selectRecordsWithFieldValues(fields, fieldValues);
+        String className = modelClass.getSimpleName().toLowerCase();
+        String query = "SELECT * ";
+        query += "FROM " + className + " ";
+        if (fieldValues.size() == 0) {
+
+        } else {
+            query += "WHERE ";
+            for (int i = 0; i < fieldValues.size(); i++) {
+                if (i < fieldValues.size() && i > 0) {
+                    query += " OR ";
+                } else {
+                    query += " ";
+                }
+                query += fieldName + "='" + fieldValues.get(i) + "'";
+            }
+        }
+        System.out.println("DEBUG:" + query);
+        return selectForQuery(query);
     }
 
     /**

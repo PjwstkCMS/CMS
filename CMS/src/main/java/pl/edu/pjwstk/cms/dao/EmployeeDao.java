@@ -25,17 +25,36 @@ public class EmployeeDao extends GenericDao<Employee>{
         super(Employee.class);
     }
     public List<EmployeeDto> getEmployeeDtoList() {
-        return getEmployeeDtoList(new HashMap<String, List<String>>());
+        return getEmployeeDtoList(-1L);
     }
     
-    public List<EmployeeDto> getEmployeeDtoList(Map<String, List<String>> params) {
+    public List<EmployeeDto> getManagerEmployeesDtoList(Long managerId){
+        return getEmployeeDtoList(managerId);
+    }
+    
+    public List<EmployeeDto> getEmployeeDtoList(Long manager) {
         String query = "SELECT emp.departmentId as departmentId, emp.id as id, emp.persondataId as persondataId, "
                 + "emp.positionId as positionId, emp.salary as salary ";
         query += "FROM employee as emp ";
-        if(!params.isEmpty()) {
-            query += "WHERE";
-            query = this.addParamConditions(query, params);
+        
+        DepartmentDao depDao = new DepartmentDao();
+        List<Department> deps = depDao.selectAll();
+        
+        List<Department> managDep = getManagerDepartments(deps, manager+"");
+        if(managDep.size() > 0){
+            query +="WHERE";
+            for(int i=0; i<managDep.size();i++){
+                if (i < managDep.size() && i > 0) {
+                    query += " OR ";
+                } else {
+                    query += " ";
+                }
+                query += "departmentId='" + managDep.get(i) + "'";
+            
+            }
+            
         }
+        
         ResultSet set = this.connectionManager.select(query);
         PersonDataDao personDao = new PersonDataDao();
         CardDao carDao = new CardDao();
@@ -43,8 +62,7 @@ public class EmployeeDao extends GenericDao<Employee>{
         List<EmployeeDto> empDtos = new ArrayList<>();
         List<PersonData> persons = personDao.selectAll();
         
-        DepartmentDao depDao = new DepartmentDao();
-        List<Department> deps = depDao.selectAll();
+        
         
         PositionDao posDao = new PositionDao();
         List<Position> pos = posDao.selectAll();
@@ -122,5 +140,15 @@ public class EmployeeDao extends GenericDao<Employee>{
             }
         }
         return null;
+    }
+    
+    private List<Department> getManagerDepartments(List<Department> departments, String managerId) {
+        List<Department> dep = new ArrayList();
+        for (Department c : departments) {
+            if(Long.parseLong(c.getManagerId())== Long.parseLong(managerId)) {
+                dep.add(c);
+            }
+        }
+        return dep;
     }
 }

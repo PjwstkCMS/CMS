@@ -17,10 +17,12 @@ function TerminalListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.objectsName = "terminals";
     $scope.attributes = [];
     $scope.attributes[0] = 'description';
+    $scope.attributes[1] = 'mac';
     
     $scope.editValues = [];
     $scope.editValues[0] = {0:'id', 1:false};
     $scope.editValues[1] = {0:'description',1:true};
+    $scope.editValues[2] = {0:'mac',1:true};
         
     $scope.get = saveEditDelete.get($http, '/CMS/terminal/terminals.htm', $scope);
     var loadDataPromise = $scope.get;

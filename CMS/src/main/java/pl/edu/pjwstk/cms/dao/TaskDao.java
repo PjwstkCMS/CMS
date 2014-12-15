@@ -26,22 +26,22 @@ public class TaskDao extends GenericDao<Task>{
         super(Task.class);
     }
     public List<TaskDto> getTaskDtoList() {
-        return getTaskDtoList(-1L);
+        return getTaskDtoList("");
     }
     
     public List<TaskDto> getManagerTaskDtoList(Long managerId) {
-        return getTaskDtoList(managerId);
+        return getTaskDtoList("WHERE managerId='"+managerId +"'");
     }
     
+    public List<TaskDto> getEmployeeTaskDtoList(Long employeeId){
+        return getTaskDtoList("WHERE employeeId='"+employeeId +"'");
+    }
     
-    public List<TaskDto> getTaskDtoList(Long managerId) {
+    public List<TaskDto> getTaskDtoList(String param) {
         String query = "SELECT id, employeeId, managerId, startDate, closeDate, finalisationDate, description, dictId ";
         query += "FROM task as task ";
         
-        if(managerId > 0){
-            query +="WHERE managerId='"+managerId +"'";
-        }
-        
+        query +=param;
         
         ResultSet set = this.connectionManager.select(query);
         List<TaskDto> conDtos = new ArrayList<>();

@@ -1,7 +1,9 @@
 package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,6 +32,8 @@ import pl.edu.pjwstk.cms.utils.Utils;
 
 @Controller
 public class TaskController extends BaseController{
+    
+    private final static Logger LOGGER = Logger.getLogger(TaskController.class.getName());
 
     public TaskController() {
         super("ManageTasks","all");
@@ -59,9 +63,18 @@ public class TaskController extends BaseController{
         
         UserDto us = (UserDto)session.getAttribute("user");
         Long empId = us.getEmployeeId();
+        
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("employees", empDao.getManagerEmployeesDtoList(empId));
-        initData.put("tasks", taskDao.getTaskDtoList(empId));
+        
+        List<String> privs = us.getPrivilegeKeyCodes();
+        if(privs.contains("all")){
+            initData.put("employees", empDao.getEmployeeDtoList());
+            initData.put("tasks", taskDao.getTaskDtoList());
+        }else{
+            initData.put("employees", empDao.getManagerEmployeesDtoList(empId));
+            initData.put("tasks", taskDao.getManagerTaskDtoList(empId));
+        }
+        
         initData.put("dictionaries",dictDao.getTaskPriorityTypes());
         initData.put("managerId",empId);
         

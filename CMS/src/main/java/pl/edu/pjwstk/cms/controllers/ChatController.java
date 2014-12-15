@@ -5,8 +5,8 @@
  */
 package pl.edu.pjwstk.cms.controllers;
 
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static javax.swing.UIManager.put;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,12 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.DictionaryDao;
 import pl.edu.pjwstk.cms.dao.MessageDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
-import pl.edu.pjwstk.cms.dto.DictionaryDto;
+import pl.edu.pjwstk.cms.dto.MessageDto;
 import pl.edu.pjwstk.cms.dto.UserDto;
-import pl.edu.pjwstk.cms.models.Dictionary;
 import pl.edu.pjwstk.cms.models.Message;
 import pl.edu.pjwstk.cms.utils.Utils;
 
@@ -76,16 +75,22 @@ public class ChatController extends BaseController {
         UserDao userDao = new UserDao();
         MessageDao mesDao = new MessageDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        List<Message> messages = mesDao.selectRecordsWithFieldValues("to_userid", userDto.getId());
+        Map<String, List<String>> params = new HashMap<>();
+        List<String> paramValues = new ArrayList<>();
+        paramValues.add(userDto.getId()+"");
+        params.put("to_userid", paramValues);
+        List<MessageDto> messages = mesDao.getMessageDtos(params);
         initData.put("messages", messages);
+        initData.put("users", userDao.getUserDtos());
         return Utils.createResponseEntity(session, initData);
     }
 
     @RequestMapping(value = "/messages/:message")
     @ResponseBody
     ResponseEntity<String> saveData(@RequestBody String message, HttpSession session) {
-        Message actualMessage = (Message) Utils.convertJSONStringToObject(message, "message", Message.class);
+        MessageDto dto = (MessageDto) Utils.convertJSONStringToObject(message, "message", MessageDto.class);
         MessageDao msgDao = new MessageDao();
+        Message actualMessage = msgDao.selectForId(dto.getId());
         actualMessage.setRead("1");
         msgDao.update(actualMessage);
         return null;

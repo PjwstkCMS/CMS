@@ -77,6 +77,10 @@
                             <a href="/CMS/employment.htm"><li id="nav0">Employment</li></a>
                                 </c:if>
                                 <c:if test="${user.privilegeKeyCodes.contains('all') || 
+                                              user.privilegeKeyCodes.contains('ViewTasks')}">
+                            <a href="/CMS/task.htm"><li id="nav0">Task</li></a>
+                                </c:if>
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || 
                                               user.privilegeKeyCodes.contains('DownloadFiles')}">
                             <a href="/CMS/fileList.htm"><li id="nav0">fileList</li></a>
                                 </c:if>

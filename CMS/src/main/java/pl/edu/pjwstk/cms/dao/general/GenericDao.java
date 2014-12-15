@@ -235,7 +235,9 @@ public class GenericDao<T extends DatabaseObject> {
                 T obj = (T) modelClass.newInstance();
                 Field[] fields = obj.getClass().getDeclaredFields();
                 for (Field f : fields) {
-                    if (!"LOGGER".equals(f.getName())) {
+                    if (!"LOGGER".equals(f.getName()) &&
+                            !"READ".equals(f.getName()) &&
+                            !"NOT_READ".equals(f.getName())) {
                         String fieldValue = resultSet.getString(f.getName());
                         f.setAccessible(true);
                         f.set(obj, fieldValue);

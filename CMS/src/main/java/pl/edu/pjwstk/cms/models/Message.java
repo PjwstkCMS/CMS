@@ -5,6 +5,7 @@
  */
 package pl.edu.pjwstk.cms.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.general.DatabaseObject;
 
@@ -16,11 +17,16 @@ public class Message extends DatabaseObject{
     
     private final static Logger LOGGER = Logger.getLogger(Log.class.getName());
     
+    //@JsonIgnore
+    //public final static String NOT_READ = "0";
+    //@JsonIgnore
+    //public final static String READ = "1";
+    
     private String timestamp;
     private String from_userid;
     private String to_userid;
     private String content;
-    private String read;
+    private String ifread;
     
     public Message() {
         
@@ -59,11 +65,23 @@ public class Message extends DatabaseObject{
     }
 
     public String getRead() {
-        return read;
+        return ifread;
     }
 
     public void setRead(String read) {
-        this.read = read;
+        this.ifread = read;
+    }
+    
+    public boolean getBooleanRead() {
+        return !"0".equals(ifread);
+    }
+    
+    public void setBooleanRead(Boolean bool) {
+        if(bool) {
+            ifread = "1";
+        } else {
+            ifread = "0'";
+        }
     }
     
     

@@ -11,8 +11,9 @@
 
 <html >
     <head>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script> 
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script> 
         <script src="/CMS/resources/js/services.js"></script>  
+        <script src="/CMS/resources/js/resourceManagment/chatListCtrl.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>HR System</title>        
     </head>
@@ -40,8 +41,9 @@
                         <form method="post" action="logout.htm">
                             <input type="submit" value="logout"/>
                         </form>
-                        <iframe src="getUserMessages.htm" width=450 height=100>
-                        </iframe>
+                        <div ng-init="showChat=true" style="background-color:red" ng-click="showChat=!showChat">Pokaż czat</div>
+                        <div ng-show="showChat"
+                             width=450 height=100 ng-include='"getUserMessages.htm"'></div>
                     </c:if>
                     <h1>
                         ${user.login}   

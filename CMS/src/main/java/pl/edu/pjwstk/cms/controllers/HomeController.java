@@ -71,27 +71,7 @@ public class HomeController extends BaseController {
             IOUtils.copy(in1, response.getOutputStream());
         }
     }
-
-    @RequestMapping(value = "getUserMessages")
-    public void getUserMessages(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        MessageDao mesDao = new MessageDao();
-        UserDto userDto = (UserDto) request.getSession().getAttribute("user");
-        UserDao userDao = new UserDao();
-        List<Message> messages = mesDao.selectRecordsWithFieldValues("to_userid", userDto.getId());
-        response.setContentType("text/HTML");
-        String content = "";
-        for (Message m : messages) {
-            User user = userDao.selectForId(m.getFrom_userid());
-            content += user.getLogin() + "<br/>";
-            content += m.getTimestamp() + "<br/>";
-            content += m.getContent() + "<br/>";
-            content += "<input type='button' ng-click='' value='Przeczytane'></input><br/>";
-            content += "<hr/><br/>";
-        }
-        response.getOutputStream().print(content);
-
-    }
-
+    
     @RequestMapping(value = "sendMessage", method = RequestMethod.POST)
     public ModelAndView sendMessage(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView("home");
@@ -104,6 +84,7 @@ public class HomeController extends BaseController {
         m.setFrom_userid(userDto.getId()+"");
         m.setContent(content);
         m.setTo_userid(sendTo);
+        m.setRead("0");
         Date today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         m.setTimestamp(format.format(today));

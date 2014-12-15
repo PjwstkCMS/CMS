@@ -242,7 +242,8 @@ cmsModule.factory('columnDesc', function () {
                 'streetName': "Ulica",
                 'streetNumber': "Numer",
                 'apartmentNumber': "Lokal",
-                'postalCode': "Kod"
+                'postalCode': "Kod",
+                'mac': "MAC Adres"
 
             };
 

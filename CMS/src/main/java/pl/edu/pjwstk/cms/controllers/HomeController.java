@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.edu.pjwstk.cms.controllers;
 
 import java.io.ByteArrayInputStream;
@@ -10,22 +5,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.MessageDao;
+import pl.edu.pjwstk.cms.dao.TaskDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.models.Message;
@@ -72,6 +74,20 @@ public class HomeController extends BaseController {
         }
     }
     
+    @RequestMapping(value = "getUserTasks")
+    public void getUserTasks(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/HTML");
+        TaskDao taskDao = new TaskDao();
+        UserDto userDto = (UserDto) request.getSession().getAttribute("user");
+        Long empId = userDto.getEmployeeId();
+        
+        Map<String, Object> initData = new HashMap<String, Object>();
+        initData.put("tasks", taskDao.getEmployeeTaskDtoList(empId));
+        response.getOutputStream().print(Utils.convertOMapToJSON(initData));
+        
+
+    }
+
     @RequestMapping(value = "sendMessage", method = RequestMethod.POST)
     public ModelAndView sendMessage(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView("home");
@@ -84,7 +100,6 @@ public class HomeController extends BaseController {
         m.setFrom_userid(userDto.getId()+"");
         m.setContent(content);
         m.setTo_userid(sendTo);
-        m.setRead("0");
         Date today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         m.setTimestamp(format.format(today));

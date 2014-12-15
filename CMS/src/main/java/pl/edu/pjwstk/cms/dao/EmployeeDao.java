@@ -32,7 +32,7 @@ public class EmployeeDao extends GenericDao<Employee>{
         return getEmployeeDtoList(managerId);
     }
     
-    public List<EmployeeDto> getEmployeeDtoList(Long manager) {
+    private List<EmployeeDto> getEmployeeDtoList(Long manager) {
         String query = "SELECT emp.departmentId as departmentId, emp.id as id, emp.persondataId as persondataId, "
                 + "emp.positionId as positionId, emp.salary as salary ";
         query += "FROM employee as emp ";

@@ -66,11 +66,13 @@ public class TerminalController extends BaseController {
         if(dto.getId() != null ){            
             ter = terDao.selectRecordsWithFieldValues("id", dto.getId()).get(0);
             ter.setDescription(dto.getDescription());
+            ter.setMac(dto.getMac());
             terDao.update(ter);
             data.put("id", dto.getId());
             return Utils.createResponseEntity(session, data);
         } else {            
             ter.setDescription(dto.getDescription());
+            ter.setMac(dto.getMac());
             data.put("id", terDao.insert(ter));
             return Utils.createResponseEntity(session, data);
         }

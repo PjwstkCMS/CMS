@@ -13,6 +13,7 @@ public class TerminalDto implements Serializable{
     
     private Long id;
     private String description;
+    private String mac;
 
     public Long getId() {
         return id;
@@ -28,6 +29,14 @@ public class TerminalDto implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getMac() {
+        return mac;
+    }
+
+    public void setMac(String mac) {
+        this.mac = mac;
     }
     
     

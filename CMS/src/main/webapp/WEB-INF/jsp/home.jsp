@@ -9,6 +9,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>    
     <jsp:body>
+        <script src="/CMS/resources/js/homeCtrl.js"></script>
         <h1>Hello World!</h1>        
         <form action="/CMS/uploadPhoto.htm" method="POST" enctype="multipart/form-data">
             Plik: <input type="file" name="file"/>
@@ -24,5 +25,10 @@
             <textarea name="message" rows="30" cols="100"></textarea>
             <input type="submit"/>
         </form>
+        <div ng-controller="HomeCtrl">
+            <t:dataTable/>
+            <input type="button" ng-click="done()" value="Done">
+            <input type="button" ng-click="undo()" value="Undo">
+        </div>
     </jsp:body>
 </t:general>

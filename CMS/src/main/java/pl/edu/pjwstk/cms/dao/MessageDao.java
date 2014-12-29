@@ -36,10 +36,12 @@ public class MessageDao extends GenericDao<Message> {
                 + "as toId, m.timestamp as stamp, m.content as content, m.ifread "
                 + "as ifread, u.login as fromLogin "
                 + "FROM message as m, user as u ";
-        if (!params.isEmpty()) {
-            query += "WHERE ";
+        query += "WHERE ";
+        if (!params.isEmpty()) {            
             query = this.addParamConditions(query, params);
+            query += " AND ";
         }
+        query += "to_userid=u.id";
         ResultSet set = connectionManager.select(query);
         try {
             while (set.next()) {

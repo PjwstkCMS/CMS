@@ -103,6 +103,7 @@ public class HomeController extends BaseController {
         Date today = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         m.setTimestamp(format.format(today));
+        m.setRead("0");
         MessageDao mesDao = new MessageDao();
         mesDao.insert(m);
         return model;

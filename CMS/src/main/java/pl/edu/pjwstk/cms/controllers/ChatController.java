@@ -81,7 +81,7 @@ public class ChatController extends BaseController {
         params.put("to_userid", paramValues);
         List<MessageDto> messages = mesDao.getMessageDtos(params);
         initData.put("messages", messages);
-        initData.put("users", userDao.getUserDtos());
+        initData.put("users", userDao.getUserNames());
         return Utils.createResponseEntity(session, initData);
     }
 

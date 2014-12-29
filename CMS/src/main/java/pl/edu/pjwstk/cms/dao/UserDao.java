@@ -31,12 +31,6 @@ public class UserDao extends GenericDao<User> {
         query += "FROM user;";
 
         ResultSet resultSet = this.connectionManager.select(query);
-
-        EmployeeDao empDao = new EmployeeDao();
-        List<Employee> employees = empDao.selectAll();
-        PersonDataDao personDao = new PersonDataDao();
-        List<PersonData> persons = personDao.selectAll();
-
         PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
         List<PrivilegeGroup> groups = groupDao.selectAll();
 

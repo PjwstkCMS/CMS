@@ -1,10 +1,8 @@
-package general;
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+package general;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,13 +20,15 @@ import java.util.logging.Logger;
  */
 public class ConnectionManager {
 
-    public static String staticUrl = "jdbc:mysql://hrsystem.noip.pl/hrsystem?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
-    public static String staticLogin = "pawelek";
-    public static String staticPass = "leofram";
+    public static String staticUrl = "jdbc:mysql://sql.s20.vdl.pl/hrcms_glowna?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
+    public static String staticLogin = "hrcms_system";
+    public static String staticPass = "hrsystem";
     
     public static String staticUrl2 = "jdbc:mysql://famalis.no-ip.info/hrsystem?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
-    public static String staticLogin2 = "hrsystem";
-    public static String staticPass2 = "CmUqwnNdb5HQEnYW";
+    public static String staticLogin2 = "Sergio";
+    public static String staticPass2 = "quovadis1";
+    
+    public static int queryTimeout = 5;
     
     private final static Logger LOGGER = Logger.getLogger("utils.ConnectionManager");
     private String url;
@@ -152,6 +152,7 @@ public class ConnectionManager {
         LOGGER.info("Execute query - "+query);
         try {
             Statement s = getConnection().createStatement();
+            s.setQueryTimeout(queryTimeout);
             rs = s.executeQuery(query);            
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();

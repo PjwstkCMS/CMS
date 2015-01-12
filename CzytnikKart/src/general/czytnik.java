@@ -13,6 +13,11 @@ import java.net.NetworkInterface;
 import java.util.Enumeration;
 import java.util.TooManyListenersException;
 
+//Większość tego kodu zostało po prostu wzięte ze strony arduino. To co istotne
+//jest na samym końcu.
+
+
+
 public class czytnik implements SerialPortEventListener {
 
     SerialPort serialPort;
@@ -101,9 +106,16 @@ public class czytnik implements SerialPortEventListener {
      * @param oEvent
      */
     @Override
+    /* Ta metoda sprawdza czy urządzenie dostało jakieś dane, czyli czy 
+    ktoś zbliżył kartę. Metoda jest zapętlona w nieskończoność.
+    */
     public synchronized void serialEvent(SerialPortEvent oEvent) {
-        if ((startPause + 500) <= System.currentTimeMillis()) {
+        if ((startPause + 500) <= System.currentTimeMillis()) { 
+            //Ustawiamy aby urządzenie sprawdzało co pół sekundy a nie cały czas
+            //aby zapobiec kilkukrotnemu odczytaniu tej samej karty przy jednym
+            //zbliżeniu
             if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+                //Sprawdza czy są dane (czy jest karta)
                 try {
                     int available = input.available();
                     byte chunk[] = new byte[available];
@@ -116,6 +128,7 @@ public class czytnik implements SerialPortEventListener {
                     System.err.println(e.toString());
                 }
                 if (print.length() >= 26) {
+                    //Tutaj następuje zarejestrowanie
                     licznik++;
                     startPause = System.currentTimeMillis();
                     System.out.println(print);
@@ -129,6 +142,10 @@ public class czytnik implements SerialPortEventListener {
     }
 
     public static void main(String[] args) throws Exception {
+        /*
+        Main po to, żeby uruchomić i utrzymać uruchomionym kod. Większość kodu to
+        outprinty do konsoli do celów debugowych
+        */
         try {
                         Enumeration<NetworkInterface> networks = NetworkInterface.getNetworkInterfaces();
                         while (networks.hasMoreElements()) {

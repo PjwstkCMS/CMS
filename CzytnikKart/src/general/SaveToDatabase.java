@@ -21,6 +21,11 @@ import model.Terminal;
  *
  * @author pawelek
  */
+
+/*
+Klasa zawierająca metody służące do zapisywania danych zeskanowania karty do bazy
+danych. Nazwy metod mówią same za siebie.
+*/
 public class SaveToDatabase {
 
     private static String getTimestamp() {

@@ -27,13 +27,7 @@ Klasa zawierająca metody służące do zapisywania danych zeskanowania karty do
 danych. Nazwy metod mówią same za siebie.
 */
 public class SaveToDatabase {
-
-    private static String getTimestamp() {
-        Date today = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        return sdf.format(today);
-    }
-
+    
     public static boolean sendToDataDB(String cardNum) {
         CardDao carDao = new CardDao();
         List<Card> cards = carDao.selectRecordsWithFieldValues("number", cardNum);
@@ -74,8 +68,7 @@ public class SaveToDatabase {
         terminal = terminals.get(0);
         Log log = new Log();
         log.setEmployeeId(userCard.getEmployeeId());
-        log.setTerminalId(terminal.getId()+"");        
-        log.setTimestamp(getTimestamp());
+        log.setTerminalId(terminal.getId()+""); 
         LogDao logDao = new LogDao();
         logDao.insert(log);
 

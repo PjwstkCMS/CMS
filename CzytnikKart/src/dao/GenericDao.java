@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.DatabaseObject;
 
+
+
 /**
  *
  * @author Sergio
@@ -33,7 +35,7 @@ public class GenericDao<T extends DatabaseObject> {
             try {
                 connectionManager = ConnectionManager.getConnectionManager();
                 List<T> selectRecordsWithFieldValues = this.selectAll();
-                server = "Pawełkowy serwer";
+                server = "Wynajęty serwer";
                 if (selectRecordsWithFieldValues.isEmpty()) {
                     throw new Exception();
                 }
@@ -99,7 +101,7 @@ public class GenericDao<T extends DatabaseObject> {
         fields.add(fieldName);
         return selectRecordsWithFieldValuesForObjectList(fields, fieldValues);
     }
-    
+
     /**
      * Metdoa pobiera rekodrdy, dla których dana kolumna przyjmuje jedną z
      * wartości w liście.
@@ -109,9 +111,24 @@ public class GenericDao<T extends DatabaseObject> {
      * @return
      */
     public List<T> selectRecordsWithFieldValueForStrings(String fieldName, List<String> fieldValues) {
-        List<String> fields = new ArrayList<>();
-        fields.add(fieldName);
-        return selectRecordsWithFieldValues(fields, fieldValues);
+        String className = modelClass.getSimpleName().toLowerCase();
+        String query = "SELECT * ";
+        query += "FROM " + className + " ";
+        if (fieldValues.size() == 0) {
+
+        } else {
+            query += "WHERE ";
+            for (int i = 0; i < fieldValues.size(); i++) {
+                if (i < fieldValues.size() && i > 0) {
+                    query += " OR ";
+                } else {
+                    query += " ";
+                }
+                query += fieldName + "='" + fieldValues.get(i) + "'";
+            }
+        }
+        System.out.println("DEBUG:" + query);
+        return selectForQuery(query);
     }
 
     /**
@@ -181,6 +198,10 @@ public class GenericDao<T extends DatabaseObject> {
         return selectRecordsWithFieldValues(l1, l2);
     }
 
+    public T selectForId(Object id) {
+        return selectSingleRecord("id", id);
+    }
+
     /**
      * Metoda pobiera rekordy, gdzie dane pole przyjmuje daną wartość
      *
@@ -206,7 +227,7 @@ public class GenericDao<T extends DatabaseObject> {
      * @return
      */
     public List<T> selectRecordsWithFieldValues(List<String> fieldNames, List<String> fieldValues) {
-        String className = modelClass.getSimpleName();
+        String className = modelClass.getSimpleName().toLowerCase();
         String query = "SELECT * ";
         query += "FROM " + className + " ";
         if (fieldValues.size() == 0) {
@@ -230,9 +251,10 @@ public class GenericDao<T extends DatabaseObject> {
                 T obj = (T) modelClass.newInstance();
                 Field[] fields = obj.getClass().getDeclaredFields();
                 for (Field f : fields) {
-                    if (!"LOGGER".equals(f.getName())) {
-                        String fieldValue = "";
-                        fieldValue = resultSet.getString(f.getName());
+                    if (!"LOGGER".equals(f.getName()) &&
+                            !"READ".equals(f.getName()) &&
+                            !"NOT_READ".equals(f.getName())) {
+                        String fieldValue = resultSet.getString(f.getName());
                         f.setAccessible(true);
                         f.set(obj, fieldValue);
                     }
@@ -298,7 +320,7 @@ public class GenericDao<T extends DatabaseObject> {
      */
     public List<T> selectForFieldsWithMultiplePossibileValues(Map<String, List<Object>> map) {
         String query = "SELECT *";
-        query += " FROM " + modelClass.getSimpleName() + " WHERE ";
+        query += " FROM " + modelClass.getSimpleName().toLowerCase() + " WHERE ";
         int iKey = 0;
         for (String field : map.keySet()) {
             iKey++;
@@ -331,7 +353,7 @@ public class GenericDao<T extends DatabaseObject> {
      * @return
      */
     public boolean update(String conditions, String... sets) {
-        String query = "UPDATE " + modelClass.getSimpleName() + " SET ";
+        String query = "UPDATE " + modelClass.getSimpleName().toLowerCase() + " SET ";
         for (int i = 0; i < sets.length; i++) {
             query += sets[i];
             if (i < sets.length - 1) {
@@ -352,7 +374,7 @@ public class GenericDao<T extends DatabaseObject> {
 
     public Long insert(T obj) {
         try {
-            String query = "INSERT INTO " + obj.getClass().getSimpleName() + " (";
+            String query = "INSERT INTO " + obj.getClass().getSimpleName().toLowerCase() + " (";
             Field[] fields = obj.getClass().getDeclaredFields();
             List<Field> list = new ArrayList<Field>(Arrays.asList(fields));
             for (Field f : list) {
@@ -385,7 +407,7 @@ public class GenericDao<T extends DatabaseObject> {
             }
             query += ") ";
             if (connectionManager.update(query)) {
-                ResultSet set = connectionManager.select("SELECT id FROM " + obj.getClass().getSimpleName());
+                ResultSet set = connectionManager.select("SELECT id FROM " + obj.getClass().getSimpleName().toLowerCase());
                 try {
                     set.last();
                     return set.getLong("id");
@@ -438,7 +460,7 @@ public class GenericDao<T extends DatabaseObject> {
      * @return
      */
     public boolean delete(String conditions) {
-        String query = "DELETE FROM " + modelClass.getSimpleName()
+        String query = "DELETE FROM " + modelClass.getSimpleName().toLowerCase()
                 + " WHERE " + conditions;
         return connectionManager.update(query);
     }

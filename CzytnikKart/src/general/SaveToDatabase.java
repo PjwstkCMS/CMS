@@ -45,9 +45,10 @@ public class SaveToDatabase {
         }
         String macString;
         StringBuilder sb = new StringBuilder();
+        int counter = 0;
         try {
             Enumeration<NetworkInterface> networks = NetworkInterface.getNetworkInterfaces();
-            while (networks.hasMoreElements()) {
+            while (networks.hasMoreElements() && counter==0) {
                 NetworkInterface network = networks.nextElement();
                 byte[] mac = network.getHardwareAddress();
 
@@ -57,6 +58,7 @@ public class SaveToDatabase {
                         sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
                     }
                     System.out.println(sb.toString());
+                    counter++;
                 }
             }
         } catch (Exception e) {

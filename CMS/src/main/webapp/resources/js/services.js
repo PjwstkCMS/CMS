@@ -225,6 +225,8 @@ cmsModule.factory('columnDesc', function () {
                 'email': "Email",
                 'pesel': "Pesel",
                 'login': "Login",
+                'employeIdNum': "Id pracownika",
+                'password': "Hasło",
                 'salary': "Pensja",
                 'name': "Nazwa",
                 'description': "Opis",

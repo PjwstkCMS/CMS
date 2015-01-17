@@ -17,8 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
+import pl.edu.pjwstk.cms.dao.SystemConfigurationDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
+import pl.edu.pjwstk.cms.models.SystemConfiguration;
+import pl.edu.pjwstk.cms.models.User;
 import pl.edu.pjwstk.cms.utils.Utils;
 
 
@@ -45,7 +48,7 @@ public class UserController extends BaseController {
         return model;
     }
     
-     @RequestMapping(value = "/userList/users")
+    @RequestMapping(value = "/userList/users")
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
         UserDao userDao = new UserDao();
@@ -58,6 +61,44 @@ public class UserController extends BaseController {
         //List<UserDTO> userDtos = userDao.getUserWithConfig();
         return Utils.createResponseEntity(session, initData);
     }
+    
+    @RequestMapping(value = "/userList/save/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<String> saveData(@RequestBody String object, HttpSession session) {
+        UserDto userDto = (UserDto) Utils.convertJSONStringToObject(object, "object", UserDto.class);
+        UserDao userDao = new UserDao();
+        User user = new User();
+        Map<String, Object> data = new HashMap<>();
+            
+        user.setEmployeeId(userDto.getEmployeeId()+"");
+        user.setGroupId(userDto.getGroupId()+"");
+        user.setLogin(userDto.getLogin());
+        user.setPassword(userDto.getPassword());
+        data.put("id", userDao.insert(user));
+        return Utils.createResponseEntity(session, data);
+        
+        
+    }
+    
+    @RequestMapping(value = "/userList/resetPass/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<String> resetPassword(@RequestBody String object, HttpSession session) {
+        UserDto userDto = (UserDto) Utils.convertJSONStringToObject(object, "object", UserDto.class);
+        UserDao userDao = new UserDao();
+        User user = new User();
+        Map<String, Object> data = new HashMap<>();
+            
+        SystemConfigurationDao sysDao = new SystemConfigurationDao();
+        
+        SystemConfiguration sc = (SystemConfiguration) sysDao.selectSingleRecord("name", "DefaultUserPassword");
+        
+        user.setPassword(sc.getValue());
+            
+        userDao.update(user);
+        data.put("id", userDto.getId());
+        return Utils.createResponseEntity(session, data);
+    }
+    
      
     @RequestMapping(value = "/userList/delete/:object", method = RequestMethod.POST)
     public @ResponseBody

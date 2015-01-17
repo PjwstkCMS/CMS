@@ -12,6 +12,12 @@ function UserListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     $scope.attributes[1] = 'employee';
     $scope.attributes[2] = 'group';
     
+    $scope.editValues = [];
+    $scope.editValues[0] = {0: 'employeIdNum', 1: false};
+    $scope.editValues[1] = {0: 'login', 1: true};
+    $scope.editValues[2] = {0: 'password', 1: true};
+    $scope.editValues[3] = {0: 'groupId', 1: true};
+    
     $scope.additionalAttributes = [];
     $scope.additionalAttributes[0] = 'email';
     $scope.additionalAttributes[1] = 'phone';
@@ -20,6 +26,7 @@ function UserListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     
     $scope.selected = "";
     $scope.editMode = false;
+    $scope.newRecord = false;
     $scope.get = saveEditDelete.get($http, '/CMS/userList/users.htm', $scope);
     var loadDataPromise = $scope.get;
     
@@ -33,18 +40,52 @@ function UserListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
         }
     });
 
+    $scope.save = function() {
+        for (var i = 0; i<$scope.editValues.length; i++) {  
+            if($scope.editValues[i][1] && 
+               ($scope.selected[$scope.editValues[i][0]] == null || $scope.selected[$scope.editValues[i][0]] == "")){
+                alert("Sprawdź poprowność wprowadzonych danych");
+                return;
+            }
+        }
+        saveEditDelete.save($http, '/CMS/userList/save/:object.htm', $scope);
+        $scope.editMode = false;
+    };
+
     $scope.select = function(object) {
         if ($scope.selected == object) {
             saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
+            $scope.newRecord = false;
         } else {
             saveEditDelete.saveOldData($scope,object);
             $scope.selected = object;
+            $scope.newRecord = false;
         }
     }
 
+    $scope.cancel = function() {
+        saveEditDelete.restoreOldData($scope);
+        $scope.editMode = false;
+        $scope.selected = "";
+        $scope.newRecord = false;
+    };
+
     $scope.delete = function() {
         saveEditDelete.remove($http, '/CMS/userList/delete/:object.htm', $scope);
+    };
+    
+    $scope.resetPass = function() {
+        saveEditDelete.save($http, '/CMS/userList/resetPass/:object.htm', $scope);
+    };
+    
+    $scope.create = function() {
+        saveEditDelete.restoreOldData($scope);
+        $scope.selected = {'id':"",'employeeId':"","persondataId":"","groupId":"",
+            "login":"","password":"","employee":"","group":"","photoHash":""
+            ,"privilegeKeyCodes":[]};
+        $scope.editMode = true;
+        $scope.newRecord = true;
     };
     
     $scope.getGroupName = function(id) {
@@ -79,7 +120,7 @@ function UserListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
             }
             $scope.selected.group = $scope.groups[index].name;
         }
-        if(obj == 'employeeId'){
+        if(obj == 'employeeIdNum'){
             var index;
             for (var i = 0; i < $scope.employees.length; i++) {
                 if ($scope.employees[i].id == $scope.selected.employeeId) {

@@ -22,8 +22,8 @@
             <div class="createAccount">
                 Tworzenie konta:<br/>
                 <form method="post" action="createAccount.htm">
-                    Imię: <input type="text" name="name"/>
-                    Nazwisko: <input type="text" name="surname"/>
+                    Id Pracownika: <input type="text" name="employeeId"/>
+                    Grupa: <input type="text" name="group"/>
                     Login: <input type="text" name="login"/>
                     Hasło: <input type="password" name="password"/>
                     <input type="submit"/>

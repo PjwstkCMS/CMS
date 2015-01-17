@@ -71,6 +71,12 @@
                 <td ng-show="col[0] == 'login'">
                     {{columnDescription(col[0])}}: <input required="required" type="text" ng-model="${atr.object}.login"/> 
                 </td>
+                <td ng-show="col[0] == 'password'">
+                    {{columnDescription(col[0])}}: <input required="required" type="text" ng-model="${atr.object}.password"/> 
+                </td>
+                <td ng-show="col[0] == 'employeIdNum'">
+                    {{columnDescription(col[0])}}: <input required="required" type="text" ng-model="${atr.object}.employeeId" ng-change="selectAction('employeeIdNum')"/> 
+                </td>
                 <td ng-show="col[0] == 'mac'">
                     {{columnDescription(col[0])}}: <input required="required" ng-pattern="/^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/" maxlength="17" type="text" ng-model="${atr.object}.mac"/> 
                 </td>

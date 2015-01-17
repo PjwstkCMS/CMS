@@ -7,7 +7,21 @@
         <h1>User!</h1>
         <div ng-controller="UserListCtrl">
             <t:dataTable/>
-            <input ng-show="selected.id" type="button" ng-click="delete()" value="USUŃ"/>
+            <div ng-show="editMode && newRecord">
+                <t:editTable map="editValues" object="selected"/>
+            </div>
+            <hr/>
+            <div style="height: 50px">
+                <input ng-show="!editMode && !selected" type="button" ng-click="create()" value="NOWE">
+                <input ng-show="editMode" type="button" ng-click="save()" value="ZAPISZ">
+                <input ng-show="editMode" type="button" ng-click="cancel()" value="ANULUJ">
+                <input ng-show="selected.id" type="button" ng-click="delete()" value="USUŃ"/>
+                <input ng-show="selected.id" type="button" ng-click="resetPass()" value="Reset Password"/>
+            </div>
+
+            
+            
+            
         </div>
     </jsp:body>
 </t:general>

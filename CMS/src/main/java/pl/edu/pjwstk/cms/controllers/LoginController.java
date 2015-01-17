@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
+import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeKeyDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.models.Employee;
+import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.PrivilegeGroup;
 import pl.edu.pjwstk.cms.models.User;
 import pl.edu.pjwstk.cms.utils.HexConverter;
@@ -86,7 +88,9 @@ public class LoginController extends BaseController {
                 request.getSession().setAttribute("user", userDto);
                 request.getSession().setAttribute("userimage", file);
                 request.getSession().setAttribute("sendUsers", userDao.getUserNames());
-                String ssss = request.getServletPath();
+                PersonDataDao personDataDao = new PersonDataDao();
+                PersonData personData = personDataDao.selectSingleRecord("id", userDto.getPersondataId());
+                request.getSession().setAttribute("userData", personData);
                 model.addObject("loginMsg", "Welcome " + login + "!");
             } else {
                 model.addObject("loginMsg", "Wrong password.");

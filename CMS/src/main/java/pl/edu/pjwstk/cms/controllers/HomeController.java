@@ -12,25 +12,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.MessageDao;
+import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.TaskDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.models.Message;
+import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.User;
 import pl.edu.pjwstk.cms.utils.HexConverter;
 import pl.edu.pjwstk.cms.utils.Utils;
@@ -143,6 +141,50 @@ public class HomeController extends BaseController {
             io.printStackTrace();
         }
         request.getSession().setAttribute("user", userDto);
+        return model;
+    }
+    
+    @RequestMapping(value = "changeUserData", method = RequestMethod.POST)
+    public ModelAndView changeUserData(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView("home");
+        UserDto userDto = (UserDto) request.getSession().getAttribute("user");
+        //PersonData personData = (PersonData) request.getSession().getAttribute("userData");
+        //UserDao userDao = new UserDao();
+        //User fromUser = userDao.selectForId(userDto.getId());
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        PersonDataDao personDataDao = new PersonDataDao();
+        PersonData personData = personDataDao.selectSingleRecord("id", userDto.getPersondataId());
+        personData.setEmail(email);
+        personData.setPhone(phone);
+        personDataDao.update(personData);
+        request.getSession().setAttribute("userData", personData);
+        return model;
+    }
+    
+    @RequestMapping(value = "changeUserPassword", method = RequestMethod.POST)
+    public ModelAndView changeUserPassword(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView("home");
+        UserDto userDto = (UserDto) request.getSession().getAttribute("user");
+        //PersonData personData = (PersonData) request.getSession().getAttribute("userData");
+        UserDao userDao = new UserDao();
+        User user = userDao.selectForId(userDto.getId());
+        String oldPassword = request.getParameter("oldPassword");
+        String password1 = request.getParameter("password1");
+        String password2 = request.getParameter("password2");
+        if(userDto.getPassword().equals(oldPassword)) {
+            if(password1.equals(password2)) {
+                userDto.setPassword(password2);
+                user.setPassword(password2);
+                userDao.update(user);
+                request.getSession().setAttribute("user", userDto);
+            } else {
+                model.addObject("passwordChangeError", "Błąd nowego hasła");
+            }
+        } else {
+            model.addObject("passwordChangeError", "Stare hasło nieprawidłowe");            
+        }        
+        model.addObject("passwordChangeError", "Hasło zmienione");            
         return model;
     }
 

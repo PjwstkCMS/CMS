@@ -1,5 +1,6 @@
 package pl.edu.pjwstk.cms.models;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.general.DatabaseObject;
 
@@ -7,9 +8,9 @@ import pl.edu.pjwstk.cms.models.general.DatabaseObject;
  *
  * @author Sergio
  */
-public class PersonData extends DatabaseObject{
+public class PersonData extends DatabaseObject implements Serializable{
     
-    private final static Logger LOGGER = Logger.getLogger(Customer.class.getName()); 
+    private final static Logger LOGGER = Logger.getLogger(PersonData.class.getName()); 
     
     private String forename;
     private String surname;

@@ -15,6 +15,22 @@
             Plik: <input type="file" name="file"/>
             <input type="submit" value="Wyslij plik"/>
         </form>
+        <h3>Twoje dane</h3>
+        <form action="/CMS/changeUserData.htm" method="POST">
+            Imię: ${userData.forename}<br/>
+            Nazwisko: ${userData.surname}<br/>
+            E-Mail: <input type="text" name="email" value="${userData.email}"/><br/>
+            Numer telefonu: <input type="text" name="phone" value="${userData.phone}"/><br/>
+            <input type="submit" value="Zmień"/>
+        </form>
+        <h3>Zmiana hasła</h3>
+        <p style="color: red">${passwordChangeError}</p>
+        <form action="/CMS/changeUserPassword.htm" method="POST">
+            Stare hasło: <input type="password" name="oldPassword"/><br/>
+            Nowe hasło: <input type="password" name="password1"/><br/>
+            Potwierdź nowe hasło: <input type="password" name="password2"/><br/>
+            <input type="submit" value="Zmień"/>
+        </form>
         Wyślij wiadomość:
         <form action="sendMessage.htm" method="POST">
             <select name="sendTo">
@@ -29,6 +45,6 @@
             <t:dataTable/>
             <input type="button" ng-click="done()" value="Done">
             <input type="button" ng-click="undo()" value="Undo">
-        </div>
+        </div>                        
     </jsp:body>
 </t:general>

@@ -132,7 +132,11 @@ public class czytnik implements SerialPortEventListener {
                     licznik++;
                     startPause = System.currentTimeMillis();
                     System.out.println(print);
-                    SaveToDatabase.sendToDataDB(print);
+                    if(SaveToDatabase.sendToDataDB(print)) {
+                        System.out.println("Udało się!");
+                    } else {
+                        System.out.println("Nie znalazlem terminala.");
+                    }                    
                     print = "";
 
                 }

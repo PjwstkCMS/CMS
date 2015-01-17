@@ -10,6 +10,9 @@
             <div ng-show="editMode && newRecord">
                 <t:editTable map="editValues" object="selected"/>
             </div>
+            <div ng-hide="selected && selected.id">
+                <t:jsonOperations/>
+            </div>
         </div>
     </jsp:body>
 </t:general>

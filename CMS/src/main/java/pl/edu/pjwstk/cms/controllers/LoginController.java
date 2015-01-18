@@ -133,67 +133,23 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "createAccount", method = RequestMethod.POST)
     protected ModelAndView create(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-
-        String login = (String) request.getParameter("login");
+        ModelAndView model = new ModelAndView("login");
+        
+        String login = (String) request.getParameter("login");        
         String pass = (String) request.getParameter("password");
         String employeeId = (String) request.getParameter("employeeId");
         String group = (String) request.getParameter("group");
         String subject = "Account request";
         String body = "Id Pracownika: " + employeeId + "</br>Grupa: " + group + "</br> Login: " + login + "</br> Hasło " + pass;
         String username = "pjwstkhrsystem@vp.pl";
-        String password = "hrsystem123";
-        String host = "smtp.poczta.onet.pl";
-        ModelAndView model = new ModelAndView("login");
-
-        try {
-            Properties prop = System.getProperties();
-            Authenticator auth = new myAuthenticator();
-            prop.put("mail.smtp.host", host);
-            prop.put("mail.smtp.user", username);
-            prop.put("mail.smtp.password", password);
-            prop.put("mail.smtp.auth", "true");
-            prop.put("mail.smtp.starttls.enable", "true");
-            prop.put("mail.smtp.port", 587);
-
-            Session session = Session.getInstance(prop, auth);
-
-            session.setDebug(true);
-            Message message = new MimeMessage(session);
-            //wstawienie treści
-            //message.setContent("tresc","text/plain");
-            message.setText(body);
-            //wstawienie tytułu
-            message.setSubject(subject);
-            Address address = new InternetAddress(username);
-            Address addressOdbiorcy = new InternetAddress(username);
-
-            //wstawienie adresu nadawcy do wiadomości
-            message.setFrom(address);
-            //wstawienie adresu odbiorcy
-            message.addRecipient(Message.RecipientType.TO, addressOdbiorcy);
-            message.saveChanges();
-            Transport transport = session.getTransport("smtp");
-            transport.connect(host, username, password);
-            transport.sendMessage(message, message.getAllRecipients());
-
-            transport.close();
-
-        } catch (Exception ex) {
-            LOGGER.warning(ex.getLocalizedMessage());
-            //Logger.getLogger(mailWyslanie.class.getName()).log(Level.SEVERE, null, ex);
+        
+        
+        if(Utils.sendMail(username, body, subject)) {
+            model.addObject("sendStatus", "Wysłane");
+        } else {
+            model.addObject("sendStatus", "Niewysłane");
         }
 
         return model;
-    }
-}
-
-class myAuthenticator extends Authenticator {
-
-    String username = "pjwstkhrsystem@vp.pl";
-    String password = "hrsystem123";
-
-    @Override
-    public PasswordAuthentication getPasswordAuthentication() {
-        return new PasswordAuthentication(username, password);
     }
 }

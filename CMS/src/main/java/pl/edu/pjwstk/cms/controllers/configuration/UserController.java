@@ -1,5 +1,7 @@
 package pl.edu.pjwstk.cms.controllers.configuration;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -16,11 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
+import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
-import pl.edu.pjwstk.cms.dao.SystemConfigurationDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
-import pl.edu.pjwstk.cms.models.SystemConfiguration;
+import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.User;
 import pl.edu.pjwstk.cms.utils.Utils;
 
@@ -82,18 +84,27 @@ public class UserController extends BaseController {
     
     @RequestMapping(value = "/userList/resetPass/:object", method = RequestMethod.POST)
     public @ResponseBody
-    ResponseEntity<String> resetPassword(@RequestBody String object, HttpSession session) {
+    ResponseEntity<String> resetPassword(@RequestBody String object, HttpSession session, HttpServletRequest request) {
         UserDto userDto = (UserDto) Utils.convertJSONStringToObject(object, "object", UserDto.class);
         UserDao userDao = new UserDao();
-        User user = new User();
+        User user = userDao.selectForId(userDto.getId());
+        PersonDataDao personDataDao = new PersonDataDao();
+        PersonData userData = personDataDao.getPersonDataForUser(userDto.getId());
         Map<String, Object> data = new HashMap<>();
-            
-        SystemConfigurationDao sysDao = new SystemConfigurationDao();
         
-        SystemConfiguration sc = (SystemConfiguration) sysDao.selectSingleRecord("name", "DefaultUserPassword");
+        SecureRandom random = new SecureRandom();
+        String newPassword =  new BigInteger(130, random).toString(32);
         
-        user.setPassword(sc.getValue());
-            
+        String subject = "Reset hasła";
+        String body = "Nowe hasło: "+newPassword;
+        
+        if(Utils.sendMail(userData.getEmail(), body, subject)) {
+           LOGGER.info("Email sent");
+        } else {
+            LOGGER.warning("Email not sent");
+        }
+        
+        user.setPassword(newPassword);            
         userDao.update(user);
         data.put("id", userDto.getId());
         return Utils.createResponseEntity(session, data);

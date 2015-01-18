@@ -13,8 +13,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,6 +31,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.dao.SystemConfigurationDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.models.SystemConfiguration;
@@ -201,5 +211,62 @@ public abstract class Utils {
         fos.flush();
         fos.close();
         return someFile;
+    }
+
+    public static boolean sendMail(String recipent, String body, String subject) {
+
+        String username = "pjwstkhrsystem@vp.pl";
+        String password = "hrsystem123";
+        String host = "smtp.poczta.onet.pl";
+        
+        try {
+            Properties prop = System.getProperties();
+            Authenticator auth = new myAuthenticator();
+            prop.put("mail.smtp.host", host);
+            prop.put("mail.smtp.user", username);
+            prop.put("mail.smtp.password", password);
+            prop.put("mail.smtp.auth", "true");
+            prop.put("mail.smtp.starttls.enable", "true");
+            prop.put("mail.smtp.port", 587);
+
+            Session session = Session.getInstance(prop, auth);
+
+            session.setDebug(true);
+            Message message = new MimeMessage(session);
+            //wstawienie treści
+            //message.setContent("tresc","text/plain");
+            message.setText(body);
+            //wstawienie tytułu
+            message.setSubject(subject);
+            Address address = new InternetAddress(username);
+            Address addressOdbiorcy = new InternetAddress(recipent);
+
+            //wstawienie adresu nadawcy do wiadomości
+            message.setFrom(address);
+            //wstawienie adresu odbiorcy
+            message.addRecipient(Message.RecipientType.TO, addressOdbiorcy);
+            message.saveChanges();
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, username, password);
+            transport.sendMessage(message, message.getAllRecipients());
+
+            transport.close();
+
+        } catch (Exception ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
+}
+
+class myAuthenticator extends Authenticator {
+
+    String username = "pjwstkhrsystem@vp.pl";
+    String password = "hrsystem123";
+
+    @Override
+    public PasswordAuthentication getPasswordAuthentication() {
+        return new PasswordAuthentication(username, password);
     }
 }

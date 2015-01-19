@@ -137,10 +137,12 @@ public class LoginController extends BaseController {
         
         String login = (String) request.getParameter("login");        
         String pass = (String) request.getParameter("password");
-        String employeeId = (String) request.getParameter("employeeId");
-        String group = (String) request.getParameter("group");
+        //String employeeId = (String) request.getParameter("employeeId");
+        //String group = (String) request.getParameter("group");
+        String forename = (String) request.getParameter("forename");
+        String surname = (String) request.getParameter("surname");
         String subject = "Account request";
-        String body = "Id Pracownika: " + employeeId + "</br>Grupa: " + group + "</br> Login: " + login + "</br> Hasło " + pass;
+        String body = "Imię: " + forename + "</br>Nazwisko: " + surname + "</br> Login: " + login + "</br> Hasło " + pass;
         String username = "pjwstkhrsystem@vp.pl";
         
         

@@ -20,6 +20,8 @@
         <form action="/CMS/changeUserData.htm" method="POST">
             Imię: ${userData.forename}<br/>
             Nazwisko: ${userData.surname}<br/>
+            Stanowisko ${userData.position}<br/>
+            Departament ${userData.department}<br/>
             E-Mail: <input type="text" name="email" value="${userData.email}"/><br/>
             Numer telefonu: <input type="text" name="phone" value="${userData.phone}"/><br/>
             <input type="submit" value="Zmień"/>

@@ -39,14 +39,14 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
         for (var i = 0; i<$scope.editValues.length; i++) {  
             if($scope.editValues[i][1] && 
                ($scope.selected[$scope.editValues[i][0]] == null || $scope.selected[$scope.editValues[i][0]] == "")){
-                alert("Sprawdź poprowność wprowadzonych danych");
+                alert("Sprawdź poprowność danych: "+columnDesc.get($scope.editValues[i][0]));
                 return;
             }
         }
         for (var i = 0; i<$scope.addressValues.length; i++) {  
             if($scope.addressValues[i][1] && 
                ($scope.selected.address[$scope.addressValues[i][0]] == null || $scope.selected.address[$scope.addressValues[i][0]] == "")){
-                alert("Sprawdź poprowność wprowadzonych danych");
+                alert("Sprawdź poprowność danych: "+columnDesc.get($scope.editValues[i][0]));
                 return;
             }
         }

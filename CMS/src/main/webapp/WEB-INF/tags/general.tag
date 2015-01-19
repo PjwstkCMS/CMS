@@ -14,6 +14,10 @@
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script> 
         <script src="/CMS/resources/js/services.js"></script>  
         <script src="/CMS/resources/js/resourceManagment/chatListCtrl.js"></script>
+        <script src="http://ci.angularjs.org/job/angularui-bootstrap/ws/dist/ui-bootstrap-tpls-0.9.0.js"></script>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>HR System</title>        
     </head>

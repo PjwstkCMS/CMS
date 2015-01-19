@@ -98,7 +98,10 @@
                 {{$index + 1}}
             </td>
             <td ng-repeat="attr in attributes" ng-click="$parent.select(obj)">
-                {{obj[attr]}}
+                <div ng-if="attr == 'startDate' || attr == 'closeDate' || attr == 'finalisationDate'
+                     || attr == 'dateTo' || attr == 'dateFrom' "> {{obj[attr] | date:'dd-MM-yyyy'}} </div>
+                <div ng-if=" attr != 'startDate' && attr != 'closeDate' && attr != 'finalisationDate'
+                     && attr != 'dateTo' && attr != 'dateFrom' " > {{obj[attr]}} </div>
             </td>
         </tr>
         <tr ng-show="obj == selected">

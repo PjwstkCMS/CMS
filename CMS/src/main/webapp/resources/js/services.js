@@ -1,4 +1,4 @@
-var cmsModule = angular.module('cms', []);
+var cmsModule = angular.module('cms', ['ui.bootstrap']);
 
 cmsModule.factory('saveEditDelete', function () {
     return {

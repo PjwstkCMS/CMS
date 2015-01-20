@@ -77,11 +77,15 @@ public class ChatController extends BaseController {
         Map<String, Object> initData = new HashMap<String, Object>();
         Map<String, List<String>> params = new HashMap<>();
         List<String> paramValues = new ArrayList<>();
-        paramValues.add(userDto.getId()+"");
-        params.put("to_userid", paramValues);
-        List<MessageDto> messages = mesDao.getMessageDtos(params);
-        initData.put("messages", messages);
-        initData.put("users", userDao.getUserNames());
+        try {
+            paramValues.add(userDto.getId() + "");
+            params.put("to_userid", paramValues);
+            List<MessageDto> messages = mesDao.getMessageDtos(params);
+            initData.put("messages", messages);
+            initData.put("users", userDao.getUserNames());
+        } catch (NullPointerException nullEx) {
+            LOGGER.info("No user logged");
+        }
         return Utils.createResponseEntity(session, initData);
     }
 

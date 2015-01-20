@@ -63,6 +63,25 @@ cmsModule.factory('saveEditDelete', function () {
                 $scope.operationMessage = "Operacja zapisywania nie udana"
             });
         },
+        archive: function ($http, link, $scope) {
+            return $http.post(
+                    link,
+                    {object: $scope.selected}).success(function () {
+                var index;
+                for (var i = 0; i < $scope[$scope.objectsName].length; i++) {
+                    if ($scope[$scope.objectsName][i].id == $scope.selected.id) {
+                        index = i;
+                    }
+                }
+                $scope[$scope.objectsName].splice(index, 1);
+                $scope.selected = "";
+                $scope.showOperationMessage = true;
+                $scope.operationMessage = "Operacja archiwizacji udana"
+            }).error(function (error) {
+                $scope.showOperationMessage = true;
+                $scope.operationMessage = "Operacja archiwizacji nie udana"
+            });
+        },
         saveElement: function ($http, link, $scope, type) {
             return $http.post(
                     link,
@@ -205,7 +224,7 @@ cmsModule.factory('columnDesc', function () {
                 'managerId': "Manager",
                 'companyId': "Firma",
                 'departmentId': "Departement",
-                'cardId': "Numer karty",
+                'cardNumber': "Numer karty",
                 'dictTypeId': "Rodzaj słownika",
                 'dictId': "Dodatkowy Opis",
                 'positionId': "Stanowisko",

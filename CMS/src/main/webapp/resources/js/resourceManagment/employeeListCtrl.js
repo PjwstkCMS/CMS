@@ -27,7 +27,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.attributes[3] = 'email';
     $scope.attributes[4] = 'pesel';
     $scope.attributes[5] = 'department';
-    $scope.attributes[6] = 'cardId';
+    $scope.attributes[6] = 'cardNumber';
     $scope.attributes[7] = 'position';
     $scope.attributes[8] = 'salary';
 
@@ -39,7 +39,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.editValues[4] = {0: 'email', 1: true};
     $scope.editValues[5] = {0: 'pesel', 1: true};
     $scope.editValues[6] = {0: 'departmentId', 1: true};
-    $scope.editValues[7] = {0: 'cardId', 1: false};
+    $scope.editValues[7] = {0: 'cardNumber', 1: false};
     $scope.editValues[8] = {0: 'positionId', 1: true};
     $scope.editValues[9] = {0: 'salary', 1: true};
 
@@ -186,6 +186,10 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
 
     $scope.delete = function () {
         saveEditDelete.remove($http, '/CMS/employee/delete/:object.htm', $scope);
+    };
+    
+    $scope.archive = function () {
+        saveEditDelete.remove($http, '/CMS/employee/archive/:object.htm', $scope);
     };
 
     $scope.columnDescription = function (obj) {

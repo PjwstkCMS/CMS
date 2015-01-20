@@ -15,4 +15,5 @@
     <input ng-show="editMode" type="button" ng-click="save()" value="ZAPISZ">
     <input ng-show="editMode" type="button" ng-click="cancel()" value="ANULUJ">
     <input ng-show="selected.id" type="button" ng-click="delete()" value="USUŃ"/>
+    <input ng-show="selected.id" type="button" ng-click="archive()" value="ARCHIWIZUJ"/>
 </div>

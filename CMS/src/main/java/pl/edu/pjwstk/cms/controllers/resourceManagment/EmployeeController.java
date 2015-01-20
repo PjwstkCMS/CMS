@@ -70,7 +70,7 @@ public class EmployeeController extends BaseController {
         EmploymentDao emplDao = new EmploymentDao();
         ContractDao conDao = new ContractDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("employees", empDao.getEmployeeDtoList());
+        initData.put("employees", empDao.getEmployeeListDtoWithCards(false));
         initData.put("cards", carDao.selectAll());
         initData.put("employments", emplDao.selectAll());
         initData.put("contracts", conDao.selectAll());
@@ -147,5 +147,14 @@ public class EmployeeController extends BaseController {
                     "employeeId", "-1");
             empDao.delete("id="+dto.getId());
         }
+    }
+    
+    @RequestMapping(value = "/employee/archive/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    void archiveData(@RequestBody String object) {
+        EmployeeDto dto = (EmployeeDto) Utils.convertJSONStringToObject(object, "object", EmployeeDto.class);
+        EmployeeDao empDao = new EmployeeDao();
+        Employee emp = empDao.selectForId(dto.getId());
+        empDao.archive(emp);
     }
 }

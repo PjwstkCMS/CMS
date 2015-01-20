@@ -3,13 +3,12 @@ package pl.edu.pjwstk.cms.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.EmployeeDto;
 import pl.edu.pjwstk.cms.models.Address;
+import pl.edu.pjwstk.cms.models.Archive;
 import pl.edu.pjwstk.cms.models.Card;
 import pl.edu.pjwstk.cms.models.Department;
 import pl.edu.pjwstk.cms.models.Employee;
@@ -23,6 +22,13 @@ public class EmployeeDao extends GenericDao<Employee> {
     public EmployeeDao() {
         super(Employee.class);
     }
+    
+    public boolean archive(Employee employee) {
+        Archive ar = new Archive();
+        ArchiveDao arDao = new ArchiveDao();
+        ar.setEmployeeId(employee.getId()+"");
+        return (arDao.insert(ar)>0);
+    }
 
     public List<EmployeeDto> getEmployeeDtoList() {
         return getEmployeeDtoList(-1L);
@@ -32,24 +38,53 @@ public class EmployeeDao extends GenericDao<Employee> {
         return getEmployeeDtoList(managerId);
     }
 
-    public List<EmployeeDto> getEmployeeListDtoWithoutCards() {
-        return getEmployeeListDtoWithoutCards(null);
+    /**
+     * Pobiera wszystkie dane każdego pracownika w formie listy dto. Nie są
+     * pobierane numery kart magnetycznych pracowników.
+     *
+     * @param archive - pobieranie danych aktywnych lub archiwizowanych
+     * @return
+     */
+    public List<EmployeeDto> getEmployeeListDtoWithoutCards(boolean archive) {
+        return getEmployeeListDtoWithoutCards(null, archive);
     }
 
-    public List<EmployeeDto> getEmployeeListDtoWithCards() {
-        return getEmployeeListDtoWithoutCards(null);
+    /**
+     * Pobiera wszystkie dane każdego pracownika w formie listy dto. Również
+     * pobierane są numery kart magnetycznych pracowników.
+     *
+     * @param archive - pobieranie danych aktywnych lub archiwizowanych
+     * @return
+     */
+    public List<EmployeeDto> getEmployeeListDtoWithCards(boolean archive) {
+        return getEmployeeListDtoWithCards(null, archive);
     }
 
-    public List<EmployeeDto> getEmployeeListDtoWithCards(Long empId) {
+    /**
+     * Metoda pobiera EmployeeDto ze wszystkimi danymi pracownika wraz z
+     * numerami kart magnetycznych. Parametr <code>archive</code> decyduje o
+     * tym, czy pobierane są dane pracowników archiwizowanych czy aktywnych.
+     *
+     * @param empId
+     * @param archive
+     * @return
+     */
+    public List<EmployeeDto> getEmployeeListDtoWithCards(Long empId, boolean archive) {
         String query = "SELECT emp.id as id, emp.persondataId as persondataId, emp.departmentId as departmentId, "
                 + " emp.positionId as positionId, per.forename as forename, per.surname as surname, per.email as email, "
                 + " per.phone as phone, emp.salary as salary, per.pesel as pesel, dept.name as department, pos.name as position, "
                 + "card.number as cardnumber, card.id as cardid "
                 + "FROM employee as emp, persondata as per, position as pos, department as dept, card "
-                + "WHERE dept.id=emp.departmentId AND pos.id=emp.positionId AND per.id=emp.persondataId";
+                + "WHERE dept.id=emp.departmentId AND pos.id=emp.positionId AND per.id=emp.persondataId AND card.employeeId=emp.id";
         if (empId != null) {
             query += " AND emp.id=" + empId;
         }
+        if (archive) {
+            query += " AND emp.id IN (SELECT a.employeeId FROM archive as a)";
+        } else {
+            query += " AND emp.id NOT IN (SELECT a.employeeId FROM archive as a)";
+        }
+        query += " GROUP BY id";
         ResultSet set = this.connectionManager.select(query);
         AddressDao addDao = new AddressDao();
         List<EmployeeDto> empDtos = new ArrayList<>();
@@ -81,7 +116,16 @@ public class EmployeeDao extends GenericDao<Employee> {
 
     }
 
-    public List<EmployeeDto> getEmployeeListDtoWithoutCards(Long id) {
+    /**
+     * Metoda pobiera EmployeeDto ze wszystkimi danymi pracownika prócz numerów
+     * kart magnetycznych. Parametr <code>archive</code> decyduje o tym, czy
+     * pobierane są dane pracowników archiwizowanych czy aktywnych.
+     *
+     * @param id
+     * @param archive
+     * @return
+     */
+    public List<EmployeeDto> getEmployeeListDtoWithoutCards(Long id, boolean archive) {
         String query = "SELECT emp.id as id, emp.persondataId as persondataId, emp.departmentId as departmentId,"
                 + " emp.positionId as positionId, per.forename as forename, per.surname as surname, per.email as email,"
                 + " per.phone as phone, emp.salary as salary, per.pesel as pesel, dept.name as department,"
@@ -91,7 +135,11 @@ public class EmployeeDao extends GenericDao<Employee> {
         if (id != null) {
             query += " AND emp.id=" + id;
         }
-        query += " GROUP BY id";
+        if (archive) {
+            query += " AND emp.id IN (SELECT a.employeeId FROM archive as a)";
+        } else {
+            query += " AND emp.id NOT IN (SELECT a.employeeId FROM archive as a)";
+        }        
         ResultSet set = this.connectionManager.select(query);
         AddressDao addDao = new AddressDao();
         List<EmployeeDto> empDtos = new ArrayList<>();

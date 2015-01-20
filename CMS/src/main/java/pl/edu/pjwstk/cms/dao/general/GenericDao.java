@@ -126,7 +126,8 @@ public class GenericDao<T extends DatabaseObject> {
                 query += fieldName + "='" + fieldValues.get(i) + "'";
             }
         }
-        System.out.println("DEBUG:" + query);
+        LOGGER.info(query);
+        //System.out.println("DEBUG:" + query);
         return selectForQuery(query);
     }
 
@@ -242,7 +243,8 @@ public class GenericDao<T extends DatabaseObject> {
                 }
             }
         }
-        System.out.println("DEBUG:" + query);
+        LOGGER.info(query);
+        //System.out.println("DEBUG:" + query);
         ArrayList<T> resultList = new ArrayList<>();
         try {
             ResultSet resultSet = connectionManager.select(query);
@@ -288,7 +290,8 @@ public class GenericDao<T extends DatabaseObject> {
                 T obj = (T) modelClass.newInstance();
                 Field[] fields = obj.getClass().getDeclaredFields();
                 for (Field f : fields) {
-                    if (!"LOGGER".equals(f.getName())) {
+                    if (!"LOGGER".equals(f.getName()) &&
+                            !"archived".equals(f.getName())) {
                         String fieldValue = "";
                         fieldValue = resultSet.getString(f.getName());
                         f.setAccessible(true);
@@ -300,11 +303,11 @@ public class GenericDao<T extends DatabaseObject> {
                 resultList.add(obj);
             }
         } catch (InstantiationException ex) {
-            Logger.getLogger(GenericDao.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, ex.getLocalizedMessage());
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(GenericDao.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, ex.getLocalizedMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(GenericDao.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, ex.getLocalizedMessage());
         }
         return resultList;
     }

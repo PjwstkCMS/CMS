@@ -54,19 +54,19 @@
                     {{columnDescription(col[0])}}: <input required="required" maxlength="45" ng-pattern="/^[0-9]+$/" type="text" ng-model="${atr.object}.salary"/> 
                 </td>
                 <td ng-show="col[0] == 'startDate'">
-                    {{columnDescription(col[0])}}: <input type="text" show-button-bar="false" datepicker-popup="dd-MM-yyyy" ng-model="${atr.object}.startDate" max="${atr.object}.closeDate" ng-required="true" />
+                    {{columnDescription(col[0])}}: <input ng-Readonly="true" type="text" show-button-bar="false" datepicker-popup="dd-MM-yyyy" ng-model="${atr.object}.startDate" max="${atr.object}.closeDate" ng-required="true" />
                 </td>
                 <td ng-show="col[0] == 'closeDate'">
-                    {{columnDescription(col[0])}}: <input type="text" show-button-bar="false" datepicker-popup="dd-MM-yyyy" ng-model="${atr.object}.closeDate" min="${atr.object}.startDate" ng-required="true" />
+                    {{columnDescription(col[0])}}: <input ng-Readonly="true" type="text" show-button-bar="false" datepicker-popup="dd-MM-yyyy" ng-model="${atr.object}.closeDate" min="${atr.object}.startDate" ng-required="true" />
                 </td>
                 <td ng-show="col[0] == 'finalisationDate'">
-                    {{columnDescription(col[0])}}: <input type="text" show-button-bar="false" datepicker-popup="dd-MM-yyyy" ng-model="${atr.object}.finalisationDate" min="${atr.object}.startDate" ng-required="true" />
+                    {{columnDescription(col[0])}}: <input ng-Readonly="true" type="text" show-button-bar="false" datepicker-popup="dd-MM-yyyy" ng-model="${atr.object}.finalisationDate" min="${atr.object}.startDate" ng-required="true" />
                 </td>
                 <td ng-show="col[0] == 'dateTo'">
-                    {{columnDescription(col[0])}}: <input type="text" show-button-bar="false" datepicker-popup="dd-MM-yyyy" ng-model="${atr.object}.dateTo" min="${atr.object}.dateFrom" ng-required="true" />
+                    {{columnDescription(col[0])}}: <input ng-Readonly="true" type="text" show-button-bar="false" datepicker-popup="dd-MM-yyyy" ng-model="${atr.object}.dateTo" min="${atr.object}.dateFrom" ng-required="true" />
                 </td>
                 <td ng-show="col[0] == 'dateFrom'">
-                    {{columnDescription(col[0])}}: <input type="text" show-button-bar="false" datepicker-popup="dd-MM-yyyy" ng-model="${atr.object}.dateFrom" max="${atr.object}.dateTo" ng-required="true" /> 
+                    {{columnDescription(col[0])}}: <input ng-Readonly="true" type="text" show-button-bar="false" datepicker-popup="dd-MM-yyyy" ng-model="${atr.object}.dateFrom" max="${atr.object}.dateTo" ng-required="true" /> 
                 </td>
                 <td ng-show="col[0] == 'login'">
                     {{columnDescription(col[0])}}: <input required="required" type="text" ng-model="${atr.object}.login"/> 

@@ -150,7 +150,7 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
         $scope.addressSelector.companyId = $scope.selected.id;
         for (var i = 0; i<$scope.addressValues.length; i++) {  
             if($scope.addressValues[i][1] && $scope.addressSelector[$scope.addressValues[i][0]] == null){
-                alert("Sprawdź poprowność wprowadzonych danych");
+                alert("Sprawdź poprowność danych: "+columnDesc.get($scope.addressValues[i][0]));
                 return;
             }
         }

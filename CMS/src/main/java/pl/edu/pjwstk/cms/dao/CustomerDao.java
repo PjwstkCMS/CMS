@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CustomerDto;
+import pl.edu.pjwstk.cms.models.Archive;
 import pl.edu.pjwstk.cms.models.Customer;
+import pl.edu.pjwstk.cms.models.Employee;
 import pl.edu.pjwstk.cms.models.PersonData;
 
 
@@ -21,17 +23,23 @@ public class CustomerDao extends GenericDao<Customer> {
         super(Customer.class);
     }
 
-    public List<CustomerDto> getCustomerDtoList() {
-        return getCustomerDtoList(new HashMap<String, List<String>>());
+    public List<CustomerDto> getCustomerDtoList(boolean archive) {
+        return getCustomerDtoList(new HashMap<String, List<String>>(),archive);
     }
 
-    public List<CustomerDto> getCustomerDtoList(Map<String, List<String>> params) {
+    public List<CustomerDto> getCustomerDtoList(Map<String, List<String>> params, boolean archive) {
         String query = "SELECT cus.id as id, cus.companyId as companyId, cus.persondataId as persondataId ";
         query += "FROM customer as cus ";
-        if (!params.isEmpty()) {
-            query += "WHERE";
+        query += "WHERE ";
+        if (!params.isEmpty()) {            
             query = this.addParamConditions(query, params);
+            query += " AND ";
         }
+        if(archive) {
+            query+= "cus.id IN (SELECT customerId FROM archive) ";
+        } else {
+            query+= "cus.id NOT IN (SELECT customerId FROM archive) ";
+        }        
         ResultSet set = connectionManager.select(query);
         PersonDataDao personDao = new PersonDataDao();
         List<CustomerDto> cusDtos = new ArrayList<>();
@@ -56,20 +64,20 @@ public class CustomerDao extends GenericDao<Customer> {
         return cusDtos;
     }
 
-    public CustomerDto getCustomerDtoById(String id) {
+    public CustomerDto getCustomerDtoById(String id, boolean archive) {
         Map<String, List<String>> params = new HashMap<String, List<String>>();
         List<String> values = new ArrayList<>();
         values.add(id);
         params.put("id", values);
-        return getCustomerDtoList(params).get(0);
+        return getCustomerDtoList(params,archive).get(0);
     }
 
-    public CustomerDto getCustomerDtoById(Long id) {
+    public CustomerDto getCustomerDtoById(Long id, boolean archive) {
         Map<String, List<String>> params = new HashMap<String, List<String>>();
         List<String> values = new ArrayList<>();
         values.add(id + "");
         params.put("id", values);
-        return getCustomerDtoList(params).get(0);
+        return getCustomerDtoList(params, archive).get(0);
     }
     
     private PersonData getPersonData(String id, List<PersonData> persons) {
@@ -79,5 +87,12 @@ public class CustomerDao extends GenericDao<Customer> {
             }
         }
         return null;
+    }
+    
+    public boolean archive(Customer customer) {
+        Archive ar = new Archive();
+        ArchiveDao arDao = new ArchiveDao();
+        ar.setCustomerId(customer.getId()+"");
+        return (arDao.insert(ar)>0);
     }
 }

@@ -145,6 +145,10 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.delete = function() {
         saveEditDelete.remove($http, '/CMS/customer/delete/:object.htm', $scope);
     };
+    
+    $scope.archive = function () {
+        saveEditDelete.remove($http, '/CMS/customer/archive/:object.htm', $scope);
+    };
 
     $scope.columnDescription = function(obj){
         return columnDesc.get(obj);

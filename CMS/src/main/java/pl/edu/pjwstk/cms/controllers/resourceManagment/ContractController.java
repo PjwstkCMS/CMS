@@ -53,8 +53,8 @@ public class ContractController extends BaseController {
         CustomerDao cusDao = new CustomerDao();
         EmployeeDao empDao = new EmployeeDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("contracts", conDao.getContractDtoList());
-        initData.put("customers", cusDao.getCustomerDtoList());
+        initData.put("contracts", conDao.getContractDtoList(false));
+        initData.put("customers", cusDao.getCustomerDtoList(false));
         initData.put("employees", empDao.getEmployeeDtoList());
         return Utils.createResponseEntity(session, initData);
     }
@@ -107,6 +107,15 @@ public class ContractController extends BaseController {
         if (conDto.getId() != null) {
             conDao.delete("id="+conDto.getId());
         }
+    }
+    
+    @RequestMapping(value = "/contract/archive/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    void archiveData(@RequestBody String object) {
+        ContractDto conDto = (ContractDto) Utils.convertJSONStringToObject(object, "object", ContractDto.class);
+        ContractDao conDao = new ContractDao();
+        Contract con = conDao.selectForId(conDto.getId());
+        conDao.archive(con);
     }
 }
 

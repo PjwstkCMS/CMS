@@ -100,6 +100,10 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         saveEditDelete.remove($http, '/CMS/contract/delete/:object.htm', $scope);
     };
     
+    $scope.archive = function () {
+        saveEditDelete.remove($http, '/CMS/contract/archive/:object.htm', $scope);
+    };
+    
     $scope.columnDescription = function(obj){
         return columnDesc.get(obj);
     };

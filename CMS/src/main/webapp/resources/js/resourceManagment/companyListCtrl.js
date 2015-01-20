@@ -117,6 +117,10 @@ function CompanyListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
         saveEditDelete.remove($http, '/CMS/company/delete/:object.htm', $scope);
     };
     
+    $scope.archive = function () {
+        saveEditDelete.remove($http, '/CMS/company/archive/:object.htm', $scope);
+    };
+    
     $scope.columnDescription = function(obj){
         return columnDesc.get(obj);
     };

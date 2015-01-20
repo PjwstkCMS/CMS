@@ -5,7 +5,7 @@
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/companyListCtrl.js"></script>
         <h1>Company!</h1>
-        <div ng-controller="CompanyListCtrl">
+        <div ng-init="archivable=true" ng-controller="CompanyListCtrl">
             <t:dataTable/>
             <div ng-show="editMode && newRecord">
                 <t:editTable map="editValues" object="selected"/>

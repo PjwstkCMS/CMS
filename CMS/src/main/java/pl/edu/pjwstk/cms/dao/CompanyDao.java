@@ -10,7 +10,9 @@ import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CompanyDto;
 import pl.edu.pjwstk.cms.models.Address;
+import pl.edu.pjwstk.cms.models.Archive;
 import pl.edu.pjwstk.cms.models.Company;
+import pl.edu.pjwstk.cms.models.Contract;
 import pl.edu.pjwstk.cms.models.PersonData;
 
 /**
@@ -25,16 +27,22 @@ public class CompanyDao extends GenericDao<Company> {
         super(Company.class);
     }
 
-    public List<CompanyDto> getCompanyDtoList() {
-        return getCompanyDtoList(new HashMap<String, List<String>>());
+    public List<CompanyDto> getCompanyDtoList(boolean archive) {
+        return getCompanyDtoList(new HashMap<String, List<String>>(),archive);
     }
 
-    public List<CompanyDto> getCompanyDtoList(Map<String, List<String>> params) {
+    public List<CompanyDto> getCompanyDtoList(Map<String, List<String>> params, boolean archive) {
         String query = "SELECT com.name as name, com.id as id, com.contactpersonId as contactpersonId ";
         query += "FROM company as com ";
-        if (!params.isEmpty()) {
-            query += "WHERE";
+        query += "WHERE ";
+        if (!params.isEmpty()) {            
             query = this.addParamConditions(query, params);
+            query += " AND ";
+        }        
+        if(archive) {
+            query+= "com.id IN (SELECT companyId FROM archive) ";
+        } else {
+            query+= "com.id NOT IN (SELECT companyId FROM archive) ";
         }
         ResultSet set = this.connectionManager.select(query);
         List<CompanyDto> comDtos = new ArrayList<>();
@@ -70,6 +78,13 @@ public class CompanyDao extends GenericDao<Company> {
             return null;
         }
         return comDtos;
+    }
+    
+    public boolean archive(Company company) {
+        Archive ar = new Archive();
+        ArchiveDao arDao = new ArchiveDao();
+        ar.setCompanyId(company.getId()+"");
+        return (arDao.insert(ar)>0);
     }
 
 }

@@ -58,7 +58,7 @@ public class CompanyController extends BaseController {
         CompanyDao comDao = new CompanyDao();
         DictionaryDao dictDao = new DictionaryDao();
         Map<String, Object> initData = new HashMap<String, Object>();
-        initData.put("companies", comDao.getCompanyDtoList());
+        initData.put("companies", comDao.getCompanyDtoList(false));
         initData.put("dictionaries", dictDao.getCompanyAddressesTypes());
         return Utils.createResponseEntity(session, initData);
     }
@@ -141,6 +141,15 @@ public class CompanyController extends BaseController {
             }
             cusDao.delete("companyId="+compDto.getId());
         }
+    }
+    
+    @RequestMapping(value = "/company/archive/:object", method = RequestMethod.POST)
+    public @ResponseBody
+    void archiveData(@RequestBody String object) {
+        CompanyDto compDto = (CompanyDto) Utils.convertJSONStringToObject(object, "object", CompanyDto.class);
+        CompanyDao compDao = new CompanyDao();
+        Company com = compDao.selectForId(compDto.getId());
+        compDao.archive(com);
     }
 }
 

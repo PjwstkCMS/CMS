@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.ContractDto;
+import pl.edu.pjwstk.cms.models.Archive;
 import pl.edu.pjwstk.cms.models.Contract;
 import pl.edu.pjwstk.cms.models.Customer;
 import pl.edu.pjwstk.cms.models.Employee;
@@ -23,16 +24,22 @@ public class ContractDao extends GenericDao<Contract>{
     public ContractDao() {
         super(Contract.class);
     }
-    public List<ContractDto> getContractDtoList() {
-        return getContractDtoList(new HashMap<String, List<String>>());
+    public List<ContractDto> getContractDtoList(boolean archive) {
+        return getContractDtoList(new HashMap<String, List<String>>(),archive);
     }
     
-    public List<ContractDto> getContractDtoList(Map<String, List<String>> params) {
+    public List<ContractDto> getContractDtoList(Map<String, List<String>> params, boolean archive) {
         String query = "SELECT id, employeeId, customerId, startDate, closeDate, finalisationDate, description, price ";
         query += "FROM contract as con ";
-        if(!params.isEmpty()) {
-            query += "WHERE";
+        query += "WHERE ";
+        if(!params.isEmpty()) {        
             query = this.addParamConditions(query, params);
+            query += " AND ";
+        }        
+        if(archive) {
+            query+= "id IN (SELECT customerId FROM archive) ";
+        } else {
+            query+= "id NOT IN (SELECT customerId FROM archive) ";
         }
         ResultSet set = this.connectionManager.select(query);
         List<ContractDto> conDtos = new ArrayList<>();
@@ -97,6 +104,13 @@ public class ContractDao extends GenericDao<Contract>{
             }
         }
         return null;
+    }
+    
+    public boolean archive(Contract contract) {
+        Archive ar = new Archive();
+        ArchiveDao arDao = new ArchiveDao();
+        ar.setContractId(contract.getId()+"");
+        return (arDao.insert(ar)>0);
     }
     
 }

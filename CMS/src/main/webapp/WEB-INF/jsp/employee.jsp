@@ -10,7 +10,7 @@
             <div ng-show="editMode && newRecord">
                 <t:editTable map="editValues" object="selected"/>
             </div>
-            <div ng-hide="selected && selected.id">
+            <div ng-init="archivable=true" ng-hide="selected && selected.id">
                 <t:jsonOperations/>
             </div>
         </div>

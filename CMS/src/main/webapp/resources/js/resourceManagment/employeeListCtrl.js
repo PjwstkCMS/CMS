@@ -234,12 +234,10 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         if (type == 'address') {
             $scope.selector.address.persondataId = $scope.selected.persondataId;
             for (var i = 0; i < $scope.addressValues.length; i++) {
-                /*
-                if ($scope.addressValues[i][1] && $scope.addressSelector[$scope.addressValues[i][0]] == null) {
-                    alert("Sprawdź poprowność wprowadzonych danych");
+                if ($scope.addressValues[i][1] && $scope.selector.address[$scope.addressValues[i][0]] == null) {
+                    alert("Sprawdź poprowność danych adresu: "+columnDesc.get($scope.addressValues[i][0]));
                     return;
                 }
-                */
             }
             saveEditDelete.saveElement($http, '/CMS/address/save/:object.htm', $scope, type);
             if (!$scope.selectedGroupHasKey($scope.selector.address)) {
@@ -248,12 +246,24 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.editSubElement = false;
         } else if (type == 'employment') {
             $scope.selector.employment.employeeId = $scope.selected.id;
-            alert($scope.selector.employment.dateFrom);
+            for (var i = 0; i < $scope.employmentValues.length; i++) {
+                if ($scope.employmentValues[i][1] && $scope.selector.employment[$scope.employmentValues[i][0]] == null) {
+                    alert("Sprawdź poprowność danych zatrudnienia: "+columnDesc.get($scope.employmentValues[i][0]));
+                    return;
+                }
+            }
+            //alert($scope.selector.employment.dateFrom);
             saveEditDelete.saveElement($http, '/CMS/employment/save/:object.htm', $scope, type);
             $scope.selectedEmployments.push($scope.selector.employment);
             $scope.editSubElement = false;
         } else if (type == 'contract') {
             $scope.selector.contract.employeeId = $scope.selected.id;
+            for (var i = 0; i < $scope.contractValues.length; i++) {
+                if ($scope.contractValues[i][1] && $scope.selector.contract[$scope.contractValues[i][0]] == null) {
+                    alert("Sprawdź poprowność danych kontraktu: "+columnDesc.get($scope.contractValues[i][0]));
+                    return;
+                }
+            }
             saveEditDelete.saveElement($http, '/CMS/contract/save/:object.htm', $scope, type);
             $scope.selectedContracts.push($scope.selector.contract);
             $scope.editSubElement = false;

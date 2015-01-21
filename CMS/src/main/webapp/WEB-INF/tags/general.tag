@@ -100,6 +100,10 @@
                                               user.privilegeKeyCodes.contains('ViewTerminals')}">
                             <a href="/CMS/terminal.htm"><li id="nav0">terminal</li></a>
                                 </c:if>
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || 
+                                              user.privilegeKeyCodes.contains('ViewTerminals')}">
+                            <a href="/CMS/archive.htm"><li id="nav0">Archiwum</li></a>
+                                </c:if>
                         <br/>
                         <li id="nav14">Konfiguracja</li>
                             <c:if test="${user.privilegeKeyCodes.contains('all') || 

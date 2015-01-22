@@ -58,6 +58,14 @@
                    ng-show="show == '/CMS/archive/companies.htm'" value="USUŃ"/>
             <input type="button" ng-click="deleteCus()"
                    ng-show="show == '/CMS/archive/customers.htm'" value="USUŃ"/>
+            <input type="button" ng-click="dearchiveCon()"
+                   ng-show="show == '/CMS/archive/contracts.htm'" value="DEARCHIWIZUJ"/>
+            <input type="button" ng-click="dearchiveEmp()"
+                   ng-show="show == '/CMS/archive/employees.htm'" value="DEARCHIWIZUJ"/>
+            <input type="button" ng-click="dearchiveCom()"
+                   ng-show="show == '/CMS/archive/companies.htm'" value="DEARCHIWIZUJ"/>
+            <input type="button" ng-click="dearchiveCus()"
+                   ng-show="show == '/CMS/archive/customers.htm'" value="DEARCHIWIZUJ"/>
         </div>
     </jsp:body>
 </t:general>

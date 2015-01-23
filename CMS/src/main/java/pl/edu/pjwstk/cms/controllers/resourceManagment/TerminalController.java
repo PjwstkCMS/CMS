@@ -51,8 +51,10 @@ public class TerminalController extends BaseController {
     @ResponseBody
     public ResponseEntity<String> getData(HttpSession session, ModelMap model) {
         TerminalDao terDao = new TerminalDao();
+        LogDao logDao = new LogDao();
         Map<String, Object> initData = new HashMap<>();
         initData.put("terminals", terDao.selectAll());
+        initData.put("logs", logDao.getLogDtoList());
         return Utils.createResponseEntity(session, initData);
     }
     

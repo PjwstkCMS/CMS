@@ -11,6 +11,8 @@ function TerminalListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.privileges = "";
     $scope.editMode = false;
     $scope.newRecord = false;
+    $scope.logs = '';
+    $scope.terminalId = '';
     //$scope.displayPage = true;
     //$scope.displayPageName = "customerPage";
     
@@ -42,6 +44,7 @@ function TerminalListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     loadDataPromise.then(function(returnData) {
         if (returnData != null) {
             $scope.terminals = $scope.initData.terminals;
+            $scope.logs = $scope.initData.logs;
         } else {
             alert('err');
         }

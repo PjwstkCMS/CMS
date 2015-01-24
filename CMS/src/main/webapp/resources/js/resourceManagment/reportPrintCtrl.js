@@ -65,4 +65,8 @@ function ReportPrintCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
     $scope.columnDescription = function(obj){
         return columnDesc.get(obj);
     };
+    
+    $scope.print = function(link) {
+      $http.get(link);  
+    };
 }

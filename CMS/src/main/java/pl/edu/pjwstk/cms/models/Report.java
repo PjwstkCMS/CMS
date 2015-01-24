@@ -14,6 +14,7 @@ public class Report extends DatabaseObject{
     private String name;
     private String description;
     private String formCode;
+    private String printCode;
 
     public String getName() {
         return name;
@@ -37,6 +38,14 @@ public class Report extends DatabaseObject{
 
     public void setFormCode(String formCode) {
         this.formCode = formCode;
+    }
+
+    public String getPrintCode() {
+        return printCode;
+    }
+
+    public void setPrintCode(String printCode) {
+        this.printCode = printCode;
     }
 
     

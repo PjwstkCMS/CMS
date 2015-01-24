@@ -59,21 +59,6 @@ public class ReportController extends BaseController {
         return new ResponseEntity<String>(Utils.convertOMapToJSON(initData), responseHeaders, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/reportPrint")
-    public @ResponseBody
-    void download(@RequestParam("id") Long id, HttpServletResponse response, HttpServletRequest request) {
-        File r = new File();
-        FileDao fileDao = new FileDao();
-        r = fileDao.selectRecordsWithFieldValues("id", id).get(0);
-        Utils.download(r.getHashCode(), r.getName(), r.getMimeType(), response);
-    }
-
-    @RequestMapping(value = "/reportGetForm/{form}")
-    public ModelAndView testFormLoad(@PathVariable("form") String form) {
-        ModelAndView model = new ModelAndView("reportForms/" + form);
-        return model;
-    }
-
     @RequestMapping(value = "/reportTest")
     public ModelAndView testFormLoad() {
         ModelAndView model = new ModelAndView("reportForms/testReportForm");

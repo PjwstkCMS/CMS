@@ -123,9 +123,9 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.privileges = $scope.initData.privileges;
             $scope.cards = $scope.initData.cards;
 
-            $scope.addresses = $scope.initData.addresses;
-            $scope.employments = $scope.initData.employments;
-            $scope.contracts = $scope.initData.contracts;
+            //$scope.addresses = $scope.initData.addresses;
+           // $scope.employments = $scope.initData.employments;
+            //$scope.contracts = $scope.initData.contracts;
 
         } else {
             alert('err');
@@ -148,8 +148,10 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.newRecord = false;
             $scope.addressSelector = "";
             $scope.selected = object;
-            $scope.selectedContracts = new Array();
-            $scope.selectedEmployments = new Array();
+            //$scope.selectedContracts = new Array();
+            //$scope.selectedEmployments = new Array();
+            $scope.loadAdditional($scope.selected.id);
+            /*
             for (var i = 0; i < $scope.employments.length; i++) {
                 if ($scope.employments[i].employeeId == $scope.selected.id) {
                     $scope.selectedEmployments.push($scope.employments[i]);
@@ -159,7 +161,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
                 if ($scope.contracts[i].employeeId == $scope.selected.id) {
                     $scope.selectedContracts.push($scope.contracts[i]);
                 }
-            }
+            }*/
         }
     }
 
@@ -268,6 +270,20 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.selectedContracts.push($scope.selector.contract);
             $scope.editSubElement = false;
         }
+    };
+    
+    $scope.loadAdditional = function (empId){
+        $http.post('/CMS/employee/innerData/:object.htm', empId).success(function (returnData) {
+                $scope.status = null;
+                $scope.additionalData = returnData;
+                $scope.selectedContracts = returnData.contracts;
+                $scope.selectedEmployments = returnData.employments;
+                //alert(returnData.privilegeKeys[0].id);
+                return "Success";
+            }).error(function (error) {
+                $scope.status = "Błąd";
+                return null;
+            });
     };
 
     $scope.removeElement = function (type) {

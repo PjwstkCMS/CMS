@@ -1,6 +1,8 @@
 package pl.edu.pjwstk.cms.controllers.resourceManagment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -67,17 +69,38 @@ public class EmployeeController extends BaseController {
         DictionaryDao dicDao = new DictionaryDao();
         
         CardDao carDao = new CardDao();
-        EmploymentDao emplDao = new EmploymentDao();
-        ContractDao conDao = new ContractDao();
+        //EmploymentDao emplDao = new EmploymentDao();
+        //ContractDao conDao = new ContractDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("employees", empDao.getEmployeeListDtoWithCards(false));
         initData.put("cards", carDao.selectAll());
-        initData.put("employments", emplDao.selectAll());
-        initData.put("contracts", conDao.selectAll());
+        //initData.put("employments", emplDao.selectAll());
+        //initData.put("contracts", conDao.selectAll());
         initData.put("positions", posDao.selectAll());
         initData.put("departments", depDao.selectAll());
         initData.put("dictionaries", dicDao.getPersonAddressesTypes());
         return Utils.createResponseEntity(session, initData);
+    }
+    
+    @RequestMapping(value = "/employee/innerData/:object.htm")
+    @ResponseBody
+    public ResponseEntity<String> getInnerData(@RequestBody String object, HttpSession session) {
+        
+        EmploymentDao emplDao = new EmploymentDao();
+        ContractDao conDao = new ContractDao();
+        
+        Map<String, Object> initData = new HashMap<String, Object>();
+        
+        Map<String, List<String>> params = new HashMap<String, List<String>>(); 
+        List<String> list = new ArrayList();
+        list.add(object);
+        params.put("employeeId", list);
+        
+        initData.put("employments", emplDao.getEmploymentList(params));
+        initData.put("contracts", conDao.getContractDtoList(params, false));
+        
+        return Utils.createResponseEntity(session, initData);
+        
     }
     
     @RequestMapping(value = "/employee/save/:object.htm")

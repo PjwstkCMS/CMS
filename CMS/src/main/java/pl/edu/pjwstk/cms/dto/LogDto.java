@@ -17,7 +17,7 @@ public class LogDto implements Serializable {
      private final static Logger LOGGER = Logger.getLogger(AddressDto.class.getName()); 
      
      private Long id, employeeId, terminalId;
-     private String empName, empSurname, date;
+     private String empName, empSurname, date, terminalDesc;
      
      public LogDto() {
          super();
@@ -69,6 +69,14 @@ public class LogDto implements Serializable {
 
     public void setTerminalId(Long terminalId) {
         this.terminalId = terminalId;
+    }
+
+    public String getTerminalDesc() {
+        return terminalDesc;
+    }
+
+    public void setTerminalDesc(String terminalDesc) {
+        this.terminalDesc = terminalDesc;
     }
     
 }

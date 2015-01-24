@@ -28,9 +28,9 @@ public class LogDao extends GenericDao<Log>{
     
     public List<LogDto> getLogDtoList(Long empId) {
         String query = "SELECT per.forename as forename, per.surname as surname, "
-                + "log.timestamp as timestamp, emp.id as empId, log.id as id, log.terminalId as terminalId ";
-        query+= "FROM employee as emp, persondata as per, log as log ";
-        query+="WHERE emp.id=log.employeeId AND emp.persondataId=per.id ";
+                + "log.timestamp as timestamp, emp.id as empId, log.id as id, log.terminalId as terminalId, ter.description as terminalDesc ";
+        query+= "FROM employee as emp, persondata as per, log as log, terminal as ter ";
+        query+="WHERE emp.id=log.employeeId AND emp.persondataId=per.id AND ter.id=log.terminalId ";
         if(empId!=null) {
             query+="AND emp.id="+empId;
         }
@@ -46,6 +46,7 @@ public class LogDao extends GenericDao<Log>{
                 dto.setEmpSurname(set.getString("surname"));
                 dto.setEmployeeId(set.getLong("empId"));
                 dto.setTerminalId(set.getLong("terminalId"));
+                dto.setTerminalDesc(set.getString("terminalDesc"));
                 dto.setId(set.getLong("id"));
                 dtos.add(dto);
             }

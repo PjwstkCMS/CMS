@@ -38,7 +38,6 @@ public class FileController extends BaseController {
             return model;
         }
         ModelAndView model = new ModelAndView("fileList");
-        model.addObject("msg", "HelloGuestController");
         model.addObject("server", GenericDao.server);
         
         return model;

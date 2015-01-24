@@ -9,7 +9,7 @@ import pl.edu.pjwstk.cms.models.File;
 public class FileDto {
     
     private Long id;
-    private String name, description, mimeType, formCode;
+    private String name, description, mimeType;
     
     public FileDto() {
         
@@ -49,14 +49,6 @@ public class FileDto {
 
     public void setMimeType(String mimeType) {
         this.mimeType = mimeType;
-    }
-
-    public String getFormCode() {
-        return formCode;
-    }
-
-    public void setFormCode(String formCode) {
-        this.formCode = formCode;
     }
     
 }

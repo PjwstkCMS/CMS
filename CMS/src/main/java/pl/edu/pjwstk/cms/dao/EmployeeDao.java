@@ -91,7 +91,6 @@ public class EmployeeDao extends GenericDao<Employee> {
         try {
             while (set.next()) {
                 EmployeeDto dto = new EmployeeDto();
-                List<Address> adds = addDao.selectRecordsWithFieldValues("persondataId", dto.getPersondataId());
                 dto.setDepartment(set.getString("department"));
                 dto.setDepartmentId(set.getLong("departmentId"));
                 dto.setEmail(set.getString("email"));
@@ -106,6 +105,8 @@ public class EmployeeDao extends GenericDao<Employee> {
                 dto.setSurname(set.getString("surname"));
                 dto.setCardId(set.getLong("cardid"));
                 dto.setCardNumber(set.getString("cardnumber"));
+                
+                List<Address> adds = addDao.selectRecordsWithFieldValues("persondataId", dto.getPersondataId());
                 dto.setAddresses(adds);
                 empDtos.add(dto);
             }

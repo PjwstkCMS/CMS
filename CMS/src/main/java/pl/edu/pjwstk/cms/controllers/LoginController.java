@@ -14,6 +14,7 @@ import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeGroupDao;
 import pl.edu.pjwstk.cms.dao.PrivilegeKeyDao;
+import pl.edu.pjwstk.cms.dao.SystemConfigurationDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.EmployeeDto;
 import pl.edu.pjwstk.cms.dto.UserDto;
@@ -52,6 +53,8 @@ public class LoginController extends BaseController {
         LOGGER.info(login + " " + pass);
         UserDao userDao = new UserDao();
         List<User> users = userDao.selectRecordsWithFieldValues("login", login);
+        SystemConfigurationDao sysDao = new SystemConfigurationDao();
+        request.getSession().setAttribute("idleTimeout", sysDao.getIdleTimeout());
         if (users.size() > 0) {
             User user = users.get(0);
             if (user.getPassword().equals(pass)) {
@@ -62,9 +65,9 @@ public class LoginController extends BaseController {
                 userDto.setEmployeeId(Long.parseLong(user.getEmployeeId()));
                 userDto.setId(user.getId());
                 EmployeeDao empDao = new EmployeeDao();
-                EmployeeDto empDto = empDao.getEmployeeListDtoWithoutCards(Long.parseLong(user.getEmployeeId()),false).get(0);
+                EmployeeDto empDto = empDao.getEmployeeListDtoWithoutCards(Long.parseLong(user.getEmployeeId()), false).get(0);
                 //Employee emp = empDao.selectForId(user.getEmployeeId());
-                userDto.setPersondataId(Long.parseLong(empDto.getPersondataId()+""));
+                userDto.setPersondataId(Long.parseLong(empDto.getPersondataId() + ""));
                 userDto.setPhotoHash(user.getPhotoHash());
                 LOGGER.info(userDto.getLogin());
                 PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
@@ -77,7 +80,7 @@ public class LoginController extends BaseController {
                 java.io.File file = Utils.getFileFromHash(userDto.getPhotoHash());
                 request.getSession().setAttribute("user", userDto);
                 request.getSession().setAttribute("userimage", file);
-                request.getSession().setAttribute("sendUsers", userDao.getUserNames());                
+                request.getSession().setAttribute("sendUsers", userDao.getUserNames());
                 request.getSession().setAttribute("userData", empDto);
                 model.addObject("loginMsg", "Welcome " + login + "!");
             } else {
@@ -109,11 +112,14 @@ public class LoginController extends BaseController {
         return model;
     }
 
-    @RequestMapping(value = "logout", method = RequestMethod.POST)
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
     protected ModelAndView logout(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         ModelAndView model = new ModelAndView("login");
         request.getSession().setAttribute("user", null);
+        request.getSession().setAttribute("userimage", null);
+        request.getSession().setAttribute("sendUsers", null);
+        request.getSession().setAttribute("userData", null);
         LOGGER.info("logout");
         return model;
     }
@@ -122,8 +128,8 @@ public class LoginController extends BaseController {
     protected ModelAndView create(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         ModelAndView model = new ModelAndView("login");
-        
-        String login = (String) request.getParameter("login");        
+
+        String login = (String) request.getParameter("login");
         String pass = (String) request.getParameter("password");
         //String employeeId = (String) request.getParameter("employeeId");
         //String group = (String) request.getParameter("group");
@@ -132,9 +138,8 @@ public class LoginController extends BaseController {
         String subject = "Account request";
         String body = "Imię: " + forename + "</br>Nazwisko: " + surname + "</br> Login: " + login + "</br> Hasło " + pass;
         String username = "pjwstkhrsystem@vp.pl";
-        
-        
-        if(Utils.sendMail(username, body, subject)) {
+
+        if (Utils.sendMail(username, body, subject)) {
             model.addObject("sendStatus", "Wysłane");
         } else {
             model.addObject("sendStatus", "Niewysłane");

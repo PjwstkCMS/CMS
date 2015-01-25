@@ -3,6 +3,9 @@ package pl.edu.pjwstk.cms.controllers;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -87,8 +90,13 @@ public class HomeController extends BaseController {
     public ModelAndView sendMessage(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView("home");
         UserDto userDto = (UserDto) request.getSession().getAttribute("user");
-        //UserDao userDao = new UserDao();
-        //User fromUser = userDao.selectForId(userDto.getId());
+        try {
+            //UserDao userDao = new UserDao();
+            //User fromUser = userDao.selectForId(userDto.getId());
+            request.setCharacterEncoding("UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String sendTo = request.getParameter("sendTo");
         String content = request.getParameter("message");
         Message m = new Message();

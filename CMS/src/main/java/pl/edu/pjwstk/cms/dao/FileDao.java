@@ -9,10 +9,7 @@ import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.FileDto;
 import pl.edu.pjwstk.cms.models.File;
 
-/**
- *
- * @author Macha
- */
+
 public class FileDao extends GenericDao<File> {
 
     private final static Logger LOGGER = Logger.getLogger(FileDao.class.getName());

@@ -1,12 +1,12 @@
 package pl.edu.pjwstk.cms.dto;
 
+import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.File;
 
-/**
- *
- * @author Macha
- */
+
 public class FileDto {
+    
+    private final static Logger LOGGER = Logger.getLogger(FileDto.class.getName()); 
     
     private Long id;
     private String name, description, mimeType;

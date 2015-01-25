@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.general.DatabaseObject;
 
-/**
- *
- * @author Sergio
- */
+
 public class PersonData extends DatabaseObject implements Serializable{
     
     private final static Logger LOGGER = Logger.getLogger(PersonData.class.getName()); 

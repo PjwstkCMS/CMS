@@ -26,10 +26,8 @@ import pl.edu.pjwstk.cms.dao.FileDao;
 import pl.edu.pjwstk.cms.models.File;
 import pl.edu.pjwstk.cms.utils.HexConverter;
 import pl.edu.pjwstk.cms.utils.Utils;
-/**
- *
- * @author Konrad
- */
+
+
 @Controller
 public class ManageFileController extends BaseController {
 

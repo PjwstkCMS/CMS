@@ -7,10 +7,7 @@ import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.models.Privilege;
 import pl.edu.pjwstk.cms.models.PrivilegeKey;
 
-/**
- *
- * @author Sergio
- */
+
 public class PrivilegeKeyDao extends GenericDao<PrivilegeKey>{
     
     private final static Logger LOGGER = Logger.getLogger(PrivilegeKeyDao.class.getName()); 

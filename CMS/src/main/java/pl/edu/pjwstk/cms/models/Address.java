@@ -3,10 +3,7 @@ package pl.edu.pjwstk.cms.models;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.general.DatabaseObject;
 
-/**
- *
- * @author Konrad
- */
+
 public class Address extends DatabaseObject{
     
     private final static Logger LOGGER = Logger.getLogger(Address.class.getName());

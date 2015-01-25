@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.dto.UserDto;
 
-/**
- *
- * @author Sergio
- */
+
 public class BaseController {
 
     private final static Logger LOGGER = Logger.getLogger(BaseController.class.getName());

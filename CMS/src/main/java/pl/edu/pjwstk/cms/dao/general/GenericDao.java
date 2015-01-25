@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +15,6 @@ import pl.edu.pjwstk.cms.utils.ConnectionManager;
 
 /**
  *
- * @author Sergio
  * @param <T>
  */
 public class GenericDao<T extends DatabaseObject> {

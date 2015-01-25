@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.edu.pjwstk.cms.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,14 +20,12 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.dao.SystemConfigurationDao;
 import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.models.SystemConfiguration;
@@ -40,7 +34,6 @@ import pl.edu.pjwstk.cms.models.SystemConfiguration;
  * Tutaj przetrzymywane będą różne przydatne metody wykorzystywane w więcej niż
  * jedenj klasie.
  *
- * @author Sergio
  */
 public abstract class Utils {
 

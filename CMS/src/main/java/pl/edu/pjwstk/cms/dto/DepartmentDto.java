@@ -67,8 +67,6 @@ public class DepartmentDto implements Serializable {
         this.address = address;
     }
 
-    
-
     public List<String> getPrivilegeKeyCodes() {
         return privilegeKeyCodes;
     }

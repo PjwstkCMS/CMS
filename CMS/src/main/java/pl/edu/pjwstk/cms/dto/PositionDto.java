@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package pl.edu.pjwstk.cms.dto;
 
 import java.io.Serializable;
@@ -12,10 +6,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.Position;
 
-/**
- *
- * @author Konrad
- */
+
 public class PositionDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(PositionDto.class.getName()); 
@@ -58,9 +49,6 @@ public class PositionDto implements Serializable {
         this.description = description;
     }
 
-    
-    
-    
     public List<String> getPrivilegeKeyCodes() {
         return privilegeKeyCodes;
     }

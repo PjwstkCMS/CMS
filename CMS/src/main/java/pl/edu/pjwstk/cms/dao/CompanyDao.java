@@ -12,13 +12,9 @@ import pl.edu.pjwstk.cms.dto.CompanyDto;
 import pl.edu.pjwstk.cms.models.Address;
 import pl.edu.pjwstk.cms.models.Archive;
 import pl.edu.pjwstk.cms.models.Company;
-import pl.edu.pjwstk.cms.models.Contract;
 import pl.edu.pjwstk.cms.models.PersonData;
 
-/**
- *
- * @author Konrad
- */
+
 public class CompanyDao extends GenericDao<Company> {
 
     private final static Logger LOGGER = Logger.getLogger(CompanyDao.class.getName());

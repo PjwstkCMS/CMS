@@ -15,6 +15,7 @@ import pl.edu.pjwstk.cms.models.Employee;
 import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.Position;
 
+
 public class EmployeeDao extends GenericDao<Employee> {
 
     private final static Logger LOGGER = Logger.getLogger(EmployeeDao.class.getName());

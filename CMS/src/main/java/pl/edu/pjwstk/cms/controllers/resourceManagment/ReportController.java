@@ -11,16 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
-import pl.edu.pjwstk.cms.dao.FileDao;
+import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.ReportDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
-import pl.edu.pjwstk.cms.models.File;
 import pl.edu.pjwstk.cms.utils.Utils;
 
 
@@ -62,6 +59,15 @@ public class ReportController extends BaseController {
     @RequestMapping(value = "/reportTest")
     public ModelAndView testFormLoad() {
         ModelAndView model = new ModelAndView("reportForms/testReportForm");
+        return model;
+    }
+    
+    @RequestMapping(value = "/reportEmployeeLog")
+    public ModelAndView EmployeeLogFormLoad() {
+        ModelAndView model = new ModelAndView("reportForms/employeeLogReportForm");
+        EmployeeDao empDao = new EmployeeDao();
+        model.addObject("employees", empDao.getEmployeeListDtoWithCards(false));
+        
         return model;
     }
 }

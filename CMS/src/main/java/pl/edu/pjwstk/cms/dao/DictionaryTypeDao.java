@@ -12,10 +12,7 @@ import pl.edu.pjwstk.cms.dto.DictionaryTypeDto;
 import pl.edu.pjwstk.cms.models.Dictionary;
 import pl.edu.pjwstk.cms.models.DictionaryType;
 
-/**
- *
- * @author Macha
- */
+
 public class DictionaryTypeDao extends GenericDao<DictionaryType>{
     
     private final static Logger LOGGER = Logger.getLogger(DictionaryTypeDao.class.getName()); 

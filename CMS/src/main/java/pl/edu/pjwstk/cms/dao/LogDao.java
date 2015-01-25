@@ -10,10 +10,7 @@ import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.LogDto;
 import pl.edu.pjwstk.cms.models.Log;
 
-/**
- *
- * @author Macha
- */
+
 public class LogDao extends GenericDao<Log>{
     
     private final static Logger LOGGER = Logger.getLogger(LogDao.class.getName()); 

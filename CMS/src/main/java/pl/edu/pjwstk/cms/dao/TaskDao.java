@@ -3,9 +3,7 @@ package pl.edu.pjwstk.cms.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.TaskDto;
@@ -14,10 +12,7 @@ import pl.edu.pjwstk.cms.models.Employee;
 import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.Task;
 
-/**
- *
- * @author Macha
- */
+
 public class TaskDao extends GenericDao<Task>{
     
     private final static Logger LOGGER = Logger.getLogger(TaskDao.class.getName()); 

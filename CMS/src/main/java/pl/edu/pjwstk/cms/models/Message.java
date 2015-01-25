@@ -1,21 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.edu.pjwstk.cms.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.general.DatabaseObject;
 
-/**
- *
- * @author sergio
- */
+
 public class Message extends DatabaseObject{
     
-    private final static Logger LOGGER = Logger.getLogger(Log.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(Message.class.getName());
     
     //@JsonIgnore
     //public final static String NOT_READ = "0";

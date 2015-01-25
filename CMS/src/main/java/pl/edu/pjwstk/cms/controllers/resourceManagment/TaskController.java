@@ -25,10 +25,6 @@ import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.models.Task;
 import pl.edu.pjwstk.cms.utils.Utils;
 
-/**
- *
- * @author Macha
- */
 
 @Controller
 public class TaskController extends BaseController{

@@ -3,13 +3,10 @@ package pl.edu.pjwstk.cms.dto;
 import java.io.Serializable;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Macha
- */
+
 public class EmploymentDto implements Serializable {
     
-    private final static Logger LOGGER = Logger.getLogger(EmployeeDto.class.getName()); 
+    private final static Logger LOGGER = Logger.getLogger(EmploymentDto.class.getName()); 
 
     private Long id, employeeId, dictId;
     private String dateFrom, dateTo, employee, dict;

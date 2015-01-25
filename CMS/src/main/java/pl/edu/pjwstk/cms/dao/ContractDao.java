@@ -1,4 +1,3 @@
-
 package pl.edu.pjwstk.cms.dao;
 
 import java.sql.ResultSet;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.edu.pjwstk.cms.controllers.reportTemplates;
 
 import java.util.Comparator;
@@ -18,10 +13,7 @@ import pl.edu.pjwstk.cms.controllers.general.BaseReportTemplateController;
 import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dto.EmployeeDto;
 
-/**
- *
- * @author sergio
- */
+
 @Controller
 public class EmployeeListReportController extends BaseReportTemplateController{
     private static final Logger LOG = Logger.getLogger(EmployeeListReportController.class.getName());

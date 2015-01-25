@@ -4,10 +4,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Sergio
- */
+
 public class BaseReportTemplateController extends BaseController{
     
     private final static Logger LOGGER = Logger.getLogger(BaseReportTemplateController.class.getName()); 

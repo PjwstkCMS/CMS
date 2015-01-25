@@ -22,10 +22,8 @@ import pl.edu.pjwstk.cms.dao.UserDao;
 import pl.edu.pjwstk.cms.dto.PrivilegeGroupDto;
 import pl.edu.pjwstk.cms.models.PrivilegeGroup;
 import pl.edu.pjwstk.cms.utils.Utils;
-/**
- *
- * @author Konrad
- */
+
+
 @Controller
 public class GroupController extends BaseController {
 

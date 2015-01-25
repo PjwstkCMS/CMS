@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.edu.pjwstk.cms.dao;
 
 import java.sql.ResultSet;
@@ -10,17 +5,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javafx.scene.input.KeyCode.M;
 import pl.edu.pjwstk.cms.models.Message;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.MessageDto;
 
-/**
- *
- * @author sergio
- */
+
 public class MessageDao extends GenericDao<Message> {
 
     private static final Logger LOGGER = Logger.getLogger(CardDao.class.getName());

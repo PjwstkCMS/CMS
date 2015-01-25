@@ -33,10 +33,7 @@ import pl.edu.pjwstk.cms.models.User;
 import pl.edu.pjwstk.cms.utils.HexConverter;
 import pl.edu.pjwstk.cms.utils.Utils;
 
-/**
- *
- * @author Macha
- */
+
 @Controller
 public class HomeController extends BaseController {
 

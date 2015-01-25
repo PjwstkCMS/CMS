@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.edu.pjwstk.cms.controllers;
 
 import java.io.IOException;
@@ -14,7 +9,6 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import static javax.swing.UIManager.put;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,10 +24,7 @@ import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.models.Message;
 import pl.edu.pjwstk.cms.utils.Utils;
 
-/**
- *
- * @author sergio
- */
+
 @Controller
 public class ChatController extends BaseController {
 

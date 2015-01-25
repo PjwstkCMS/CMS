@@ -1,11 +1,13 @@
 package pl.edu.pjwstk.cms.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class DictionaryDto implements Serializable{
     
-    private final static Logger LOGGER = Logger.getLogger(AddressDto.class.getName()); 
+    private final static Logger LOGGER = Logger.getLogger(DictionaryDto.class.getName()); 
 
     private Long id, dictTypeId;
     private String value, description;
@@ -41,5 +43,14 @@ public class DictionaryDto implements Serializable{
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    public List<String> getPrivilegeKeyCodes() {
+        return privilegeKeyCodes;
+    }
+
+    public void setPrivilegeKeyCodes(List<String> privilegeKeyCodes) {
+        this.privilegeKeyCodes = privilegeKeyCodes;
+    }
+    private List<String> privilegeKeyCodes = new ArrayList<>();
 
 }

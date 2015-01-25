@@ -15,6 +15,7 @@
         <script src="/CMS/resources/js/services.js"></script>  
         <script src="/CMS/resources/js/resourceManagment/chatListCtrl.js"></script>
         <script src="/CMS/resources/js/bootstrap.js"></script>
+        <script src="/CMS/resources/js/bootstrap.min.js"></script>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">    
         
   

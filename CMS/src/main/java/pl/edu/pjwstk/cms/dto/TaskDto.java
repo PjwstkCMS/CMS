@@ -4,10 +4,7 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 import pl.edu.pjwstk.cms.models.Task;
 
-/**
- *
- * @author Macha
- */
+
 public class TaskDto implements Serializable {
     
     private final static Logger LOGGER = Logger.getLogger(TaskDto.class.getName()); 

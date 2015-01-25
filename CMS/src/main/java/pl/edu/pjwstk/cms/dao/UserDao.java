@@ -12,6 +12,7 @@ import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.PrivilegeGroup;
 import pl.edu.pjwstk.cms.models.User;
 
+
 public class UserDao extends GenericDao<User> {
 
     private final static Logger LOGGER = Logger.getLogger(UserDao.class.getName());

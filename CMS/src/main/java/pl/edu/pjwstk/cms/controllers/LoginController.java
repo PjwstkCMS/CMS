@@ -22,10 +22,7 @@ import pl.edu.pjwstk.cms.models.User;
 import pl.edu.pjwstk.cms.utils.HexConverter;
 import pl.edu.pjwstk.cms.utils.Utils;
 
-/**
- *
- * @author Sergio
- */
+
 @Controller
 public class LoginController extends BaseController {
 

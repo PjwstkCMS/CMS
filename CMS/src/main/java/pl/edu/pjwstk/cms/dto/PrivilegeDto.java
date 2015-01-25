@@ -2,10 +2,7 @@ package pl.edu.pjwstk.cms.dto;
 
 import java.util.logging.Logger;
 
-/**
- *
- * @author Macha
- */
+
 public class PrivilegeDto {
 
     private final static Logger LOGGER = Logger.getLogger(PrivilegeDto.class.getName()); 

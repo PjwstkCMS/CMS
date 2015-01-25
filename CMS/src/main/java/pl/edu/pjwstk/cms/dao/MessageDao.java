@@ -13,7 +13,7 @@ import pl.edu.pjwstk.cms.dto.MessageDto;
 
 public class MessageDao extends GenericDao<Message> {
 
-    private static final Logger LOGGER = Logger.getLogger(CardDao.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MessageDao.class.getName());
 
     public MessageDao() {
         super(Message.class);

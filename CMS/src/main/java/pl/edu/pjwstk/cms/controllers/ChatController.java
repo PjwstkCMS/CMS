@@ -28,7 +28,7 @@ import pl.edu.pjwstk.cms.utils.Utils;
 @Controller
 public class ChatController extends BaseController {
 
-    private final static Logger LOGGER = Logger.getLogger(HomeController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(ChatController.class.getName());
 
     public ChatController() {
 

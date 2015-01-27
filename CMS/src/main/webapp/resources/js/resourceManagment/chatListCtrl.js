@@ -13,7 +13,7 @@ function ChatListCtrl($scope, $http, $interval) {
             $scope.readButtonEnabled = '';
             //alert(returnData.messages);
         });
-    }, 1000);
+    }, 10000);
 
     $scope.markAsRead = function (msg) {
         msg.read = "0";

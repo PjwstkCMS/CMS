@@ -83,7 +83,7 @@
                             <form method="get" action="logout.htm">
                                 <input type="submit" value="logout"/>
                             </form>
-                            <div ng-init="showChat = true" style="background-color:red" ng-click="showChat = !showChat">Pokaż czat</div>
+                            <div ng-init="showChat = false" style="background-color:red" ng-click="showChat = !showChat">Pokaż czat</div>
                             <div ng-show="showChat" width=450 height=100 
                                  ng-include='"getUserMessages.htm"' style="border : 1px"></div>
                         </c:if>

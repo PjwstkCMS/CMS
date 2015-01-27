@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
@@ -59,7 +60,7 @@ public class ChatController extends BaseController {
         return model;
     }
 
-    @RequestMapping(value = "/messages/get")
+    @RequestMapping(value = "/messages/get", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<String> getData(HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap model) {
         UserDto userDto = (UserDto) request.getSession().getAttribute("user");

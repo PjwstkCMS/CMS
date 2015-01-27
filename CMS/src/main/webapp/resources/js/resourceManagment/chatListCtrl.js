@@ -5,15 +5,15 @@ function ChatListCtrl($scope, $http, $interval) {
     $scope.test = "aaaa";
     $scope.hideMsg = {};
     $scope.readButtonEnabled = '';
-
     var var_1 = $interval(function () {
+        if($scope.showChat) {
         $http.get("/CMS/messages/get.htm").success(function (returnData) {
             $scope.messages = returnData.messages;
             $scope.users = returnData.users;
             $scope.readButtonEnabled = '';
             //alert(returnData.messages);
         });
-    }, 100000);
+    }}, 5000);
 
     $scope.markAsRead = function (msg) {
         msg.read = "0";

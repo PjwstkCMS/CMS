@@ -1,37 +1,435 @@
-<%-- 
-    Document   : gen
-    Created on : 2014-08-30, 14:40:07
-    Author     : Macha
---%>
 <%@tag import="pl.edu.pjwstk.cms.utils.Utils"%>
 <%@tag import="pl.edu.pjwstk.cms.dto.UserDto"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@tag description="Overall Page template" pageEncoding="UTF-8"%>
 
-<html >
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <script src="/CMS/resources/js/jquery-2.0.3.js" type="text/javascript"></script>        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <script src="/CMS/resources/js/jquery-2.1.3.min.js"></script>      
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script> 
         <script src="/CMS/resources/js/services.js"></script>  
         <script src="/CMS/resources/js/resourceManagment/chatListCtrl.js"></script>
         <script src="/CMS/resources/js/bootstrap.js"></script>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">            
         <script src="/CMS/resources/js/idleTimeout.js" type="text/javascript"></script>
         <script src="/CMS/resources/js/idleTimer.js" type="text/javascript"></script>
-        <script src="/CMS/resources/js/jquery.blockUI.js"></script>        
+        <script src="/CMS/resources/js/jquery.blockUI.js"></script>
+        
+        <link href="/CMS/resources/css/jquery.rcrumbs.css" rel="stylesheet">
+        <link href="/CMS/resources/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/CMS/resources/css/jquery-ui.min.css" rel="stylesheet">
+        <link href="/CMS/resources/css/home.css" rel="stylesheet">
+        <link href="/CMS/resources/css/sidebar.css" rel="stylesheet">
+        <link href="/CMS/resources/css/fonts.css" rel="stylesheet">
+        <link href="/CMS/resources/css/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+        
+        
+
         <title>HR System</title>        
     </head>
 
     <c:if test="${user!=null}">
         <body ng-app="cms">
-            <div id="idletimeout" style="display: none; z-index: 100000;">
+            
+            
+            <div class="wrapper">
+
+    <div class="box">
+
+        <div class="row row-offcanvas row-offcanvas-left">
+
+
+            <!-- sidebar -->
+            <div class="column col-sm-2 col-xs-2 sidebar-offcanvas" id="sidebar">
+
+                <c:if test="${user!=null}">
+                    <div class="user-info">
+
+                        <div class="user-image-container">
+                            <img src="getUserImage.htm"/>
+                        </div>
+                        
+                            <a href="#"><p>${user.login} ${user.privilegeKeyCodes}  
+                            <br>
+                            <span class="user-position">${userData.position}</span></p></a>
+                </c:if>
+                            
+                       
+
+
+
+                    </div> <!-- end of user-info -->
+
+
+                <!-- big only nav-->
+                <ul class="nav main-navigation hidden-xs cf" id="lg-menu">
+                    <li><a class="main-category-link" href="#" id="toggle-zasoby"><span class="main-ico-align icon-zarzadzanie-zasobami-ico"></span>Zasoby<i class="icon-arrow-down-ico strzalka-position"></i> </a>
+                        <ul id="zarzadzanie-zasobami">
+                            
+                                <li><a class="sub-category-link" href="/CMS/home.htm">
+                                        <span class="sub-ico-align icon-home-ico"></span>Home</a>
+                                </li>
+                            
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewTerminals')}">
+                                <li><a class="sub-category-link" href="/CMS/archive.htm">
+                                        <span class="sub-ico-align icon-archiwum-ico"></span>Archiwum</a>
+                                </li>
+                            </c:if>
+                                
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewCompanies')}">
+                                <li><a class="sub-category-link" href="/CMS/company.htm">
+                                        <span class="sub-ico-align icon-firmy-ico"></span>Firmy</a>
+                                </li>
+                            </c:if>
+                                
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewCustomers')}">
+                                <li><a class="sub-category-link" href="/CMS/customer.htm">
+                                        <span class="sub-ico-align icon-klienci-ico"></span> Klienci</a>
+                                </li>
+                            </c:if>
+                                
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('DownloadFiles')}">
+                                <li><a class="sub-category-link" href="/CMS/fileList.htm">
+                                    <span class="sub-ico-align icon-pliki-ico"></span> Pliki</a>
+                                </li>
+                            </c:if>
+                                
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewEmployees')}"> 
+                                <li><a class="sub-category-link" href="/CMS/employee.htm">
+                                    <span class="sub-ico-align icon-pracownicy-ico"></span> Pracownicy</a>
+                                </li>
+                            </c:if>
+                            
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('PrintReports')}">
+                                <li><a class="sub-category-link" href="/CMS/report.htm">
+                                    <span class="sub-ico-align icon-raporty-ico"></span> Raporty</a>
+                                </li>
+                            </c:if>
+                                
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewPositions')}">    
+                                <li><a class="sub-category-link" href="/CMS/position.htm">
+                                    <span class="sub-ico-align icon-stanowiska-ico"></span> Stanowiska</a>
+                                </li>
+                            </c:if>
+                            
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewTerminals')}">
+                                <li><a class="sub-category-link" href="/CMS/terminal.htm">
+                                    <span class="sub-ico-align icon-terminale-ico"></span> Terminale</a>
+                                </li>
+                            </c:if>
+                                
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewContracts')}">
+                                <li><a class="sub-category-link" href="/CMS/contract.htm">
+                                    <span class="sub-ico-align icon-umowy-ico"></span> Umowy</a>
+                                </li>
+                            </c:if>
+                            
+                            
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewDepartments')}">
+                                <li><a class="sub-category-link" href="/CMS/department.htm">
+                                    <span class="sub-ico-align icon-wydzialy-ico"></span> Wydziały</a>
+                                </li>
+                            </c:if>
+                                
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewTasks')}">
+                                 <li><a class="sub-category-link" href="/CMS/task.htm">
+                                    <span class="sub-ico-align icon-task-ico"></span> Zadania</a>
+                                </li>
+                                
+                            </c:if>
+                                
+                                
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewEmployments')}">
+                                 <li><a class="sub-category-link" href="/CMS/employment.htm">
+                                    <span class="sub-ico-align icon-zatrudnienie-ico"></span> Zatrudnienie</a>
+                                </li>
+                                
+                            </c:if>
+                        </ul>
+                    </li>
+
+                    <li><a class="main-category-link" href="#" id="toggle-konfiguracja"><span class="main-ico-align icon-konfiguracja-systemu-ico"></span>System<i class="icon-arrow-right-ico strzalka-position"></i></a>
+                        <ul id="konfiguracja-systemu" style="display:none;">
+                            
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewGroups')}">
+                                <li><a class="sub-category-link" href="/CMS/groupList.htm">
+                                        <span class="sub-ico-align icon-grupy-ico"></span>Grupy</a>
+                                </li>
+                            </c:if>                             
+                            
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewDictionaries')}">
+                                <li><a class="sub-category-link" href="/CMS/dictionaryList.htm">
+                                    <span class="sub-ico-align icon-slowniki-ico"></span> Słowniki</a>
+                                </li>
+                            </c:if>
+                            
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewSettings')}">
+                                <li><a class="sub-category-link" href="/CMS/setting.htm">
+                                    <span class="sub-ico-align icon-ustawienia-systemowe-ico"></span> Ustawienia systemowe</a>
+                                </li>
+                            </c:if>
+                                
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewUsers')}">
+                                <li><a class="sub-category-link" href="/CMS/userList.htm">
+                                    <span class="sub-ico-align icon-uzytkownicy-ico"></span> Użytkownicy</a>
+                                </li>
+                            </c:if>
+                            
+                            <c:if test="${user.privilegeKeyCodes.contains('all') ||user.privilegeKeyCodes.contains('ViewManageFiles')}">
+                                <li><a class="sub-category-link" href="/CMS/manageFile.htm">
+                                        <span class="sub-ico-align icon-zarzadzanie-plikami-ico"></span> Zarządzanie plikami</a>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </li>
+
+                </ul>
+
+
+
+
+                <!-- tiny only nav-->
+                <ul class="nav main-navigation visible-xs cf" id="xs-menu">
+
+                        <li>
+                            <ul>
+                                        <li><a class="sub-category-link" href="/CMS/home.htm">
+                                            <span class="sub-ico-align icon-home-ico"></span></a>
+                                        </li>
+                                        
+                                        
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewTerminals')}">
+                                    <li><a class="sub-category-link" href="/CMS/archive.htm">
+                                        <span class="sub-ico-align icon-archiwum-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewCompanies')}">
+                                    <li><a class="sub-category-link" href="/CMS/company.htm">
+                                        <span class="sub-ico-align icon-firmy-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                    
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewCustomers')}">
+                                    <li><a class="sub-category-link" href="/CMS/customer.htm">
+                                        <span class="sub-ico-align icon-klienci-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                    
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('DownloadFiles')}">
+                                    <li><a class="sub-category-link" href="/CMS/fileList.htm">
+                                        <span class="sub-ico-align icon-pliki-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                    
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewEmployees')}"> 
+                                    <li><a class="sub-category-link" href="/CMS/employee.htm">
+                                        <span class="sub-ico-align icon-pracownicy-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('PrintReports')}">
+                                    <li><a class="sub-category-link" href="/CMS/report.htm">
+                                        <span class="sub-ico-align icon-raporty-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                    
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewPositions')}">    
+                                    <li><a class="sub-category-link" href="/CMS/position.htm">
+                                        <span class="sub-ico-align icon-stanowiska-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewTerminals')}">
+                                    <li><a class="sub-category-link" href="/CMS/terminal.htm">
+                                        <span class="sub-ico-align icon-terminale-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                    
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewContracts')}">
+                                    <li><a class="sub-category-link" href="/CMS/contract.htm">
+                                        <span class="sub-ico-align icon-umowy-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewDepartments')}">
+                                    <li><a class="sub-category-link" href="/CMS/department.htm">
+                                        <span class="sub-ico-align icon-wydzialy-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                    
+                                      <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewTasks')}">
+                                 <li><a class="sub-category-link" href="/CMS/task.htm">
+                                    <span class="sub-ico-align icon-task-ico"></span></a>
+                                </li>
+                                
+                            </c:if>
+                                
+                                
+                            <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewEmployments')}">
+                                 <li><a class="sub-category-link" href="/CMS/employment.htm">
+                                    <span class="sub-ico-align icon-zatrudnienie-ico"></span></a>
+                                </li>
+                                
+                            </c:if>
+                                    
+                            </ul>
+                        </li>
+
+                        <li>
+                            <ul>
+                                <c:if test="${user.privilegeKeyCodes.contains('all') ||user.privilegeKeyCodes.contains('ViewGroups')}">
+                                    <li><a class="sub-category-link" href="/CMS/groupList.htm">
+                                        <span class="sub-ico-align icon-grupy-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                    
+                                
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewDictionaries')}">
+                                    <li><a class="sub-category-link" href="/CMS/dictionaryList.htm">
+                                        <span class="sub-ico-align icon-slowniki-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewSettings')}">
+                                    <li><a class="sub-category-link" href="/CMS/setting.htm">
+                                    <span class="sub-ico-align icon-ustawienia-systemowe-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                    
+                                <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewUsers')}">
+                                    <li><a class="sub-category-link" href="/CMS/userList.htm">
+                                        <span class="sub-ico-align icon-uzytkownicy-ico"></span></a>
+                                    </li>
+                                </c:if>
+                                
+                                <c:if test="${user.privilegeKeyCodes.contains('all') ||user.privilegeKeyCodes.contains('ViewManageFiles')}">
+                                <li><a class="sub-category-link" href="/CMS/manageFile.htm">
+                                        <span class="sub-ico-align icon-zarzadzanie-plikami-ico"></span></a>
+                                </li>
+                                </c:if>
+                            </ul>
+                        </li>
+
+                </ul>
+
+
+            </div>
+            <!-- /sidebar -->
+
+            <div class="column col-sm-10 col-xs-10" id="main">
+
+
+
+                <div class="row notification-bar">
+
+                    <div class="magic-button visible-xs">
+                        <a href="#" data-toggle="offcanvas" class="visible-xs text-center">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+
+
+                        </a>
+                    </div>
+
+
+                    <div class="left-side-container">
+                         <c:if test="${user!=null}">                        
+                         
+                            <form method="get" action="logout.htm">
+                                <input type="submit" value="logout"/>
+                            </form>
+                          
+                        </c:if>
+
+                            
+
+
+                    </div>
+
+                    <div class="right-side-container">
+
+                        <div class="powiadomienia-container">
+                            <span class="powiadomienia-text hidden-xs">powiadomienia</span>
+                            <span class="icon-dzwonek-ico powiadomienia-ico"></span>
+                        </div>
+
+                        <div ng-init="showChat = false" ng-click="showChat = !showChat" class="wiadomosci-container">                      
+                            <span class="wiadomosci-text hidden-xs">czat</span>
+                            <span class="icon-wiadomosci-ico wiadomosci-ico"></span>
+                        </div>
+
+                    </div> <!-- end right-side-panel -->
+
+
+
+
+
+                    <div class="czat-container col-lg-5 col-md-6 col-xs-6" ng-show="showChat" ng-include='"getUserMessages.htm"'>
+                     
+                        
+                    </div>
+                    <!--<div class="czat-container col-lg-3" ng-show="showChat" ng-include='"getUserMessages.htm"'></div>-->
+                </div>
+
+
+
+                <div id="breadcrumbs" class="row breadcrumb-bar rcrumbs">
+                    
+                    <!--<ul class="breadcrumbs">
+                        <li>jesteś w HRSystem</li>
+                        <li>Zarządzanie zasobami</li>
+                        <li>Firmy</li>
+                    </ul>-->
+                
+                    
+                                       
+                        <input class="wyszukiwarka" placeholder="wyszukaj..." type="text" ng-model="searchText"/>
+              
+                </div>
+
+
+                <div class="row content-container">
+                    <jsp:doBody/>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+    
+    <script src="/CMS/resources/js/jquery-ui.min.js"></script>
+    <script src="/CMS/resources/js/bootstrap.js"></script>
+    <script src="/CMS/resources/js/bootstrap.min.js"></script>
+    <script src="/CMS/resources/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/CMS/resources/js/jquery.rcrumbs.js"></script>
+    <script src="/CMS/resources/js/custom.js"></script>
+
+<script>
+    $("#breadcrumbs").rcrumbs({animation: {activated: false}});
+
+
+
+</script>
+            
+              
+            <div id="idletimeout" style="display: none;">
                 <div class="idletimeout-top">
                     <div class="idletimeout-sign"><img src="" alt="DUŻY KUTAS"/></div>
                     <span style="font-weight:700;" class="idletimeout-header">Twoja sesja wkrótce wygaśnie...</span></div>
 
-                <div class="idletimeout-tekst">Zostaniesz wylogowany za <span style="font-weight:700;" id="odliczanie"><!-- countdown place holder --></span> sekund z powodu braku aktywności.
+                <div class="idletimeout-tekst">Zostaniesz wylogowany za <span style="font-weight:700;" id="odliczanie">
+                       </span> sekund z powodu braku aktywności.
                     <br>Aby kontynuować pracę <a id="idletimeout-resume" href="#">kliknij tutaj</a> i zapomnij o sprawie... na jakiś czas... :)</div>
 
 
@@ -60,120 +458,7 @@
                     }
                 });
             </script>
-            <style>
-                .content-table {
-                    width: 100%;
-                    height: 100%;
-                }
-                .jspBody {
-                    width: 100%;
-                    height: 100%;
-                }
-                .menu {
-                    width: 15%;
-                    vertical-align: top;
-                }
-            </style>
-            <table class="content-table">
-                <tr>
-                    <td class="menu">
-                        <h3>${server}</h3>
-                        <c:if test="${user!=null}">                        
-                            <img src="getUserImage.htm" alt="Brak obrazka" />
-                            <form method="get" action="logout.htm">
-                                <input type="submit" value="logout"/>
-                            </form>
-                            <div ng-init="showChat = false" style="background-color:red" ng-click="showChat = !showChat">Pokaż czat</div>
-                            <div ng-show="showChat" width=450 height=100 
-                                 ng-include='"getUserMessages.htm"' style="border : 1px"></div>
-                        </c:if>
-                        <h1>
-                            ${user.login}   
-                            ${user.privilegeKeyCodes}
-                        </h1>
-                        <ul>
-                            <li id="nav14">Zarządzanie zasobami</li>
-                            <a href="/CMS/home.htm"><li id="nav0">home</li></a>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewContracts')}">
-                                <a href="/CMS/contract.htm"><li id="nav0">Contract</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewCompanies')}">
-                                <a href="/CMS/company.htm"><li id="nav0">Company</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewCustomers')}">
-                                <a href="/CMS/customer.htm"><li id="nav0">Customer</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewDepartments')}">
-                                <a href="/CMS/department.htm"><li id="nav0">Department</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewEmployees')}">
-                                <a href="/CMS/employee.htm"><li id="nav0">employee</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewEmployments')}">
-                                <a href="/CMS/employment.htm"><li id="nav0">Employment</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewTasks')}">
-                                <a href="/CMS/task.htm"><li id="nav0">Task</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('DownloadFiles')}">
-                                <a href="/CMS/fileList.htm"><li id="nav0">fileList</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewPositions')}">
-                                <a href="/CMS/position.htm"><li id="nav0">position</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('PrintReports')}">
-                                <a href="/CMS/report.htm"><li id="nav0">report</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewTerminals')}">
-                                <a href="/CMS/terminal.htm"><li id="nav0">terminal</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewTerminals')}">
-                                <a href="/CMS/archive.htm"><li id="nav0">Archiwum</li></a>
-                                    </c:if>
-                            <br/>
-                            <li id="nav14">Konfiguracja</li>
-                                <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                              user.privilegeKeyCodes.contains('ViewDictionaries')}">
-                                <a href="/CMS/dictionaryList.htm"><li id="nav0">dictionaryList</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewUsers')}">
-                                <a href="/CMS/userList.htm"><li id="nav0">userList</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewSettings')}">
-                                <a href="/CMS/setting.htm"><li id="nav0">setting</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewManageFiles')}">
-                                <a href="/CMS/manageFile.htm"><li id="nav0">fileManage</li></a>
-                                    </c:if>
-                                    <c:if test="${user.privilegeKeyCodes.contains('all') || 
-                                                  user.privilegeKeyCodes.contains('ViewGroups')}">
-                                <a href="/CMS/groupList.htm"><li id="nav0">groupList</li></a>
-                                    </c:if>
-                        </ul>
-                    </td>
-                    <td>
 
-                        <div class="jspBody">
-                            <jsp:doBody/>
-                        </div>
-                    </td>
-                </tr>
-            </table>
         </c:if>
         <c:if test="${user==null}">
             Może byś się kurwa zalogował?

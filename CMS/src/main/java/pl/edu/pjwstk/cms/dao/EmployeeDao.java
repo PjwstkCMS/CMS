@@ -88,6 +88,7 @@ public class EmployeeDao extends GenericDao<Employee> {
         query += " GROUP BY id";
         ResultSet set = this.connectionManager.select(query);
         AddressDao addDao = new AddressDao();
+        List<Address> adds = addDao.selectForQuery("SELECT * FROM address WHERE persondataId!=-1");
         List<EmployeeDto> empDtos = new ArrayList<>();
         try {
             while (set.next()) {
@@ -107,7 +108,11 @@ public class EmployeeDao extends GenericDao<Employee> {
                 dto.setCardId(set.getLong("cardid"));
                 dto.setCardNumber(set.getString("cardnumber"));
                 
-                List<Address> adds = addDao.selectRecordsWithFieldValues("persondataId", dto.getPersondataId());
+                List<Address> empAdds = new ArrayList<>();
+                
+                for (Address a : adds) {
+                    empAdds.add(a);
+                }
                 dto.setAddresses(adds);
                 empDtos.add(dto);
             }

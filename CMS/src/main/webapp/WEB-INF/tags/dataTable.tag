@@ -119,9 +119,9 @@
 </div>
 <div class="pageMax">
     <input ng-show="pageMin > 0" type="button" class="wstecz-button" ng-click="pageMax = pageMax - 15;
-                pageMin = pageMin - 10" value="WSTECZ"/>
+                pageMin = pageMin - 15" value="WSTECZ"/>
     <input ng-show="checkMax()" type="button" class="dalej-button" ng-click="pageMax = pageMax + 15;
-                pageMin = pageMin + 10" value="DALEJ"/>
+                pageMin = pageMin + 15" value="DALEJ"/>
 
 </div>
 <div class="pageMax-tekst">

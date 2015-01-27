@@ -2,8 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="message"%>
-<hr/>
-
+<div class="wszystkie-pola">
 <div ng-show="checkTable(${atr.map}, 'email')">
     {{columnDescription('email')}}: <input type="text" required="required" ng-pattern="/^[.A-Za-z0-9-_]+@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" ng-model="${atr.object}.email"/>
 </div>
@@ -139,4 +138,5 @@
     <select required="required" ng-model="${atr.object}.groupId" ng-change="selectAction('groupId')">
         <option ng-repeat="gr in groups" value="{{gr.id}}"  ng-selected="${atr.object}.groupId == gr.id">{{gr.name}}</option>
     </select>
+</div>
 </div>

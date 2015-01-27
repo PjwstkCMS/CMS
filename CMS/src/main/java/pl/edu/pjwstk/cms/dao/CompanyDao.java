@@ -27,7 +27,7 @@ public class CompanyDao extends GenericDao<Company> {
         return getCompanyDtoList(new HashMap<String, List<String>>(),archive);
     }
 
-    public List<CompanyDto> getCompanyDtoList(Map<String, List<String>> params, boolean archive) {
+    public List<CompanyDto> getCompanyDtoListOld(Map<String, List<String>> params, boolean archive) {
         String query = "SELECT com.name as name, com.id as id, com.contactpersonId as contactpersonId ";
         query += "FROM company as com ";
         query += "WHERE ";
@@ -66,6 +66,61 @@ public class CompanyDao extends GenericDao<Company> {
                         }
                     }
                 }
+                dto.setAddresses(adds);
+                comDtos.add(dto);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return comDtos;
+    }
+    
+    public List<CompanyDto> getCompanyDtoList(Map<String, List<String>> params, boolean archive) {
+        String query = "SELECT com.name as name, com.id as id, com.contactpersonId as contactpersonId, "
+                + "per.forename as forename, per.surname as surname, per.phone as phone, "
+                + "per.email as email, per.pesel as pesel ";
+        query += "FROM company as com, persondata as per ";
+        query += "WHERE per.id=contactpersonId AND ";
+        if (!params.isEmpty()) {            
+            query = this.addParamConditions(query, params);
+            query += " AND ";
+        }        
+        if(archive) {
+            query+= "com.id IN (SELECT companyId FROM archive) ";
+        } else {
+            query+= "com.id NOT IN (SELECT companyId FROM archive) ";
+        }
+        ResultSet set = this.connectionManager.select(query);
+        List<CompanyDto> comDtos = new ArrayList<>();
+        AddressDao addDao = new AddressDao();
+        List<Address> adds = addDao.selectForQuery("SELECT * FROM address WHERE companyId!=-1");
+        try {
+            while (set.next()) {
+                CompanyDto dto = new CompanyDto();
+                dto.setId(set.getLong("id"));
+                dto.setName(set.getString("name"));
+                dto.setContactPersonId(Long.parseLong(set.getString("contactpersonId")));
+                dto.setForename(set.getString("forename"));
+                dto.setSurname(set.getString("surname"));
+                dto.setEmail(set.getString("email"));
+                dto.setPhone(set.getString("phone"));     
+                List<Address> as = new ArrayList<>();
+                for (Address a : adds) {
+                    if(a.getCompanyId().equals(dto.getId())) {
+                        as.add(a);
+                    }
+                }
+                //Ustawianie, aby pierwszy adres na listy to był adres głównej siedziby
+                if (as.size() > 1 &&
+                        !as.get(0).getDictId().equals("4")) {
+                    for (Address a : as) {
+                        if(a.getDictId().equals("4")) {
+                            as.set(0, a);
+                        }
+                    }
+                }
+                
                 dto.setAddresses(adds);
                 comDtos.add(dto);
             }

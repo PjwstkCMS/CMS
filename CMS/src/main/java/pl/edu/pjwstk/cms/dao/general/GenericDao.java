@@ -29,19 +29,25 @@ public class GenericDao<T extends DatabaseObject> {
     public GenericDao(Class c) {
         modelClass = c;
         if (connectionManager == null) {
-            try {
-                connectionManager = ConnectionManager.getConnectionManager();
-                List<T> selectRecordsWithFieldValues = this.selectAll();
-                server = "Wynajęty serwer";
-                if (selectRecordsWithFieldValues.isEmpty()) {
-                    throw new Exception();
-                }
-            } catch (Exception noConnection) {
-                server = "Sergiowy serwer";
-                LOGGER.warning("Can't reach main sql server. Switching to auxilary.");
-                connectionManager = ConnectionManager.getConnectionManagerAuxilary();
-            }
+            connectionManager = ConnectionManager.getConnectionManager();
+            LOGGER.info("Get connection manager");
         }
+        /*
+         if (connectionManager == null) {
+         try {
+         connectionManager = ConnectionManager.getConnectionManager();
+         List<T> selectRecordsWithFieldValues = this.
+         server = "Wynajęty serwer";
+         if (selectRecordsWithFieldValues.isEmpty()) {
+         throw new Exception();
+         }
+         } catch (Exception noConnection) {
+         server = "Sergiowy serwer";
+         LOGGER.warning("Can't reach main sql server. Switching to auxilary.");
+         connectionManager = ConnectionManager.getConnectionManagerAuxilary();
+         }
+         }
+         */
 
     }
 
@@ -250,9 +256,9 @@ public class GenericDao<T extends DatabaseObject> {
                 T obj = (T) modelClass.newInstance();
                 Field[] fields = obj.getClass().getDeclaredFields();
                 for (Field f : fields) {
-                    if (!"LOGGER".equals(f.getName()) &&
-                            !"READ".equals(f.getName()) &&
-                            !"NOT_READ".equals(f.getName())) {
+                    if (!"LOGGER".equals(f.getName())
+                            && !"READ".equals(f.getName())
+                            && !"NOT_READ".equals(f.getName())) {
                         String fieldValue = resultSet.getString(f.getName());
                         f.setAccessible(true);
                         f.set(obj, fieldValue);
@@ -288,8 +294,8 @@ public class GenericDao<T extends DatabaseObject> {
                 T obj = (T) modelClass.newInstance();
                 Field[] fields = obj.getClass().getDeclaredFields();
                 for (Field f : fields) {
-                    if (!"LOGGER".equals(f.getName()) &&
-                            !"archived".equals(f.getName())) {
+                    if (!"LOGGER".equals(f.getName())
+                            && !"archived".equals(f.getName())) {
                         String fieldValue = "";
                         fieldValue = resultSet.getString(f.getName());
                         f.setAccessible(true);

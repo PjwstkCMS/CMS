@@ -1,9 +1,3 @@
-<%-- 
-    Document   : dataTable
-    Created on : 2014-09-09, 17:59:47
-    Author     : Konrad
---%>
-
 <%@tag description="Tabela z danymi" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%-- The list of normal or fragment attributes can be specified here: --%>
@@ -18,7 +12,7 @@
 
 </style>
 
-<div class="table-container">
+<!--<div class="table-container">
     <div class="heading">
         <div class="col">#</div>
         <div class="col" ng-repeat="attr in attributes" ng-hide="attr.substring(0, 1) == '%'" class = "{{columnClasses[attr]}}"><a ng-click="$parent.orderColumn = attr; $parent.reverse = !$parent.reverse">{{$parent.columnDescription(attr)}}</a></div>
@@ -36,13 +30,14 @@
      
     </div>
 
-</div>
+</div>-->
 
-<div class="data-table-container">
-<table class="data-table-table">
+<div>
+    
+<table class="data-table-table col-lg-12">
     
     <tr>
-        <th class="numer">#</th>
+        <th>#</th>
         <th ng-repeat="attr in attributes" ng-hide="attr.substring(0, 1) == '%'" class = "{{columnClasses[attr]}}">
             <a ng-click="$parent.orderColumn = attr; $parent.reverse = !$parent.reverse">{{$parent.columnDescription(attr)}}</a>
         </th>
@@ -50,30 +45,32 @@
     
     <tbody ng-repeat="obj in objects| filter:searchText | orderBy:orderColumn:reverse" ng-show="indexOnPage($index)">
         
-        <tr ng-class="{selectedTableRow: obj == selected}" >
-            <td>
-                {{$index + 1}}
-            </td>
+    <tr ng-class="{selectedTableRow: obj == selected}" >
+        <td>
+            {{$index + 1}}
+        </td>
             
-            <td ng-repeat="attr in attributes" ng-click="$parent.select(obj)">
-                <div ng-if="attr == 'startDate' || attr == 'closeDate' || attr == 'finalisationDate'
-                     || attr == 'dateTo' || attr == 'dateFrom' "> {{obj[attr] | date:'dd-MM-yyyy'}} </div>
-                <div ng-if=" attr != 'startDate' && attr != 'closeDate' && attr != 'finalisationDate'
-                     && attr != 'dateTo' && attr != 'dateFrom' " > {{obj[attr]}} </div>
-            </td>
-        </tr>
+        <td ng-repeat="attr in attributes" ng-click="$parent.select(obj)">
+            
+            <div ng-if="attr == 'startDate' || attr == 'closeDate' || attr == 'finalisationDate' || attr == 'dateTo' || attr == 'dateFrom' "> {{obj[attr] | date:'dd-MM-yyyy'}} </div>
+            <div ng-if=" attr != 'startDate' && attr != 'closeDate' && attr != 'finalisationDate' && attr != 'dateTo' && attr != 'dateFrom' " > {{obj[attr]}} </div>
+            
+        </td>
+    </tr>
         
-        <tr ng-show="obj == selected">
+    <tr ng-show="obj == selected">
             
-            <td colspan="8"><t:innerPage/></td>
+        <td colspan="8"><t:innerPage/></td>
             
-        </tr>
+    </tr>
                  
                 
        
     </tbody>
 
 </table>
+        
+</div>
 <div class="ladowanie" align="center">
     <span ng-show="status != null"><div id="loaderImage"></div>ładowanie danych...</span>
     <span ng-show="status == 'Błąd'">błąd podczas ładowania danych...</span>

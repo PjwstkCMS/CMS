@@ -211,12 +211,12 @@ body {
   border-bottom: 1px solid #e7eaec;
   height: 55px;
 }
-.data-table-container table { width: 100%;}
+.data-table-container table {}
 
 .data-table-table tr th { font-size:14px; font-family: open_sanslight; padding: 18px 0 17px 0; background-color: #ebebeb;color:#acacac;border-bottom:1px solid #e6e6e6;}
-.data-table-table tr th {padding-left:25px;}
+.data-table-table tr th {}
 
-.data-table-table tr td {padding: 11px 0 10px 25px; font-size: 13px;}
+.data-table-table tr td {padding: 11px 0 10px 0; font-size: 13px;}
 .data-table-table a {color:#acacac;}
 
 

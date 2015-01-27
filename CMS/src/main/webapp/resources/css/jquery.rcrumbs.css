@@ -1,0 +1,36 @@
+.rcrumbs {
+  color:#b5b5b5;
+  font-size: 14px;
+  line-height: 18px;
+  white-space: nowrap;
+}
+.rcrumbs > ul {
+  padding: 0;
+  list-style: none;
+}
+.rcrumbs > ul > li {
+  overflow: hidden;
+  display: none;
+}
+.rcrumbs > ul > li.show {
+  display: inline-block !important;
+}
+.rcrumbs > ul > li.ellipsis {
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.rcrumbs .divider {
+  color: #cccccc;
+  padding: 0 5px;
+}
+.breadcrumbs {
+  margin: 17px 0 0 25px;
+}
+.breadcrumbs li:not(:last-child)::after {
+  font-size: 13px;
+  font-family: 'icomoon';
+  content: "\e602";
+  padding: 0 9px 0 9px;
+}

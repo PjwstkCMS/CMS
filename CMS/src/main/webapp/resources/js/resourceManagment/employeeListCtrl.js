@@ -197,6 +197,16 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.columnDescription = function (obj) {
         return columnDesc.get(obj);
     };
+    
+    $scope.checkTable = function(table, divName){
+        for (var i = 0; i < table.length; i++) {
+            var temp = table[i];
+            if (temp[0] === divName) {
+                return true;
+            }
+        }
+        return false;
+    };
 
     $scope.addNewElement = function (type) {
         if (type == 'address') {

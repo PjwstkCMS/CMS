@@ -4,7 +4,7 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/configuration/manageFileCtrl.js"></script>
-        <h1>ManageFile!</h1>        
+       
         <div ng-controller="ManageFileCtrl">
             <t:dataTable/>
             <br/>

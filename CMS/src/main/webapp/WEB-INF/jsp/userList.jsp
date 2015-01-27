@@ -4,7 +4,6 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/configuration/userListCtrl.js"></script>
-        <h1>User!</h1>
         <div ng-controller="UserListCtrl">
             <t:dataTable/>
             <div ng-show="editMode && newRecord">

@@ -4,7 +4,6 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/configuration/systemConfigCtrl.js"></script>
-        <h1>Setting!</h1>
         <div ng-controller="SystemConfigCtrl">
             <t:dataTable/>
             <input type="button" ng-click="defaultSettings()" value="Default settings">

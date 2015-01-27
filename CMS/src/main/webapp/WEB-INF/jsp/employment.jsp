@@ -4,7 +4,7 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/employmentListCtrl.js"></script>
-        <h1>Employment!</h1>
+       
         <div ng-controller="EmploymentListCtrl">            
             <t:dataTable/>
             <div ng-show="editMode && newRecord">

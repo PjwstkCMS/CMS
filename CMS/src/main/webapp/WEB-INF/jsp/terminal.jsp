@@ -4,7 +4,6 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/terminalListCtrl.js"></script>
-        <h1>Terminal!</h1>
         <div ng-controller="TerminalListCtrl">
             <t:dataTable/>
             <div ng-show="editMode && newRecord">

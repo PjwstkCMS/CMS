@@ -4,7 +4,6 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/taskListCtrl.js"></script>
-        <h1>Task!</h1>
         <div ng-controller="TaskListCtrl">
             <t:dataTable/>
             <div ng-show="editMode && newRecord">

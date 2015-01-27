@@ -4,7 +4,7 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/fileListCtrl.js"></script>
-        <h1>FileList!</h1>        
+        
         <div ng-controller="FileListCtrl">
             <t:dataTable/>
         </div>

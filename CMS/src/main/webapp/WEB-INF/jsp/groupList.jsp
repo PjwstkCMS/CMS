@@ -4,7 +4,7 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/configuration/groupListCtrl.js"></script>
-        <h1>GroupList!</h1>
+  
         <div ng-controller="GroupListCtrl">
             <t:dataTable/>
             <div ng-show="editMode && newRecord">

@@ -12,7 +12,7 @@
             }
         </style>
         <script src="/CMS/resources/js/resourceManagment/archiveListCtrl.js"></script>
-        <h1>Archive!</h1>
+      
         <div ng-controller="ArchiveListCtrl">                        
             <table width="100%" border="1">
                 <tr>

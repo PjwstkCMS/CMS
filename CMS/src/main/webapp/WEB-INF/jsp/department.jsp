@@ -4,7 +4,7 @@
 <t:general>
     <jsp:body>
         <script src="/CMS/resources/js/resourceManagment/departmentListCtrl.js"></script>
-        <h1>Department!</h1>
+        
         <div ng-controller="DepartmentListCtrl">
             <t:dataTable/>
             <div ng-show="editMode && newRecord">

@@ -7,7 +7,7 @@
 <%-- any content can be specified here e.g.: --%>
 <style>
     .selectedTableRow {
-        background-color: lightblue;
+        background-color: #eeeeee;
     }
 
 </style>

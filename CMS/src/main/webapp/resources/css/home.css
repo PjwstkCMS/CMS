@@ -153,7 +153,7 @@ body {
   border: 1px solid #f5f5f5;
 }
 
-#czat { float: left; position: relative; clear:both;margin: 0 15px 0 15px;}
+#czat { float: left; position: relative; clear:both;margin: 0 15px 0 15px; z-index: 100000;}
 #czat input[type="checkbox"] { display:none; }
 #czat input[type="checkbox"] + label span { display:inline-block; width:28px; height:22px; margin:0px 7px 0 0; vertical-align:middle; background:url(/CMS/resources/images/checkbox.png) left top no-repeat;cursor:pointer;}
 #czat input[type="checkbox"]:checked + label span {
@@ -171,6 +171,7 @@ body {
   border-bottom-left-radius:3px;
   border-bottom-right-radius: 3px;
   overflow: auto;
+  z-index: 99999;
   
 }
 
@@ -208,8 +209,45 @@ body {
 }
 .breadcrumb-bar {
   background-color: #fbfbfb;
-  border-bottom: 1px solid #e7eaec;
+  border-bottom: 1px solid #95c37c;
   height: 55px;
+}
+.wyszukiwarka-ico {float:left;margin: 18px 7px 0 8px;padding: 0;font-size: 19px;color:#cfcfcf;}
+
+/* Wyszukiwarka */
+
+
+input.wyszukiwarka {
+    width: 90%;
+    float: left;
+    font-family: "Open Sans";
+    font-size: 15px;
+    line-height: 15px;
+    font-weight: 700;
+    background-color: #fbfbfb;
+    color: #cfcfcf;
+    height: 50px;
+    margin: 1px 0 0 0;
+    padding: 0 0 0 0;
+    border:0;
+    outline: 0;
+}
+
+input.wyszukiwarka:focus {
+    border:0;
+}
+
+input.wyszukiwarka::-webkit-input-placeholder {
+    color: #cfcfcf;
+}
+
+input.wyszukiwarka:-moz-placeholder {
+    color: #cfcfcf;
+}
+
+input.wyszukiwarka:-ms-input-placeholder {
+    /* IE10+ */
+    color: #cfcfcf;
 }
 .data-table-container table {}
 
@@ -249,4 +287,82 @@ display:table-cell;
 border: 1px solid #CCC;
 }
 
+.genericTable {
+    font-size: 15px;
+    color: #acacac;
+    background-color: #FFF;
+    text-align: left;
+    border-collapse: collapse;
+    width: 100%;
+}
+.genericTable tr {
+ 
+}
+th {
+        font-family: "Open Sans";
+        font-size: 15px;
+        padding: 18px 0 17px 17px;
+        color:#678258;
+        border-right: 1px solid #95c37c;
+    }
+
+ tr {
+     
+      border-top: 1px solid #e7e7e7;
+     
+    }
+     tr:nth-child() {
+         border-top:0px;
+       
+     
+    }
+    
+    .genericTableHeader th {
+
+    }
+  
+
+    td {
+     
+           font-size:13px;
+        padding: 11px 17px 10px 17px;
+        border-right: 1px solid #e0e0e0;
+    }
+
+    tr:hover {
+        background-color: #f9f9f9;
+        cursor: pointer;
+    }
+    th:hover {
+        background-color: #81a56d;
+        
+    }
+
+    .table-header {
+        border-top: 0px;
+        background-color: #9ccc83;
+        
+    }
+   
+    .table-header a { font-size:14px; font-family: open_sanslight; padding: 18px 0 17px 0;color:#678258;
+        
+    }
+    
+    .numer {
+        padding: 0 17px 0 17px;
+        text-align: center;
+        width: 24px;
+        max-width: 24px;
+        min-width: 24px;
+
+    }
+    .numer-header {
+        text-align: center;
+        padding: 0 17px 0 17px;
+        width: 24px;
+        max-width: 24px;
+        min-width: 24px;
+
+    }
+     .table-header th:nth-child(2) {}
 

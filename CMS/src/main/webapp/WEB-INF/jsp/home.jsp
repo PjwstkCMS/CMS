@@ -11,6 +11,12 @@
     <jsp:body>
         <c:if test="${user!=null}">
             <script src="/CMS/resources/js/homeCtrl.js"></script>
+            
+            <div ng-controller="HomeCtrl">
+                <t:dataTable/>
+                <input type="button" ng-click="done()" value="Done">
+                <input type="button" ng-click="undo()" value="Undo">
+            </div>   
             <h3>Ustaw swojego awatara</h3>
             <form action="/CMS/uploadPhoto.htm" method="POST" enctype="multipart/form-data">
                 Plik: <input type="file" name="file"/>
@@ -44,11 +50,7 @@
                 <textarea name="message" rows="30" cols="100"></textarea>
                 <input type="submit"/>
             </form>
-            <div ng-controller="HomeCtrl">
-                <t:dataTable/>
-                <input type="button" ng-click="done()" value="Done">
-                <input type="button" ng-click="undo()" value="Undo">
-            </div>                
+                         
         </c:if>
     </jsp:body>
 </t:general>

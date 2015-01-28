@@ -59,7 +59,7 @@
                             {{$parent.$parent.columnDescription(adatr)}}
                         </th>   
                     </tr>
-                    <tbody>
+                    
                         <tr>
                             <td ng-repeat="attr in attributesArray">
                                 <div ng-if="attr == 'dictId'"> 
@@ -70,7 +70,7 @@
                                 <div ng-if="attr != 'dictId'">{{selector[selectedSubpage][attr]}}</div>
                             </td>
                         </tr>
-                    </tbody>
+                    
                 </table>
                 <div ng-show="editSubElement">                    
                     <div ng-show="selectedSubpage == 'address'">
@@ -108,7 +108,7 @@
             <input type="button" ng-show="!addressEdit" ng-click="addAddress()" value="ADD"/>
             <input type="button" ng-show="addressSelector && !addressEdit" ng-click="editAddress()" value="EDIT"/>
             <input type="button" ng-show="addressSelector && !addressEdit" ng-click="removeKey()" value="DELETE"/>
-            <tbody>
+            
                 <tr>
                     <td ng-repeat="attr in addressAttributes">
                         <div ng-if="attr == 'dictId'"> 
@@ -119,7 +119,7 @@
                         <div ng-if="attr != 'dictId'"> {{addressSelector[attr]}} </div>
                     </td>
                 </tr>
-            </tbody>
+            
         </table>
         <div ng-show="addressEdit">
             <t:editTable map="addressValues" object="addressSelector"/>
@@ -191,13 +191,13 @@
                     {{$parent.columnDescription(catr)}}
                 </th>   
             </tr>
-            <tbody>
+            
                 <tr>
                     <td ng-repeat="attr in contractAttributes">
                         {{contractSelector[attr]}}
                     </td>
                 </tr>
-            </tbody>
+           
         </table>
         <%--<div ng-show="contractSelector">
             <t:editTable map="contractValues" object="contractSelector"/>
@@ -242,7 +242,6 @@
                     {{$parent.columnDescription(adatr)}}
                 </th>   
             </tr>
-            <tbody>
                 <tr>
                     <td ng-repeat="attr in employeeAttributes">
                         <div ng-if="attr == 'departmentId'"> 
@@ -253,7 +252,6 @@
                         <div ng-if="attr != 'departmentId'"> {{employeeSelector[attr]}} </div>
                     </td>
                 </tr>
-            </tbody>
         </table>
     </div>
     <div ng-show="editMode">
@@ -312,13 +310,13 @@
             <input type="button" ng-show="!dictionaryEdit" ng-click="addDictionary()" value="ADD"/>
             <input type="button" ng-show="dictionarySelector && !dictionaryEdit" ng-click="editDictionary()" value="EDIT"/>
             <input type="button" ng-show="dictionarySelector && !dictionaryEdit" ng-click="removeKey()" value="DELETE"/>
-            <tbody>
+            
                 <tr>
                     <td ng-repeat="dictAtr in dictionaryAttributes">
                         {{dictionarySelector[dictAtr]}}
                     </td>
                 </tr>
-            </tbody>
+          
         </table>
         <div ng-show="dictionaryEdit">
             <t:editTable map="dictionaryValues" object="dictionarySelector"/>

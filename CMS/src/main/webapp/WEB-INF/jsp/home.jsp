@@ -16,12 +16,15 @@
                 <t:dataTable/>
                 <input type="button" ng-click="done()" value="Done">
                 <input type="button" ng-click="undo()" value="Undo">
-            </div>   
+            </div> 
+                <div style="float:left;">
             <h3>Ustaw swojego awatara</h3>
             <form action="/CMS/uploadPhoto.htm" method="POST" enctype="multipart/form-data">
                 Plik: <input type="file" name="file"/>
                 <input type="submit" value="Wyslij plik"/>
             </form>
+                </div>
+                <div style="float:left;">
             <h3>Twoje dane</h3>
             <form action="/CMS/changeUserData.htm" method="POST">
                 Imię: ${userData.forename}<br/>
@@ -31,7 +34,8 @@
                 E-Mail: <input type="text" name="email" value="${userData.email}"/><br/>
                 Numer telefonu: <input type="text" name="phone" value="${userData.phone}"/><br/>
                 <input type="submit" value="Zmień"/>
-            </form>
+            </form></div>
+                <div style="float:left;">
             <h3>Zmiana hasła</h3>
             <p style="color: red">${passwordChangeError}</p>
             <form action="/CMS/changeUserPassword.htm" method="POST">
@@ -39,7 +43,9 @@
                 Nowe hasło: <input type="password" name="password1"/><br/>
                 Potwierdź nowe hasło: <input type="password" name="password2"/><br/>
                 <input type="submit" value="Zmień"/>
-            </form>
+            </form></div>
+            
+            <div style="float:left;">
             Wyślij wiadomość:
             <form action="sendMessage.htm" method="POST">
                 <select name="sendTo">
@@ -47,9 +53,10 @@
                         <option value="${sendUser.id}">${sendUser.login}</option>
                     </c:forEach>
                 </select>
-                <textarea name="message" rows="30" cols="100"></textarea>
+                <textarea name="message" rows="10" cols="20"></textarea>
                 <input type="submit"/>
             </form>
+            </div>
                          
         </c:if>
     </jsp:body>

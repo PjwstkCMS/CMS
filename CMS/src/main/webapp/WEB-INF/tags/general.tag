@@ -27,6 +27,30 @@
         <link href="/CMS/resources/css/fonts.css" rel="stylesheet">
         <link href="/CMS/resources/css/jquery.mCustomScrollbar.min.css" rel="stylesheet">
         
+         <script type="text/javascript">
+                $.idleTimeout('#idletimeout', '#idletimeout a', {
+                    idleAfter: ${idleTimeout},
+                    pollingInterval: 2,
+                    serverResponseEquals: 'OK',
+                    onTimeout: function () {
+                        $(this).fadeOut();
+                        window.location = "/CMS/logout.htm";
+                    },
+                    onIdle: function () {
+                        $(this).fadeIn(); // show the warning bar
+                        $.blockUI({message: null});
+
+                    },
+                    onCountdown: function (counter) {
+                        $(this).find("#odliczanie").html(counter); // update the counter
+                    },
+                    onResume: function () {
+                        $(this).fadeOut(); // hide the warning bar
+                        $.unblockUI();
+                    }
+                });
+            </script>
+        
         
 
         <title>HR System</title>        
@@ -35,6 +59,18 @@
     <c:if test="${user!=null}">
         <body ng-app="cms">
             
+                 <div id="idletimeout" style="display: none;">
+                <div class="idletimeout-top">
+                    <div class="idletimeout-sign"><img src="" alt="aaa"/></div>
+                    <span style="font-weight:700;" class="idletimeout-header">Twoja sesja wkrótce wygaśnie...</span></div>
+
+                <div class="idletimeout-tekst">Zostaniesz wylogowany za <span style="font-weight:700;" id="odliczanie">
+                       </span> sekund z powodu braku aktywności.
+                    <br>Aby kontynuować pracę <a id="idletimeout-resume" href="#">kliknij tutaj</a> i zapomnij o sprawie... na jakiś czas... :)</div>
+
+
+
+            </div>
             
             <div class="wrapper">
 
@@ -424,45 +460,12 @@
 </script>
             
               
-            <div id="idletimeout" style="display: none;">
-                <div class="idletimeout-top">
-                    <div class="idletimeout-sign"><img src="" alt="DUŻY KUTAS"/></div>
-                    <span style="font-weight:700;" class="idletimeout-header">Twoja sesja wkrótce wygaśnie...</span></div>
-
-                <div class="idletimeout-tekst">Zostaniesz wylogowany za <span style="font-weight:700;" id="odliczanie">
-                       </span> sekund z powodu braku aktywności.
-                    <br>Aby kontynuować pracę <a id="idletimeout-resume" href="#">kliknij tutaj</a> i zapomnij o sprawie... na jakiś czas... :)</div>
-
-
-
-            </div>
-            <script type="text/javascript">
-                $.idleTimeout('#idletimeout', '#idletimeout a', {
-                    idleAfter: ${idleTimeout},
-                    pollingInterval: 2,
-                    serverResponseEquals: 'OK',
-                    onTimeout: function () {
-                        $(this).fadeOut();
-                        window.location = "/CMS/logout.htm";
-                    },
-                    onIdle: function () {
-                        $(this).fadeIn(); // show the warning bar
-                        $.blockUI({message: null});
-
-                    },
-                    onCountdown: function (counter) {
-                        $(this).find("#odliczanie").html(counter); // update the counter
-                    },
-                    onResume: function () {
-                        $(this).fadeOut(); // hide the warning bar
-                        $.unblockUI();
-                    }
-                });
-            </script>
+       
+           
 
         </c:if>
         <c:if test="${user==null}">
-            Może byś się kurwa zalogował?
+            Może byś się zalogował?
         </c:if>
     </body>
 </html>

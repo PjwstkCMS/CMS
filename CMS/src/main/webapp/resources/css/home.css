@@ -367,4 +367,5 @@ th {
 
     }
      .table-header th:nth-child(2) {}
-
+     .pageMax-tekst {margin: 20px 40px 0 0;float:right;}
+     .pageMax {float:right;margin: 20px 0 0 0;}

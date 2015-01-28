@@ -2,58 +2,484 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
+/*----------------------------------------------*/
+/* SASS */
+/*----------------------------------------------*/
+/* SASS */
+/*----------------------------------------------*/
+/* Czcionki */
+/* @font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('webfonts/opensans.eot');
+  src: local('Open Sans'), local('OpenSans'), url(webfonts/opensans.woff) format('woff');
+} * 
+
+/*----------------------------------------------*/
+/* Linki */
+a:link {
+  color: #218164;
+  text-decoration: none;
 }
 
-html {
-  line-height: 1;
+a:visited {
+  color: #218164;
 }
 
-ol, ul {
-  list-style: none;
+a:hover {
+  color: #1a7056;
 }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+a:active {
+  color: #218164;
 }
-
-caption, th, td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
-}
-
-q, blockquote {
-  quotes: none;
-}
-q:before, q:after, blockquote:before, blockquote:after {
+/*----------------------------------------------*/
+/* Clear-fix */
+/* For modern browsers */
+.container:before,
+.container:after {
   content: "";
-  content: none;
+  display: table;
 }
 
-a img {
-  border: none;
+.container:after {
+  clear: both;
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
-  display: block;
+/* For IE 6/7 (trigger hasLayout) */
+.container {
+  zoom: 1;
+}
+
+/*----------------------------------------------*/
+/* Podstawowe */
+body {
+  font-family: 'Open Sans';
+  background-color: #d4d4d4;
+}
+
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -155px 0px 0px -220px;
+  width: 440px;
+}
+
+.container-after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -240px 0px 0px -220px;
+  width: 440px;
+}
+
+.top-container {
+  background-color: #32b38c;
+  width: 440px;
+  height: 85px;
+}
+
+.form-container {
+  clear: both;
+  background-color: #5c6672;
+  width: 440px;
+  height: 225px;
+}
+.form-container-after {
+  clear: both;
+  background-color: #5c6672;
+  width: 440px;
+  height: 396px;
+}
+
+.formularz {
+  float: left;
+}
+
+.logo {
+  float: left;
+  padding: 23px 0px 0px 39px;
+}
+
+.button-tekst {
+  cursor: default;
+  float: left;
+  padding: 0 0 0 0;
+}
+
+#tekst-bg {
+  margin: 24px 0 0 118px;
+  width: 112px;
+  height: 20px;
+  font-smooth: auto;
+  float: left;
+  line-height: 18px;
+  font-size: 15px;
+  color: #218164;
+  background-color: #32b38c;
+}
+#tekst-bg-after {
+  margin: 24px 0 0 75px;
+  width: 190px;
+  height: 20px;
+  font-smooth: auto;
+  float: left;
+  line-height: 18px;
+  font-size: 15px;
+  color: #218164;
+  background-color: #32b38c;
+}
+
+#tekst-bg:hover + #strzalka-button {
+  background-color: #5c6672;
+}
+
+#strzalka-button {
+  float: right;
+  width: 55px;
+  height: 85px;
+}
+
+#strzalka-button:hover {
+  background-color: #5c6672;
+  cursor: pointer;
+}
+
+.strzalka {
+  float: right;
+  padding: 34px 21px 0 0;
+}
+
+/*----------------------------------------------*/
+/* User input */
+.user-form {
+  float: left;
+  margin: 34px 0 0 39px;
+}
+
+.user-icon {
+  float: left;
+  position: absolute;
+  padding-left: 57px;
+  padding-top: 46px;
+}
+
+input.user-name {
+  float: left;
+  margin: 34px 0 0 39px;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-weight: 700;
+  background-color: #ececec;
+  color: #aaabac;
+  padding-left: 50px;
+  width: 362px;
+  height: 41px;
+  border: 1px solid #5c6672;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  outline: 0;
+}
+
+input.user-name:focus {
+  border-color: #32b38c;
+}
+input.imie-input {
+  float: left;
+  margin: 34px 0 0 39px;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-weight: 700;
+  background-color: #ececec;
+  color: #aaabac;
+  padding-left: 50px;
+  width: 362px;
+  height: 41px;
+  border: 1px solid #5c6672;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  outline: 0;
+}
+
+input.imie-input:focus {
+  border-color: #32b38c;
+}
+
+/*----------------------------------------------*/
+/* Password input */
+.password-form {
+  float: left;
+  margin: 16px 0 0 39px;
+}
+
+.password-icon {
+  float: left;
+  position: absolute;
+  padding-left: 57px;
+  padding-top: 103px;
+}
+.surname-icon {
+  float: left;
+  position: absolute;
+  padding-left: 57px;
+  padding-top: 103px;
+}
+.email-icon {
+  float: left;
+  position: absolute;
+  padding-left: 57px;
+  padding-top: 160px;
+}
+.login-icon {
+  float: left;
+  position: absolute;
+  padding-left: 57px;
+  padding-top: 217px;
+}
+.pass-icon {
+  float: left;
+  position: absolute;
+  padding-left: 57px;
+  padding-top: 274px;
+}
+
+input.password-input {
+  float: left;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-weight: 700;
+  background-color: #ececec;
+  color: #aaabac;
+  padding-left: 50px;
+  margin: 16px 0 0 39px;
+  width: 362px;
+  height: 41px;
+  border: 1px solid #5c6672;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  outline: 0;
+  -webkit-appearance: none;
+}
+
+input.password-input:focus {
+  border-color: #32b38c;
+}
+input.nazwisko-input {
+  float: left;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-weight: 700;
+  background-color: #ececec;
+  color: #aaabac;
+  padding-left: 50px;
+  margin: 16px 0 0 39px;
+  width: 362px;
+  height: 41px;
+  border: 1px solid #5c6672;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  outline: 0;
+  -webkit-appearance: none;
+}
+
+input.nazwisko-input:focus {
+  border-color: #32b38c;
+}
+input.login-input {
+  float: left;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-weight: 700;
+  background-color: #ececec;
+  color: #aaabac;
+  padding-left: 50px;
+  margin: 16px 0 0 39px;
+  width: 362px;
+  height: 41px;
+  border: 1px solid #5c6672;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  outline: 0;
+  -webkit-appearance: none;
+}
+
+input.login-input:focus {
+  border-color: #32b38c;
+}
+input.email-input {
+  float: left;
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-weight: 700;
+  background-color: #ececec;
+  color: #aaabac;
+  padding-left: 50px;
+  margin: 16px 0 0 39px;
+  width: 362px;
+  height: 41px;
+  border: 1px solid #5c6672;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  outline: 0;
+  -webkit-appearance: none;
+}
+
+input.email-input:focus {
+  border-color: #32b38c;
+}
+/*----------------------------------------------*/
+input.zaloguj-button {
+  padding: 0 0 0 2px;
+  width: 90px;
+  height: 36px;
+  margin: 25px 39px 0 310px;
+  font-family: 'Open Sans';
+  font-size: 14px;
+  font-weight: 700;
+  font-smooth: auto;
+  color: #FFF;
+  cursor: pointer;
+  background: #ff9879;
+  border: 0px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+
+input.zaloguj-button:hover, input.zaloguj-button:active {
+  background-color: #ef8e71;
+}
+
+input.wyslij-button {
+  float: right;
+  clear: left;
+  margin: 25px 39px 0 0;
+  padding: 0 0 0 2px;
+  width: 90px;
+  height: 36px;
+  font-family: 'Open Sans';
+  font-size: 14px;
+  font-weight: 700;
+  font-smooth: auto;
+  color: #FFF;
+  cursor: pointer;
+  background: #ff9879;
+  border: 0px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+
+input.wyslij-button:hover, input.zaloguj-button:active {
+  background-color: #ef8e71;
+}
+
+input.anuluj-button {
+  float: right;
+  clear: left;
+  padding: 0 0 0 2px;
+  margin: 25px 10px 0 0;
+  width: 90px;
+  height: 36px;
+  font-family: 'Open Sans';
+  font-size: 14px;
+  font-weight: 700;
+  font-smooth: auto;
+  color: #FFF;
+  cursor: pointer;
+  background: #7d8288;
+  border: 0px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+}
+
+input.anuluj-button:hover, input.zaloguj-button:active {
+  background-color: #8a8f95;
+}
+.request-sent {
+    text-align: center;
+    margin: 0 0 15px 0;
+    font-size: 17px;
+    font-weight: 700;
+width:440px;
+height:45px;
+
+background-color: #32b38c;
+}
+.request-sent-error {
+    text-align: center;
+    margin: 0 0 15px 0;
+    font-size: 17px;
+    font-weight: 700;
+width:440px;
+height:45px;
+background-color: #b52349;
+}
+.stay-logged input[type="checkbox"] + label {
+	font-size: 14px;
+	font-weight: 700;
+	color: #7d8288;
+}
+ .stay-logged input[type="checkbox"] {
+    display:none;
+}
+.stay-logged input[type="checkbox"] + label span {
+    display:inline-block;
+    width:28px;
+    height:22px;
+    margin:0 5px 0 0;
+    vertical-align:middle;
+    background:url(/CMS/resources/images/checkbox.png) left top no-repeat;
+    cursor:pointer;
+}
+.stay-logged input[type="checkbox"]:checked + label span {
+    background:url(/CMS/resources/images/checkbox.png) -56px top no-repeat;
+}
+.stay-logged {
+float: left;
+clear: both;
+position: absolute;
+margin: 166px 0 0 40px;
+}
+.stay-logged input[type="checkbox"] + label span:before {
+	background-position: 0px 0px;
+}
+.stay-logged input[type="checkbox"]:hover + label span:before, .stay-logged input[type="checkbox"] + label span:hover {
+	background-position: -28px 0px;
+}
+.stay-logged input[type="checkbox"]:checked + label span {
+	background-position: -56px 0px;
+}
+.stay-logged input[type="checkbox"]:hover:checked + label span, .stay-logged input[type="checkbox"]:focus:checked + label span {
+	background-position: -56px 0px;
+}
+.stay-logged input[type="checkbox"]:active:checked + label span {
+	background-position: -56px 0px;
 }

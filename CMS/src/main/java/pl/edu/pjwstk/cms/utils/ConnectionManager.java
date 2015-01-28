@@ -20,6 +20,10 @@ public class ConnectionManager {
     public static String staticLogin = "root";
     public static String staticPass = "leofram";
     
+  /*public static String staticUrl = "jdbc:mysql://sql.s20.vdl.pl/hrcms_glowna?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
+    public static String staticLogin = "hrcms_system";
+    public static String staticPass = "hrsystem"; */
+    
     public static String staticUrl2 = "jdbc:mysql://famalis.no-ip.info/hrsystem?useUnicode=true&characterEncoding=UTF-8&collation=utf8_polish_ci";
     public static String staticLogin2 = "Sergio";
     public static String staticPass2 = "quovadis1";

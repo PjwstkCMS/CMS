@@ -128,12 +128,12 @@ public class LoginController extends BaseController {
 
         String login = (String) request.getParameter("login");
         String pass = (String) request.getParameter("password");
-        //String employeeId = (String) request.getParameter("employeeId");
+        String email = (String) request.getParameter("email");
         //String group = (String) request.getParameter("group");
         String forename = (String) request.getParameter("forename");
         String surname = (String) request.getParameter("surname");
         String subject = "Account request";
-        String body = "Imię: " + forename + "</br>Nazwisko: " + surname + "</br> Login: " + login + "</br> Hasło " + pass;
+        String body = "Imię: " + forename + "</br>Nazwisko: " + surname + "</br> Email: " + email + "</br> Login: " + login + "</br> Hasło " + pass;
         String username = "pjwstkhrsystem@vp.pl";
 
         if (Utils.sendMail(username, body, subject)) {

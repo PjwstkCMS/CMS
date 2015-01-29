@@ -12,6 +12,7 @@
 
 </style>
 
+<!--
 <div class="table-container">
     <div class="heading">
         <div class="col">#</div>
@@ -49,10 +50,8 @@
 </div>
 
 
-
-
-
-<!--        
+-->
+     
 <table class="genericTable">
     
     <tr class="table-header">
@@ -62,9 +61,9 @@
         </th>
     </tr>
     
-    <tbody ng-repeat="obj in objects| filter:searchText | orderBy:orderColumn:reverse" ng-show="indexOnPage($index)">
+    <tr ng-repeat="obj in objects| filter:searchText | orderBy:orderColumn:reverse" ng-if="indexOnPage($index)"
         
-    <tr ng-class="{selectedTableRow: obj == selected}" >
+     ng-class="{selectedTableRow: obj == selected}" >
         <td class="numer">
             {{$index + 1}}
         </td>
@@ -75,9 +74,10 @@
             <div ng-if=" attr != 'startDate' && attr != 'closeDate' && attr != 'finalisationDate' && attr != 'dateTo' && attr != 'dateFrom' " > {{obj[attr]}} </div>
             
         </td>
+        
     </tr>
         
-    <tr ng-show="obj == selected">
+    <tr >
             
         <td colspan="8"><t:innerPage/></td>
             
@@ -85,10 +85,11 @@
                  
                 
        
-    </tbody>
+    </tr>
 
 </table>
--->
+        
+        
 <div class="ladowanie" align="center">
     <span ng-show="status != null"><div id="loaderImage"></div>ładowanie danych...</span>
     <span ng-show="status == 'Błąd'">błąd podczas ładowania danych...</span>

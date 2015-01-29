@@ -90,7 +90,7 @@
                             <img src="getUserImage.htm"/>
                         </div>
                         
-                            <a href="#"><p>${user.login} ${user.privilegeKeyCodes}  
+                            <a href="#"><p>${user.login}
                             <br>
                             <span class="user-position">${userData.position}</span></p></a>
                 </c:if>

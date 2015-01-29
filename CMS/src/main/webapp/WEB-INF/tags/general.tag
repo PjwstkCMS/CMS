@@ -11,7 +11,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <script src="/CMS/resources/js/jquery-2.1.3.min.js"></script>      
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script> 
+        <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script> -->
+        <script src="/CMS/resources/js/angular.min.js"></script>  
         <script src="/CMS/resources/js/services.js"></script>  
         <script src="/CMS/resources/js/resourceManagment/chatListCtrl.js"></script>
         <script src="/CMS/resources/js/bootstrap.js"></script>

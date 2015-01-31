@@ -138,9 +138,9 @@ public class LoginController extends BaseController {
         String username = dao.getAccountRequestLogin();
 
         if (Utils.sendMail(username, body, subject)) {
-            model.addObject("sendStatus", "Wysłane");
+            model.addObject("mailSent", "Wysłane");
         } else {
-            model.addObject("sendStatus", "Niewysłane");
+            model.addObject("mailSent", "Niewysłane");
         }
 
         return model;

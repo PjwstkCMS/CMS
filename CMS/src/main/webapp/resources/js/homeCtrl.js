@@ -51,7 +51,7 @@ function HomeCtrl($scope, $http, saveEditDelete, pagination, columnDesc) {
     
     $scope.undo = function() {
         
-        $scope.selected.finalisationDate = "";
+        $scope.selected.finalisationDate = null;
         
         saveEditDelete.save($http, '/CMS/task/save/:object.htm', $scope);
         $scope.editMode = false;

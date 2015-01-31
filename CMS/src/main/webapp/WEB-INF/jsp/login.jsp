@@ -16,11 +16,10 @@
         
     </head>
     <body ng-app>
-        ${error}
         <c:if test="${user==null}">
             <div class="container">
 
-            <c:if test="${mailSent == true}">
+            <c:if test="${mailSent == false}">
                 <div class="request-sent">
                     <span style="float:left;color:#d4d4d4;margin-left:155px;margin-top: 10px;">Wysłano prośbę<span> </div>
                 </c:if>
@@ -119,28 +118,7 @@
 
             </div> <!-- end of form-container-after -->
             
-            <!--<div class="login">
-                Logowanie:<br/>
-                <form method="post" action="login.htm">
-                    Login: <input type="text" name="login"/>
-                    Hasło: <input type="password" name="password"/>
-                    <input type="submit"/>
-                </form>
-            </div>
-            <h3>${sendStatus}</h3>
-            <c:if test="${sendStatus == null || sendStatus == 'Niewysłane'}">
-                <div class="createAccount">                    
-                    Tworzenie konta:<br/>
-                    <form method="post" action="createAccount.htm">
-                     
-                        Imię: <input type="text" name="forename"/>
-                        Nazwisko: <input type="text" name="surname"/>
-                        Login: <input type="text" name="login"/>
-                        Hasło: <input type="password" name="password"/>
-                        <input type="submit"/>
-                    </form>
-                </div>
-            </c:if>-->
+            
         </c:if>
         <c:if test="${user!=null}">
             Jesteś zalogowany!

@@ -101,6 +101,7 @@ cmsModule.factory('saveEditDelete', function () {
             });
         },
         removeElement: function ($http, link, $scope, type) {
+            alert(type);
             alert($scope.selector[type]);
             return $http.post(
                     link,

@@ -1,9 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<div id="czat" ng-controller="ChatListCtrl">
-    
-    
+<div ng-click="" id="czat" ng-controller="ChatListCtrl">
        
         <input ng-show="showFilter" type="text" placeholder="nazwa użytkownika" ng-model="messageFilter"/>
         

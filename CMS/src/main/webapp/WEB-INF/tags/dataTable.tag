@@ -57,7 +57,14 @@
     <tr class="table-header">
         <th class="numer-header">#</th>
         <th ng-repeat="attr in attributes" ng-hide="attr.substring(0, 1) == '%'" class = "{{columnClasses[attr]}}">
-            <a ng-click="$parent.orderColumn = attr; $parent.reverse = !$parent.reverse">{{$parent.columnDescription(attr)}}</a>
+            <a ng-click=
+                "$parent.orderColumn = attr; 
+                $parent.reverse = !$parent.reverse;
+                $parent.selectedColumn = attr"
+                >{{$parent.columnDescription(attr)}}
+            <span ng-if="$parent.selectedColumn == attr && $parent.reverse" class="icon-arrow-down-ico"></span>
+            <span ng-if="$parent.selectedColumn == attr && !$parent.reverse" class="icon-arrow-up-ico"></span>
+            </a>
         </th>
     </tr>
     
@@ -71,8 +78,7 @@
         <td ng-repeat="attr in attributes" ng-click="$parent.select(obj)">
             
             <div ng-if="attr == 'startDate' || attr == 'closeDate' || attr == 'finalisationDate' || attr == 'dateTo' || attr == 'dateFrom' "> {{obj[attr] | date:'dd-MM-yyyy'}} </div>
-            <div ng-if=" attr != 'startDate' && attr != 'closeDate' && attr != 'finalisationDate' && attr != 'dateTo' && attr != 'dateFrom' " > {{obj[attr]}} </div>
-            
+            <div ng-if=" attr != 'startDate' && attr != 'closeDate' && attr != 'finalisationDate' && attr != 'dateTo' && attr != 'dateFrom' " > {{obj[attr]}} </div>            
         </td>
         
     </tr>
@@ -91,8 +97,8 @@
         
         
 <div class="ladowanie" align="center">
-    <span ng-show="status != null"><div id="loaderImage"></div>ładowanie danych...</span>
-    <span ng-show="status == 'Błąd'">błąd podczas ładowania danych...</span>
+    <span ng-show="status != null"><div id="loaderImage"></div>Ładowanie danych...</span>
+    <span ng-show="status == 'BÅÄd'">bÅÄd podczas Åadowania danych...</span>
 
 </div>
 <div class="pageMax">
@@ -103,5 +109,5 @@
 
 </div>
 <div class="pageMax-tekst">
-    wyświetlane wpisy {{pageMin + 1}}-{{pageMax + 1}}
+    wyÅwietlane wpisy {{pageMin + 1}}-{{pageMax + 1}}
 </div>

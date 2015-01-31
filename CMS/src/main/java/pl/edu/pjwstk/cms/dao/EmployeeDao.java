@@ -15,7 +15,6 @@ import pl.edu.pjwstk.cms.models.Employee;
 import pl.edu.pjwstk.cms.models.PersonData;
 import pl.edu.pjwstk.cms.models.Position;
 
-
 public class EmployeeDao extends GenericDao<Employee> {
 
     private final static Logger LOGGER = Logger.getLogger(EmployeeDao.class.getName());
@@ -23,12 +22,12 @@ public class EmployeeDao extends GenericDao<Employee> {
     public EmployeeDao() {
         super(Employee.class);
     }
-    
+
     public boolean archive(Employee employee) {
         Archive ar = new Archive();
         ArchiveDao arDao = new ArchiveDao();
-        ar.setEmployeeId(employee.getId()+"");
-        return (arDao.insert(ar)>0);
+        ar.setEmployeeId(employee.getId() + "");
+        return (arDao.insert(ar) > 0);
     }
 
     public List<EmployeeDto> getEmployeeDtoList() {
@@ -107,13 +106,15 @@ public class EmployeeDao extends GenericDao<Employee> {
                 dto.setSurname(set.getString("surname"));
                 dto.setCardId(set.getLong("cardid"));
                 dto.setCardNumber(set.getString("cardnumber"));
-                
+
                 List<Address> empAdds = new ArrayList<>();
-                
+
                 for (Address a : adds) {
-                    empAdds.add(a);
+                    if (a.getPersondataId().equals(dto.getPersondataId()+"")) {
+                        empAdds.add(a);
+                    }
                 }
-                dto.setAddresses(adds);
+                dto.setAddresses(empAdds);
                 empDtos.add(dto);
             }
         } catch (Exception e) {
@@ -146,14 +147,14 @@ public class EmployeeDao extends GenericDao<Employee> {
             query += " AND emp.id IN (SELECT a.employeeId FROM archive as a)";
         } else {
             query += " AND emp.id NOT IN (SELECT a.employeeId FROM archive as a)";
-        }        
+        }
         ResultSet set = this.connectionManager.select(query);
         AddressDao addDao = new AddressDao();
+        List<Address> adds = addDao.selectForQuery("SELECT * FROM address WHERE persondataId!=-1");
         List<EmployeeDto> empDtos = new ArrayList<>();
         try {
             while (set.next()) {
                 EmployeeDto dto = new EmployeeDto();
-                List<Address> adds = addDao.selectRecordsWithFieldValues("persondataId", dto.getPersondataId());
                 dto.setDepartment(set.getString("department"));
                 dto.setDepartmentId(set.getLong("departmentId"));
                 dto.setEmail(set.getString("email"));
@@ -166,7 +167,14 @@ public class EmployeeDao extends GenericDao<Employee> {
                 dto.setPositionId(set.getLong("positionId"));
                 dto.setSalary(set.getString("salary"));
                 dto.setSurname(set.getString("surname"));
-                dto.setAddresses(adds);
+                List<Address> empAdds = new ArrayList<>();
+
+                for (Address a : adds) {
+                    if (a.getPersondataId().equals(dto.getPersondataId()+"")) {
+                        empAdds.add(a);
+                    }
+                }
+                dto.setAddresses(empAdds);
                 empDtos.add(dto);
             }
         } catch (Exception e) {

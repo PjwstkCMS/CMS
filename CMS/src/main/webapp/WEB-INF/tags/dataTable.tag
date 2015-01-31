@@ -98,7 +98,7 @@
         
 <div class="ladowanie" align="center">
     <span ng-show="status != null"><div id="loaderImage"></div>Ładowanie danych...</span>
-    <span ng-show="status == 'BÅÄd'">bÅÄd podczas Åadowania danych...</span>
+    <span ng-show="status == 'Błąd'">Błąd podczas ładowania danych...</span>
 
 </div>
 <div class="pageMax">
@@ -109,5 +109,5 @@
 
 </div>
 <div class="pageMax-tekst">
-    wyÅwietlane wpisy {{pageMin + 1}}-{{pageMax + 1}}
+    wyświetlane wpisy {{pageMin + 1}}-{{pageMax + 1}}
 </div>

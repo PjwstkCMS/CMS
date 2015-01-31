@@ -15,8 +15,6 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.editMode = false;
     $scope.restoreData = "";
     $scope.newRecord = false;
-    //$scope.displayPage = true;
-    //$scope.displayPageName = "customerPage";
 
     $scope.objectsName = "customers";
     $scope.attributes = [];
@@ -27,7 +25,7 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     
     $scope.contractAttributes = [];
     $scope.contractAttributes[0] = 'id';
-    $scope.contractAttributes[1] = 'employeeId';
+    $scope.contractAttributes[1] = 'employee';
     $scope.contractAttributes[2] = 'startDate';
     $scope.contractAttributes[3] = 'closeDate';
     $scope.contractAttributes[4] = 'finalisationDate';
@@ -41,18 +39,6 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.editValues[3] = {0:'phone', 1:true};
     $scope.editValues[4] = {0:'email', 1:true};
     $scope.editValues[5] = {0:'companyId', 1:true};
-    
-    $scope.contractSelector = "";
-    $scope.contractValues = [];
-    $scope.contractValues[0] = {0:'id', 1:false};
-    $scope.contractValues[1] = {0:'customerId',1:true};
-    $scope.contractValues[2] = {0:'employeeId',1:true};
-    $scope.contractValues[3] = {0:'startDate',1:true};
-    $scope.contractValues[4] = {0:'closeDate',1:true};
-    $scope.contractValues[5] = {0:'finalisationDate',1:false};
-    $scope.contractValues[6] = {0:'description',1:true};
-    $scope.contractValues[7] = {0:'price',1:true};
-    
 
     $scope.get = saveEditDelete.get($http, '/CMS/customer/customers.htm', $scope);
     var loadDataPromise = $scope.get;
@@ -78,26 +64,17 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             alert('err');
         }
     });
-
-    $scope.contractSelect = function(object) {
-        if ($scope.contractSelector == object) {
-            $scope.contractSelector = "";
-        } else {
-            $scope.contractSelector = object;
-        }
-    }
     
     $scope.select = function(object) {
         if ($scope.selected == object) {
             saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
             $scope.selectedCompany = "";
-            $scope.contractSelector = "";
+            $scope.selectedContracts = [];
             $scope.newRecord = false;
         } else {            
             $scope.selected = object; 
             $scope.newRecord = false;
-            $scope.contractSelector = "";
             $scope.selectedContracts = [];
             $scope.selectedCompany = "";
             for (var i = 0; i<$scope.companies.length; i++) {
@@ -114,13 +91,6 @@ function CustomerListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             saveEditDelete.saveOldData($scope,object);
         }
     }
-    
-    $scope.checkCustomerId = function(con){
-        if(con.customerId == $scope.selected.id) {
-            return true;
-        }
-        return false;
-    };
 
     $scope.edit = function() {
         $scope.editMode = true;

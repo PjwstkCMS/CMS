@@ -126,6 +126,7 @@ public class LoginController extends BaseController {
             HttpServletResponse response) throws Exception {
         ModelAndView model = new ModelAndView("login");
 
+        SystemConfigurationDao dao = new SystemConfigurationDao();
         String login = (String) request.getParameter("login");
         String pass = (String) request.getParameter("password");
         String email = (String) request.getParameter("email");
@@ -134,7 +135,7 @@ public class LoginController extends BaseController {
         String surname = (String) request.getParameter("surname");
         String subject = "Account request";
         String body = "Imię: " + forename + "</br>Nazwisko: " + surname + "</br> Email: " + email + "</br> Login: " + login + "</br> Hasło " + pass;
-        String username = "pjwstkhrsystem@vp.pl";
+        String username = dao.getAccountRequestLogin();
 
         if (Utils.sendMail(username, body, subject)) {
             model.addObject("sendStatus", "Wysłane");

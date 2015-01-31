@@ -34,5 +34,41 @@ public class SystemConfigurationDao extends GenericDao<SystemConfiguration>{
         }
     }
     
+    public String getAccountRequestLogin() {
+        List<SystemConfiguration> list = this.selectRecordsWithFieldValues("name", "AccountRequestLogin");
+        if(list.isEmpty()) {
+            return null;
+        } else {
+            return list.get(0).getValue();
+        }
+    }
+    
+    public String getAccountRequestPassword() {
+        List<SystemConfiguration> list = this.selectRecordsWithFieldValues("name", "AccountRequestPassword");
+        if(list.isEmpty()) {
+            return null;
+        } else {
+            return list.get(0).getValue();
+        }
+    }
+    
+    public String getAccountRequestSMTP() {
+        List<SystemConfiguration> list = this.selectRecordsWithFieldValues("name", "AccountRequestSMTP");
+        if(list.isEmpty()) {
+            return null;
+        } else {
+            return list.get(0).getValue();
+        }
+    }
+    
+    public String getAccountRequestEmail() {
+        List<SystemConfiguration> list = this.selectRecordsWithFieldValues("name", "AccountRequestEmail");
+        if(list.isEmpty()) {
+            return null;
+        } else {
+            return list.get(0).getValue();
+        }
+    }
+    
 
 }

@@ -48,6 +48,30 @@ public class UserDao extends GenericDao<User> {
         return dtos;
     }
     
+    public List<UserDto> getSendUsers(Long senderId) {
+        List<UserDto> dtos = new ArrayList<>();
+
+        String query = "SELECT id, login ";
+        query += "FROM user ";
+        query += "WHERE id!="+senderId+";";
+
+        ResultSet resultSet = this.connectionManager.select(query);
+        PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
+        List<PrivilegeGroup> groups = groupDao.selectAll();
+
+        try {
+            while (resultSet.next()) {
+                UserDto dto = new UserDto();
+                dto.setId(resultSet.getLong("id"));
+                dto.setLogin(resultSet.getString("login"));
+                dtos.add(dto);
+            }
+        } catch (SQLException sql) {
+            sql.printStackTrace();
+        }
+        return dtos;
+    }
+    
     public List<UserDto> getUserDtos(String where) {
         List<UserDto> dtos = new ArrayList<>();
 

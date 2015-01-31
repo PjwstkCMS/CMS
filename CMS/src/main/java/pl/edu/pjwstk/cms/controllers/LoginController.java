@@ -77,7 +77,7 @@ public class LoginController extends BaseController {
                 java.io.File file = Utils.getFileFromHash(userDto.getPhotoHash());
                 request.getSession().setAttribute("user", userDto);
                 request.getSession().setAttribute("userimage", file);
-                request.getSession().setAttribute("sendUsers", userDao.getUserNames());
+                request.getSession().setAttribute("sendUsers", userDao.getSendUsers(userDto.getId()));
                 request.getSession().setAttribute("userData", empDto);
                 model.addObject("loginMsg", "Welcome " + login + "!");
             } else {

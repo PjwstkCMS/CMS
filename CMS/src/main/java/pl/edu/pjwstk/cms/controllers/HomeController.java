@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.edu.pjwstk.cms.controllers.general.BaseController;
+import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.MessageDao;
 import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.TaskDao;
 import pl.edu.pjwstk.cms.dao.UserDao;
+import pl.edu.pjwstk.cms.dto.EmployeeDto;
 import pl.edu.pjwstk.cms.dto.UserDto;
 import pl.edu.pjwstk.cms.models.Message;
 import pl.edu.pjwstk.cms.models.PersonData;
@@ -151,6 +153,7 @@ public class HomeController extends BaseController {
     public ModelAndView changeUserData(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView("home");
         UserDto userDto = (UserDto) request.getSession().getAttribute("user");
+        EmployeeDao empDao = new EmployeeDao();
         //PersonData personData = (PersonData) request.getSession().getAttribute("userData");
         //UserDao userDao = new UserDao();
         //User fromUser = userDao.selectForId(userDto.getId());
@@ -161,7 +164,8 @@ public class HomeController extends BaseController {
         personData.setEmail(email);
         personData.setPhone(phone);
         personDataDao.update(personData);
-        request.getSession().setAttribute("userData", personData);
+        EmployeeDto empDto = empDao.getEmployeeListDtoWithoutCards((userDto.getEmployeeId()), false).get(0);
+        request.getSession().setAttribute("userData", empDto);
         return model;
     }
     

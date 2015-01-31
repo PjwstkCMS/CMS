@@ -175,6 +175,7 @@ public class HomeController extends BaseController {
         String oldPassword = request.getParameter("oldPassword");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
+        model.addObject("passwordChangeError", "Hasło zmienione");
         if(userDto.getPassword().equals(oldPassword)) {
             if(password1.equals(password2)) {
                 userDto.setPassword(password2);
@@ -186,8 +187,7 @@ public class HomeController extends BaseController {
             }
         } else {
             model.addObject("passwordChangeError", "Stare hasło nieprawidłowe");            
-        }        
-        model.addObject("passwordChangeError", "Hasło zmienione");            
+        }                            
         return model;
     }
 

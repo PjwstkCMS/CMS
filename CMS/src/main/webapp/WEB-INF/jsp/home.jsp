@@ -14,8 +14,8 @@
             
             <div ng-controller="HomeCtrl">
                 <t:dataTable/>
-                <input type="button" ng-click="done()" value="Done">
-                <input type="button" ng-click="undo()" value="Undo">
+                <input type="button" ng-show="selected.id && selected.finalisationDate==null" ng-click="done()" value="Done">
+                <input type="button" ng-show="selected.id && selected.finalisationDate!=null" ng-click="undo()" value="Undo">
             </div> 
                 <div style="float:left;">
             <h3>Ustaw swojego awatara</h3>

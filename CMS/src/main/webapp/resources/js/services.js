@@ -255,7 +255,7 @@ cmsModule.factory('columnDesc', function () {
                 'code': "Kod",
                 'startDate': "Data rozpoczęcia",
                 'closeDate': "Planowana data zakończenia",
-                'finalisationDate': "Data zakończenia",
+                'finalisationDate': "Faktyczna data zakończenia",
                 'dateFrom': "Od",
                 'dateTo': "Do",
                 'country': "Kraj",

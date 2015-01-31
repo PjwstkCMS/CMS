@@ -27,6 +27,7 @@ public class CompanyDao extends GenericDao<Company> {
         return getCompanyDtoList(new HashMap<String, List<String>>(),archive);
     }
 
+    /*
     public List<CompanyDto> getCompanyDtoListOld(Map<String, List<String>> params, boolean archive) {
         String query = "SELECT com.name as name, com.id as id, com.contactpersonId as contactpersonId ";
         query += "FROM company as com ";
@@ -75,7 +76,7 @@ public class CompanyDao extends GenericDao<Company> {
         }
         return comDtos;
     }
-    
+    */
     public List<CompanyDto> getCompanyDtoList(Map<String, List<String>> params, boolean archive) {
         String query = "SELECT com.name as name, com.id as id, com.contactpersonId as contactpersonId, "
                 + "per.forename as forename, per.surname as surname, per.phone as phone, "
@@ -107,7 +108,7 @@ public class CompanyDao extends GenericDao<Company> {
                 dto.setPhone(set.getString("phone"));     
                 List<Address> as = new ArrayList<>();
                 for (Address a : adds) {
-                    if(a.getCompanyId().equals(dto.getId())) {
+                    if(a.getCompanyId().equals(dto.getId()+"")) {
                         as.add(a);
                     }
                 }
@@ -121,7 +122,7 @@ public class CompanyDao extends GenericDao<Company> {
                     }
                 }
                 
-                dto.setAddresses(adds);
+                dto.setAddresses(as);
                 comDtos.add(dto);
             }
         } catch (SQLException ex) {

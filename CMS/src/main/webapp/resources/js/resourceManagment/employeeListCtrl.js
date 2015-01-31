@@ -276,6 +276,13 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
                     return;
                 }
             }
+            if($scope.selector.contract.finalisationDate != null){        
+                var check = new Date($scope.selector.contract.startDate) < new Date($scope.selector.contract.finalisationDate);
+                if(!check){
+                    alert("Faktyczna data zakończenia musi być późniejsza od daty rozpoczęcia!");
+                    return;
+                }
+            }
             saveEditDelete.saveElement($http, '/CMS/contract/save/:object.htm', $scope, type);
             $scope.selectedContracts.push($scope.selector.contract);
             $scope.editSubElement = false;

@@ -50,7 +50,7 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         if($scope.selected.finalisationDate != null){        
             var check = new Date($scope.selected.startDate) < new Date($scope.selected.finalisationDate);
             if(!check){
-                alert("Data zakończenia musi być wcześniejsza od daty rozpoczęcia!");
+                alert("Faktyczna data zakończenia musi być późniejsza od daty rozpoczęcia!");
                 return;
             }
         }

@@ -49,9 +49,9 @@
                     ng-options="add.streetName+' '+add.streetNumber+' '+add.city for add in selected.addresses"></select>
             <select ng-init="$parent.$parent.selector.employment = null" ng-show="selectedSubpage == 'employment'" ng-model="$parent.$parent.selector.employment" ng-options="empl.id for empl in selectedEmployments"></select>
             <select ng-init="$parent.$parent.selector.contract = null" ng-show="selectedSubpage == 'contract'" ng-model="$parent.$parent.selector.contract" ng-options="con.id for con in selectedContracts"></select><br>
-            <input type="button" ng-click="addNewElement(selectedSubpage)" value="ADD ADDRESS"/>
-            <input type="button" ng-show="selector[selectedSubpage]" ng-click="showEdit()" value="EDIT ADDRESS"/>
-            <input type="button" ng-click="removeElement(selectedSubpage)" value="DELETE ADDRESS"/>
+            <input type="button" ng-click="addNewElement(selectedSubpage)" value="ADD"/>
+            <input type="button" ng-show="$parent.$parent.selector[selectedSubpage]" ng-click="showEdit()" value="EDIT"/>
+            <input type="button" ng-click="removeElement(selectedSubpage)" value="DELETE"/>
             <div ng-show="selector[selectedSubpage]" >
                 <table>
                     <tr>

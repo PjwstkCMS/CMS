@@ -270,9 +270,9 @@
 <div ng-if="page == 'DictionaryList'">
     <div ng-show="selected && !newRecord">
         <h3>
-            Słowniki:
+            Słowniki: {{$parent.dictionarySelector}}
         </h3>
-        <select ng-model="$parent.$parent.dictionarySelector" ng-options="dictT.description
+        <select ng-model="$parent.dictionarySelector" ng-options="dictT.description
                 for dictT in selected.dictionaries"></select><br>
         <table>
             <tr>
@@ -286,7 +286,7 @@
 
             <tr>
                 <td ng-repeat="dictAtr in dictionaryAttributes">
-                    {{dictionarySelector[dictAtr]}}
+                    {{$parent.dictionarySelector[dictAtr]}}
                 </td>
             </tr>
 

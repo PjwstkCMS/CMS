@@ -13,12 +13,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -72,17 +75,18 @@ public class HomeController extends BaseController {
         }
     }
     
-    @RequestMapping(value = "getUserTasks")
-    public void getUserTasks(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/HTML");
+    @RequestMapping(value = "getUserTasks" , method = RequestMethod.GET)
+    public ResponseEntity<String> getUserTasks(HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap model) throws IOException {
+        //response.setContentType("text/HTML");
+        //response.setCharacterEncoding("");
         TaskDao taskDao = new TaskDao();
         UserDto userDto = (UserDto) request.getSession().getAttribute("user");
         Long empId = userDto.getEmployeeId();
         
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("tasks", taskDao.getEmployeeTaskDtoList(empId));
-        response.getOutputStream().print(Utils.convertOMapToJSON(initData));
-        
+        //response.getOutputStream().print(Utils.convertOMapToJSON(initData));
+        return Utils.createResponseEntity(session, initData);
 
     }
 

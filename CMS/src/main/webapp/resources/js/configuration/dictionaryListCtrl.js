@@ -115,7 +115,9 @@ function DictionaryListCtrl($scope, $http, saveEditDelete, pagination, columnDes
         return false;
     };
     
-    $scope.addDictionary = function(){
+    $scope.addDictionary = function($obj){
+        $obj = "";
+        $scope.dictionarySelector = $obj;
         $scope.dictionarySelector = {
             'id': "", 'value':"", 'description':"",'dictTypeId':$scope.selected.id
         };

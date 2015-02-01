@@ -258,6 +258,14 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.editSubElement = false;
         } else if (type == 'employment') {
             $scope.selector.employment.employeeId = $scope.selected.id;
+            
+            var start = new Date($scope.selector.employment.dateFrom);
+            var close = new Date($scope.selector.employment.dateTo);
+            start.setMinutes(start.getMinutes() - start.getTimezoneOffset());
+            close.setMinutes(close.getMinutes() - close.getTimezoneOffset());
+            $scope.selector.employment.dateFrom = start.toJSON().slice(0, 10);
+            $scope.selector.employment.dateTo = close.toJSON().slice(0, 10);
+            
             for (var i = 0; i < $scope.employmentValues.length; i++) {
                 if ($scope.employmentValues[i][1] && $scope.selector.employment[$scope.employmentValues[i][0]] == null) {
                     alert("Sprawdź poprowność danych zatrudnienia: "+columnDesc.get($scope.employmentValues[i][0]));
@@ -270,13 +278,26 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             $scope.editSubElement = false;
         } else if (type == 'contract') {
             $scope.selector.contract.employeeId = $scope.selected.id;
+            
+            var start = new Date($scope.selector.contract.startDate);
+            var close = new Date($scope.selector.contract.closeDate);
+            start.setMinutes(start.getMinutes() - start.getTimezoneOffset());
+            close.setMinutes(close.getMinutes() - close.getTimezoneOffset());
+            $scope.selector.contract.startDate = start.toJSON().slice(0, 10);
+            $scope.selector.contract.closeDate = close.toJSON().slice(0, 10);
+            
             for (var i = 0; i < $scope.contractValues.length; i++) {
                 if ($scope.contractValues[i][1] && $scope.selector.contract[$scope.contractValues[i][0]] == null) {
                     alert("Sprawdź poprowność danych kontraktu: "+columnDesc.get($scope.contractValues[i][0]));
                     return;
                 }
             }
-            if($scope.selector.contract.finalisationDate != null){        
+            if($scope.selector.contract.finalisationDate != null){       
+                
+                var final = new Date($scope.selector.contract.finalisationDate);
+                final.setMinutes(final.getMinutes() - final.getTimezoneOffset());
+                $scope.selector.contract.finalisationDate = final.toJSON().slice(0, 10);
+                
                 var check = new Date($scope.selector.contract.startDate) < new Date($scope.selector.contract.finalisationDate);
                 if(!check){
                     alert("Faktyczna data zakończenia musi być późniejsza od daty rozpoczęcia!");

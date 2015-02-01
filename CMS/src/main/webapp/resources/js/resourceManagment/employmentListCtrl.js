@@ -15,8 +15,8 @@ function EmploymentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     $scope.objectsName = "employments";
     $scope.attributes = [];
     $scope.attributes[0] = 'id';
-    $scope.attributes[1] = 'dateFrom';
-    $scope.attributes[2] = 'dateTo';
+    $scope.attributes[1] = 'dateTo';
+    $scope.attributes[2] = 'dateFrom';
     $scope.attributes[3] = 'dict';
     $scope.attributes[4] = 'employee';
     
@@ -31,6 +31,14 @@ function EmploymentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
     var loadDataPromise = $scope.get;
 
     $scope.save = function() {
+        
+        var start = new Date($scope.selected.dateFrom);
+        var close = new Date($scope.selected.dateTo);
+        start.setMinutes(start.getMinutes() - start.getTimezoneOffset());
+        close.setMinutes(close.getMinutes() - close.getTimezoneOffset());
+        $scope.selected.dateFrom = start.toJSON().slice(0, 10);
+        $scope.selected.dateTo = close.toJSON().slice(0, 10);
+        
         for (var i = 0; i<$scope.editValues.length; i++) {  
             if($scope.editValues[i][1] && 
                ($scope.selected[$scope.editValues[i][0]] == null || $scope.selected[$scope.editValues[i][0]] == "")){

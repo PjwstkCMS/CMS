@@ -17,6 +17,7 @@ import pl.edu.pjwstk.cms.controllers.general.BaseController;
 import pl.edu.pjwstk.cms.dao.CompanyDao;
 import pl.edu.pjwstk.cms.dao.ContractDao;
 import pl.edu.pjwstk.cms.dao.CustomerDao;
+import pl.edu.pjwstk.cms.dao.EmployeeDao;
 import pl.edu.pjwstk.cms.dao.PersonDataDao;
 import pl.edu.pjwstk.cms.dao.general.GenericDao;
 import pl.edu.pjwstk.cms.dto.CustomerDto;
@@ -53,6 +54,7 @@ public class CustomerController extends BaseController {
         CustomerDao cusDao = new CustomerDao();
         CompanyDao comDao = new CompanyDao();
         ContractDao conDao = new ContractDao();
+        EmployeeDao empDao = new EmployeeDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("customers", cusDao.getCustomerDtoList(false));
         initData.put("companies", comDao.getCompanyDtoList(false));

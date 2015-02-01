@@ -5,7 +5,7 @@
 <%@attribute name="message"%>
 
 <div ng-if="page == 'simple'">
-    <div ng-show="editMode && !newRecord">
+    <div ng-show="editMode">
         <t:editTable map="editValues" object="selected"/>
     </div>
 </div>
@@ -209,20 +209,21 @@
         <h3>
             Pracownicy na tym stanowisku:
         </h3>
+        <select ng-model="employeeSelector" ng-options="emp.forename+' '+emp.surname for emp in selectedEmployees"></select><br>
         <table>
             <tr>
                 <th ng-repeat="adatr in employeeAttributes">
                     {{$parent.columnDescription(adatr)}}
                 </th>   
             </tr>
-                <tr ng-repeat="con in selectedEmployees">
+                <tr>
                     <td ng-repeat="attr in employeeAttributes">
                         <div ng-if="attr == 'departmentId'"> 
-                            <div ng-repeat="dep in departments" ng-show="dep.id == con[attr]">
+                            <div ng-repeat="dep in departments" ng-show="dep.id == employeeSelector[attr]">
                                 {{dep.name}}
                             </div>
                         </div>
-                        <div ng-if="attr != 'departmentId'"> {{con[attr]}} </div>
+                        <div ng-if="attr != 'departmentId'"> {{employeeSelector[attr]}} </div>
                     </td>
                 </tr>
         </table>

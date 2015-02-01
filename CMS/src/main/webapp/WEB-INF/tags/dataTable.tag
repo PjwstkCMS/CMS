@@ -12,7 +12,45 @@
 
 </style>
 
+<!--
+<div class="table-container">
+    <div class="heading">
+        <div class="col">#</div>
+        <div class="col" ng-repeat="attr in attributes" ng-hide="attr.substring(0, 1) == '%'" class = "{{columnClasses[attr]}}">
+            <a ng-click="$parent.orderColumn = attr;
+                    $parent.reverse = !$parent.reverse">{{$parent.columnDescription(attr)}}</a>
+        </div>
+    </div>
 
+    <div class="table-row" ng-class="{selectedTableRow: obj == selected}" 
+         ng-repeat="obj in objects| filter:searchText | orderBy:orderColumn:reverse" ng-show="indexOnPage($index)">
+        <div>
+            <div class="col">
+                {{$index + 1}}
+            </div>
+            <div class="col" ng-repeat="attr in attributes" ng-click="$parent.select(obj)">
+                <div ng-if="attr == 'startDate' || attr == 'closeDate' || attr == 'finalisationDate'
+                                    || attr == 'dateTo' || attr == 'dateFrom'"> 
+                    {{obj[attr]| date:'dd-MM-yyyy'}} 
+                </div>
+                <div ng-if=" attr != 'startDate' && attr != 'closeDate' && attr != 'finalisationDate'
+                                    && attr != 'dateTo' && attr != 'dateFrom'" > 
+                    {{obj[attr]}} 
+                </div>
+
+            </div>
+        </div>
+        <div class="table-row" ng-if="obj == selected">
+            <t:innerPage/>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+-->
      
 <table class="genericTable">
     

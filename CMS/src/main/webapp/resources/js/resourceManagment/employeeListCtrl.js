@@ -304,16 +304,19 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     };
 
     $scope.removeElement = function (type) {
+        //alert(type);
         if (type == 'address') {
-            if ($scope.selector.address !== undefined) {
+            alert('kutas 2');
+            if ($scope.selector.address.id != null) {
+                alert("kutas 1 ");
                 saveEditDelete.removeElement($http, '/CMS/address/delete/:object.htm', $scope, type);                
             }
         } else if (type == 'employment') {
-            if ($scope.selector.employment !== undefined) {
+            if ($scope.selector.employment != undefined) {
                 saveEditDelete.removeElement($http, '/CMS/employment/delete/:object.htm', $scope, type);
             }
         } else if (type == 'contract') {
-            if ($scope.selector.contract !== undefined) {
+            if ($scope.selector.contract != undefined) {
                 saveEditDelete.removeElement($http, '/CMS/contract/delete/:object.htm', $scope, type);
             }
         }

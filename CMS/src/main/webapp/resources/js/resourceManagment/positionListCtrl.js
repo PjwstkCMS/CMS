@@ -12,8 +12,6 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.selectedEmployees = "";
     $scope.editMode = false;
     $scope.newRecord = false;
-    //$scope.displayPage = true;
-    //$scope.displayPageName = "customerPage";
     
     $scope.objectsName = "positions";
     $scope.attributes = [];
@@ -24,8 +22,6 @@ function PositionListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     $scope.editValues[0] = {0:'id', 1:false};
     $scope.editValues[1] = {0:'name',1:true};
     $scope.editValues[2] = {0:'description',1:true};
-    
-    $scope.employeeSelector = "";
     
     $scope.employeeAttributes = [];
     $scope.employeeAttributes[0] = 'id';

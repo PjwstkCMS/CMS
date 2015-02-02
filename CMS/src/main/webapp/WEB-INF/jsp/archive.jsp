@@ -33,13 +33,13 @@
                     <td colspan="4">
                         <p ng-class="{selectedObject: emp == selected}" ng-click="select(emp)" 
                            ng-show="show == '/CMS/archive/employees.htm'" ng-repeat="emp in employees">
-                            {{emp.forename}}                            
+                            {{emp.forename}} {{emp.surname}} - Stanowisko: {{emp.position}} Departament: {{emp.department}}        
                         </p>
-                        <p ng-class="{selectedObject: com == selected}" ng-click="select(com)" 
+                        <p ng-class="{selectedObject: con == selected}" ng-click="select(con)" 
                            ng-show="show == '/CMS/archive/contracts.htm'" ng-repeat="con in contracts">
                             {{con.description}}                            
                         </p>
-                        <p ng-class="{selectedObject: con == selected}" ng-click="select(con)" 
+                        <p ng-class="{selectedObject: com == selected}" ng-click="select(com)" 
                            ng-show="show == '/CMS/archive/companies.htm'" ng-repeat="com in companies">
                             {{com.name}}                            
                         </p>

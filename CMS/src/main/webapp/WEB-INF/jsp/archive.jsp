@@ -36,16 +36,16 @@
                             {{emp.forename}}                            
                         </p>
                         <p ng-class="{selectedObject: com == selected}" ng-click="select(com)" 
-                           ng-show="show == '/CMS/archive/contracts.htm'" ng-repeat="com in employees">
-                            {{com.name}}                            
+                           ng-show="show == '/CMS/archive/contracts.htm'" ng-repeat="con in contracts">
+                            {{con.description}}                            
                         </p>
                         <p ng-class="{selectedObject: con == selected}" ng-click="select(con)" 
-                           ng-show="show == '/CMS/archive/companies.htm'" ng-repeat="con in employees">
-                            {{con.name}}                            
+                           ng-show="show == '/CMS/archive/companies.htm'" ng-repeat="com in companies">
+                            {{com.name}}                            
                         </p>
                         <p ng-class="{selectedObject: cus == selected}" ng-click="select(cus)" 
-                           ng-show="show == '/CMS/archive/customers.htm'" ng-repeat="cus in employees">
-                            {{cus.description}}                            
+                           ng-show="show == '/CMS/archive/customers.htm'" ng-repeat="cus in customers">
+                            {{cus.forename}} {{cus.surname}}
                         </p>
                     </td>
                 </tr>

@@ -224,7 +224,7 @@ cmsModule.factory('columnDesc', function () {
                 'customerId': "Klient",
                 'managerId': "Manager",
                 'companyId': "Firma",
-                'departmentId': "Departement",
+                'departmentId': "Wydział",
                 'cardNumber': "Numer karty",
                 'dictTypeId': "Rodzaj słownika",
                 'dictId': "Dodatkowy Opis",

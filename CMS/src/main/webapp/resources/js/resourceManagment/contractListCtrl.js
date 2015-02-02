@@ -40,6 +40,14 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     var loadDataPromise = $scope.get;
 
     $scope.save = function() {
+        
+        var start = new Date($scope.selected.startDate);
+        var close = new Date($scope.selected.closeDate);
+        start.setMinutes(start.getMinutes() - start.getTimezoneOffset());
+        close.setMinutes(close.getMinutes() - close.getTimezoneOffset());
+        $scope.selected.startDate = start.toJSON().slice(0, 10);
+        $scope.selected.closeDate = close.toJSON().slice(0, 10);
+        
         for (var i = 0; i<$scope.editValues.length; i++) {  
             if($scope.editValues[i][1] && 
                ($scope.selected[$scope.editValues[i][0]] == null || $scope.selected[$scope.editValues[i][0]] == "")){
@@ -47,7 +55,12 @@ function ContractListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
                 return;
             }
         }
-        if($scope.selected.finalisationDate != null){        
+        if($scope.selected.finalisationDate != null){     
+            
+            var final = new Date($scope.selected.finalisationDate);
+            final.setMinutes(final.getMinutes() - final.getTimezoneOffset());
+            $scope.selected.finalisationDate = final.toJSON().slice(0, 10);
+            
             var check = new Date($scope.selected.startDate) < new Date($scope.selected.finalisationDate);
             if(!check){
                 alert("Faktyczna data zakończenia musi być późniejsza od daty rozpoczęcia!");

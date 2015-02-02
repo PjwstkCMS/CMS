@@ -46,7 +46,7 @@ function DepartmentListCtrl($scope, $http, saveEditDelete, pagination, columnDes
         for (var i = 0; i<$scope.addressValues.length; i++) {  
             if($scope.addressValues[i][1] && 
                ($scope.selected.address[$scope.addressValues[i][0]] == null || $scope.selected.address[$scope.addressValues[i][0]] == "")){
-                alert("Sprawdź poprowność danych: "+columnDesc.get($scope.editValues[i][0]));
+                alert("Sprawdź poprowność danych: "+columnDesc.get($scope.addressValues[i][0]));
                 return;
             }
         }

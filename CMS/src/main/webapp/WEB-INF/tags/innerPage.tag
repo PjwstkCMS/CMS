@@ -5,7 +5,7 @@
 <%@attribute name="message"%>
 
 <div ng-if="page == 'simple'">
-    <div ng-show="editMode">
+    <div ng-show="editMode && !newRecord">
         <t:editTable map="editValues" object="selected"/>
     </div>
 </div>
@@ -210,21 +210,20 @@
         <h3>
             Pracownicy na tym stanowisku:
         </h3>
-        <select ng-model="employeeSelector" ng-options="emp.forename+' '+emp.surname for emp in selectedEmployees"></select><br>
         <table>
             <tr>
                 <th ng-repeat="adatr in employeeAttributes">
                     {{$parent.columnDescription(adatr)}}
                 </th>   
             </tr>
-            <tr>
+            <tr ng-repeat="con in selectedEmployees">
                 <td ng-repeat="attr in employeeAttributes">
                     <div ng-if="attr == 'departmentId'"> 
-                        <div ng-repeat="dep in departments" ng-show="dep.id == employeeSelector[attr]">
+                        <div ng-repeat="dep in departments" ng-show="dep.id == con[attr]">
                             {{dep.name}}
                         </div>
                     </div>
-                    <div ng-if="attr != 'departmentId'"> {{employeeSelector[attr]}} </div>
+                    <div ng-if="attr != 'departmentId'"> {{con[attr]}} </div>
                 </td>
             </tr>
         </table>
@@ -272,9 +271,9 @@
 <div ng-if="page == 'DictionaryList'">
     <div ng-show="selected && !newRecord">
         <h3>
-            SÅowniki:
+            Słowniki: {{$parent.dictionarySelector}}
         </h3>
-        <select ng-model="$parent.$parent.dictionarySelector" ng-options="dictT.description
+        <select ng-model="$parent.dictionarySelector" ng-options="dictT.description
                 for dictT in selected.dictionaries"></select><br>
         <table>
             <tr>
@@ -288,7 +287,7 @@
 
             <tr>
                 <td ng-repeat="dictAtr in dictionaryAttributes">
-                    {{dictionarySelector[dictAtr]}}
+                    {{$parent.dictionarySelector[dictAtr]}}
                 </td>
             </tr>
 

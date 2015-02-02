@@ -209,6 +209,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     };
 
     $scope.addNewElement = function (type) {
+        alert('aaaadddd');
         if (type == 'address') {
             $scope.selector.address = {
                 'id': "", 'country': "", 'city': "", 'streetName': "", 'streetNumber': "",
@@ -228,9 +229,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     };
 
     $scope.showEdit = function () {
-
-        if ($scope.selector.address.id != '') {
-            //alert('test');
+        if ($scope.selector.address != 'undefined') {
             $scope.editSubElement = true;
         }
     };
@@ -242,7 +241,7 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         $scope.selector.employment = null;
     };
 
-    $scope.addElement = function (type) {
+    $scope.addElement = function (type) {        
         if (type == 'address') {
             $scope.selector.address.persondataId = $scope.selected.persondataId;
             for (var i = 0; i < $scope.addressValues.length; i++) {

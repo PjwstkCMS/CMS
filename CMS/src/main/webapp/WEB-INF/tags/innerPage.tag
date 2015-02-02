@@ -72,9 +72,10 @@
                     </tr>
 
                 </table>
-                <div ng-show="editSubElement">                    
+                <div ng-show="editSubElement">         
+                    aaaaaaaaaaaaaaa
                     <div ng-show="selectedSubpage == 'address'">
-                        <t:editTable map="addressValues" object="$parent.$parent.$parent.selector.address"/>
+                        <t:editTable map="addressValues" object="$parent.$parent.selector.address"/>
                     </div>
                     <div ng-show="selectedSubpage == 'employment'">
                         <t:editTable map="employmentValues" object="$parent.$parent.selector[selectedSubpage]"/>
@@ -129,7 +130,7 @@
     </div>
     <div ng-show="editMode">
         <t:editTable map="editValues" object="selected"/>
-        <input type="checkbox" ng-click="showContactPersonBox()" /> Dodać osobę kontaktową <br/>
+        <input type="checkbox" ng-click="showContactPersonBox()" /> DodaÄ osobÄ kontaktowÄ <br/>
         <div name="contactPersonBox" ng-show="contactPersonBoxShow">
             <t:editTable map="contactPersonValues" object="selected"/>
         </div>
@@ -255,11 +256,11 @@
                 </select>
                 <input type="button" ng-click="addKey()" value="Dodaj"/>
                 <br/>
-                Usuń istniejący klucz:
+                UsuÅ istniejÄcy klucz:
                 <select ng-model="$parent.$parent.oldKey">
                     <option ng-repeat="privKey in privilegeKeys" ng-show="selectedGroupHasKey(privKey.id)" value="{{privKey.id}}">{{privKey.code}}</option> 
                 </select>
-                <input type="button" ng-click="removeKey()" value="Usuń"/>
+                <input type="button" ng-click="removeKey()" value="UsuÅ"/>
             </td>
         </tr>
     </table>
@@ -271,7 +272,7 @@
 <div ng-if="page == 'DictionaryList'">
     <div ng-show="selected && !newRecord">
         <h3>
-            Słowniki:
+            SÅowniki:
         </h3>
         <select ng-model="$parent.$parent.dictionarySelector" ng-options="dictT.description
                 for dictT in selected.dictionaries"></select><br>

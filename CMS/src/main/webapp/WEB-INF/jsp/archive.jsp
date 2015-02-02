@@ -12,7 +12,7 @@
             }
         </style>
         <script src="/CMS/resources/js/resourceManagment/archiveListCtrl.js"></script>
-      
+
         <div ng-controller="ArchiveListCtrl">                        
             <table width="100%" border="1">
                 <tr>
@@ -29,24 +29,28 @@
                         Customers
                     </th>
                 </tr>
-                <tr>
+                <tr ng-class="{selectedObject: emp == selected}" ng-click="select(emp)" 
+                    ng-if="show == '/CMS/archive/employees.htm'" ng-repeat="emp in employees">
                     <td colspan="4">
-                        <p ng-class="{selectedObject: emp == selected}" ng-click="select(emp)" 
-                           ng-show="show == '/CMS/archive/employees.htm'" ng-repeat="emp in employees">
-                            {{emp.forename}} {{emp.surname}} - Stanowisko: {{emp.position}} Departament: {{emp.department}}        
-                        </p>
-                        <p ng-class="{selectedObject: con == selected}" ng-click="select(con)" 
-                           ng-show="show == '/CMS/archive/contracts.htm'" ng-repeat="con in contracts">
-                            {{con.description}}                            
-                        </p>
-                        <p ng-class="{selectedObject: com == selected}" ng-click="select(com)" 
-                           ng-show="show == '/CMS/archive/companies.htm'" ng-repeat="com in companies">
-                            {{com.name}}                            
-                        </p>
-                        <p ng-class="{selectedObject: cus == selected}" ng-click="select(cus)" 
-                           ng-show="show == '/CMS/archive/customers.htm'" ng-repeat="cus in customers">
-                            {{cus.forename}} {{cus.surname}}
-                        </p>
+                        {{emp.forename}} {{emp.surname}} - Stanowisko: {{emp.position}} Departament: {{emp.department}}        
+                    </td>
+                </tr>
+                <tr ng-class="{selectedObject: con == selected}" ng-click="select(con)" 
+                    ng-show="show == '/CMS/archive/contracts.htm'" ng-repeat="con in contracts">
+                    <td colspan="4">        
+                        {{con.description}}                            
+                    </td>
+                </tr>
+                <tr ng-class="{selectedObject: com == selected}" ng-click="select(com)" 
+                    ng-show="show == '/CMS/archive/companies.htm'" ng-repeat="com in companies">
+                    <td colspan="4">
+                        {{com.name}}    
+                    </td>
+                </tr>
+                <tr ng-class="{selectedObject: cus == selected}" ng-click="select(cus)" 
+                    ng-show="show == '/CMS/archive/customers.htm'" ng-repeat="cus in customers">
+                    <td coslpan="4">
+                        {{cus.forename}} {{cus.surname}}
                     </td>
                 </tr>
             </table>

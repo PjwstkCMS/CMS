@@ -209,7 +209,6 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     };
 
     $scope.addNewElement = function (type) {
-        alert('aaaadddd');
         if (type == 'address') {
             $scope.selector.address = {
                 'id': "", 'country': "", 'city': "", 'streetName': "", 'streetNumber': "",

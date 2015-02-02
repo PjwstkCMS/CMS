@@ -52,7 +52,7 @@
             <input type="button" ng-click="addNewElement(selectedSubpage)" value="ADD"/>
             <input type="button" ng-show="$parent.$parent.selector[selectedSubpage]" ng-click="showEdit()" value="EDIT"/>
             <input type="button" ng-click="removeElement(selectedSubpage)" value="DELETE"/>
-            <div ng-show="$parent.$parent.selector[selectedSubpage]" >
+            <div ng-show="$parent.$parent.selector[selectedSubpage]">
                 <table>
                     <tr>
                         <th ng-repeat="adatr in attributesArray">
@@ -72,23 +72,23 @@
                     </tr>
 
                 </table>
-                <div ng-show="editSubElement">         
-                    aaaaaaaaaaaaaaa
-                    <div ng-show="selectedSubpage == 'address'">
-                        <t:editTable map="addressValues" object="$parent.$parent.selector.address"/>
-                    </div>
-                    <div ng-show="selectedSubpage == 'employment'">
-                        <t:editTable map="employmentValues" object="$parent.$parent.selector[selectedSubpage]"/>
-                    </div>
-                    <div ng-show="selectedSubpage == 'contract'">
-                        <t:editTable map="contractValues" object="$parent.$parent.selector[selectedSubpage]"/>
-                    </div>
-                    <input type="button" ng-click="addElement(selectedSubpage)" value="Add"/>
-                    <input type="button" ng-click="cancelElement()" value="Cancel"/>
-                </div> 
             </div>
+            <div ng-show="editSubElement">         
+                <div ng-show="selectedSubpage == 'address'">
+                    <t:editTable map="addressValues" object="$parent.$parent.selector.address"/>
+                </div>
+                <div ng-show="selectedSubpage == 'employment'">
+                    <t:editTable map="employmentValues" object="$parent.$parent.selector[selectedSubpage]"/>
+                </div>
+                <div ng-show="selectedSubpage == 'contract'">
+                    <t:editTable map="contractValues" object="$parent.$parent.selector[selectedSubpage]"/>
+                </div>
+                <input type="button" ng-click="addElement(selectedSubpage)" value="Add"/>
+                <input type="button" ng-click="cancelElement()" value="Cancel"/>
+            </div> 
         </div>
-    </div>    
+    </div>
+</div>    
 </div>
 
 <div ng-if="page == 'Company'">
@@ -169,13 +169,13 @@
                     {{$parent.columnDescription(catr)}}
                 </th>   
             </tr>
-            
-                <tr ng-repeat="con in selectedContracts">
-                    <td ng-repeat="atr in contractAttributes">
-                        {{con[atr]}}
-                    </td>
-                </tr>
-           
+
+            <tr ng-repeat="con in selectedContracts">
+                <td ng-repeat="atr in contractAttributes">
+                    {{con[atr]}}
+                </td>
+            </tr>
+
         </table>
 
     </div>

@@ -85,14 +85,14 @@ cmsModule.factory('saveEditDelete', function () {
         saveElement: function ($http, link, $scope, type) {
             return $http.post(
                     link,
-                    {object: $scope.selector[type]}).success(function (returnId) {
+                    {object: $scope.newObject}).success(function (returnId) {
                 $scope.showOperationMessage = true;
                 $scope.operationMessage = "Dane zapisane";
 
                 if (returnId != null) {
-                    $scope.selector[type].id = returnId.id;
+                    $scope.newObject.id = returnId.id;
                 }
-                $scope.selector[type] = null;
+                $scope.newObject = null;
                 $scope.editMode = false;
             }).error(function (error) {
                 $scope.showOperationMessage = true;
@@ -101,19 +101,40 @@ cmsModule.factory('saveEditDelete', function () {
             });
         },
         removeElement: function ($http, link, $scope, type) {
-            alert(type);
-            alert($scope.selector[type]);
             return $http.post(
                     link,
-                    {object: $scope.selector[type]}).success(function (returnId) {
+                    {object: $scope.removeObject}).success(function (returnId) {
                 $scope.showOperationMessage = true;
                 $scope.operationMessage = "Dane usunięte";
 
                 if (returnId != null) {
-                    $scope.selector[type].id = returnId.id;
-                }
-                $scope.selector[type] = null;
+                    $scope.removeObject.id = returnId.id;
+                }                
                 $scope.editMode = false;
+                var index;
+                if (type == 'address') {
+                    for (var i = 0; i < $scope.selected.addresses.length; i++) {
+                        if ($scope.selected.addresses[i].id == $scope.removeObject.id) {
+                            index = i;
+                        }
+                    }
+                    $scope.selected.addresses.splice(index, 1);
+                } else if (type == 'employment') {
+                    for (var i = 0; i < $scope.selectedEmployments.length; i++) {
+                        if ($scope.selectedEmployments[i].id == $scope.removeObject.id) {
+                            index = i;
+                        }
+                    }
+                    $scope.selectedEmployments.splice(index, 1);
+                } else if (type == 'contract') {
+                    for (var i = 0; i < $scope.selectedContracts.length; i++) {
+                        if ($scope.selectedContracts[i].id == $scope.removeObject.id) {
+                            index = i;
+                        }
+                    }
+                    $scope.selectedContracts.splice(index, 1);
+                }
+                $scope.removeObject = null;
             }).error(function (error) {
                 $scope.showOperationMessage = true;
                 $scope.operationMessage = "Błąd operacji usuwania";
@@ -230,7 +251,6 @@ cmsModule.factory('columnDesc', function () {
                 'dictId': "Dodatkowy Opis",
                 'positionId': "Stanowisko",
                 'groupId': "Grupa",
-                
                 'employee': "Pracownik",
                 'customer': "Klient",
                 'manager': "Manager",
@@ -238,7 +258,6 @@ cmsModule.factory('columnDesc', function () {
                 'position': "Stanowisko",
                 'dict': "Dodatkowy Opis",
                 'group': "Grupa",
-                
                 'forename': "Imie",
                 'surname': "Nazwisko",
                 'phone': "Telefon",

@@ -240,18 +240,25 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         $scope.selector.employment = null;
     };
 
-    $scope.addElement = function (type) {        
-        if (type == 'address') {
-            $scope.selector.address.persondataId = $scope.selected.persondataId;
+    $scope.addElement = function (type, object) {               
+        //$scope.selector.afff = object;
+        if(object == null) {
+            alert("Wypełnij pola");
+            return;
+        }
+        $scope.newObject = object;
+        if (type == 'address') {    
+            //$scope.selector.address.persondataId = $scope.selected.persondataId;            
+            object.persondataId = $scope.selected.persondataId;
             for (var i = 0; i < $scope.addressValues.length; i++) {
-                if ($scope.addressValues[i][1] && $scope.selector.address[$scope.addressValues[i][0]] == null) {
+                if ($scope.addressValues[i][1] && object[$scope.addressValues[i][0]] == null) {
                     alert("Sprawdź poprowność danych adresu: "+columnDesc.get($scope.addressValues[i][0]));
                     return;
                 }
             }
             saveEditDelete.saveElement($http, '/CMS/address/save/:object.htm', $scope, type);
-            if (!$scope.selectedGroupHasKey($scope.selector.address)) {
-                $scope.selected.addresses.push($scope.selector.address);
+            if (!$scope.selectedGroupHasKey(object)) {
+                $scope.selected.addresses.push(object);
             }
             $scope.editSubElement = false;
         } else if (type == 'employment') {
@@ -322,24 +329,25 @@ function EmployeeListCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
             });
     };
 
-    $scope.removeElement = function (type) {
+    $scope.removeElement = function (type, object) {
+        alert(object);
         //alert(type);
+        $scope.removeObject = object;
         if (type == 'address') {
-            alert('kutas 2');
-            if ($scope.selector.address.id != null) {
-                alert("kutas 1 ");
+            if (object != undefined) {
                 saveEditDelete.removeElement($http, '/CMS/address/delete/:object.htm', $scope, type);                
             }
         } else if (type == 'employment') {
-            if ($scope.selector.employment != undefined) {
+            if (object != undefined) {
                 saveEditDelete.removeElement($http, '/CMS/employment/delete/:object.htm', $scope, type);
             }
         } else if (type == 'contract') {
-            if ($scope.selector.contract != undefined) {
+            if (object != undefined) {
                 saveEditDelete.removeElement($http, '/CMS/contract/delete/:object.htm', $scope, type);
             }
         }
         $scope.selector[type] = "";
+        object = "";
         $scope.editSubElement = false;
     };
 

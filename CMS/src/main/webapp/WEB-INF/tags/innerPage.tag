@@ -51,7 +51,7 @@
             <select ng-init="$parent.$parent.selector.contract = null" ng-show="selectedSubpage == 'contract'" ng-model="$parent.$parent.selector.contract" ng-options="con.id for con in selectedContracts"></select><br>
             <input type="button" ng-click="addNewElement(selectedSubpage)" value="ADD"/>
             <input type="button" ng-show="$parent.$parent.selector[selectedSubpage]" ng-click="showEdit()" value="EDIT"/>
-            <input type="button" ng-click="removeElement(selectedSubpage)" value="DELETE"/>
+            <input type="button" ng-click="removeElement(selectedSubpage, $parent.$parent.selector[selectedSubpage])" value="DELETE"/>
             <div ng-show="$parent.$parent.selector[selectedSubpage]">
                 <table>
                     <tr>
@@ -83,13 +83,12 @@
                 <div ng-show="selectedSubpage == 'contract'">
                     <t:editTable map="contractValues" object="$parent.$parent.selector[selectedSubpage]"/>
                 </div>
-                <input type="button" ng-click="addElement(selectedSubpage)" value="Add"/>
+                <input type="button" ng-click="addElement(selectedSubpage, $parent.$parent.selector[selectedSubpage])" value="Add"/>
                 <input type="button" ng-click="cancelElement()" value="Cancel"/>
             </div> 
         </div>
     </div>
 </div>    
-</div>
 
 <div ng-if="page == 'Company'">
     <div ng-show="selected && !newRecord">

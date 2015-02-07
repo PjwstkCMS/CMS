@@ -12,6 +12,7 @@
         <script src="/CMS/resources/js/jquery-2.1.3.min.js"></script> 
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script> 
        <link href="/CMS/resources/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+       <link href="/CMS/resources/css/fonts.css" rel="stylesheet">
           
         
     </head>

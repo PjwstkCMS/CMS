@@ -389,10 +389,7 @@
 
                     <div class="right-side-container">
 
-                        <div class="powiadomienia-container">
-                            <span class="powiadomienia-text hidden-xs">powiadomienia</span>
-                            <span class="icon-dzwonek-ico powiadomienia-ico"></span>
-                        </div>
+                        
 
                         <div ng-init="showChat = false" ng-click="showChat = !showChat" class="wiadomosci-container">                      
                             <span class="wiadomosci-text hidden-xs">czat</span>

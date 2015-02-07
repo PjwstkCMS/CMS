@@ -11,11 +11,7 @@
 </div>
 
 <div ng-if="page == 'Employee'">
-    <style>
-        .aclass {
-            background-color: lightblue;
-        }
-    </style>    
+   
     <div ng-show="selected && !newRecord">
         <div>
             <a ng-class="{aclass: selectedSubpage == 'empData'}" ng-click="attributesArray = '';

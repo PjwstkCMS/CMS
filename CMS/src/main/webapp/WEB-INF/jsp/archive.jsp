@@ -3,30 +3,23 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-        <style>
-            .selectedObject {
-                background-color: lightblue;
-            }
-            table {
-                width: 100%;
-            }
-        </style>
+       
         <script src="/CMS/resources/js/resourceManagment/archiveListCtrl.js"></script>
 
         <div ng-controller="ArchiveListCtrl">                        
-            <table width="100%" border="1">
-                <tr>
+            <table class="archive-table">
+                <tr class="table-header">
                     <th ng-click="loadData('/CMS/archive/employees.htm')">
-                        Employees
+                        Pracownicy
                     </th>
                     <th ng-click="loadData('/CMS/archive/contracts.htm')">
-                        Contracts
+                        Umowy
                     </th>
                     <th ng-click="loadData('/CMS/archive/companies.htm')">
-                        Companies
+                        Firmy
                     </th>
                     <th ng-click="loadData('/CMS/archive/customers.htm')">
-                        Customers
+                        Klienci
                     </th>
                 </tr>
                 <tr ng-class="{selectedObject: emp == selected}" ng-click="select(emp)" 
@@ -49,7 +42,7 @@
                 </tr>
                 <tr ng-class="{selectedObject: cus == selected}" ng-click="select(cus)" 
                     ng-show="show == '/CMS/archive/customers.htm'" ng-repeat="cus in customers">
-                    <td coslpan="4">
+                    <td colspan="4">
                         {{cus.forename}} {{cus.surname}}
                     </td>
                 </tr>

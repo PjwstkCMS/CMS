@@ -5,16 +5,10 @@
 
 
 <%-- any content can be specified here e.g.: --%>
-<style>
-    .selectedTableRow {
-        background-color: #eeeeee;
-    }
-
-</style>
 
 
      
-<table class="genericTable">
+<table class="archive-table">
     
     <tr class="table-header">
         <th class="numer-header">#</th>
@@ -45,7 +39,7 @@
         
     </tr>
         
-    <tr >
+    <tr>
             
         <td colspan="8"><t:innerPage/></td>
             
@@ -59,7 +53,7 @@
         
         
 <div class="ladowanie" align="center">
-    <span ng-show="status != null"><div id="loaderImage"></div>Ładowanie danych...</span>
+    <span ng-show="status != null">Ładowanie danych...</span>
     <span ng-show="status == 'Błąd'">Błąd podczas ładowania danych...</span>
 
 </div>

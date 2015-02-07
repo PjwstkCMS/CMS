@@ -258,11 +258,22 @@ input.wyszukiwarka:-ms-input-placeholder {
     border-collapse: collapse;
     }
 
+.archive-table { font-size: 15px; color: #acacac; background-color: #FFF; text-align: left; border-collapse: collapse; width: 100%; }
+.archive-table th { background-color: #9ccc83; font-size: 15px; padding: 18px 0 17px 17px; color:#678258; border-right: 1px solid #95c37c; }
+
+.archive-table tr:nth-child(odd) {background-color: #fafafa;}
+.archive-table .selectedObject {background-color: #e9e9e9 !important;}
+.archive-table tr:hover { background-color: #eeeeee !important; cursor: pointer; }
 
 .genericTable { font-size: 15px; color: #acacac; background-color: #FFF; text-align: left; border-collapse: collapse; width: 100%; }
+
 tr {}
-tr:hover { background-color: #f9f9f9; cursor: pointer; }
+    .selectedTableRow {
+        background-color: #e9e9e9 !important;
+    }
+.genericTable tr:hover { background-color: #eeeeee !important; cursor: pointer; }
 .genericTable tr:last-child { border-bottom: 1px solid #e0e0e0;}
+.genericTable tr:nth-child(odd) {background-color: #fafafa;}
 .genericTableHeader th {}
 th { background-color: #9ccc83; font-size: 15px; padding: 18px 0 18px 17px; color:#678258; border-right: 1px solid #95c37c; }
 
@@ -273,7 +284,7 @@ th:hover { background-color: #8fb87a; }
 td { font-size:13px; padding: 11px 17px 10px 17px; border-right: 1px solid #e0e0e0; }
 
 
-.table-header { border-top: 0px; background-color: #9ccc83; }
+.table-header { border: 0px none; background-color: #9ccc83; }
 .table-header a { font-size:14px; font-family: open_sanslight; padding: 18px 0 17px 0;color:#678258; }
     
     .numer {
@@ -286,7 +297,7 @@ td { font-size:13px; padding: 11px 17px 10px 17px; border-right: 1px solid #e0e0
     }
     .numer-header {
         text-align: center;
-        padding: 0 17px 0 17px;
+        padding: 0 17px 0 17px !important;
         width: 24px;
         max-width: 24px;
         min-width: 24px;

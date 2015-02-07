@@ -8,8 +8,8 @@
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="message"%>
-<hr/>
-<div style="height: 50px">
+
+<div>
     <input style="padding-top: 0px" ng-show="!editMode && !selected" type="button" ng-click="create()" value="NOWE">
     <input ng-show="!editMode && selected" type="button" ng-click="edit()" value="EDYTUJ">
     <input ng-show="editMode" type="button" ng-click="save()" value="ZAPISZ">

@@ -65,19 +65,22 @@
   }
 
   .main-navigation li a:visited {
-    background-color: #616b77;
+    background-color: #616b77 !important;
     text-decoration: none;
   }
 
   .main-navigation li a:link {
+      background-color: #616b77 !important;
     text-decoration: none;
   }
 
   .main-navigation li a:active {
+      background-color: #616b77 !important;
     text-decoration: none;
   }
 
   .main-navigation li a:focus {
+      background-color: #616b77;
     text-decoration: none;
   }
 
@@ -123,6 +126,7 @@
   }
 
   .row-offcanvas-left.active .sidebar-offcanvas {
+
     left: -62%;
     position: absolute;
     top: 0;
@@ -215,18 +219,12 @@
   background-color: #616b77;
   text-decoration: none;
 }
-
-.main-navigation li a:link {
-  text-decoration: none;
-}
-
-.main-navigation li a:active {
-  text-decoration: none;
-}
-
 .main-navigation li a:focus {
+  background-color: #616b77;
   text-decoration: none;
 }
+
+
 
 .main-category-link {
   font-size: 14px;

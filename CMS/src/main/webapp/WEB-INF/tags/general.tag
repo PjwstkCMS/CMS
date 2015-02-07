@@ -374,14 +374,7 @@
 
 
                     <div class="left-side-container">
-                         <c:if test="${user!=null}">                        
-                         
-                            <form method="get" action="logout.htm">
-                                <input type="submit" value="logout"/>
-                            </form>
-                          
-                        </c:if>
-
+                
                             
 
 
@@ -390,11 +383,23 @@
                     <div class="right-side-container">
 
                         
-
+                            <c:if test="${user!=null}">                        
+                        
+                                <div class="logout-container">
+                                    <form method="get" action="logout.htm">
+                                        <input class="logout-button" type="submit" value="wyloguj"/>
+                                    </form>
+                                </div>
+                          
+                            </c:if>
+                        
                         <div ng-init="showChat = false" ng-click="showChat = !showChat" class="wiadomosci-container">                      
                             <span class="wiadomosci-text hidden-xs">czat</span>
                             <span class="icon-wiadomosci-ico wiadomosci-ico"></span>
                         </div>
+                        
+                   
+
 
                     </div> <!-- end right-side-panel -->
 

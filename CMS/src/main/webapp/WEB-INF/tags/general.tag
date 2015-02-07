@@ -420,9 +420,10 @@
                     </ul>-->
                 
                     
-                           <div class="col-lg-12">            
-                    <span class="wyszukiwarka-ico icon-wyszukiwarka-ico"></span><input class="wyszukiwarka" placeholder="wyszukaj..." type="text" ng-model="searchText"/>
-                           </div>
+                    <div class="col-lg-12">            
+                        <span class="wyszukiwarka-ico icon-wyszukiwarka-ico"></span>
+                        <input class="wyszukiwarka" placeholder="wyszukaj..." type="text" ng-model="searchText"/>
+                    </div>
               
                 </div>
 

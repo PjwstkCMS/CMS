@@ -43,8 +43,9 @@ body {
 #main {
   background-color: #eeeeee;
   padding: 0 0 0 0;
+  height: 100%;
+  overflow-x: hidden;
 }
-.content-container { height: 100vh;}
 .row .content-container p {
   margin: 25px 25px 25px 25px;
 }
@@ -162,7 +163,7 @@ body {
 .czat-container {
   height: 400px;
   position: absolute;
-  right: 188px;
+  right: 25px;
   top: 80px;
   background-color: #FFF;
   margin:0;
@@ -218,9 +219,9 @@ body {
 
 
 input.wyszukiwarka {
-    width: 90%;
+    width: 70%;
     float: left;
-    font-family: "Open Sans";
+    font-family: open_sanslight;
     font-size: 15px;
     line-height: 15px;
     font-weight: 700;

@@ -55,7 +55,7 @@ public class PositionController extends BaseController {
         DepartmentDao depDao = new DepartmentDao();
         Map<String, Object> initData = new HashMap<>();
         initData.put("positions", posDao.selectAll());
-        initData.put("employees", empDao.getEmployeeDtoList());
+        initData.put("employees", empDao.getEmployeeListDtoWithoutCards(false));
         initData.put("departments", depDao.getDepartmentDtoList());
         return Utils.createResponseEntity(session, initData);
     }

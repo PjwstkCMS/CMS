@@ -57,7 +57,7 @@ public class DepartmentController extends BaseController {
         DictionaryDao dictDao = new DictionaryDao();
         Map<String, Object> initData = new HashMap<String, Object>();
         initData.put("departments", depDao.getDepartmentDtoList());
-        initData.put("employees", empDao.getEmployeeDtoList());
+        initData.put("employees", empDao.getEmployeeListDtoWithoutCards(false));
         initData.put("dictionaries", dictDao.getCompanyAddressesTypes());
         return Utils.createResponseEntity(session, initData);
     }

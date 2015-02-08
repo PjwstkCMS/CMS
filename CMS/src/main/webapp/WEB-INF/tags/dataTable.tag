@@ -38,16 +38,6 @@
         </td>
         
     </tr>
-        
-    <tr>
-            
-        <td colspan="8"><t:innerPage/></td>
-            
-    </tr>
-                 
-                
-       
-    </tr>
 
 </table>
         

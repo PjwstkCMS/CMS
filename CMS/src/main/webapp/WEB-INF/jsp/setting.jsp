@@ -3,7 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-        <script src="/CMS/resources/js/configuration/systemConfigCtrl.js"></script>
+        <script src="/CMS/resources/js/configuration/systemConfigCtrl.js"></script>        
         <div ng-controller="SystemConfigCtrl">
             <t:dataTable/>
             <div ng-show="editMode">

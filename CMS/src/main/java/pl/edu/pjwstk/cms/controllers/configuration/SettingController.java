@@ -68,8 +68,44 @@ public class SettingController extends BaseController {
     public ResponseEntity<String> getDefaultConfigs(HttpSession session, ModelMap model) {
         Map<String, Object> initData = new HashMap<>();
         SystemConfigurationDao sysDao = new SystemConfigurationDao();
+        SystemConfiguration idleTimeout = sysDao.selectSingleRecord("name", "IdleTimeout");
+        idleTimeout.setDescription("Czas do automatycznego wylogowania.");
+        idleTimeout.setValue("600");
+        SystemConfiguration DefaultPageEncoding = sysDao.selectSingleRecord("name", "DefaultPageEncoding");
+        DefaultPageEncoding.setDescription("Standardowe kodowanie.");
+        DefaultPageEncoding.setValue("utf-8");
+        sysDao.update(idleTimeout);
         
-        //Póki co no idea jeszcze jak to zrobić
+        SystemConfiguration AccountRequestEmail = sysDao.selectSingleRecord("name", "AccountRequestEmail");
+        AccountRequestEmail.setDescription("konto pocztowe na które wysyłane są prośby o konto.");
+        AccountRequestEmail.setValue("accreqehr@gmail.com");
+        sysDao.update(idleTimeout);
+        
+        SystemConfiguration AccountRequestPassword = sysDao.selectSingleRecord("name", "AccountRequestPassword");
+        AccountRequestPassword.setDescription("Hasło do konta pocztowego do przyjmowania próśb o konto.");
+        AccountRequestPassword.setValue("easyhr123");
+        sysDao.update(AccountRequestPassword);
+        
+        SystemConfiguration AccountRequestLogin = sysDao.selectSingleRecord("name", "AccountRequestLogin");
+        AccountRequestLogin.setDescription("Login do konta pocztowego do przyjomwania próśb o konto.");
+        AccountRequestLogin.setValue("accreqehr@gmail.com");
+        sysDao.update(AccountRequestLogin);
+        
+        SystemConfiguration AccountRequestSMTP = sysDao.selectSingleRecord("name", "AccountRequestSMTP");
+        AccountRequestSMTP.setDescription("AccountRequestSMTP");
+        AccountRequestSMTP.setValue("smtp.gmail.com");
+        sysDao.update(AccountRequestSMTP);
+        
+        SystemConfiguration AccountCreationLink = sysDao.selectSingleRecord("name", "AccountCreationLink");
+        AccountCreationLink.setDescription("Link pod którym będzie automatyczne tworzenie konta dla użytkownika, który wysłał prośbę");
+        AccountCreationLink.setValue("todo.com");
+        sysDao.update(AccountCreationLink);
+        
+        SystemConfiguration LoginPersistanceTime = sysDao.selectSingleRecord("name", "LoginPersistanceTime");
+        LoginPersistanceTime.setDescription("Czas zapamiętania danych logowania.");
+        LoginPersistanceTime.setValue("3600");
+        sysDao.update(LoginPersistanceTime);
+        
         
         initData.put("systemConfigs", sysDao.selectAll());
         return Utils.createResponseEntity(session, initData);

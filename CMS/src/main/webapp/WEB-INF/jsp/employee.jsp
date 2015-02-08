@@ -7,7 +7,7 @@
            
         <div ng-controller="EmployeeListCtrl">            
             <t:dataTable/>
-            <div ng-show="editMode && newRecord">
+            <div ng-show="editMode">
                 <t:editTable map="editValues" object="selected"/>
             </div>
             <div ng-init="archivable=true" ng-hide="selected && selected.id">

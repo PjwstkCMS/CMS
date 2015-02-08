@@ -206,15 +206,6 @@
     </div>
 </div>
 
-<div ng-if="page == 'Report'">
-    <div ng-show="selected.formCode" ng-include="selected.formCode">
-    </div>
-    <div ng-show="selected.printCode">
-        <form action="{{selected.printCode}}.htm" method="GET">            
-            <input type="submit" value="Pobierz"/>
-        </form>
-    </div>
-</div>
 
 <div ng-if="page == 'GroupList'">
     <table class="genericTable">

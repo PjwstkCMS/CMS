@@ -6,14 +6,15 @@
         <script src="/CMS/resources/js/resourceManagment/reportPrintCtrl.js"></script>
         <div ng-init="reportDownload = true" ng-controller="ReportPrintCtrl">
             <div class="top-right">
-                <!--
-                <div class="more-button" ng-show="(!selected && !editMode) && checkEditPrivileges()" ng-click="create()" id="flip"></div>
-
+                <t:dataTable/>
             </div>
-                -->
-            <t:dataTable/>
-
-        </div>
+            <div ng-show="selected.formCode" ng-include="selected.formCode">
+            </div>
+            <div ng-show="selected.printCode">
+                <form action="{{selected.printCode}}.htm" method="GET">            
+                    <input type="submit" value="Pobierz"/>
+                </form>
+            </div>
     </div>
 </jsp:body>
 </t:general>

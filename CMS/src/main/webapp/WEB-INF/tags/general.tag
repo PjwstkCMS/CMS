@@ -27,6 +27,7 @@
         <link href="/CMS/resources/css/fonts.css" rel="stylesheet">
         <link href="/CMS/resources/css/jquery.mCustomScrollbar.min.css" rel="stylesheet">
         
+        <!--
          <script type="text/javascript">
                 $.idleTimeout('#idletimeout', '#idletimeout a', {
                     idleAfter: ${idleTimeout},
@@ -50,7 +51,7 @@
                     }
                 });
             </script>
-        
+        -->
         
 
         <title>HR System</title>        

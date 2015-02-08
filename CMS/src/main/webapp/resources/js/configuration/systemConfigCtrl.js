@@ -49,8 +49,12 @@ function SystemConfigCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
     };
     
     $scope.defaultSettings = function() {
-        $scope.get = saveEditDelete.get($http, '/CMS/systemConfig/defaultConfigs.htm', $scope);
-        $scope.loadDataPromise = $scope.get;
+        $http.get("/CMS/systemConfig/defaultConfigs.htm").success(function (returnData) {
+            $scope.systemConfigs = returnData.systemConfigs;
+            //alert(returnData.messages);
+        });        
+        //$scope.get = saveEditDelete.get($http, '/CMS/systemConfig/defaultConfigs.htm', $scope);
+        //$scope.loadDataPromise = $scope.get;
         
     };
     

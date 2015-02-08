@@ -7,7 +7,7 @@
         
         <div ng-controller="DepartmentListCtrl">
             <t:dataTable/>
-            <div ng-show="editMode && newRecord">
+            <div ng-show="editMode">
                 <t:editTable map="editValues" object="selected"/>
                 <t:editTable map="addressValues" object="selected.address"/>
             </div>

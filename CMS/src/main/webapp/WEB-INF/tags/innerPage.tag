@@ -4,11 +4,6 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="message"%>
 
-<div ng-if="page == 'simple'">
-    <div ng-show="editMode && !newRecord">
-        <t:editTable map="editValues" object="selected"/>
-    </div>
-</div>
 
 <div ng-if="page == 'Employee'">
    
@@ -123,13 +118,6 @@
             <input type="button" ng-click="cancelAddress()" value="Cancel"/>
         </div>
     </div>
-    <div ng-show="editMode">
-        <t:editTable map="editValues" object="selected"/>
-        <input type="checkbox" ng-click="showContactPersonBox()" /> DodaÄ osobÄ kontaktowÄ <br/>
-        <div name="contactPersonBox" ng-show="contactPersonBoxShow">
-            <t:editTable map="contactPersonValues" object="selected"/>
-        </div>
-    </div>
 </div>
 
 <div ng-if="page == 'Customer'">
@@ -174,9 +162,6 @@
         </table>
 
     </div>
-    <div ng-show="editMode">
-        <t:editTable map="editValues" object="selected"/>
-    </div>
 </div>
 
 <div ng-if="page == 'Department'">
@@ -184,10 +169,6 @@
         <b>Adres:</b> {{selected.address.city}} {{selected.address.streetName}}
         {{selected.address.streetNumber}}/m.{{selected.address.apartmentNumber}}
         {{selected.address.postalCode}} {{selected.address.country}} {{selected.address.dictId}}
-    </div>
-    <div ng-show="editMode">
-        <t:editTable map="editValues" object="selected"/>
-        <t:editTable map="addressValues" object="selected.address"/>
     </div>
 </div>
 
@@ -223,9 +204,6 @@
             </tr>
         </table>
     </div>
-    <div ng-show="editMode">
-        <t:editTable map="editValues" object="selected"/>
-    </div>
 </div>
 
 <div ng-if="page == 'Report'">
@@ -258,9 +236,6 @@
             </td>
         </tr>
     </table>
-    <div ng-show="editMode">
-        <t:editTable map="editValues" object="selected"/>
-    </div>
 </div>
 
 <div ng-if="page == 'DictionaryList'">
@@ -293,15 +268,6 @@
             <input type="button" ng-click="cancelDictionary()" value="Cancel"/>
         </div>
     </div>
-    <div ng-show="editMode">
-        <t:editTable map="editValues" object="selected"/>
-    </div>
-    <t:jsonOperations/>
-</div>
-
-<div ng-if="page == 'SystemConfig'">
-    <t:editTable map="editValues" object="selected"/>
-    <input type="button" ng-click="save()" value="ZAPISZ">
 </div>
 
 <div ng-if="page == 'UserList'">

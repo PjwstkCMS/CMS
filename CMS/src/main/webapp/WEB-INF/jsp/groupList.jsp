@@ -7,7 +7,7 @@
   
         <div ng-controller="GroupListCtrl">
             <t:dataTable/>
-            <div ng-show="editMode && newRecord">
+            <div ng-show="editMode">
                 <t:editTable map="editValues" object="selected"/>
             </div>
             <t:jsonOperations/>

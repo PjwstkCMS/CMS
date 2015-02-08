@@ -6,7 +6,7 @@
         <script src="/CMS/resources/js/configuration/userListCtrl.js"></script>
         <div ng-controller="UserListCtrl">
             <t:dataTable/>
-            <div ng-show="editMode && newRecord">
+            <div ng-show="editMode">
                 <t:editTable map="editValues" object="selected"/>
             </div>
             <hr/>

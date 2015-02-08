@@ -3,7 +3,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:general>
     <jsp:body>
-       
+
         <script src="/CMS/resources/js/resourceManagment/archiveListCtrl.js"></script>
 
         <div ng-controller="ArchiveListCtrl">                        
@@ -47,22 +47,24 @@
                     </td>
                 </tr>
             </table>
-            <input type="button" ng-click="deleteCon()"
-                   ng-show="show == '/CMS/archive/contracts.htm'" value="USUŃ"/>
-            <input type="button" ng-click="deleteEmp()"
-                   ng-show="show == '/CMS/archive/employees.htm'" value="USUŃ"/>
-            <input type="button" ng-click="deleteCom()"
-                   ng-show="show == '/CMS/archive/companies.htm'" value="USUŃ"/>
-            <input type="button" ng-click="deleteCus()"
-                   ng-show="show == '/CMS/archive/customers.htm'" value="USUŃ"/>
-            <input type="button" ng-click="dearchiveCon()"
-                   ng-show="show == '/CMS/archive/contracts.htm'" value="DEARCHIWIZUJ"/>
-            <input type="button" ng-click="dearchiveEmp()"
-                   ng-show="show == '/CMS/archive/employees.htm'" value="DEARCHIWIZUJ"/>
-            <input type="button" ng-click="dearchiveCom()"
-                   ng-show="show == '/CMS/archive/companies.htm'" value="DEARCHIWIZUJ"/>
-            <input type="button" ng-click="dearchiveCus()"
-                   ng-show="show == '/CMS/archive/customers.htm'" value="DEARCHIWIZUJ"/>
+            <div ng-if="selected">
+                <input type="button" ng-click="deleteCon()"
+                       ng-show="show == '/CMS/archive/contracts.htm'" value="USUŃ"/>
+                <input type="button" ng-click="deleteEmp()"
+                       ng-show="show == '/CMS/archive/employees.htm'" value="USUŃ"/>
+                <input type="button" ng-click="deleteCom()"
+                       ng-show="show == '/CMS/archive/companies.htm'" value="USUŃ"/>
+                <input type="button" ng-click="deleteCus()"
+                       ng-show="show == '/CMS/archive/customers.htm'" value="USUŃ"/>
+                <input type="button" ng-click="dearchiveCon()"
+                       ng-show="show == '/CMS/archive/contracts.htm'" value="DEARCHIWIZUJ"/>
+                <input type="button" ng-click="dearchiveEmp()"
+                       ng-show="show == '/CMS/archive/employees.htm'" value="DEARCHIWIZUJ"/>
+                <input type="button" ng-click="dearchiveCom()"
+                       ng-show="show == '/CMS/archive/companies.htm'" value="DEARCHIWIZUJ"/>
+                <input type="button" ng-click="dearchiveCus()"
+                       ng-show="show == '/CMS/archive/customers.htm'" value="DEARCHIWIZUJ"/>
+            </div>
         </div>
     </jsp:body>
 </t:general>

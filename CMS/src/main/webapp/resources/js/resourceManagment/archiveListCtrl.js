@@ -10,6 +10,7 @@ function ArchiveListCtrl($scope, $http, saveEditDelete, pagination, columnDesc) 
 
     $scope.loadData = function (link) {
         $scope.show = link;
+        $scope.selected = null;
         $http.get(link).success(function (returnData) {
             $scope.status = null;
             $scope.initData = returnData;

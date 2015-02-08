@@ -79,6 +79,7 @@ public class LoginController extends BaseController {
                 request.getSession().setAttribute("userimage", file);
                 request.getSession().setAttribute("sendUsers", userDao.getSendUsers(userDto.getId()));
                 request.getSession().setAttribute("userData", empDto);
+                request.getSession().setMaxInactiveInterval((int)sysDao.getIdleTimeout());
                 model.addObject("loginMsg", "Welcome " + login + "!");
             } else {
                 model.addObject("loginMsg", "Wrong password.");

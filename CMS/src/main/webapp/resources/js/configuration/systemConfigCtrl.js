@@ -38,9 +38,11 @@ function SystemConfigCtrl($scope, $http, saveEditDelete, pagination, columnDesc)
         if ($scope.selected == object) {
             saveEditDelete.restoreOldData($scope);
             $scope.selected = "";
+            $scope.editMode = false;
         } else {
             saveEditDelete.saveOldData($scope,object);
             $scope.selected = object;
+            $scope.editMode = true;
         }
     }
 

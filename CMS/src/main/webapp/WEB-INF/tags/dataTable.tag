@@ -12,7 +12,7 @@
     
     <tr class="table-header">
         <th class="numer-header">#</th>
-        <th ng-repeat="attr in attributes" ng-hide="attr.substring(0, 1) == '%'" class = "{{columnClasses[attr]}}">
+        <th ng-repeat="attr in attributes" class = "{{attr}}" ng-hide="attr.substring(0, 1) == '%'" class = "{{columnClasses[attr]}}">
             <a ng-click=
                 "$parent.orderColumn = attr; 
                 $parent.reverse = !$parent.reverse;
@@ -38,7 +38,11 @@
         </td>
         
     </tr>
-
+    <tr>
+        <td colspan="15">
+            <t:innerPage />
+        </td>
+    </tr>
 </table>
         
         

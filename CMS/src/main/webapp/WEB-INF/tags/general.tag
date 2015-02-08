@@ -32,13 +32,6 @@
 
     <c:if test="${user!=null}">
         <body ng-app="cms">
-            
-            <div id="odliczanie">
-                
-                <h1>
-                    KUTAS
-                </h1>
-            </div>
 
             <div id="idletimeout" style="display: none;">
                 <div class="idletimeout-top">

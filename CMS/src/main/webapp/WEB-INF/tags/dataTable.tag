@@ -38,13 +38,9 @@
         </td>
         
     </tr>
-    <tr>
-        <td colspan="15">
-            <t:innerPage />
-        </td>
-    </tr>
+    
 </table>
-        
+<t:innerPage />   
         
 <div class="ladowanie" align="center">
     <span ng-show="status != null">Ładowanie danych...</span>

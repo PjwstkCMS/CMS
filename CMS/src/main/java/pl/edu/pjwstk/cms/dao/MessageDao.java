@@ -31,7 +31,7 @@ public class MessageDao extends GenericDao<Message> {
             query = this.addParamConditions(query, params);
             query += " AND ";
         }
-        query += "to_userid=u.id";
+        query += "m.from_userid=u.id";
         ResultSet set = connectionManager.select(query);
         try {
             while (set.next()) {

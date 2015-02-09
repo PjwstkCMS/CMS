@@ -37,8 +37,8 @@
     <c:if test="${user!=null}">
         <body ng-app="cms">
             <div id="idletimeout">
-	You will be logged off in <span><!-- countdown place holder --></span>&nbsp;seconds due to inactivity. 
-	<a id="idletimeout-resume" href="#">Click here to continue using this web page</a>.
+	Zostaniesz wylogowany za <span><!-- countdown place holder --></span>&nbsp;sekund z powodu nieaktywności. 
+	<a id="idletimeout-resume" href="#">Kliknij tutaj aby kontynuować pracę...</a>.
 </div>
            
 
@@ -158,8 +158,9 @@
                                         </c:if>
                                     </ul>
                                 </li>
-
+<c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewGroups')}">
                                 <li><a class="main-category-link" href="#" id="toggle-konfiguracja"><span class="main-ico-align icon-konfiguracja-systemu-ico"></span>System<i class="icon-arrow-right-ico strzalka-position"></i></a>
+                                </c:if>
                                     <ul id="konfiguracja-systemu" style="display:none;">
 
                                         <c:if test="${user.privilegeKeyCodes.contains('all') || user.privilegeKeyCodes.contains('ViewGroups')}">
@@ -444,6 +445,7 @@
             <script type="text/javascript">
 $.idleTimeout('#idletimeout', '#idletimeout a', {
 	idleAfter: ${IdleTimeout},
+        titleMessage: 'Uwaga: %s sekund do wylogowania | ',
         warningLength: 30,
 	pollingInterval: 2,
 	keepAliveURL: '/CMS/resources/keepalive.php',
@@ -454,7 +456,7 @@ $.idleTimeout('#idletimeout', '#idletimeout a', {
 	},
 	onIdle: function(){
 		$(this).slideDown(); // show the warning bar
-		$.blockUI();
+		$.blockUI({ message: null });
 	},
 	onCountdown: function( counter ){
 		$(this).find("span").html( counter ); // update the counter

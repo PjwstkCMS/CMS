@@ -86,7 +86,7 @@
         <h3>
             Adresy Firmy:
         </h3>
-        <select  ng-model="$parent.$parent.addressSelector" ng-options="add.streetName+' '+add.streetNumber+' '+add.city
+        <select  ng-model="$parent.addressSelector" ng-options="add.streetName+' '+add.streetNumber+' '+add.city
                  for add in selected.addresses">
         </select><br>
 

@@ -75,6 +75,50 @@ public class UserDao extends GenericDao<User> {
     public List<UserDto> getUserDtos(String where) {
         List<UserDto> dtos = new ArrayList<>();
 
+        String query = "SELECT user.id, login, password, employeeId, groupId ";
+        if(!where.isEmpty()) {
+            query+=where;
+        }
+        query += "FROM user;";
+
+        ResultSet resultSet = this.connectionManager.select(query);
+
+        EmployeeDao empDao = new EmployeeDao();
+        List<Employee> employees = empDao.selectAll();
+        PersonDataDao personDao = new PersonDataDao();
+        List<PersonData> persons = personDao.selectAll();
+
+        PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
+        List<PrivilegeGroup> groups = groupDao.selectAll();
+
+        try {
+            while (resultSet.next()) {
+                UserDto dto = new UserDto();
+                dto.setId(resultSet.getLong("id"));
+                dto.setLogin(resultSet.getString("login"));
+                dto.setPassword(resultSet.getString("password"));
+                dto.setEmployeeId(resultSet.getLong("employeeId"));
+
+                Employee e = getEmployee(employees, resultSet.getString("employeeId"));
+                dto.setPersondataId(Long.parseLong(e.getPersondataId()));
+                PersonData person = getPersonData(e.getPersondataId(), persons);
+                dto.setEmployee(person.getForename() + " " + person.getSurname());
+
+                PrivilegeGroup group = getPrivilegeGroup(groups, resultSet.getString("groupId"));
+                dto.setGroupId(group.getId());
+                dto.setGroup(group.getName());
+
+                dtos.add(dto);
+            }
+        } catch (SQLException sql) {
+            sql.printStackTrace();
+        }
+        return dtos;
+    }
+    
+    public List<UserDto> getUserDtosWithPhotoHash(String where) {
+        List<UserDto> dtos = new ArrayList<>();
+
         String query = "SELECT user.id, login, password, employeeId, groupId, photoHash ";
         if(!where.isEmpty()) {
             query+=where;

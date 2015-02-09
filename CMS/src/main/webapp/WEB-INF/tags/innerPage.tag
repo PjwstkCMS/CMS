@@ -90,7 +90,7 @@
                  for add in selected.addresses">
         </select><br>
 
-        <table>
+        <table style="width:100%;">
             <tr>
                 <th ng-repeat="adatr in addressAttributes">
                     {{columnDescription(adatr)}}
@@ -146,7 +146,7 @@
         <h3>
             Aktualne umowy:
         </h3>
-        <table>
+        <table style="width:100%;">
             <tr>
                 <th ng-repeat="catr in contractAttributes">
                     {{$parent.columnDescription(catr)}}

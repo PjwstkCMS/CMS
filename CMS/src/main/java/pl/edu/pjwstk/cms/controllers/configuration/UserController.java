@@ -58,7 +58,7 @@ public class UserController extends BaseController {
         PrivilegeGroupDao groupDao = new PrivilegeGroupDao();
         Map<String, Object> initData = new HashMap<>();
         initData.put("users", userDao.getUserDtos());
-        initData.put("employees", empDao.getEmployeeDtoList());
+        initData.put("employees", empDao.getEmployeeListDtoWithoutCards(false));
         initData.put("groups", groupDao.selectAll());
         //List<UserDTO> userDtos = userDao.getUserWithConfig();
         return Utils.createResponseEntity(session, initData);

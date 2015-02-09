@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -288,8 +289,15 @@ public class GenericDao<T extends DatabaseObject> {
     public List<T> selectForQuery(String query) {
         System.out.println(query);
         ArrayList<T> resultList = new ArrayList<>();
+        ResultSet resultSet;
         try {
-            ResultSet resultSet = connectionManager.select(query);
+            resultSet = connectionManager.select(query);
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, ex.getLocalizedMessage());
+            return null;
+        }        
+        try {
+            resultSet = connectionManager.select(query);
             while (resultSet.next()) {
                 T obj = (T) modelClass.newInstance();
                 Field[] fields = obj.getClass().getDeclaredFields();
@@ -312,6 +320,12 @@ public class GenericDao<T extends DatabaseObject> {
             LOGGER.log(Level.SEVERE, ex.getLocalizedMessage());
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, ex.getLocalizedMessage());
+        } finally {
+            try {
+            resultSet.close();
+            } catch (SQLException closeEx) {
+                LOGGER.log(Level.SEVERE, closeEx.getLocalizedMessage());
+            }
         }
         return resultList;
     }

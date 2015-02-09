@@ -15,9 +15,7 @@
         <script src="/CMS/resources/js/services.js"></script>  
         <script src="/CMS/resources/js/resourceManagment/chatListCtrl.js"></script>
         <script src="/CMS/resources/js/bootstrap.js"></script>
-        <script src="/CMS/resources/js/idleTimeout.js" type="text/javascript"></script>
-        <script src="/CMS/resources/js/idleTimer.js" type="text/javascript"></script>
-        <script src="/CMS/resources/js/jquery.blockUI.js"></script>
+  
 
         <link href="/CMS/resources/css/jquery.rcrumbs.css" rel="stylesheet">
         <link href="/CMS/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -26,25 +24,17 @@
         <link href="/CMS/resources/css/sidebar.css" rel="stylesheet">
         <link href="/CMS/resources/css/fonts.css" rel="stylesheet">
         <link href="/CMS/resources/css/jquery.mCustomScrollbar.min.css" rel="stylesheet">
-
+ 
+        
+           
         <title>HR System</title>        
     </head>
 
     <c:if test="${user!=null}">
         <body ng-app="cms">
+            
+           
 
-            <div id="idletimeout" style="display: none;">
-                <div class="idletimeout-top">
-                    <div class="idletimeout-sign"><img src="" alt="aaa"/></div>
-                    <span style="font-weight:700;" class="idletimeout-header">Twoja sesja wkrótce wygaśnie...</span></div>
-
-                <div class="idletimeout-tekst">Zostaniesz wylogowany za <span style="font-weight:700;" id="odliczanie">
-                    </span> sekund z powodu braku aktywności.
-                    <br>Aby kontynuować pracę <a id="idletimeout-resume" href="#">kliknij tutaj</a> i zapomnij o sprawie... na jakiś czas... :)</div>
-
-
-
-            </div>
 
             <div class="wrapper">
 

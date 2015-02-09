@@ -55,7 +55,7 @@ a:active {
 /*----------------------------------------------*/
 /* Podstawowe */
 body {
-  font-family: 'Open Sans';
+  font-family: open_sansregular;
   background-color: #d4d4d4;
 }
 
@@ -169,7 +169,7 @@ body {
 input.user-name {
   float: left;
   margin: 34px 0 0 39px;
-  font-family: 'Open Sans';
+  font-family: open_sansregular;
   font-size: 15px;
   font-weight: 700;
   background-color: #ececec;
@@ -192,7 +192,7 @@ input.user-name:focus {
 input.imie-input {
   float: left;
   margin: 34px 0 0 39px;
-  font-family: 'Open Sans';
+  font-family: open_sansregular;
   font-size: 15px;
   font-weight: 700;
   background-color: #ececec;
@@ -253,7 +253,7 @@ input.imie-input:focus {
 
 input.password-input {
   float: left;
-  font-family: 'Open Sans';
+  font-family: open_sansregular;
   font-size: 15px;
   font-weight: 700;
   background-color: #ececec;
@@ -277,7 +277,7 @@ input.password-input:focus {
 }
 input.nazwisko-input {
   float: left;
-  font-family: 'Open Sans';
+  font-family: open_sansregular;
   font-size: 15px;
   font-weight: 700;
   background-color: #ececec;
@@ -301,7 +301,7 @@ input.nazwisko-input:focus {
 }
 input.login-input {
   float: left;
-  font-family: 'Open Sans';
+  font-family: open_sansregular;
   font-size: 15px;
   font-weight: 700;
   background-color: #ececec;
@@ -325,7 +325,7 @@ input.login-input:focus {
 }
 input.email-input {
   float: left;
-  font-family: 'Open Sans';
+  font-family: open_sansregular;
   font-size: 15px;
   font-weight: 700;
   background-color: #ececec;
@@ -353,7 +353,7 @@ input.zaloguj-button {
   width: 90px;
   height: 36px;
   margin: 25px 39px 0 310px;
-  font-family: 'Open Sans';
+  font-family: open_sansregular;
   font-size: 14px;
   font-weight: 700;
   font-smooth: auto;
@@ -379,7 +379,7 @@ input.wyslij-button {
   padding: 0 0 0 2px;
   width: 90px;
   height: 36px;
-  font-family: 'Open Sans';
+  font-family: open_sansregular;
   font-size: 14px;
   font-weight: 700;
   font-smooth: auto;
@@ -405,7 +405,7 @@ input.anuluj-button {
   margin: 25px 10px 0 0;
   width: 90px;
   height: 36px;
-  font-family: 'Open Sans';
+  font-family: open_sansregular;
   font-size: 14px;
   font-weight: 700;
   font-smooth: auto;

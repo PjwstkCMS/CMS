@@ -9,7 +9,7 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="message"%>
 
-<div>
+<div class="json-buttons">
     <input style="padding-top: 0px" ng-show="!editMode && !selected" type="button" ng-click="create()" value="NOWE">
     <input ng-show="!editMode && selected" type="button" ng-click="edit()" value="EDYTUJ">
     <input ng-show="editMode" type="button" ng-click="save()" value="ZAPISZ">

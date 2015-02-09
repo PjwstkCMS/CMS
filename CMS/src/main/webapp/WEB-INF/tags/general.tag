@@ -10,14 +10,16 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <script src="/CMS/resources/js/jquery-2.1.3.min.js"></script>      
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+        <script src="/CMS/resources/js/jquery-2.1.3.min.js"></script>
+        <script src="/CMS/resources/js/jquery.idletimer.js" type="text/javascript"></script>
+        <script src="/CMS/resources/js/jquery.idletimeout.js" type="text/javascript"></script>
+        <script src="/CMS/resources/js/jquery.blockUI.js"></script>
+        <script src="/CMS/resources/js/angular.js"></script>
+        <script src="/CMS/resources/js/angular.min.js"></script>
         <script src="/CMS/resources/js/services.js"></script>  
         <script src="/CMS/resources/js/resourceManagment/chatListCtrl.js"></script>
         <script src="/CMS/resources/js/bootstrap.js"></script>
-        <script src="/CMS/resources/js/idleTimeout.js" type="text/javascript"></script>
-        <script src="/CMS/resources/js/idleTimer.js" type="text/javascript"></script>
-        <script src="/CMS/resources/js/jquery.blockUI.js"></script>
+  
 
         <link href="/CMS/resources/css/jquery.rcrumbs.css" rel="stylesheet">
         <link href="/CMS/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -26,25 +28,20 @@
         <link href="/CMS/resources/css/sidebar.css" rel="stylesheet">
         <link href="/CMS/resources/css/fonts.css" rel="stylesheet">
         <link href="/CMS/resources/css/jquery.mCustomScrollbar.min.css" rel="stylesheet">
-
+ 
+        
+           
         <title>HR System</title>        
     </head>
 
     <c:if test="${user!=null}">
         <body ng-app="cms">
+            <div id="idletimeout">
+	You will be logged off in <span><!-- countdown place holder --></span>&nbsp;seconds due to inactivity. 
+	<a id="idletimeout-resume" href="#">Click here to continue using this web page</a>.
+</div>
+           
 
-            <div id="idletimeout" style="display: none;">
-                <div class="idletimeout-top">
-                    <div class="idletimeout-sign"><img src="" alt="aaa"/></div>
-                    <span style="font-weight:700;" class="idletimeout-header">Twoja sesja wkrótce wygaśnie...</span></div>
-
-                <div class="idletimeout-tekst">Zostaniesz wylogowany za <span style="font-weight:700;" id="odliczanie">
-                    </span> sekund z powodu braku aktywności.
-                    <br>Aby kontynuować pracę <a id="idletimeout-resume" href="#">kliknij tutaj</a> i zapomnij o sprawie... na jakiś czas... :)</div>
-
-
-
-            </div>
 
             <div class="wrapper">
 
@@ -444,5 +441,30 @@
         <c:if test="${user==null}">
             Może byś się zalogował?
         </c:if>
+            <script type="text/javascript">
+$.idleTimeout('#idletimeout', '#idletimeout a', {
+	idleAfter: ${IdleTimeout},
+        warningLength: 30,
+	pollingInterval: 2,
+	keepAliveURL: '/CMS/resources/keepalive.php',
+	serverResponseEquals: 'OK',
+	onTimeout: function(){
+		$(this).slideUp();
+		window.location = "/CMS/logout.htm";
+	},
+	onIdle: function(){
+		$(this).slideDown(); // show the warning bar
+		$.blockUI();
+	},
+	onCountdown: function( counter ){
+		$(this).find("span").html( counter ); // update the counter
+	},
+	onResume: function(){
+		
+		$(this).slideUp(); // hide the warning bar
+		$.unblockUI();
+	}
+});
+</script>
     </body>
 </html>

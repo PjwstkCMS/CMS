@@ -6,10 +6,7 @@
         <script src="/CMS/resources/js/resourceManagment/terminalListCtrl.js"></script>
         <div ng-controller="TerminalListCtrl">
             <t:dataTable/>
-            <div ng-show="editMode">
-                <t:editTable map="editValues" object="selected"/>
-            </div>
-            <t:jsonOperations/>
+          
             <table ng-show="selected">
                 <tr>
                     <th>
@@ -40,6 +37,10 @@
                     </td>
                 </tr>
             </table>
+              <div ng-show="editMode">
+                <t:editTable map="editValues" object="selected"/>
+            </div>
+            <t:jsonOperations/>
         </div>
     </jsp:body>
 </t:general>

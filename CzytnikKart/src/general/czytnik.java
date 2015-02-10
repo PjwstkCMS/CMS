@@ -24,7 +24,7 @@ public class czytnik implements SerialPortEventListener {
     /**
      * The port we're normally going to use.
      */
-    private static final String PORT_NAMES[] = {"COM8"};
+    private static final String PORT_NAMES[] = {"COM4"};
     /**
      * Buffered input stream from the port
      */
@@ -110,7 +110,7 @@ public class czytnik implements SerialPortEventListener {
     ktoś zbliżył kartę. Metoda jest zapętlona w nieskończoność.
     */
     public synchronized void serialEvent(SerialPortEvent oEvent) {
-        if ((startPause + 500) <= System.currentTimeMillis()) { 
+        if ((startPause + 1500) <= System.currentTimeMillis()) { 
             //Ustawiamy aby urządzenie sprawdzało co pół sekundy a nie cały czas
             //aby zapobiec kilkukrotnemu odczytaniu tej samej karty przy jednym
             //zbliżeniu

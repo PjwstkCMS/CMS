@@ -42,15 +42,17 @@ public class SaveToDatabase {
         int counter = 0;
         try {
             Enumeration<NetworkInterface> networks = NetworkInterface.getNetworkInterfaces();
-            while (networks.hasMoreElements() && counter==0) {
+            while (networks.hasMoreElements() && counter<3) {
                 NetworkInterface network = networks.nextElement();
                 byte[] mac = network.getHardwareAddress();
-
+                System.out.println("Counter"+counter);
                 if (mac != null) {
+                    sb = new StringBuilder();
                     System.out.print("Current MAC address : ");                    
                     for (int i = 0; i < mac.length; i++) {
                         sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
                     }
+                    System.out.println("MAAAAAAAAC");
                     System.out.println(sb.toString());
                     counter++;
                 }

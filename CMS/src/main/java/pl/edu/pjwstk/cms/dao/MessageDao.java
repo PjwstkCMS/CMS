@@ -43,7 +43,7 @@ public class MessageDao extends GenericDao<Message> {
                 dto.setTimestamp(set.getString("stamp"));
                 dto.setToId(set.getString("toId"));
                 dto.setRead(set.getString("ifread"));
-                list.add(dto);
+                list.add(0,dto);
             }
         } catch (SQLException ex) {
             LOGGER.warning(ex.getLocalizedMessage());
